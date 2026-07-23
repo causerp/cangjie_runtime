@@ -313,6 +313,9 @@ def clean(args):
     # Remove entire build directory by default
     output_dirs.append("build")
     output_dirs.append("output")
+    # Remove flatc-generated AST format sources
+    output_dirs.append("libs/std/ast/StdAstFormat_generated.cj")
+    output_dirs.append("libs/std/ast/astformat_generated.cj")
     for file_path in output_dirs:
         abs_file_path = os.path.join(HOME_DIR, file_path)
         if os.path.isdir(abs_file_path):

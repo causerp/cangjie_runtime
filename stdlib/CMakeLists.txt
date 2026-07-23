@@ -262,7 +262,6 @@ elseif(CANGJIE_HWASAN_SUPPORT)
 endif()
 
 add_subdirectory(third_party)
-add_subdirectory(schema)
 
 add_subdirectory(libs)
 

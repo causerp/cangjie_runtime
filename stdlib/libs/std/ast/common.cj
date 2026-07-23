@@ -12,7 +12,7 @@ import std.collection.ArrayList
 
 const NUM_SPACES: UInt16 = 2
 
-func isValidPosition(pos: NodeFormat_Position): Bool {
+func isValidPosition(pos: ASTFormat_Position): Bool {
     if (pos.line == 0 && pos.column == 0) {
         return false
     }
@@ -30,14 +30,14 @@ func isValidToken(tk: Token): Bool {
     return tk.kind != TokenKind.ILLEGAL
 }
 
-func getNodeBeginPos(nodeBase: Option<NodeFormat_NodeBase>): NodeFormat_Position {
+func getNodeBeginPos(nodeBase: Option<ASTFormat_NodeBase>): ASTFormat_Position {
     return match (nodeBase) {
         case Some(v) => v.GetBegin()
         case None => throw ParseASTException()
     }
 }
 
-func getOperaterKindOrIdentTokens(opKind: Int32, pos: NodeFormat_Position, ident: Tokens): Tokens {
+func getOperaterKindOrIdentTokens(opKind: Int32, pos: ASTFormat_Position, ident: Tokens): Tokens {
     let identifierTokens: Tokens = match (getTokenKind(UInt16(opKind))) {
         case NOT => Tokens().append(Token(TokenKind.NOT).addPosition(pos))
         case ADD => Tokens().append(Token(TokenKind.ADD).addPosition(pos))

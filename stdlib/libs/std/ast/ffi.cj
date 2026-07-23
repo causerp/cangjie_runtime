@@ -9,6 +9,7 @@
 package std.ast
 
 import std.collection.ArrayList
+import flatbuffers.*
 
 let MACRO_OBJECT = ThreadLocal<CPointer<Unit>>()
 
@@ -71,7 +72,7 @@ struct ParseRes {
     let errMsg: CString = CString(CPointer<UInt8>())
 }
 
-// Releases parse result resources on all paths; pNode and pTokensBytes remain owned by genNodeFormatNode on success.
+// Releases parse result resources on all paths; pNode and pTokensBytes remain owned by genASTFormatNode on success.
 private unsafe func getParsedNodeAndReleaseParseResult(
     parseResultRaw: CPointer<ParseRes>,
     pTokensBytes: CPointer<UInt8>
@@ -94,7 +95,7 @@ private unsafe func getParsedNodeAndReleaseParseResult(
     }
 }
 
-unsafe func parse(input: Tokens, nativeParse: (CPointer<UInt8>) -> CPointer<ParseRes>): NodeFormat_Node {
+unsafe func parse(input: Tokens, nativeParse: (CPointer<UInt8>) -> CPointer<ParseRes>): ASTFormat_Node {
     let tokensBytes: Array<UInt8> = input.toBytes()
     let pTokensBytes: CPointer<UInt8> = unsafePointerCastFromUint8Array(tokensBytes)
     let parseResultRaw: CPointer<ParseRes> = nativeParse(pTokensBytes)
@@ -107,7 +108,7 @@ unsafe func parse(input: Tokens, nativeParse: (CPointer<UInt8>) -> CPointer<Pars
      * If not use isNull(), there will be segfault for some cases for cjnative backend.
      * isNull() API only exists for cjnative.
      */
-    let node = genNodeFormatNode(pNode, pTokensBytes)
+    let node = genASTFormatNode(pNode, pTokensBytes)
     return node
 }
 
@@ -115,7 +116,7 @@ unsafe func parseFragment(
     input: Tokens,
     startFrom: Int64,
     nativeParse: CFunc<(CPointer<UInt8>, CPointer<Int64>) -> CPointer<ParseRes>>
-): (NodeFormat_Node, Int64) {
+): (ASTFormat_Node, Int64) {
     let tokensBytes: Array<UInt8> = input.toBytes(startFrom)
     let pTokensBytes: CPointer<UInt8> = unsafePointerCastFromUint8Array(tokensBytes)
     var tokenCounter: Int64 = -1
@@ -141,11 +142,11 @@ unsafe func parseFragment(
      * If not use isNull(), there will be segfault for some cases for cjnative backend.
      * isNull() API only exists for cjnative.
      */
-    let node = genNodeFormatNode(pNode, pTokensBytes)
+    let node = genASTFormatNode(pNode, pTokensBytes)
     return (node, tokenCounter + startFrom)
 }
 
-func genNodeFormatNode(pNode: CPointer<UInt8>, pTokensBytes: CPointer<UInt8>) {
+func genASTFormatNode(pNode: CPointer<UInt8>, pTokensBytes: CPointer<UInt8>) {
     if (pNode.isNull()) {
         unsafe { LibC.free(pTokensBytes) }
         throw IllegalArgumentException("Negative or zero length.\n")
@@ -163,7 +164,7 @@ func genNodeFormatNode(pNode: CPointer<UInt8>, pTokensBytes: CPointer<UInt8>) {
         LibC.free(pNode)
         LibC.free(pTokensBytes)
     }
-    return NodeFormat_Node(flatBuf[BUFFER_HEADER_SIZE..], 0)
+    return ASTFormat_Node(flatBuf[BUFFER_HEADER_SIZE..], 0)
 }
 
 func getTokensFromBytes(pTokenArray: CPointer<UInt8>): Tokens {

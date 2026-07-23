@@ -9,6 +9,7 @@
 package std.ast
 
 import std.collection.ArrayList
+import flatbuffers.*
 
 public class TokensIterator <: Iterator<Token> {
     /* Fields */

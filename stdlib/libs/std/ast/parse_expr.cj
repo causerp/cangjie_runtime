@@ -51,7 +51,7 @@ public func parseExprFragment(input: Tokens, startFrom!: Int64 = 0): (Expr, Int6
     return (astNode, count)
 }
 
-func generateExprAST(exprNode: Option<NodeFormat_Expr>): Expr {
+func generateExprAST(exprNode: Option<ASTFormat_Expr>): Expr {
     var expr = match (exprNode) {
         case Some(v) => v
         case None => throw ParseASTException()
@@ -109,11 +109,11 @@ func generateExprAST(exprNode: Option<NodeFormat_Expr>): Expr {
     return astNode
 }
 
-func createBlock(expr: NodeFormat_Expr): Expr {
+func createBlock(expr: ASTFormat_Expr): Expr {
     return generateBlock(expr.GetExprAsBlock())
 }
 
-func generateBlock(blockOption: Option<NodeFormat_Block>): Block {
+func generateBlock(blockOption: Option<ASTFormat_Block>): Block {
     var block = match (blockOption) {
         case Some(v) => v
         case None => throw ParseASTException()
@@ -139,7 +139,7 @@ func generateBlock(blockOption: Option<NodeFormat_Block>): Block {
     return Block(lCurl, nodes, rCurl, unSafe)
 }
 
-func createBinaryExpr(expr: NodeFormat_Expr): Expr {
+func createBinaryExpr(expr: ASTFormat_Expr): Expr {
     var biExpr = match (expr.GetExprAsBinaryExpr()) {
         case Some(v) => v
         case None => throw ParseASTException()
@@ -150,7 +150,7 @@ func createBinaryExpr(expr: NodeFormat_Expr): Expr {
     return BinaryExpr(lexpr, op, rexpr)
 }
 
-func createUnaryExpr(expr: NodeFormat_Expr): Expr {
+func createUnaryExpr(expr: ASTFormat_Expr): Expr {
     var unExpr = match (expr.GetExprAsUnaryExpr()) {
         case Some(v) => v
         case None => throw ParseASTException()
@@ -160,7 +160,7 @@ func createUnaryExpr(expr: NodeFormat_Expr): Expr {
     return UnaryExpr(op, childExpr)
 }
 
-func createIsExpr(expr: NodeFormat_Expr): Expr {
+func createIsExpr(expr: ASTFormat_Expr): Expr {
     var isExpr = match (expr.GetExprAsIsExpr()) {
         case Some(v) => v
         case None => throw ParseASTException()
@@ -171,7 +171,7 @@ func createIsExpr(expr: NodeFormat_Expr): Expr {
     return IsExpr(exprNode, op, ty)
 }
 
-func createAsExpr(expr: NodeFormat_Expr): Expr {
+func createAsExpr(expr: ASTFormat_Expr): Expr {
     var asExpr = match (expr.GetExprAsAsExpr()) {
         case Some(v) => v
         case None => throw ParseASTException()
@@ -182,7 +182,7 @@ func createAsExpr(expr: NodeFormat_Expr): Expr {
     return AsExpr(exprNode, op, ty)
 }
 
-func createParenExpr(expr: NodeFormat_Expr): Expr {
+func createParenExpr(expr: ASTFormat_Expr): Expr {
     var parenExpr = match (expr.GetExprAsParenExpr()) {
         case Some(v) => v
         case None => throw ParseASTException()
@@ -193,7 +193,7 @@ func createParenExpr(expr: NodeFormat_Expr): Expr {
     return ParenExpr(lParen, childExpr, rParen)
 }
 
-func createLitConstExpr(expr: NodeFormat_Expr, exprBase: NodeFormat_NodeBase): Expr {
+func createLitConstExpr(expr: ASTFormat_Expr, exprBase: ASTFormat_NodeBase): Expr {
     var litExpr = match (expr.GetExprAsLitConstExpr()) {
         case Some(v) => v
         case None => throw ParseASTException()
@@ -215,7 +215,7 @@ func createLitConstExpr(expr: NodeFormat_Expr, exprBase: NodeFormat_NodeBase): E
     return LitConstExpr(literal)
 }
 
-func createCallExpr(expr: NodeFormat_Expr): Expr {
+func createCallExpr(expr: ASTFormat_Expr): Expr {
     var callExpr = match (expr.GetExprAsCallExpr()) {
         case Some(v) => v
         case None => throw ParseASTException()
@@ -230,11 +230,11 @@ func createCallExpr(expr: NodeFormat_Expr): Expr {
     return CallExpr(childExpr, lParen, args, rParen)
 }
 
-func createRefExpr(expr: NodeFormat_Expr): Expr {
+func createRefExpr(expr: ASTFormat_Expr): Expr {
     return generateRefExpr(expr.GetExprAsRefExpr())
 }
 
-func generateRefExpr(ref: Option<NodeFormat_RefExpr>) {
+func generateRefExpr(ref: Option<ASTFormat_RefExpr>) {
     var refExpr = match (ref) {
         case Some(v) => v
         case None => throw ParseASTException()
@@ -269,7 +269,7 @@ func generateRefExpr(ref: Option<NodeFormat_RefExpr>) {
     return RefExpr(identifier, lAngle, typeArgs, commas, rAngle)
 }
 
-func createReturnExpr(expr: NodeFormat_Expr): Expr {
+func createReturnExpr(expr: ASTFormat_Expr): Expr {
     var retExpr = match (expr.GetExprAsReturnExpr()) {
         case Some(v) => v
         case None => throw ParseASTException()
@@ -283,7 +283,7 @@ func createReturnExpr(expr: NodeFormat_Expr): Expr {
     return ReturnExpr(keyWord, exprNode)
 }
 
-func createThrowExpr(expr: NodeFormat_Expr): Expr {
+func createThrowExpr(expr: ASTFormat_Expr): Expr {
     var throwExpr = match (expr.GetExprAsThrowExpr()) {
         case Some(v) => v
         case None => throw ParseASTException()
@@ -293,7 +293,7 @@ func createThrowExpr(expr: NodeFormat_Expr): Expr {
     return ThrowExpr(keyWord, exprNode)
 }
 
-func createPerformExpr(expr: NodeFormat_Expr): Expr {
+func createPerformExpr(expr: ASTFormat_Expr): Expr {
     var performExpr = match (expr.GetExprAsPerformExpr()) {
         case Some(v) => v
         case None => throw ParseASTException()
@@ -303,7 +303,7 @@ func createPerformExpr(expr: NodeFormat_Expr): Expr {
     return PerformExpr(keyWord, exprNode)
 }
 
-func createResumeExpr(expr: NodeFormat_Expr): Expr {
+func createResumeExpr(expr: ASTFormat_Expr): Expr {
     var resumeExpr = match(expr.GetExprAsResumeExpr()) {
         case Some(v) => v
         case None => throw ParseASTException()
@@ -328,7 +328,7 @@ func createResumeExpr(expr: NodeFormat_Expr): Expr {
     return ResumeExpr(resume_, with_, withExpr_, throwing_, throwingExpr_)
 }
 
-func createAssignExpr(expr: NodeFormat_Expr): Expr {
+func createAssignExpr(expr: ASTFormat_Expr): Expr {
     var assignExpr = match (expr.GetExprAsAssignExpr()) {
         case Some(v) => v
         case None => throw ParseASTException()
@@ -339,7 +339,7 @@ func createAssignExpr(expr: NodeFormat_Expr): Expr {
     return AssignExpr(lexpr, op, rexpr)
 }
 
-func createMemberAccess(expr: NodeFormat_Expr): Expr {
+func createMemberAccess(expr: ASTFormat_Expr): Expr {
     var ma = match (expr.GetExprAsMemberAccess()) {
         case Some(v) => v
         case None => throw ParseASTException()
@@ -363,7 +363,7 @@ func createMemberAccess(expr: NodeFormat_Expr): Expr {
     return MemberAccess(postfixExpr, dot, ident, lAngle, typeArgs, commas, rAngle)
 }
 
-func createOptionalExpr(expr: NodeFormat_Expr): Expr {
+func createOptionalExpr(expr: ASTFormat_Expr): Expr {
     var oe = match (expr.GetExprAsOptionalExpr()) {
         case Some(v) => v
         case None => throw ParseASTException()
@@ -373,7 +373,7 @@ func createOptionalExpr(expr: NodeFormat_Expr): Expr {
     return OptionalExpr(baseExpr, quest)
 }
 
-func createOptionalChainExpr(expr: NodeFormat_Expr): Expr {
+func createOptionalChainExpr(expr: ASTFormat_Expr): Expr {
     var oce = match (expr.GetExprAsOptionalChainExpr()) {
         case Some(v) => v
         case None => throw ParseASTException()
@@ -381,7 +381,7 @@ func createOptionalChainExpr(expr: NodeFormat_Expr): Expr {
     return generateExprAST(oce.GetExpr())
 }
 
-func createIfExpr(expr: NodeFormat_Expr): Expr {
+func createIfExpr(expr: ASTFormat_Expr): Expr {
     var ie = match (expr.GetExprAsIfExpr()) {
         case Some(v) => v
         case None => throw ParseASTException()
@@ -403,7 +403,7 @@ func createIfExpr(expr: NodeFormat_Expr): Expr {
     return IfExpr(ifTk, lParen, cond, rParen, ifBlock, elseTk, elseExpr)
 }
 
-func createLetPatternExpr(expr: NodeFormat_Expr, exprBase: NodeFormat_NodeBase) {
+func createLetPatternExpr(expr: ASTFormat_Expr, exprBase: ASTFormat_NodeBase) {
     var letTk = Token(TokenKind.LET).addPosition(exprBase.GetBegin())
     var letPattern = expr.GetExprAsLetPatternDestructor().getOrThrow()
     var pattern = generatePatternAST(letPattern.GetPatterns()[0])
@@ -413,7 +413,7 @@ func createLetPatternExpr(expr: NodeFormat_Expr, exprBase: NodeFormat_NodeBase) 
     return LetPatternExpr(letTk, pattern, backArrow, exprNode)
 }
 
-func generateMatchCase(mc: Option<NodeFormat_MatchCase>) {
+func generateMatchCase(mc: Option<ASTFormat_MatchCase>) {
     var matchCase = match (mc) {
         case Some(v) => v
         case None => throw ParseASTException()
@@ -444,7 +444,7 @@ func generateMatchCase(mc: Option<NodeFormat_MatchCase>) {
     return MatchCase(keyWord, patterns, bitOrs, whereTk, patternGuard, arrow, block)
 }
 
-func generateMatchCaseOther(mco: Option<NodeFormat_MatchCaseOther>) {
+func generateMatchCaseOther(mco: Option<ASTFormat_MatchCaseOther>) {
     var matchCaseOther = match (mco) {
         case Some(v) => v
         case None => throw ParseASTException()
@@ -461,7 +461,7 @@ func generateMatchCaseOther(mco: Option<NodeFormat_MatchCaseOther>) {
     return MatchCase(keyWord, expr, arrow, block)
 }
 
-func createMatchExpr(expr: NodeFormat_Expr, exprBase: NodeFormat_NodeBase): Expr {
+func createMatchExpr(expr: ASTFormat_Expr, exprBase: ASTFormat_NodeBase): Expr {
     var me = match (expr.GetExprAsMatchExpr()) {
         case Some(v) => v
         case None => throw ParseASTException()
@@ -489,7 +489,7 @@ func createMatchExpr(expr: NodeFormat_Expr, exprBase: NodeFormat_NodeBase): Expr
     return MatchExpr(keyWord, lParen, selector, rParen, lCurl, matchcases, rCurl)
 }
 
-func createWhileExpr(expr: NodeFormat_Expr): Expr {
+func createWhileExpr(expr: ASTFormat_Expr): Expr {
     var whileExpr = match (expr.GetExprAsWhileExpr()) {
         case Some(v) => v
         case None => throw ParseASTException()
@@ -502,7 +502,7 @@ func createWhileExpr(expr: NodeFormat_Expr): Expr {
     return WhileExpr(keyWord, lParen, cond, rParen, block)
 }
 
-func createDoWhileExpr(expr: NodeFormat_Expr): Expr {
+func createDoWhileExpr(expr: ASTFormat_Expr): Expr {
     var doWhileExpr = match (expr.GetExprAsDoWhileExpr()) {
         case Some(v) => v
         case None => throw ParseASTException()
@@ -516,7 +516,7 @@ func createDoWhileExpr(expr: NodeFormat_Expr): Expr {
     return DoWhileExpr(doTK, block, whileTK, lParen, cond, rParen)
 }
 
-func createLambdaExpr(lambdaExpr: NodeFormat_LambdaExpr): LambdaExpr {
+func createLambdaExpr(lambdaExpr: ASTFormat_LambdaExpr): LambdaExpr {
     var funcBody = match (lambdaExpr.GetBody()) {
         case Some(v) => v
         case None => throw ParseASTException()
@@ -544,7 +544,7 @@ func createLambdaExpr(lambdaExpr: NodeFormat_LambdaExpr): LambdaExpr {
     return LambdaExpr(lCurl, funcParams, doubleArrow, nodes, rCurl, lambdaExpr.GetMockSupported())
 }
 
-func createLambdaExpr(expr: NodeFormat_Expr): Expr {
+func createLambdaExpr(expr: ASTFormat_Expr): Expr {
     var lambdaExpr = match (expr.GetExprAsLambdaExpr()) {
         case Some(v) => v
         case None => throw ParseASTException()
@@ -552,7 +552,7 @@ func createLambdaExpr(expr: NodeFormat_Expr): Expr {
     return createLambdaExpr(lambdaExpr)
 }
 
-func createSpawnExpr(expr: NodeFormat_Expr): Expr {
+func createSpawnExpr(expr: ASTFormat_Expr): Expr {
     var spawnExpr = match (expr.GetExprAsSpawnExpr()) {
         case Some(v) => v
         case None => throw ParseASTException()
@@ -577,7 +577,7 @@ func createSpawnExpr(expr: NodeFormat_Expr): Expr {
     return SpawnExpr(keyWord, lParen, context, rParen, task)
 }
 
-func createSynchronizedExpr(expr: NodeFormat_Expr): Expr {
+func createSynchronizedExpr(expr: ASTFormat_Expr): Expr {
     var syncExpr = match (expr.GetExprAsSynchronizedExpr()) {
         case Some(v) => v
         case None => throw ParseASTException()
@@ -590,7 +590,7 @@ func createSynchronizedExpr(expr: NodeFormat_Expr): Expr {
     return SynchronizedExpr(keyWord, lParen, mutex, rParen, block)
 }
 
-func createTrailingClosureExpr(expr: NodeFormat_Expr): Expr {
+func createTrailingClosureExpr(expr: ASTFormat_Expr): Expr {
     var trailExpr = match (expr.GetExprAsTrailingClosureExpr()) {
         case Some(v) => v
         case None => throw ParseASTException()
@@ -600,7 +600,7 @@ func createTrailingClosureExpr(expr: NodeFormat_Expr): Expr {
     return TrailingClosureExpr(exprNode, lambdaExpr)
 }
 
-func createTypeConvExpr(expr: NodeFormat_Expr): Expr {
+func createTypeConvExpr(expr: ASTFormat_Expr): Expr {
     var typeConvExpr = match (expr.GetExprAsTypeConvExpr()) {
         case Some(v) => v
         case None => throw ParseASTException()
@@ -613,7 +613,7 @@ func createTypeConvExpr(expr: NodeFormat_Expr): Expr {
     return TypeConvExpr(ty, lParen, exprNode, rParen)
 }
 
-func createForInExpr(expr: NodeFormat_Expr): Expr {
+func createForInExpr(expr: ASTFormat_Expr): Expr {
     var forInExpr = match (expr.GetExprAsForInExpr()) {
         case Some(v) => v
         case None => throw ParseASTException()
@@ -636,7 +636,7 @@ func createForInExpr(expr: NodeFormat_Expr): Expr {
     return ForInExpr(forTk, lParen, pattern, inTk, inExpr, whereTk, patternGuard, rParen, block)
 }
 
-func createPrimitiveTypeExpr(expr: NodeFormat_Expr, exprBase: NodeFormat_NodeBase): Expr {
+func createPrimitiveTypeExpr(expr: ASTFormat_Expr, exprBase: ASTFormat_NodeBase): Expr {
     var primitiveTypeExpr = match (expr.GetExprAsPrimitiveTypeExpr()) {
         case Some(v) => v
         case None => throw ParseASTException()
@@ -647,7 +647,7 @@ func createPrimitiveTypeExpr(expr: NodeFormat_Expr, exprBase: NodeFormat_NodeBas
     return PrimitiveTypeExpr(kind)
 }
 
-func createArrayLiteral(expr: NodeFormat_Expr): Expr {
+func createArrayLiteral(expr: ASTFormat_Expr): Expr {
     var arrayLiteral = match (expr.GetExprAsArrayLit()) {
         case Some(v) => v
         case None => throw ParseASTException()
@@ -666,7 +666,7 @@ func createArrayLiteral(expr: NodeFormat_Expr): Expr {
     return ArrayLiteral(lSquare, elements, commas, rSquare)
 }
 
-func createTupleLiteral(expr: NodeFormat_Expr): Expr {
+func createTupleLiteral(expr: ASTFormat_Expr): Expr {
     var tupleLiteral = match (expr.GetExprAsTupleLit()) {
         case Some(v) => v
         case None => throw ParseASTException()
@@ -685,7 +685,7 @@ func createTupleLiteral(expr: NodeFormat_Expr): Expr {
     return TupleLiteral(lParen, elements, commas, rParen)
 }
 
-func createRangeExpr(expr: NodeFormat_Expr): Expr {
+func createRangeExpr(expr: ASTFormat_Expr): Expr {
     var rangeExpr = match (expr.GetExprAsRangeExpr()) {
         case Some(v) => v
         case None => throw ParseASTException()
@@ -716,7 +716,7 @@ func createRangeExpr(expr: NodeFormat_Expr): Expr {
     return RangeExpr(start, rangeOp, stop, colon, step)
 }
 
-func createSubscriptExpr(expr: NodeFormat_Expr): Expr {
+func createSubscriptExpr(expr: ASTFormat_Expr): Expr {
     var subscriptExpr = match (expr.GetExprAsSubscriptExpr()) {
         case Some(v) => v
         case None => throw ParseASTException()
@@ -732,7 +732,7 @@ func createSubscriptExpr(expr: NodeFormat_Expr): Expr {
     return SubscriptExpr(postfixExpr, lSquare, elements, rSquare)
 }
 
-func createJumpExpr(expr: NodeFormat_Expr, exprBase: NodeFormat_NodeBase): Expr {
+func createJumpExpr(expr: ASTFormat_Expr, exprBase: ASTFormat_NodeBase): Expr {
     var jumpExpr = match (expr.GetExprAsJumpExpr()) {
         case Some(v) => v
         case None => throw ParseASTException()
@@ -745,7 +745,7 @@ func createJumpExpr(expr: NodeFormat_Expr, exprBase: NodeFormat_NodeBase): Expr 
     return JumpExpr(kind)
 }
 
-func createIncOrDecExpr(expr: NodeFormat_Expr): Expr {
+func createIncOrDecExpr(expr: ASTFormat_Expr): Expr {
     var incOrDecExpr = match (expr.GetExprAsIncOrDecExpr()) {
         case Some(v) => v
         case None => throw ParseASTException()
@@ -755,7 +755,7 @@ func createIncOrDecExpr(expr: NodeFormat_Expr): Expr {
     return IncOrDecExpr(kind, exprNode)
 }
 
-func createTryExpr(expr: NodeFormat_Expr, exprBase: NodeFormat_NodeBase): Expr {
+func createTryExpr(expr: ASTFormat_Expr, exprBase: ASTFormat_NodeBase): Expr {
     var tryExpr = match (expr.GetExprAsTryExpr()) {
         case Some(v) => v
         case None => throw ParseASTException()
@@ -824,7 +824,7 @@ func createTryExpr(expr: NodeFormat_Expr, exprBase: NodeFormat_NodeBase): Expr {
         catchLParens, catchRParens, catchPatterns, cbs, finTk, finallyBlock, handlers)
 }
 
-func createQuoteExpr(expr: NodeFormat_Expr, exprBase: NodeFormat_NodeBase): Expr {
+func createQuoteExpr(expr: ASTFormat_Expr, exprBase: ASTFormat_NodeBase): Expr {
     var quoteExpr = match (expr.GetExprAsQuoteExpr()) {
         case Some(v) => v
         case None => throw ParseASTException()
@@ -840,7 +840,7 @@ func createQuoteExpr(expr: NodeFormat_Expr, exprBase: NodeFormat_NodeBase): Expr
     return QuoteExpr(keyword, lParen, elements, rParen)
 }
 
-func createQuoteToken(expr: NodeFormat_Expr): Expr {
+func createQuoteToken(expr: ASTFormat_Expr): Expr {
     var tkp = match (expr.GetExprAsTokenPart()) {
         case Some(v) => v
         case None => throw ParseASTException()
@@ -867,12 +867,12 @@ func createQuoteToken(expr: NodeFormat_Expr): Expr {
     return QuoteToken(tks)
 }
 
-func createWildcardExpr(exprBase: NodeFormat_NodeBase): Expr {
+func createWildcardExpr(exprBase: ASTFormat_NodeBase): Expr {
     var keyword: Tokens = Tokens().append(Token(TokenKind.WILDCARD).addPosition(exprBase.GetBegin()))
     return WildcardExpr(keyword)
 }
 
-func createArrayExpr(expr: NodeFormat_Expr): Expr {
+func createArrayExpr(expr: ASTFormat_Expr): Expr {
     var arrayExpr = match (expr.GetExprAsArrayExpr()) {
         case Some(v) => v
         case None => throw ParseASTException()
@@ -890,7 +890,7 @@ func createArrayExpr(expr: NodeFormat_Expr): Expr {
     return VArrayExpr(ty, lParen, args, rParen)
 }
 
-func createMacroExpandExpr(expr: NodeFormat_Expr) {
+func createMacroExpandExpr(expr: ASTFormat_Expr) {
     var me = match (expr.GetExprAsMacroExpandExpr()) {
         case Some(v) => v
         case None => throw ParseASTException("Failed to get MacroExpand Node")
