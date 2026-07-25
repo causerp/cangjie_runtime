@@ -54,6 +54,7 @@ bool RegionSpace::ShouldRetryAllocation(size_t& tryTimes, size_t size) const
         }
         return true;
     }
+    regionManager.DumpRegionStats("region statistics when gc ends", true);
     VLOG(REPORT, "Cannot allocate memory of %zu(B), throw an OutOfMemory exception", size);
     ExceptionManager::OutOfMemory();
     return false;
