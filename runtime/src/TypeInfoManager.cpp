@@ -729,7 +729,7 @@ void TypeInfoManager::CalculateGCTib(TypeInfo* typeInfo)
         // create StdGCTib
         // NOTE: If length is not divided by alignSize, special processing
         // is required for the assignment of num and bitmapWords.
-        U16 num = gcTibStr.Length() / alignSize;
+        U16 num = MRT_ALIGN(gcTibStr.Length(), alignSize) / alignSize;
         U16 needSpace = sizeof(U32) + sizeof(U8) * num;
         StdGCTib* stdGCTib = reinterpret_cast<StdGCTib*>(Allocate(needSpace));
         stdGCTib->nBitmapWords = num;
@@ -743,6 +743,9 @@ void TypeInfoManager::CalculateGCTib(TypeInfo* typeInfo)
                 stdGCTib->bitmapWords[curIdx++] = value;
                 value = 0;
             }
+        }
+        if (len % alignSize != 0) {
+            stdGCTib->bitmapWords[curIdx] = value;
         }
         gcTib.gctib = stdGCTib;
         typeInfo->SetGCTib(gcTib);
