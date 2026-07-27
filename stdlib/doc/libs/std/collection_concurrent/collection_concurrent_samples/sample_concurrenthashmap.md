@@ -4,20 +4,21 @@
 
 <!-- verify -->
 ```cangjie
-import std.collection.*
 import std.collection.concurrent.*
-import std.sync.*
 
 main() {
     let threads = 8
     let M = 1024
 
-    let cmap = ConcurrentHashMap<Int64, Int64>(concurrencyLevel: 64)
+    // 创建并发映射，并发级别为64
+    let map = ConcurrentHashMap<Int64, Int64>(concurrencyLevel: 64)
+
+    // 启动8个线程并发写入
     let jobs = Array<Future<Unit>>(threads, repeat: unsafe { zeroValue<Future<Unit>>() })
     for (t in 0..threads) {
         jobs[t] = spawn {
             for (i in t..M : threads) {
-                cmap.put(i, i + 3)
+                map.put(i, i + 3)
             }
         }
     }
@@ -26,12 +27,13 @@ main() {
         jobs[t].get()
     }
 
-    println("Size after put: ${cmap.size}")
+    println("写入后大小: ${map.size}")
 
+    // 启动8个线程并发条件删除（删除值为偶数的键值对）
     for (t in 0..threads) {
         jobs[t] = spawn {
             for (i in t..M : threads) {
-                cmap.remove(i, {v => v % 2 == 0})
+                map.remove(i, {v => v % 2 == 0})
             }
         }
     }
@@ -40,12 +42,13 @@ main() {
         jobs[t].get()
     }
 
-    println("Size after remove first: ${cmap.size}")
+    println("条件删除后大小: ${map.size}")
 
+    // 启动8个线程并发删除所有元素
     for (t in 0..threads) {
         jobs[t] = spawn {
             for (i in t..M : threads) {
-                cmap.remove(i)
+                map.remove(i)
             }
         }
     }
@@ -54,14 +57,14 @@ main() {
         jobs[t].get()
     }
 
-    println("Size after remove second: ${cmap.size}")
+    println("全部删除后大小: ${map.size}")
 }
 ```
 
 运行结果：
 
 ```text
-Size after put: 1024
-Size after remove first: 512
-Size after remove second: 0
+写入后大小: 1024
+条件删除后大小: 512
+全部删除后大小: 0
 ```

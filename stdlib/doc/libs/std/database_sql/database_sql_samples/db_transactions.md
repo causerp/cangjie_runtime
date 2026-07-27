@@ -3,52 +3,54 @@
 ## 普通数据库事务
 
 <!-- compile -->
-
 ```cangjie
 import std.database.sql.*
 import std.time.*
 
 main() {
     let SQL_INSERT = "INSERT INTO EMPLOYEE (NAME, SALARY, CREATED_DATE) VALUES (?, ?, ?)"
-    let drv = DriverManager.getDriver("opengauss") ?? return
-    let db = drv.open("opengauss://localhost:5432/testdb")
-    try (cn = db.connect()) {
-        let psInsert = cn.prepareStatement(SQL_INSERT)
+
+    // 获取数据库驱动并打开数据源
+    let driver = DriverManager.getDriver("opengauss") ?? return
+    let dataSource = driver.open("opengauss://localhost:5432/testdb")
+
+    try (conn = dataSource.connect()) {
+        let insertStmt = conn.prepareStatement(SQL_INSERT)
 
         // 创建事务对象
-        let tx = cn.createTransaction()
+        let transaction = conn.createTransaction()
         try {
             // 插入第一条数据
-            psInsert.set<String>(0, "mkyong")
-            psInsert.set<Array<Byte>>(1, Array<Byte>(1, repeat: 10))
-            psInsert.set<DateTime>(2, DateTime.now())
-            psInsert.update()
+            insertStmt.set<String>(0, "mkyong")
+            insertStmt.set<Array<Byte>>(1, Array<Byte>(1, repeat: 10))
+            insertStmt.set<DateTime>(2, DateTime.now())
+            insertStmt.update()
 
             // 插入第二条数据
-            psInsert.set<String>(0, "kungfu")
-            psInsert.set<Array<Byte>>(1, Array<Byte>(1, repeat: 20))
-            psInsert.set<DateTime>(2, DateTime.now())
-            psInsert.update()
+            insertStmt.set<String>(0, "kungfu")
+            insertStmt.set<Array<Byte>>(1, Array<Byte>(1, repeat: 20))
+            insertStmt.set<DateTime>(2, DateTime.now())
+            insertStmt.update()
 
-            // 如果连接到数据库，测试回滚 SQLException：未为参数3指定值。
-            psInsert.set<String>(0, "mkyong")
-            psInsert.set<Array<Byte>>(1, Array<Byte>(5, {i => UInt8(i + 1)}))
-            psInsert.update()
+            // 第三条数据故意不设置参数 3 的值，执行时将抛出 SqlException，用于演示回滚
+            insertStmt.set<String>(0, "mkyong")
+            insertStmt.set<Array<Byte>>(1, Array<Byte>(5, {i => UInt8(i + 1)}))
+            insertStmt.update()
 
             // 提交事务
-            tx.commit()
-        } catch (e1: SqlException) {
-            e1.printStackTrace()
+            transaction.commit()
+        } catch (updateEx: SqlException) {
+            updateEx.printStackTrace()
             try {
                 // 发生异常，回滚所有事务
-                tx.rollback()
-            } catch (e2: SqlException) {
-                // 如果回滚失败
-                e2.printStackTrace()
+                transaction.rollback()
+            } catch (rollbackEx: SqlException) {
+                // 回滚失败
+                rollbackEx.printStackTrace()
             }
         }
     } catch (e: SqlException) {
-        // 如果连接失败
+        // 连接失败
         e.printStackTrace()
     }
 }
@@ -59,55 +61,60 @@ main() {
 如果数据库事务支持保存点，可以参考如下样例：
 
 <!-- compile -->
-
 ```cangjie
 import std.database.sql.*
 import std.time.*
 
 main() {
     let SQL_INSERT = "INSERT INTO EMPLOYEE (NAME, SALARY, CREATED_DATE) VALUES (?, ?, ?)"
-    let drv = DriverManager.getDriver("opengauss") ?? return
-    let db = drv.open("opengauss://localhost:5432/testdb")
-    try (cn = db.connect()) {
-        let psInsert = cn.prepareStatement(SQL_INSERT)
 
-        let tx = cn.createTransaction()
+    // 获取数据库驱动并打开数据源
+    let driver = DriverManager.getDriver("opengauss") ?? return
+    let dataSource = driver.open("opengauss://localhost:5432/testdb")
+
+    try (conn = dataSource.connect()) {
+        let insertStmt = conn.prepareStatement(SQL_INSERT)
+
+        // 创建事务对象
+        let transaction = conn.createTransaction()
         try {
             // 创建保存点 1
-            tx.save("save1")
-            psInsert.set<String>(0, "mkyong")
-            psInsert.set<Array<Byte>>(1, Array<Byte>(1, repeat: 10))
-            psInsert.set<DateTime>(2, DateTime.now())
-            psInsert.update()
+            transaction.save("save1")
+            insertStmt.set<String>(0, "mkyong")
+            insertStmt.set<Array<Byte>>(1, Array<Byte>(1, repeat: 10))
+            insertStmt.set<DateTime>(2, DateTime.now())
+            insertStmt.update()
 
             // 创建保存点 2
-            tx.save("save2")
-            psInsert.set<String>(0, "kungfu")
-            psInsert.set<Array<Byte>>(1, Array<Byte>(1, repeat: 20))
-            psInsert.set<DateTime>(2, DateTime.now())
-            psInsert.update()
+            transaction.save("save2")
+            insertStmt.set<String>(0, "kungfu")
+            insertStmt.set<Array<Byte>>(1, Array<Byte>(1, repeat: 20))
+            insertStmt.set<DateTime>(2, DateTime.now())
+            insertStmt.update()
 
             // 创建保存点 3
-            tx.save("save3")
-            psInsert.set<String>(0, "mkyong")
-            psInsert.set<Array<Byte>>(1, Array<Byte>(5, {i => UInt8(i + 1)}))
-            psInsert.update()
+            transaction.save("save3")
+            insertStmt.set<String>(0, "mkyong")
+            insertStmt.set<Array<Byte>>(1, Array<Byte>(5, {i => UInt8(i + 1)}))
+            insertStmt.update()
 
-            // 回滚到保存点 2
-            tx.rollback("save2")
+            // 回滚到保存点 2，保存点 2 之后的数据不会被提交
+            transaction.rollback("save2")
 
             // 提交事务
-            tx.commit()
-        } catch (e1: SqlException) {
-            e1.printStackTrace()
+            transaction.commit()
+        } catch (updateEx: SqlException) {
+            updateEx.printStackTrace()
             try {
                 // 发生异常，回滚所有事务
-                tx.rollback()
-            } catch (e2: SqlException) {
-                e2.printStackTrace()
+                transaction.rollback()
+            } catch (rollbackEx: SqlException) {
+                // 回滚失败
+                rollbackEx.printStackTrace()
             }
         }
     } catch (e: SqlException) {
+        // 连接失败
         e.printStackTrace()
     }
 }

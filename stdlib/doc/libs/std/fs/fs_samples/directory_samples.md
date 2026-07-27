@@ -4,44 +4,35 @@
 
 示例：
 <!-- verify -->
-
 ```cangjie
 import std.fs.*
 
 main() {
     let testDirPath: Path = Path("./testDir")
     let subDirPath: Path = Path("./testDir/subDir")
-    if (exists(testDirPath)) {
-        remove(testDirPath, recursive: true)
-    }
 
-    /* 递归创建目录 和 "./testDir/subDir" */
+    // 清理上次运行可能残留的目录
+    removeIfExists(testDirPath, recursive: true)
+
+    // 递归创建目录 "./testDir/subDir"（不存在的父目录会一并创建）
     Directory.create(subDirPath, recursive: true)
-    if (exists(subDirPath)) {
-        println("The directory './testDir/subDir' is successfully created recursively in current directory.")
-    }
+    println("递归创建目录成功: ${subDirPath}")
 
-    /* 在 "./testDir" 下创建临时目录 */
+    // 在 "./testDir" 下创建临时目录
     let tempDirPath: Path = Directory.createTemp(testDirPath)
-    if (exists(tempDirPath)) {
-        println("The temporary directory is created successfully in directory './testDir'.")
-    }
+    println("创建临时目录成功: 位于 ./testDir 下")
 
-    /* 将 "subDir" 移动到临时目录下并重命名为 "subDir_new" */
+    // 将 "subDir" 移动到临时目录下并重命名为 "subDir_new"
     let newSubDirPath: Path = tempDirPath.join("subDir_new")
     rename(subDirPath, to: newSubDirPath)
-    if (exists(newSubDirPath) && !exists(subDirPath)) {
-        println(
-            "The directory './testDir/subDir' is moved successfully to the temporary directory and renamed 'subDir_new'.")
-    }
+    println("移动并重命名成功: subDir -> subDir_new")
 
-    /* 将 "subDir_new" 拷贝到 "./testDir" 下并重命名为 "subDir" */
+    // 将 "subDir_new" 拷贝到 "./testDir" 下并命名为 "subDir"
     copy(newSubDirPath, to: subDirPath, overwrite: false)
-    if (exists(subDirPath) && exists(newSubDirPath)) {
-        println("The directory 'subDir_new' is copied successfully to directory './testDir' and renamed 'subDir'.")
-    }
+    println("拷贝成功: ${subDirPath}")
 
-    remove(testDirPath, recursive: true)
+    // 清理本次运行创建的目录
+    removeIfExists(testDirPath, recursive: true)
     return 0
 }
 ```
@@ -49,8 +40,8 @@ main() {
 运行结果：
 
 ```text
-The directory './testDir/subDir' is successfully created recursively in current directory.
-The temporary directory is created successfully in directory './testDir'.
-The directory './testDir/subDir' is moved successfully to the temporary directory and renamed 'subDir_new'.
-The directory 'subDir_new' is copied successfully to directory './testDir' and renamed 'subDir'.
+递归创建目录成功: ./testDir/subDir
+创建临时目录成功: 位于 ./testDir 下
+移动并重命名成功: subDir -> subDir_new
+拷贝成功: ./testDir/subDir
 ```

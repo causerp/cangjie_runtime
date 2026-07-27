@@ -2,25 +2,27 @@
 
 下面是 BufferedInputStream 从流中读取数据示例。
 <!-- verify -->
-
 ```cangjie
 import std.io.*
 
 main(): Unit {
-    let arr1 = "0123456789".toArray()
+    // 准备源数据并写入 ByteBuffer
+    let sourceBytes = "0123456789".toArray()
     let byteBuffer = ByteBuffer()
-    byteBuffer.write(arr1)
-    let bufferedInputStream = BufferedInputStream(byteBuffer)
-    let arr2 = Array<Byte>(20, repeat: 0)
+    byteBuffer.write(sourceBytes)
 
-    /* 读取流中数据，返回读取到的数据的长度 */
-    let readLen = bufferedInputStream.read(arr2)
-    println(String.fromUtf8(arr2[..readLen]))
+    // 用缓冲输入流包装 ByteBuffer
+    let bufferedInputStream = BufferedInputStream(byteBuffer)
+    let readBuffer = Array<Byte>(20, repeat: 0)
+
+    // 读取流中数据，返回读取到的数据长度
+    let readLen = bufferedInputStream.read(readBuffer)
+    println("读取到 ${readLen} 个字节: ${String.fromUtf8(readBuffer[..readLen])}")
 }
 ```
 
 运行结果：
 
 ```text
-0123456789
+读取到 10 个字节: 0123456789
 ```

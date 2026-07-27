@@ -807,6 +807,7 @@ public func unregisterSignalHandler(sig: Signal, handler: SignalHandlerFunc): Un
 ```cangjie
 import std.runtime.*
 import std.env.*
+import std.posix.*
 
 func signalHandler1(sigValue: Int32): Bool {
     println("signalHandler1 接收到信号: ${sigValue}")

@@ -15,12 +15,12 @@ public interface Cacheable<T> {
 public class Data <: Cacheable<Data> {
     public var number: Int64
 
-    init(n: Int64) {
-        number = n
+    init(number: Int64) {
+        this.number = number
     }
 
     public static func reCalculate(): Data {
-        // 模拟运算
+        // 模拟重新运算
         println("re-calculations!")
         let data = Data(321)
         return data
@@ -31,7 +31,8 @@ public class Cache<T> where T <: Object & Cacheable<T> {
     private var cache: WeakRef<T>
 
     public init(data: T) {
-        cache = WeakRef<T>(data, CleanupPolicy.DEFERRED) // 这里我们选用 DEFERRED 策略，因为我们希望 Data 保存的尽量久。
+        // 选用 DEFERRED 策略，让缓存的数据尽量保存得更久
+        cache = WeakRef<T>(data, CleanupPolicy.DEFERRED)
     }
 
     public func getData(): T {
@@ -52,11 +53,19 @@ public class Cache<T> where T <: Object & Cacheable<T> {
 
 main() {
     let data = Data(123)
-    var c = Cache<Data>(data)
-    println(c.getData().number) // 直接从缓存中读取数据，不需要重新运算
-    println(c.getData().number) // 直接从缓存中读取数据，不需要重新运算
-    c.clear() // 清空缓存
-    println(c.getData().number) // 重新运算
+    var cache = Cache<Data>(data)
+
+    // 直接从缓存中读取数据，不需要重新运算
+    println("第一次读取: ${cache.getData().number}")
+
+    // 直接从缓存中读取数据，不需要重新运算
+    println("第二次读取: ${cache.getData().number}")
+
+    // 清空缓存
+    cache.clear()
+
+    // 缓存被清空后需要重新运算
+    println("清空后读取: ${cache.getData().number}")
     return 0
 }
 ```
@@ -64,8 +73,8 @@ main() {
 运行结果：
 
 ```text
-123
-123
+第一次读取: 123
+第二次读取: 123
 re-calculations!
-321
+清空后读取: 321
 ```

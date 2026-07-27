@@ -6,12 +6,11 @@
 
 示例：
 <!-- verify -->
-
 ```cangjie
 import std.fs.Path
 
 main() {
-    let pathStrArr: Array<String> = [
+    let pathList: Array<String> = [
         // 绝对路径
         "/a/b/c",
         "/a/b/",
@@ -27,8 +26,8 @@ main() {
         "123."
     ]
 
-    for (i in 0..pathStrArr.size) {
-        let path: Path = Path(pathStrArr[i])
+    for (i in 0..pathList.size) {
+        let path: Path = Path(pathList[i])
         // 打印 path 的整个路径字符串
         println("Path${i}: ${path}")
         // 打印 path 的目录路径
@@ -132,32 +131,31 @@ Path.isAbsolute: false; Path.isRelative: true
 
 示例：
 <!-- verify -->
-
 ```cangjie
 import std.fs.*
 
 main() {
     let dirPath: Path = Path("./a/b/c")
-    if (!exists(dirPath)) {
-        Directory.create(dirPath, recursive: true)
-    }
 
-    let filePath: Path = dirPath.join("d.cj") // ./a/b/c/d.cj
-    if (filePath == Path("./a/b/c/d.cj")) {
-        println("filePath.join: success")
-    }
+    // 清理上次运行可能残留的目录
+    removeIfExists(Path("./a"), recursive: true)
+    Directory.create(dirPath, recursive: true)
+
+    // 通过 join 拼接出文件路径 ./a/b/c/d.cj
+    let filePath: Path = dirPath.join("d.cj")
+    println("拼接结果: ${filePath}")
     if (!exists(filePath)) {
         File.create(filePath).close()
     }
 
-    let curCanonicalizedPath: Path = canonicalize(Path("."))
-    let fileCanonicalizedPath: Path = canonicalize(Path("././././a/./../a/b/../../a/b/c/.././../../a/b/c/d.cj"))
-    if (fileCanonicalizedPath == canonicalize(filePath) && fileCanonicalizedPath.toString() ==
-        curCanonicalizedPath.toString() + "/a/b/c/d.cj") {
-        println("canonicalize filePath: success")
+    // 规范化处理冗余路径（多个 "."、".." 会被解析），结果与真实路径一致
+    let canonicalizedFilePath: Path = canonicalize(Path("././././a/./../a/b/../../a/b/c/.././../../a/b/c/d.cj"))
+    if (canonicalizedFilePath == canonicalize(filePath)) {
+        println("规范化路径与真实路径一致")
     }
 
-    remove(dirPath, recursive: true)
+    // 清理本次运行创建的目录
+    removeIfExists(Path("./a"), recursive: true)
     return 0
 }
 ```
@@ -165,37 +163,35 @@ main() {
 运行结果：
 
 ```text
-filePath.join: success
-canonicalize filePath: success
+拼接结果: ./a/b/c/d.cj
+规范化路径与真实路径一致
 ```
 
 ## 通过 Path 创建文件与目录
 
 示例：
 <!-- verify -->
-
 ```cangjie
 import std.fs.*
 
 main() {
-    let curPath: Path = Path("./")
-    let dirPath: Path = curPath.join("tempDir")
+    let currentDirPath: Path = Path("./")
+    let dirPath: Path = currentDirPath.join("tempDir")
     let filePath: Path = dirPath.join("tempFile.txt")
-    if (exists(dirPath)) {
-        remove(dirPath, recursive: true)
-    }
 
+    // 清理上次运行可能残留的目录
+    removeIfExists(dirPath, recursive: true)
+
+    // 创建目录 tempDir
     Directory.create(dirPath)
-    if (exists(dirPath)) {
-        println("Directory 'tempDir' is created successfully.")
-    }
+    println("目录创建成功: ${dirPath}")
 
+    // 在 tempDir 下创建文件 tempFile.txt
     File.create(filePath).close()
-    if (exists(filePath)) {
-        println("File 'tempFile.txt' is created successfully in directory 'tempDir'.")
-    }
+    println("文件创建成功: ${filePath}")
 
-    remove(dirPath, recursive: true)
+    // 清理本次运行创建的目录
+    removeIfExists(dirPath, recursive: true)
     return 0
 }
 ```
@@ -203,6 +199,6 @@ main() {
 运行结果：
 
 ```text
-Directory 'tempDir' is created successfully.
-File 'tempFile.txt' is created successfully in directory 'tempDir'.
+目录创建成功: ./tempDir
+文件创建成功: ./tempDir/tempFile.txt
 ```
