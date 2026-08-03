@@ -12,29 +12,33 @@
 #include <cstdint>
 #include <string>
 
-extern "C" {
+namespace Cangjie {
+
 struct ParseRes {
     uint8_t* node;
     char* eMsg;
 };
 
-ParseRes* CJ_AST_Lex(void *fptr, const char* code, int64_t codeLen);
+} // namespace Cangjie
 
-ParseRes* CJ_AST_ParseExpr(void* fptr, const uint8_t* tokensBytes, int64_t* tokenCounter);
+extern "C" {
+Cangjie::ParseRes* CJ_AST_Lex(void *fptr, const char* code, int64_t codeLen);
 
-ParseRes* CJ_AST_ParseDecl(void* fptr, const uint8_t* tokensBytes, int64_t* tokenCounter);
+Cangjie::ParseRes* CJ_AST_ParseExpr(void* fptr, const uint8_t* tokensBytes, int64_t* tokenCounter);
 
-ParseRes* CJ_AST_ParsePropMemberDecl(void* fptr, const uint8_t* tokensBytes);
+Cangjie::ParseRes* CJ_AST_ParseDecl(void* fptr, const uint8_t* tokensBytes, int64_t* tokenCounter);
 
-ParseRes* CJ_AST_ParsePrimaryConstructor(void* fptr, const uint8_t* tokensBytes);
+Cangjie::ParseRes* CJ_AST_ParsePropMemberDecl(void* fptr, const uint8_t* tokensBytes);
 
-ParseRes* CJ_AST_ParsePattern(void* fptr, const uint8_t* tokensBytes, int64_t* tokenCounter);
+Cangjie::ParseRes* CJ_AST_ParsePrimaryConstructor(void* fptr, const uint8_t* tokensBytes);
 
-ParseRes* CJ_AST_ParseType(void* fptr, const uint8_t* tokensBytes, int64_t* tokenCounter);
+Cangjie::ParseRes* CJ_AST_ParsePattern(void* fptr, const uint8_t* tokensBytes, int64_t* tokenCounter);
 
-ParseRes* CJ_AST_ParseTopLevel(void* fptr, const uint8_t* tokensBytes);
+Cangjie::ParseRes* CJ_AST_ParseType(void* fptr, const uint8_t* tokensBytes, int64_t* tokenCounter);
 
-ParseRes* CJ_AST_ParseAnnotationArguments(const uint8_t* tokensBytes);
+Cangjie::ParseRes* CJ_AST_ParseTopLevel(void* fptr, const uint8_t* tokensBytes);
+
+Cangjie::ParseRes* CJ_AST_ParseAnnotationArguments(const uint8_t* tokensBytes);
 
 bool CJ_CheckParentContext(void* fptr, char* parent, bool report);
 
