@@ -20,6 +20,7 @@
 #include "cangjie/Parse/Parser.h"
 
 using namespace Cangjie;
+using StdAst::ParseRes;
 
 namespace {
 // type is not an independent syntax. diagnosis engine does not provide a proper prompt message.
