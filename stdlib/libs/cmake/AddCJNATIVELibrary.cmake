@@ -341,7 +341,12 @@ make_cangjie_lib(
             DESTINATION lib/${output_triple_name}_${CJNATIVE_BACKEND}${SANITIZER_SUBPATH})
 
 set(pcre2_lib "pcre2-8")
-if(DARWIN)
+if(OHOS)
+    # OHOS ROM ships pcre2 as libpcre2.z.so. Link against the locally
+    # re-linked libpcre2.z.so (built by Pcre2.cmake) so that DT_NEEDED
+    # records libpcre2.z.so and resolves against the ROM library at runtime.
+    set(pcre2_lib -L${CMAKE_BINARY_DIR}/third_party/pcre2/lib -l:libpcre2.z.so)
+elseif(DARWIN)
     set(pcre2_lib -L${CMAKE_BINARY_DIR}/third_party/pcre2/lib -l${pcre2_lib})
 elseif(MINGW)
     set(pcre2_lib -L${CMAKE_BINARY_DIR}/third_party/pcre2/lib -l:lib${pcre2_lib}${CMAKE_SHARED_LIBRARY_SUFFIX}.a)
