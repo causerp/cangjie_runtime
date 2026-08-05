@@ -6,6 +6,7 @@
 
 
 #include "Base/Log.h"
+#include "Heap/Heap.h"
 #include "ObjectManager.inline.h"
 #include "ExceptionManager.inline.h"
 
@@ -16,6 +17,13 @@ ScopedAllocBuffer::~ScopedAllocBuffer()
     if (buffer != nullptr) {
         buffer->CommitRawPointerRegions();
     }
+    // Free off-heap struct snapshots created by AddCJArg via ReadStruct.
+    for (void* buf : argBuffers) {
+        if (buf != nullptr) {
+            free(buf);
+        }
+    }
+    argBuffers.clear();
 }
 
 void* ParameterInfo::GetAnnotations(TypeInfo* arrayTi)
@@ -195,14 +203,18 @@ bool MethodInfo::CheckMethodActualArgs(void* genericArgsArray, void* actualArgsA
         }
     }
 
-    CJArray* actualArgs = static_cast<CJArray*>(actualArgsArray);
-    U64 actualArgCnt = actualArgs->rawPtr->len;
+    RefField<false>* actualRawPtrField = reinterpret_cast<RefField<false>*>(
+        &(static_cast<CJArray*>(actualArgsArray)->rawPtr));
+    CJRawArray* cjRawArray = reinterpret_cast<CJRawArray*>(
+        Heap::GetBarrier().ReadReference(nullptr, *actualRawPtrField));
+    U64 actualArgCnt = cjRawArray->len;
     if (actualArgCnt != GetNumOfActualParameterInfos()) {
         return false;
     }
-    Uptr base = reinterpret_cast<Uptr>(&(actualArgs->rawPtr->data));
+    ObjRef rawArray = reinterpret_cast<ObjRef>(cjRawArray);
+    RefField<false>* refField = reinterpret_cast<RefField<false>*>(&(cjRawArray->data));
     for (U64 actualArgIdx = 0; actualArgIdx < actualArgCnt; ++actualArgIdx) {
-        ObjRef argObj = *reinterpret_cast<ObjRef*>(base);
+        ObjRef argObj = static_cast<ObjRef>(Heap::GetBarrier().ReadReference(rawArray, *refField));
         ParameterInfo* actualParameterInfo = GetActualParameterInfo(actualArgIdx);
         TypeInfo* argType = actualParameterInfo->GetType();
         if (argType->IsGeneric()) {
@@ -211,7 +223,7 @@ bool MethodInfo::CheckMethodActualArgs(void* genericArgsArray, void* actualArgsA
         if (argType == nullptr) {
             return false;
         }
-        base += sizeof(ObjRef);
+        refField++;
         if (!argObj->GetTypeInfo()->IsSubType(argType)) {
             return false;
         }
@@ -265,8 +277,11 @@ TypeInfo* MethodInfo::GetActualTypeFromGenericType(GenericTypeInfo* genericTi, v
         for (U32 idx = 0; idx < genericParametersCnt; ++idx) {
             GenericTypeInfo* genericParamType = GetGenericParameterInfo(idx);
             if (genericTi == genericParamType) {
-                CJArray* genericArgsArray = static_cast<CJArray*>(genericArgs);
-                Uptr base = reinterpret_cast<Uptr>(&(genericArgsArray->rawPtr->data));
+                RefField<false>* genericRawPtrField = reinterpret_cast<RefField<false>*>(
+                    &(static_cast<CJArray*>(genericArgs)->rawPtr));
+                CJRawArray* genericRawArray = reinterpret_cast<CJRawArray*>(
+                    Heap::GetBarrier().ReadReference(nullptr, *genericRawPtrField));
+                Uptr base = reinterpret_cast<Uptr>(&(genericRawArray->data));
                 TypeInfo* ti = *reinterpret_cast<TypeInfo**>(base + idx * TYPEINFO_PTR_SIZE);
                 return ti;
             }
@@ -301,7 +316,8 @@ TypeInfo* MethodInfo::GetActualTypeFromGenericType(GenericTypeInfo* genericTi, v
     return nullptr;
 }
 
-void MethodInfo::AddCJArg(ArgValue *argValues, TypeInfo *argType, ObjRef argObj)
+void MethodInfo::AddCJArg(ArgValue *argValues, TypeInfo *argType, ObjRef argObj,
+                          std::vector<void*>* argBuffers)
 {
     I8 type = argType->GetType();
     size_t offset = 8;
@@ -350,7 +366,22 @@ void MethodInfo::AddCJArg(ArgValue *argValues, TypeInfo *argType, ObjRef argObj)
         case TypeKind::TYPE_KIND_TUPLE:
         case TypeKind::TYPE_KIND_STRUCT:
         case TypeKind::TYPE_KIND_VARRAY: {
-            argValues->AddInt64(reinterpret_cast<Uptr>(reinterpret_cast<Uptr>(argObj) + TYPEINFO_PTR_SIZE));
+            MSize typeSize = argType->GetInstanceSize();
+            if (typeSize == 0) {
+                argValues->AddInt64(0);
+                break;
+            }
+            // Track the buffer so the caller can free it after ApplyCJMethodImpl returns.
+            void* dst = MemoryAlloc(1, typeSize);
+            if (argBuffers != nullptr) {
+                argBuffers->push_back(dst);
+            }
+            Heap::GetBarrier().ReadStruct(
+                reinterpret_cast<MAddress>(dst),
+                argObj,
+                reinterpret_cast<MAddress>(reinterpret_cast<Uptr>(argObj) + TYPEINFO_PTR_SIZE),
+                typeSize);
+            argValues->AddInt64(reinterpret_cast<Uptr>(dst));
             break;
         }
         default:
@@ -359,9 +390,16 @@ void MethodInfo::AddCJArg(ArgValue *argValues, TypeInfo *argType, ObjRef argObj)
     return;
 }
 
-void MethodInfo::PrepareCJMethodActualArgs(ArgValue* argValues, void* actualArgsArray, void *genericArgsArray)
+void MethodInfo::PrepareCJMethodActualArgs(ArgValue* argValues, void* actualArgsArray, void *genericArgsArray,
+                                           std::vector<void*>* argBuffers)
 {
-    CJRawArray* cjRawArray = static_cast<CJArray*>(actualArgsArray)->rawPtr;
+    // Read rawPtr (ref to CJRawArray) through the GC read barrier instead of a raw
+    // cast: if GC concurrently moves the CJRawArray, the raw read would return a
+    // stale pointer and all downstream argObj reads would be garbage.
+    RefField<false>* rawPtrField = reinterpret_cast<RefField<false>*>(
+        &(static_cast<CJArray*>(actualArgsArray)->rawPtr));
+    CJRawArray* cjRawArray = reinterpret_cast<CJRawArray*>(
+        Heap::GetBarrier().ReadReference(nullptr, *rawPtrField));
     U64 actualArgCnt = cjRawArray->len;
     ObjRef rawArray = reinterpret_cast<ObjRef>(cjRawArray);
     RefField<false>* refField = reinterpret_cast<RefField<false>*>(&(cjRawArray->data));
@@ -377,15 +415,18 @@ void MethodInfo::PrepareCJMethodActualArgs(ArgValue* argValues, void* actualArgs
         if (argType->IsVArray()) {
             LOG(RTLOG_FATAL, "not support varray now!!!!\n");
         }
-        AddCJArg(argValues, argType, argObj);
+        AddCJArg(argValues, argType, argObj, argBuffers);
     }
 }
 
 void MethodInfo::PrepareCJMethodGenericArgs(ArgValue* argValues, void* genericArgsArray)
 {
-    CJArray* genericArgs = static_cast<CJArray*>(genericArgsArray);
-    Uptr base = reinterpret_cast<Uptr>(&(genericArgs->rawPtr->data));
-    U64 genericArgCnt = genericArgs->rawPtr->len;
+    RefField<false>* genericRawPtrField = reinterpret_cast<RefField<false>*>(
+        &(static_cast<CJArray*>(genericArgsArray)->rawPtr));
+    CJRawArray* genericRawArray = reinterpret_cast<CJRawArray*>(
+        Heap::GetBarrier().ReadReference(nullptr, *genericRawPtrField));
+    Uptr base = reinterpret_cast<Uptr>(&(genericRawArray->data));
+    U64 genericArgCnt = genericRawArray->len;
     for (U64 idx = 0; idx < genericArgCnt; ++idx) {
         TypeInfo* ti = *reinterpret_cast<TypeInfo**>(base + idx * TYPEINFO_PTR_SIZE);
         argValues->AddInt64(reinterpret_cast<Uptr>(ti));
@@ -514,6 +555,9 @@ void MethodInfo::PrepareSRet(ArgValue* argValues, void**& sretSlot, TypeInfo* re
 void* MethodInfo::ApplyCJMethod(ObjRef instanceObj, void* genericArgs, void* actualArgs, TypeInfo* thisTypeInfo)
 {
     ScopedAllocBuffer scopedAllocBuffer;
+    // Off-heap struct snapshots created by AddCJArg via ReadStruct; freed after
+    // ApplyCJMethodImpl returns since the cjc setter consumes them synchronously.
+    std::vector<void*>& argBuffers = scopedAllocBuffer.GetArgBuffers();
     ArgValue argValues;
     void** sretSlot = nullptr;
     TypeInfo* retType = GetReturnType();
@@ -535,7 +579,20 @@ void* MethodInfo::ApplyCJMethod(ObjRef instanceObj, void* genericArgs, void* act
         if ((declaringTi->IsStruct() &&
             ((reflectVersion == 0) ? !declaringTi->IsGenericTypeInfo() : !declaringTi->IsUnknownSize())) ||
             ((declaringTi->IsEnum() || declaringTi->IsTempEnum()) && !declaringTi->IsEnumKind1())) {
-            argValues.AddInt64(reinterpret_cast<I64>(instanceObj) + TYPEINFO_PTR_SIZE);
+            MSize thisSize = declaringTi->GetInstanceSize();
+            if (thisSize == 0) {
+                argValues.AddInt64(0);
+            } else {
+                void* thisDst = MemoryAlloc(1, thisSize);
+                PRINT_FATAL_IF(thisDst == nullptr, "ApplyCJMethod struct this MemoryAlloc failed");
+                argBuffers.push_back(thisDst);
+                Heap::GetBarrier().ReadStruct(
+                    reinterpret_cast<MAddress>(thisDst),
+                    instanceObj,
+                    reinterpret_cast<MAddress>(reinterpret_cast<Uptr>(instanceObj) + TYPEINFO_PTR_SIZE),
+                    thisSize);
+                argValues.AddInt64(reinterpret_cast<Uptr>(thisDst));
+            }
         } else {
             argValues.AddReference(instanceObj);
         }
@@ -554,7 +611,7 @@ void* MethodInfo::ApplyCJMethod(ObjRef instanceObj, void* genericArgs, void* act
     }
 
     if (actualArgs != nullptr) {
-        PrepareCJMethodActualArgs(&argValues, actualArgs, genericArgs);
+        PrepareCJMethodActualArgs(&argValues, actualArgs, genericArgs, &argBuffers);
     }
     if (genericArgs != nullptr) {
         PrepareCJMethodGenericArgs(&argValues, genericArgs);
