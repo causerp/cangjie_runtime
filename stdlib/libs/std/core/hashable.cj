@@ -771,6 +771,30 @@ func wyrand(seed: Int64) {
     return Int64(mix(v, v ^ SECRET1))
 }
 
+/* Byte-swap a 64-bit word (native LE load -> historical big-endian r8 packing). */
+@OverflowWrapping
+func bswap64(x: UInt64): UInt64 {
+    ((x & 0x00000000000000ffu64) << 56) |
+    ((x & 0x000000000000ff00u64) << 40) |
+    ((x & 0x0000000000ff0000u64) << 24) |
+    ((x & 0x00000000ff000000u64) << 8) |
+    ((x & 0x000000ff00000000u64) >> 8) |
+    ((x & 0x0000ff0000000000u64) >> 24) |
+    ((x & 0x00ff000000000000u64) >> 40) |
+    ((x & 0xff00000000000000u64) >> 56)
+}
+
+/* Load 8 bytes at base+pos with the same value as r8 (endian-aware). */
+@OverflowWrapping
+func r8Wide(base: CPointer<UInt8>, pos: Int64, littleEndian: Bool): UInt64 {
+    let native = CPointer<UInt64>(base + pos).read()
+    if (littleEndian) {
+        bswap64(native)
+    } else {
+        native
+    }
+}
+
 @OverflowWrapping
 func wyhash(arr: RawArray<UInt8>, start: Int64, size: Int64, see: UInt64) {
     var seed = see ^ mix(see ^ SECRET0, SECRET1)
@@ -795,29 +819,42 @@ func wyhash(arr: RawArray<UInt8>, start: Int64, size: Int64, see: UInt64) {
             a = r8(arr, start)
             b = r8(arr, start + size - 8)
         case _ =>
-            var pos = start
-            var l = size
-            if (l > 48) {
-                var seed1 = seed
-                var seed2 = seed
+            // Long path: pin once; wide loads keep hash identical to byte-wise r8.
+            unsafe {
+                let base = acquireRawData(arr)
+                let littleEndian = match (Endian.Platform) {
+                    case Little => true
+                    case Big => false
+                }
+                var pos = start
+                var l = size
+                if (l > 48) {
+                    var seed1 = seed
+                    var seed2 = seed
 
-                do {
-                    seed = mix(r8(arr, pos) ^ SECRET1, r8(arr, pos + 8) ^ seed)
-                    seed1 = mix(r8(arr, pos + 16) ^ SECRET2, r8(arr, pos + 24) ^ seed1)
-                    seed2 = mix(r8(arr, pos + 32) ^ SECRET3, r8(arr, pos + 40) ^ seed2)
-                    pos += 48
-                    l -= 48
-                } while (l > 48)
-                seed = seed ^ seed1 ^ seed2
-            }
+                    do {
+                        seed = mix(r8Wide(base, pos, littleEndian) ^ SECRET1,
+                            r8Wide(base, pos + 8, littleEndian) ^ seed)
+                        seed1 = mix(r8Wide(base, pos + 16, littleEndian) ^ SECRET2,
+                            r8Wide(base, pos + 24, littleEndian) ^ seed1)
+                        seed2 = mix(r8Wide(base, pos + 32, littleEndian) ^ SECRET3,
+                            r8Wide(base, pos + 40, littleEndian) ^ seed2)
+                        pos += 48
+                        l -= 48
+                    } while (l > 48)
+                    seed = seed ^ seed1 ^ seed2
+                }
 
-            while (l > 16) {
-                seed = mix(r8(arr, pos) ^ SECRET1, r8(arr, pos + 8) ^ seed)
-                l -= 16
-                pos += 16
+                while (l > 16) {
+                    seed = mix(r8Wide(base, pos, littleEndian) ^ SECRET1,
+                        r8Wide(base, pos + 8, littleEndian) ^ seed)
+                    l -= 16
+                    pos += 16
+                }
+                a = r8Wide(base, pos + l - 16, littleEndian)
+                b = r8Wide(base, pos + l - 8, littleEndian)
+                releaseRawData(arr, base)
             }
-            a = r8(arr, pos + l - 16)
-            b = r8(arr, pos + l - 8)
     }
     a ^= SECRET1
     b ^= seed
