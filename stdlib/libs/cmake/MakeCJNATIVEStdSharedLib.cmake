@@ -197,8 +197,12 @@ function(make_cangjie_lib target_name)
                 list(APPEND flags_to_compile "-L${CANGJIE_TARGET_TOOLCHAIN}/../lib/arm-linux-ohos")
             endif()
             list(APPEND flags_to_compile "-lc")
-            list(APPEND flags_to_compile "-lunwind")
+            # -l:libunwind.a: use archive form so --exclude-libs can hide its symbols.
+            list(APPEND flags_to_compile "-l:libunwind.a")
             list(APPEND flags_to_compile "--exclude-libs=libunwind.a")
+            # Hide C++ runtime symbols so downstream .so's don't bind to ast.so via DT_NEEDED.
+            # libc++.a is a linker script (INPUT(-lc++_static -lc++abi)); exclude the real archives.
+            list(APPEND flags_to_compile "--exclude-libs=libc++.a,libc++_static.a,libc++abi.a")
         endif()
         if(NOT DARWIN AND NOT CANGJIE_LIBRARY_ALLOW_UNDEFINED AND NOT CANGJIE_ENABLE_HWASAN AND NOT CANGJIE_SANITIZER_SUPPORT_ENABLED)
             # Extra checkes when generating cangjie shared libraries. If symbols are used in Cangjie but not
