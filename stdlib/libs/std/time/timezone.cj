@@ -189,11 +189,11 @@ public class TimeZone <: ToString & Equatable<TimeZone> {
      */
     public init(id: String, offset: Duration) {
         if (id.size == 0) {
-            throw IllegalArgumentException("Invalid timezone id.")
+            throw IllegalArgumentException("Invalid timezone ID.")
         }
         let second = offset.toSeconds()
         if (second < MIN_OFFSET || second > MAX_OFFSET) {
-            throw IllegalArgumentException("Invalid offset.")
+            throw IllegalArgumentException("Invalid offset '${second}': must be between ${MIN_OFFSET} and ${MAX_OFFSET} seconds.")
         }
         this.zoneId = id
         this.localTimes = Array<LocalTime>(1, repeat: LocalTime(id, Int32(second), false))
@@ -239,7 +239,7 @@ public class TimeZone <: ToString & Equatable<TimeZone> {
      */
     public static func load(id: String): TimeZone {
         if (id.size == 0 || id.size > MAXPATHLEN) {
-            throw IllegalArgumentException("Invalid timezone id.")
+            throw IllegalArgumentException("Invalid timezone ID.")
         }
         if (id == "UTC") {
             return UTC
@@ -248,7 +248,7 @@ public class TimeZone <: ToString & Equatable<TimeZone> {
             return Local
         }
         if (id.contains("..") || id.contains("\0") || id.contains("\\") || id[0] == b'/' || id[0] == b'\\') {
-            throw IllegalArgumentException("Invalid timezone id: ${id}.")
+            throw IllegalArgumentException("Invalid timezone ID '${id}': ID contains forbidden characters.")
         }
         if (let Some(tzdata) <- getOhosTzDataById(id)) {
             return TimeZone.loadFromTZData(id, tzdata)
@@ -280,10 +280,10 @@ public class TimeZone <: ToString & Equatable<TimeZone> {
      */
     public static func loadFromPaths(id: String, tzpaths: Array<String>): TimeZone {
         if (id.size == 0 || id.size > MAXPATHLEN) {
-            throw IllegalArgumentException("Invalid timezone id.")
+            throw IllegalArgumentException("Invalid timezone ID.")
         }
         if (id.contains("..") || id.contains("\0") || id[0] == b'/' || id[0] == b'\\') {
-            throw IllegalArgumentException("Invalid timezone name.")
+            throw IllegalArgumentException("Invalid timezone name: name contains forbidden characters.")
         }
 
         for (tzpath in tzpaths) {
@@ -329,7 +329,7 @@ public class TimeZone <: ToString & Equatable<TimeZone> {
      */
     public static func loadFromTZData(id: String, data: Array<UInt8>): TimeZone {
         if (id.size == 0) {
-            throw IllegalArgumentException("Invalid timezone id.")
+            throw IllegalArgumentException("Invalid timezone ID.")
         }
         var (tzifLocalTimes, tzifTransTimes, tzifFooter) = parseTZinfoData(data)
         var result: TimeZone = TimeZone(tzifLocalTimes, tzifTransTimes, id, tzifFooter)
@@ -758,14 +758,14 @@ func parseTZRule(footer: String): (ZoneRule, String) {
 func getNum(footer: String): (Int64, String) {
     let strLen = footer.size
     if (strLen == 0) {
-        throw InvalidDataException("Failed to parse the timezone data")
+        throw InvalidDataException("Failed to parse the timezone data.")
     }
     var end = strLen
     for (i in 0..strLen) {
         let c = footer[i]
         if (c < b'0' || c > b'9') {
             if (i == 0) {
-                throw InvalidDataException("Failed to parse the timezone data")
+                throw InvalidDataException("Failed to parse the timezone data.")
             }
             end = i
             break
@@ -777,7 +777,7 @@ func getNum(footer: String): (Int64, String) {
         }
         return (Int64.parse(footer[..end]), footer[end..])
     } catch (_: IllegalArgumentException) {
-        throw InvalidDataException("Failed to parse the timezone data")
+        throw InvalidDataException("Failed to parse the timezone data.")
     }
 }
 
@@ -793,7 +793,7 @@ func getNum(footer: String): (Int64, String) {
  */
 func transToSecOfYear(year: Int64, rule: ZoneRule, off: Int64): Int64 {
     if (year <= 0) {
-        throw InvalidDataException("Failed to parse the timezone data")
+        throw InvalidDataException("Failed to parse the timezone data.")
     }
     var sec: Int64
     match (rule.rType) {

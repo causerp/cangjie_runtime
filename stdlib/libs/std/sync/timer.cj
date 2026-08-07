@@ -103,7 +103,7 @@ public class Timer <: Equatable<Timer> & Hashable {
      */
     public static func repeat(delay: Duration, interval: Duration, task: () -> Unit, style!: CatchupStyle = Burst): Timer {
         if (interval <= Duration.Zero) {
-            throw IllegalArgumentException("Interval cannot be less than or equal to Duration.Zero.")
+            throw IllegalArgumentException("Invalid argument 'interval': must be positive, got ${interval}.")
         }
 
         let nextTick = match (style) {
@@ -134,10 +134,10 @@ public class Timer <: Equatable<Timer> & Hashable {
     public static func repeatDuring(period: Duration, delay: Duration, interval: Duration, task: () -> Unit,
         style!: CatchupStyle = Burst): Timer {
         if (period <= Duration.Zero) {
-            throw IllegalArgumentException("Period cannot be less than or equal to Duration.Zero.")
+            throw IllegalArgumentException("Invalid argument 'period': must be positive, got ${period}.")
         }
         if (interval <= Duration.Zero) {
-            throw IllegalArgumentException("Interval cannot be less than or equal to Duration.Zero.")
+            throw IllegalArgumentException("Invalid argument 'interval': must be positive, got ${interval}.")
         }
 
         let innerTick = match (style) {
@@ -169,10 +169,10 @@ public class Timer <: Equatable<Timer> & Hashable {
     public static func repeatTimes(count: Int64, delay: Duration, interval: Duration, task: () -> Unit,
         style!: CatchupStyle = Burst): Timer {
         if (count <= 0) {
-            throw IllegalArgumentException("Count cannot be less than or equal to 0.")
+            throw IllegalArgumentException("Invalid argument 'count': must be positive, got ${count}.")
         }
         if (interval <= Duration.Zero) {
-            throw IllegalArgumentException("Interval cannot be less than or equal to Duration.Zero.")
+            throw IllegalArgumentException("Invalid argument 'interval': must be positive, got ${interval}.")
         }
 
         let innerTick = match (style) {

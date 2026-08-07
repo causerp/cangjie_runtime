@@ -214,7 +214,7 @@ private func subProcessWaitOutput(process: SubProcess): (Int64, Array<Byte>, Arr
             let outByteArrStream: ByteBuffer = readToByteBuffer(process._stdOut)
             return readToEnd(outByteArrStream)
         } catch (_: ProcessException) {
-            throw ProcessException("OutputStream is invalid, not allow to read.")
+            throw ProcessException("OutputStream is invalid.")
         }
     }
 
@@ -223,7 +223,7 @@ private func subProcessWaitOutput(process: SubProcess): (Int64, Array<Byte>, Arr
             let errByteArrStream: ByteBuffer = readToByteBuffer(process._stdErr)
             return readToEnd(errByteArrStream)
         } catch (_: ProcessException) {
-            throw ProcessException("ErrorStream is invalid, not allow to read.")
+            throw ProcessException("ErrorStream is invalid.")
         }
     }
 
@@ -303,11 +303,11 @@ func getWaitExitCode(timeout: Duration, pid: Int32, handle: IntNative): Int64 {
 @When[os == "Windows"]
 func parseExitInfoPointer(waitExitInfo_cp: CPointer<ExitInfo>, pid: Int32): Int64 {
     if (waitExitInfo_cp.isNull()) {
-        throw ProcessException("Wait subProcess exception, pid: ${pid} not exist.")
+        throw ProcessException("Process '${pid}' does not exist.")
     }
     let waitExitInfo: ExitInfo = unsafe { waitExitInfo_cp.read() }
     if (waitExitInfo.error) {
-        throw ProcessException("Wait subProcess exception, pid: ${pid} not exist.")
+        throw ProcessException("Process '${pid}' does not exist.")
     }
     return waitExitInfo.exitCode
 }

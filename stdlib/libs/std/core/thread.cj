@@ -71,7 +71,7 @@ public enum ThreadState <: ToString {
             case 1 => Ready
             case 2 => Running
             case 3 => Pending
-            case _ => throw IllegalArgumentException("The type is not supported.")
+            case _ => throw IllegalArgumentException("Thread state value '${value}' is not supported.")
         }
     }
 }
@@ -266,12 +266,12 @@ public class Thread {
             } else if (_rtCJThreadHandleRefCount.compareAndSwap(old, old + 1)) {
                 // `_rtCJThreadHandle` is always not null
                 if (_rtCJThreadHandle.isNull()) {
-                    throw Error("Invalid CJThread handle")
+                    throw Error("Internal error: invalid CJThread handle!")
                 }
                 return _rtCJThreadHandle
             }
         }
-        throw Error("Never reached")
+        throw Error("Internal error: unreachable code!")
     }
 
     private func releaseCJThreadHandle(): Unit {
@@ -290,7 +290,7 @@ public class Thread {
                 let rtCJThreadHandle = unsafe { CJ_MRT_GetCurrentCJThread() }
                 // `rtCJThreadHandle` is always not null.
                 if (rtCJThreadHandle.isNull()) {
-                    throw Error("Invalid CJThread handle")
+                    throw Error("Internal error: invalid CJThread handle!")
                 }
                 thread.setRuntimeCJThreadHandle(rtCJThreadHandle)
                 setThreadObject(thread)
@@ -305,7 +305,7 @@ public class Thread {
             // Since we assign `_rtCJThreadHandle` and `_id` at the same time,
             // `_id` is always invalid.
             if (cjThreadId == INVALID_ID) {
-                throw Error("Invalid thread id")
+                throw Error("Internal error: invalid thread ID!")
             }
             return cjThreadId
         }

@@ -22,7 +22,7 @@ public class MultiOutputStream<T> <: OutputStream where T <: OutputStream {
      */
     public init(output: Array<T>) {
         if (output.isEmpty()) {
-            throw IllegalArgumentException("The array of output streams cannot be empty!")
+            throw IllegalArgumentException("Invalid argument 'output': the array of output streams cannot be empty.")
         }
         outputArr = output.clone()
     }

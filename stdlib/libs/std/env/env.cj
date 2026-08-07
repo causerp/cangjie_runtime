@@ -31,7 +31,7 @@ public func getProcessId(): Int64 {
 public func getCommand(): String {
     match (getCurrentProcessInfo()[0]) {
         case Some(command) => command
-        case _ => throw EnvException("Can not get process command.")
+        case _ => throw EnvException("Failed to get process command.")
     }
 }
 
@@ -40,7 +40,7 @@ public func getCommand(): String {
 public func getCommandLine(): Array<String> {
     match (getCurrentProcessInfo()[2]) {
         case Some(commandLine) => commandLine
-        case _ => throw EnvException("Can not get process commandLine.")
+        case _ => throw EnvException("Failed to get process command line.")
     }
 }
 
@@ -48,14 +48,14 @@ public func getCommandLine(): Array<String> {
 public func getCommandLine(): Array<String> {
     match (getCurrentProcessInfo()[2]) {
         case Some(commandLine) => commandLine
-        case _ => throw EnvException("Can not get process commandLine.")
+        case _ => throw EnvException("Failed to get process command line.")
     }
 }
 
 public func getWorkingDirectory(): Path {
     match (getCurrentProcessInfo()[1]) {
         case Some(workDirPath) => workDirPath
-        case _ => throw EnvException("Can not get process workingDirectory.")
+        case _ => throw EnvException("Failed to get process working directory.")
     }
 }
 
@@ -69,7 +69,7 @@ public func getTempDirectory(): Path {
 
 public func getVariable(key: String): ?String {
     if (key.contains(NULL_BYTE)) {
-        throw IllegalArgumentException("The path cannot contain null character!")
+        throw IllegalArgumentException("Invalid argument 'key': contains null character.")
     }
 
     unsafe {
@@ -89,7 +89,7 @@ public func getVariable(key: String): ?String {
 public func getVariables(): Array<(String, String)> {
     match (getCurrentProcessInfo()[3]) {
         case Some(environments) => environments
-        case _ => throw EnvException("Can not get process environment.")
+        case _ => throw EnvException("Failed to get process environment.")
     }
 }
 
@@ -97,13 +97,13 @@ public func getVariables(): Array<(String, String)> {
 public func getVariables(): Array<(String, String)> {
     match (getCurrentProcessInfo()[3]) {
         case Some(environments) => environments
-        case _ => throw EnvException("Can not get process environment.")
+        case _ => throw EnvException("Failed to get process environment.")
     }
 }
 
 public func setVariable(key: String, value: String): Unit {
     if (key.contains(NULL_BYTE) || value.contains(NULL_BYTE)) {
-        throw IllegalArgumentException("The path cannot contain null character!")
+        throw IllegalArgumentException("Invalid argument 'key' or 'value': contains null character.")
     }
 
     unsafe {
@@ -112,7 +112,7 @@ public func setVariable(key: String, value: String): Unit {
                 nativeSetEnv(ck.value, cv.value, Int32(1))
             }
             if (errno != 0) {
-                throw EnvException("Failed to set variable ${key}.")
+                throw EnvException("Failed to set variable '${key}'.")
             }
         }
     }
@@ -120,7 +120,7 @@ public func setVariable(key: String, value: String): Unit {
 
 public func removeVariable(key: String): Unit {
     if (key.contains(NULL_BYTE)) {
-        throw IllegalArgumentException("The path cannot contain null character!")
+        throw IllegalArgumentException("Invalid argument 'key': contains null character.")
     }
 
     unsafe {
@@ -129,7 +129,7 @@ public func removeVariable(key: String): Unit {
                 nativeRemoveEnv(ck.value)
             }
             if (errno != 0) {
-                throw EnvException("Failed to remove variable ${key}.")
+                throw EnvException("Failed to remove variable '${key}'.")
             }
         }
     }
@@ -171,7 +171,7 @@ func getCurrentProcessInfo(): (Option<String>, Option<Path>, Option<Array<String
         unsafe { CJ_OS_GetProcessInfoByPid(currentPid) }
     }
     if (processInfoC.isNull()) {
-        throw EnvException("Initialize current process failed.")
+        throw EnvException("Failed to initialize current process.")
     }
 
     try {

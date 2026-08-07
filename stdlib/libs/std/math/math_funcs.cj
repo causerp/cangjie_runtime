@@ -93,7 +93,7 @@ public func cbrt(x: Float16): Float16 {
  */
 public func logBase(x: Float32, base: Float32): Float32 {
     if (x <= 0.0 || base <= 0.0 || base == 1.0) {
-        throw IllegalArgumentException("The input parameter is invalid. Please enter a correct parameter.")
+        throw IllegalArgumentException("Invalid arguments 'x' and 'base': both must be positive and 'base' must not be 1.0.")
     }
     unsafe { return log(x) / log(base) }
 }
@@ -120,7 +120,7 @@ public func logBase(x: Float32, base: Float32): Float32 {
  */
 public func logBase(x: Float64, base: Float64): Float64 {
     if (x <= 0.0 || base <= 0.0 || base == 1.0) {
-        throw IllegalArgumentException("The input parameter is invalid. Please enter a correct parameter.")
+        throw IllegalArgumentException("Invalid arguments 'x' and 'base': both must be positive and 'base' must not be 1.0.")
     }
     return unsafe { log(x) / log(base) }
 }
@@ -147,7 +147,7 @@ public func logBase(x: Float64, base: Float64): Float64 {
  */
 public func logBase(x: Float16, base: Float16): Float16 {
     if (x <= 0.0 || base <= 0.0 || base == 1.0) {
-        throw IllegalArgumentException("The input parameter is invalid. Please enter a correct parameter.")
+        throw IllegalArgumentException("Invalid arguments 'x' and 'base': both must be positive and 'base' must not be 1.0.")
     }
     unsafe { return log(x) / log(base) }
 }
@@ -277,7 +277,7 @@ public func tan(x: Float16): Float16 {
  */
 public func asin(x: Float64): Float64 {
     if (x > 1.0 || x < -1.0) {
-        throw IllegalArgumentException("The input parameter is invalid. Please enter a correct parameter.")
+        throw IllegalArgumentException("Invalid argument 'x': must be in range [-1.0, 1.0].")
     }
     unsafe { return CJ_MATH_Asin(x) }
 }
@@ -294,7 +294,7 @@ public func asin(x: Float64): Float64 {
  */
 public func asin(x: Float32): Float32 {
     if (x > 1.0 || x < -1.0) {
-        throw IllegalArgumentException("The input parameter is invalid. Please enter a correct parameter.")
+        throw IllegalArgumentException("Invalid argument 'x': must be in range [-1.0, 1.0].")
     }
     unsafe { return CJ_MATH_Asinf(x) }
 }
@@ -311,7 +311,7 @@ public func asin(x: Float32): Float32 {
  */
 public func asin(x: Float16): Float16 {
     if (x > 1.0 || x < -1.0) {
-        throw IllegalArgumentException("The input parameter is invalid. Please enter a correct parameter.")
+        throw IllegalArgumentException("Invalid argument 'x': must be in range [-1.0, 1.0].")
     }
     unsafe { return Float16(CJ_MATH_Asin(Float64(x))) }
 }
@@ -328,7 +328,7 @@ public func asin(x: Float16): Float16 {
  */
 public func acos(x: Float64): Float64 {
     if (x > 1.0 || x < -1.0) {
-        throw IllegalArgumentException("The input parameter is invalid. Please enter a correct parameter.")
+        throw IllegalArgumentException("Invalid argument 'x': must be in range [-1.0, 1.0].")
     }
     unsafe { return CJ_MATH_Acos(x) }
 }
@@ -345,7 +345,7 @@ public func acos(x: Float64): Float64 {
  */
 public func acos(x: Float32): Float32 {
     if (x > 1.0 || x < -1.0) {
-        throw IllegalArgumentException("The input parameter is invalid. Please enter a correct parameter.")
+        throw IllegalArgumentException("Invalid argument 'x': must be in range [-1.0, 1.0].")
     }
     unsafe { return CJ_MATH_Acosf(x) }
 }
@@ -362,7 +362,7 @@ public func acos(x: Float32): Float32 {
  */
 public func acos(x: Float16): Float16 {
     if (x > 1.0 || x < -1.0) {
-        throw IllegalArgumentException("The input parameter is invalid. Please enter a correct parameter.")
+        throw IllegalArgumentException("Invalid argument 'x': must be in range [-1.0, 1.0].")
     }
     unsafe { return Float16(CJ_MATH_Acos(Float64(x))) }
 }
@@ -597,7 +597,7 @@ public func asinh(x: Float16): Float16 {
  */
 public func acosh(x: Float64): Float64 {
     if (x < 1.0) {
-        throw IllegalArgumentException("The input parameter is invalid. Please enter a correct parameter.")
+        throw IllegalArgumentException("Invalid argument 'x': must be greater than or equal to 1.0.")
     }
     unsafe { return CJ_MATH_Acosh(x) }
 }
@@ -614,7 +614,7 @@ public func acosh(x: Float64): Float64 {
  */
 public func acosh(x: Float32): Float32 {
     if (x < 1.0) {
-        throw IllegalArgumentException("The input parameter is invalid. Please enter a correct parameter.")
+        throw IllegalArgumentException("Invalid argument 'x': must be greater than or equal to 1.0.")
     }
     unsafe { return CJ_MATH_Acoshf(x) }
 }
@@ -631,7 +631,7 @@ public func acosh(x: Float32): Float32 {
  */
 public func acosh(x: Float16): Float16 {
     if (x < 1.0) {
-        throw IllegalArgumentException("The input parameter is invalid. Please enter a correct parameter.")
+        throw IllegalArgumentException("Invalid argument 'x': must be greater than or equal to 1.0.")
     }
     unsafe { return Float16(CJ_MATH_Acosh(Float64(x))) }
 }
@@ -648,7 +648,7 @@ public func acosh(x: Float16): Float16 {
  */
 public func atanh(x: Float64): Float64 {
     if (x >= 1.0 || x <= -1.0) {
-        throw IllegalArgumentException("The input parameter is invalid. Please enter a correct parameter.")
+        throw IllegalArgumentException("Invalid argument 'x': must be in range (-1.0, 1.0).")
     }
     unsafe { return CJ_MATH_Atanh(x) }
 }
@@ -665,7 +665,7 @@ public func atanh(x: Float64): Float64 {
  */
 public func atanh(x: Float32): Float32 {
     if (x >= 1.0 || x <= -1.0) {
-        throw IllegalArgumentException("The input parameter is invalid. Please enter a correct parameter.")
+        throw IllegalArgumentException("Invalid argument 'x': must be in range (-1.0, 1.0).")
     }
     unsafe { return CJ_MATH_Atanhf(x) }
 }
@@ -682,7 +682,7 @@ public func atanh(x: Float32): Float32 {
  */
 public func atanh(x: Float16): Float16 {
     if (x >= 1.0 || x <= -1.0) {
-        throw IllegalArgumentException("The input parameter is invalid. Please enter a correct parameter.")
+        throw IllegalArgumentException("Invalid argument 'x': must be in range (-1.0, 1.0).")
     }
     unsafe { return Float16(CJ_MATH_Atanh(Float64(x))) }
 }
@@ -1515,10 +1515,9 @@ public func rotate(num: Int64, d: Int8): Int64 {
 @OverflowWrapping
 public func gcd(x: Int8, y: Int8): Int8 {
     return match {
-        case y == x && y == Int8.Min => throw IllegalArgumentException(
-            "Both parameters x and y are minimum boundary values.")
+        case y == x && y == Int8.Min => throw IllegalArgumentException("Both parameters 'x' and 'y' are Int8.Min.")
         case (y == Int8.Min && x == 0) || (y == 0 && x == Int8.Min) => throw IllegalArgumentException(
-            "One of the parameters is minimum boundary value, and another is 0.")
+            "One parameter is Int8.Min and the other is 0.")
         case (y == Int8.Min && x != 0) || (y != 0 && x == Int8.Min) => return Int8(gcd(UInt8(x), UInt8(y)))
         case x == 0 && y != 0 => abs(y)
         case y == 0 && x != 0 => abs(x)
@@ -1555,10 +1554,9 @@ public func gcd(x: Int8, y: Int8): Int8 {
 @OverflowWrapping
 public func gcd(x: Int16, y: Int16): Int16 {
     return match {
-        case y == x && y == Int16.Min => throw IllegalArgumentException(
-            "Both parameters x and y are minimum boundary values.")
+        case y == x && y == Int16.Min => throw IllegalArgumentException("Both parameters 'x' and 'y' are Int16.Min.")
         case (y == Int16.Min && x == 0) || (y == 0 && x == Int16.Min) => throw IllegalArgumentException(
-            "One of the parameters is minimum boundary value, and another is 0.")
+            "One parameter is Int16.Min and the other is 0.")
         case (y == Int16.Min && x != 0) || (y != 0 && x == Int16.Min) => return Int16(gcd(UInt16(x), UInt16(y)))
         case x == 0 && y != 0 => abs(y)
         case y == 0 && x != 0 => abs(x)
@@ -1595,10 +1593,9 @@ public func gcd(x: Int16, y: Int16): Int16 {
 @OverflowWrapping
 public func gcd(x: Int32, y: Int32): Int32 {
     return match {
-        case y == x && y == Int32.Min => throw IllegalArgumentException(
-            "Both parameters x and y are minimum boundary values.")
+        case y == x && y == Int32.Min => throw IllegalArgumentException("Both parameters 'x' and 'y' are Int32.Min.")
         case (y == Int32.Min && x == 0) || (y == 0 && x == Int32.Min) => throw IllegalArgumentException(
-            "One of the parameters is minimum boundary value, and another is 0.")
+            "One parameter is Int32.Min and the other is 0.")
         case (y == Int32.Min && x != 0) || (y != 0 && x == Int32.Min) => return Int32(gcd(UInt32(x), UInt32(y)))
         case x == 0 && y != 0 => abs(y)
         case y == 0 && x != 0 => abs(x)
@@ -1635,10 +1632,9 @@ public func gcd(x: Int32, y: Int32): Int32 {
 @OverflowWrapping
 public func gcd(x: Int64, y: Int64): Int64 {
     return match {
-        case y == x && y == Int64.Min => throw IllegalArgumentException(
-            "Both parameters x and y are minimum boundary values.")
+        case y == x && y == Int64.Min => throw IllegalArgumentException("Both parameters 'x' and 'y' are Int64.Min.")
         case (y == Int64.Min && x == 0) || (y == 0 && x == Int64.Min) => throw IllegalArgumentException(
-            "One of the parameters is minimum boundary value, and another is 0.")
+            "One parameter is Int64.Min and the other is 0.")
         case (y == Int64.Min && x != 0) || (y != 0 && x == Int64.Min) => return Int64(gcd(UInt64(x), UInt64(y)))
         case x == 0 && y != 0 => abs(y)
         case y == 0 && x != 0 => abs(x)
@@ -1869,13 +1865,13 @@ public func lcm(x: Int8, y: Int8): Int8 {
 
     let xDivGcd = x / gcd(x, y)
     if (xDivGcd == Int8.Min || y == Int8.Min) {
-        throw IllegalArgumentException("The result is out of the Int8 range.")
+        throw IllegalArgumentException("The result overflows Int8 range.")
     }
 
     let xDivGcdAbs = abs(xDivGcd)
     let yAbs = abs(y)
     if (yAbs > Int8.Max / xDivGcdAbs) {
-        throw IllegalArgumentException("The result is out of the Int8 range.")
+        throw IllegalArgumentException("The result overflows Int8 range.")
     } else {
         return abs(xDivGcdAbs * yAbs)
     }
@@ -1901,13 +1897,13 @@ public func lcm(x: Int16, y: Int16): Int16 {
 
     let xDivGcd = x / gcd(x, y)
     if (xDivGcd == Int16.Min || y == Int16.Min) {
-        throw IllegalArgumentException("The result is out of the Int16 range.")
+        throw IllegalArgumentException("The result overflows Int16 range.")
     }
 
     let xDivGcdAbs = abs(xDivGcd)
     let yAbs = abs(y)
     if (yAbs > Int16.Max / xDivGcdAbs) {
-        throw IllegalArgumentException("The result is out of the Int16 range.")
+        throw IllegalArgumentException("The result overflows Int16 range.")
     } else {
         return abs(xDivGcdAbs * yAbs)
     }
@@ -1933,13 +1929,13 @@ public func lcm(x: Int32, y: Int32): Int32 {
 
     let xDivGcd = x / gcd(x, y)
     if (xDivGcd == Int32.Min || y == Int32.Min) {
-        throw IllegalArgumentException("The result is out of the Int32 range.")
+        throw IllegalArgumentException("The result overflows Int32 range.")
     }
 
     let xDivGcdAbs = abs(xDivGcd)
     let yAbs = abs(y)
     if (yAbs > Int32.Max / xDivGcdAbs) {
-        throw IllegalArgumentException("The result is out of the Int32 range.")
+        throw IllegalArgumentException("The result overflows Int32 range.")
     } else {
         return abs(xDivGcdAbs * yAbs)
     }
@@ -1965,13 +1961,13 @@ public func lcm(x: Int64, y: Int64): Int64 {
 
     let xDivGcd = x / gcd(x, y)
     if (xDivGcd == Int64.Min || y == Int64.Min) {
-        throw IllegalArgumentException("The result is out of the Int64 range.")
+        throw IllegalArgumentException("The result overflows Int64 range.")
     }
 
     let xDivGcdAbs = abs(xDivGcd)
     let yAbs = abs(y)
     if (yAbs > Int64.Max / xDivGcdAbs) {
-        throw IllegalArgumentException("The result is out of the Int64 range.")
+        throw IllegalArgumentException("The result overflows Int64 range.")
     } else {
         return abs(xDivGcdAbs * yAbs)
     }
@@ -1996,7 +1992,7 @@ public func lcm(x: UInt8, y: UInt8): UInt8 {
     let a = x / gcd(x, y)
     let c = UInt8.Max / a
     if (y > c) {
-        throw IllegalArgumentException("The result is out of the UInt8 range.")
+        throw IllegalArgumentException("The result overflows UInt8 range.")
     } else {
         return x / gcd(x, y) * y
     }
@@ -2021,7 +2017,7 @@ public func lcm(x: UInt16, y: UInt16): UInt16 {
     let a = x / gcd(x, y)
     let c = UInt16.Max / a
     if (y > c) {
-        throw IllegalArgumentException("The result is out of the UInt16 range.")
+        throw IllegalArgumentException("The result overflows UInt16 range.")
     } else {
         return x / gcd(x, y) * y
     }
@@ -2045,7 +2041,7 @@ public func lcm(x: UInt32, y: UInt32): UInt32 {
     var a = x / gcd(x, y)
     var c = UInt32.Max / a
     if (y > c) {
-        throw IllegalArgumentException("The result is out of the UInt32 range.")
+        throw IllegalArgumentException("The result overflows UInt32 range.")
     } else {
         return x / gcd(x, y) * y
     }
@@ -2070,7 +2066,7 @@ public func lcm(x: UInt64, y: UInt64): UInt64 {
     let a = x / gcd(x, y)
     let c = UInt64.Max / a
     if (y > c) {
-        throw IllegalArgumentException("The result is out of the UInt64 range.")
+        throw IllegalArgumentException("The result overflows UInt64 range.")
     } else {
         return x / gcd(x, y) * y
     }
@@ -2095,7 +2091,7 @@ public func lcm(x: UInt64, y: UInt64): UInt64 {
  */
 public func clamp(v: Float16, min: Float16, max: Float16): Float16 {
     if (!isEqual(min, min) || !isEqual(max, max) || min > max) {
-        throw IllegalArgumentException("Check parameter min:'${min}' or max:'${max}'.\n")
+        throw IllegalArgumentException("Invalid parameters 'min' and 'max': 'min' must not be greater than 'max' and neither can be NaN.")
     }
     if (v < min) {
         return min
@@ -2125,7 +2121,7 @@ public func clamp(v: Float16, min: Float16, max: Float16): Float16 {
  */
 public func clamp(v: Float32, min: Float32, max: Float32): Float32 {
     if (!isEqual(min, min) || !isEqual(max, max) || min > max) {
-        throw IllegalArgumentException("Check parameter min:'${min}' or max:'${max}'.\n")
+        throw IllegalArgumentException("Invalid parameters 'min' and 'max': 'min' must not be greater than 'max' and neither can be NaN.")
     }
     if (v < min) {
         return min
@@ -2154,7 +2150,7 @@ public func clamp(v: Float32, min: Float32, max: Float32): Float32 {
  */
 public func clamp(v: Float64, min: Float64, max: Float64): Float64 {
     if (!isEqual(min, min) || !isEqual(max, max) || min > max) {
-        throw IllegalArgumentException("Check parameter min:'${min}' or max:'${max}'.\n")
+        throw IllegalArgumentException("Invalid parameters 'min' and 'max': 'min' must not be greater than 'max' and neither can be NaN.")
     }
     if (v < min) {
         return min
@@ -2320,7 +2316,7 @@ public func fmod(x: Float64, y: Float64): Float64 {
         return Float64.NaN
     }
     if (x.isInf() || y == 0.0) {
-        throw IllegalArgumentException("The input parameter is invalid. Please enter a correct parameter.")
+        throw IllegalArgumentException("Invalid arguments 'x' and 'y': 'x' cannot be infinite and 'y' cannot be zero.")
     }
     return unsafe { CJ_MATH_Fmod(x, y) }
 }
@@ -2336,7 +2332,7 @@ public func fmod(x: Float32, y: Float32): Float32 {
         return Float32.NaN
     }
     if (x.isInf() || y == 0.0) {
-        throw IllegalArgumentException("The input parameter is invalid. Please enter a correct parameter.")
+        throw IllegalArgumentException("Invalid arguments 'x' and 'y': 'x' cannot be infinite and 'y' cannot be zero.")
     }
     return unsafe { CJ_MATH_Fmodf(x, y) }
 }
@@ -2352,7 +2348,7 @@ public func fmod(x: Float16, y: Float16): Float16 {
         return Float16.NaN
     }
     if (x.isInf() || y == 0.0) {
-        throw IllegalArgumentException("The input parameter is invalid. Please enter a correct parameter.")
+        throw IllegalArgumentException("Invalid arguments 'x' and 'y': 'x' cannot be infinite and 'y' cannot be zero.")
     }
     return unsafe { Float16(CJ_MATH_Fmod(Float64(x), Float64(y))) }
 }

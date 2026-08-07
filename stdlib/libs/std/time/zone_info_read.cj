@@ -40,7 +40,7 @@ func loadTimeZone(name: String, source: String): TimeZone {
 func loadTZifData(name: String, source: String): Array<UInt8> {
     let srcLen = source.size
     if (srcLen <= 0) {
-        throw InvalidDataException("invalid timezone source")
+        throw InvalidDataException("Invalid timezone source: source length is '${srcLen}', must be positive.")
     }
     let path = source + SLASH_CHAR + name
     return loadTZifData(path)
@@ -57,7 +57,7 @@ func readZoneInfoFile(path: String, keepTerminator: Bool): Array<UInt8> {
         let fileSize = CJ_TIME_GetFileSize(cPath.pointer, pathLen)
         releaseArrayRawData(cPath)
         if (fileSize < 0) {
-            throw InvalidDataException("An error occurred when accessing file `${path}`!")
+            throw InvalidDataException("Failed to access timezone file '${path}'.")
         }
         let bufLen: Int64 = fileSize + 1
         var arr: Array<UInt8> = Array<UInt8>(fileSize + 1, repeat: 0)
@@ -68,7 +68,7 @@ func readZoneInfoFile(path: String, keepTerminator: Bool): Array<UInt8> {
         releaseArrayRawData(arrPtr)
         releaseArrayRawData(cPath2)
         if (readNum != fileSize) {
-            throw InvalidDataException("An error occurred when reading data from file `${path}`!")
+            throw InvalidDataException("Failed to read timezone file '${path}'.")
         }
         if (keepTerminator) {
             arr
@@ -119,7 +119,7 @@ func loadTZData(name: String, path: String): Array<UInt8> {
                 return zoneData
             }
         }
-        throw InvalidDataException("An error occurred when accessing file `${path}`!")
+        throw InvalidDataException("Failed to access timezone file '${path}'.")
     }
 }
 
@@ -355,7 +355,7 @@ func itos(arr: Array<UInt8>, canNul: Bool): String {
         }
         if (!arr[i].isAsciiWhiteSpace() && !arr[i].isAsciiGraphic()) {
             throw InvalidDataException(
-                "Failed to parse the timezone file, since ${arr[i]} is not a supported ASCII code.")
+                "Failed to parse timezone file: character '${arr[i]}' is not a supported ASCII code.")
         }
     }
     return unsafe { String.fromUtf8Unchecked(arr) }

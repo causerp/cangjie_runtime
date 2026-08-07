@@ -92,9 +92,9 @@ public func getUsedHeapSize(): Int64 {
     var ret = Int64(getRealHeapSize())
     match {
         case ret >= 0 => return ret
-        case ret == -1 => throw MemoryInfoException("Failed to open the smaps file.")
-        case ret == -2 => throw MemoryInfoException("Failed to get vaild value.")
-        case _ => throw MemoryInfoException("Failed to get vaild errorcode.")
+        case ret == -1 => throw MemoryInfoException("Failed to open smaps file.")
+        case ret == -2 => throw MemoryInfoException("Failed to get valid value.")
+        case _ => throw MemoryInfoException("Failed to get valid error code.")
     }
 }
 
@@ -174,7 +174,7 @@ func executeWithWindowsFd(path: Path, action: (Int32) -> Bool): Bool {
 @When[backend == "cjnative" && os != "Windows"]
 public func dumpHeapData(path: Path): Unit {
     let resolvedPath = validateAndResolvePath(path,
-        "Heap dump path is invalid or contains forbidden characters for security reasons.")
+        "Invalid argument 'path': path is invalid or contains forbidden characters.")
     try (file = File(resolvedPath, ReadWrite)) {
         let success = dumpCjHeapData(Int32(file.fileDescriptor.fileHandle))
         if (!success) {
@@ -186,7 +186,7 @@ public func dumpHeapData(path: Path): Unit {
 @When[backend == "cjnative" && os == "Windows"]
 public func dumpHeapData(path: Path): Unit {
     let resolvedPath = validateAndResolvePath(path,
-        "Heap dump path is invalid or contains forbidden characters for security reasons.")
+        "Invalid argument 'path': path is invalid or contains forbidden characters.")
     let success = executeWithWindowsFd(resolvedPath, boxDumpCjHeapData)
     if (!success) {
         throw MemoryInfoException("Failed to dump heap data.")

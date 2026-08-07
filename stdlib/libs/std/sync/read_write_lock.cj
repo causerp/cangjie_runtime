@@ -86,7 +86,7 @@ class ReadWriteLockCondition <: Condition {
 
     public func wait(timeout!: Duration): Bool {
         if (timeout <= Duration.Zero) {
-            throw IllegalArgumentException("Timeout cannot be less than or equal to `Duration.Zero`.")
+            throw IllegalArgumentException("Invalid argument 'timeout': must be positive, got '${timeout}'.")
         }
 
         lock.checkWriteLockStatus()
@@ -105,7 +105,7 @@ class ReadWriteLockCondition <: Condition {
 
     public func waitUntil(predicate: () -> Bool, timeout!: Duration): Bool {
         if (timeout <= Duration.Zero) {
-            throw IllegalArgumentException("Timeout cannot be less than or equal to `Duration.Zero`.")
+            throw IllegalArgumentException("Invalid argument 'timeout': must be positive, got '${timeout}'.")
         }
         lock.checkWriteLockStatus()
 

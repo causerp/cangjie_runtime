@@ -50,12 +50,12 @@ public struct Duration <: ToString & Hashable & Comparable<Duration> {
     static func of(sec: Int64, ns: Int64): Duration {
         if (ns < 0) {
             if (sec == Int64.Min) {
-                throw ArithmeticException("Out of range of representation of 'Duration'!")
+                throw ArithmeticException("Duration value overflow.")
             }
             return Duration(sec - 1, UInt32(ns + NS_PER_SEC))
         } else if (ns >= NS_PER_SEC) {
             if (sec == Int64.Max) {
-                throw ArithmeticException("Out of range of representation of 'Duration'!")
+                throw ArithmeticException("Duration value overflow.")
             }
             return Duration(sec + 1, UInt32(ns - NS_PER_SEC))
         }
@@ -123,7 +123,7 @@ public struct Duration <: ToString & Hashable & Comparable<Duration> {
         if (let Some(result) <- getResult(NS_PER_SEC)) {
             return result
         }
-        throw ArithmeticException("The duration in nanosecond exceeds the range of 'Int64'.")
+        throw ArithmeticException("Duration in nanoseconds exceeds 'Int64' range.")
     }
 
     /**
@@ -137,7 +137,7 @@ public struct Duration <: ToString & Hashable & Comparable<Duration> {
         if (let Some(result) <- getResult(US_PER_SEC)) {
             return result
         }
-        throw ArithmeticException("The duration in microsecond exceeds the range of 'Int64'.")
+        throw ArithmeticException("Duration in microseconds exceeds 'Int64' range.")
     }
 
     /**
@@ -151,7 +151,7 @@ public struct Duration <: ToString & Hashable & Comparable<Duration> {
         if (let Some(result) <- getResult(MS_PER_SEC)) {
             return result
         }
-        throw ArithmeticException("The duration in millisecond exceeds the range of 'Int64'.")
+        throw ArithmeticException("Duration in milliseconds exceeds 'Int64' range.")
     }
 
     /**
@@ -253,7 +253,7 @@ public struct Duration <: ToString & Hashable & Comparable<Duration> {
     public func abs(): Duration {
         let (second, nanosecond) = toSameSign()
         if (second == Int64.Min) {
-            throw ArithmeticException("Out of range of representation of 'Duration'!")
+            throw ArithmeticException("Duration value overflow.")
         }
         if (second < 0 || nanosecond < 0) {
             return Duration(-second, UInt32(-nanosecond))
@@ -276,7 +276,7 @@ public struct Duration <: ToString & Hashable & Comparable<Duration> {
             return this
         }
         if (isSumOverflow(this.sec, other.sec)) {
-            throw ArithmeticException("Out of range of representation of 'Duration'!")
+            throw ArithmeticException("Duration value overflow.")
         }
         return Duration.of(this.sec + other.sec, Int64(this.ns) + Int64(other.ns))
     }
@@ -296,7 +296,7 @@ public struct Duration <: ToString & Hashable & Comparable<Duration> {
             return this
         }
         if (checkSub(this.sec, other.sec)) {
-            throw ArithmeticException("Out of range of representation of 'Duration'!")
+            throw ArithmeticException("Duration value overflow.")
         }
         return Duration.of(this.sec - other.sec, Int64(this.ns) - Int64(other.ns))
     }
@@ -320,13 +320,13 @@ public struct Duration <: ToString & Hashable & Comparable<Duration> {
         } else if (multiplier == 1) {
             return this
         } else if (this == Min || this == Max) {
-            throw ArithmeticException("Out of range of representation of 'Duration'!")
+            throw ArithmeticException("Duration value overflow.")
         }
         let (secU64, nsU32, multi, sign) = toUnsignedNum(multiplier)
         if (let Some(v) <- durMul(secU64, nsU32, multi, sign)) {
             return v
         }
-        throw ArithmeticException("Out of range of representation of 'Duration'!")
+        throw ArithmeticException("Duration value overflow.")
     }
 
     /**
@@ -346,12 +346,11 @@ public struct Duration <: ToString & Hashable & Comparable<Duration> {
         } else if (multiplier == FLOAT64_1) {
             return this
         } else if (multiplier != multiplier) {
-            throw IllegalArgumentException("The value of operand cannot be Float64.NaN(not a number)!")
+            throw IllegalArgumentException("Operand value cannot be 'Float64.NaN'.")
         }
 
         let result = this.toFloat64Nanoseconds() * multiplier
-        return getDurationByFloat64(result).getOrThrow(
-            {=> ArithmeticException("Out of range of representation of 'Duration'!")})
+        return getDurationByFloat64(result).getOrThrow({=> ArithmeticException("Duration value overflow.")})
     }
 
     func toFloat64Nanoseconds(): Float64 {
@@ -383,12 +382,12 @@ public struct Duration <: ToString & Hashable & Comparable<Duration> {
      */
     public operator func /(divisor: Int64): Duration {
         if (divisor == 0) {
-            throw IllegalArgumentException("The value of right operand cannot be 0!")
+            throw IllegalArgumentException("Divisor value cannot be '0'.")
         } else if (divisor == 1) {
             return this
         }
         if (this == Min && divisor == -1) {
-            throw ArithmeticException("Out of range of representation of 'Duration'!")
+            throw ArithmeticException("Duration value overflow.")
         }
         let (secU64, nsU32, denominator, sign) = toUnsignedNum(divisor)
         if (denominator <= 0xFFFF_FFFF) {
@@ -423,15 +422,14 @@ public struct Duration <: ToString & Hashable & Comparable<Duration> {
             return Zero
         }
         if (divisor == FLOAT64_0) {
-            throw IllegalArgumentException("The value of right operand cannot be 0.0!")
+            throw IllegalArgumentException("Divisor value cannot be '0.0'.")
         } else if (divisor == FLOAT64_1) {
             return this
         } else if (divisor != divisor) {
-            throw IllegalArgumentException("The value of right operand cannot be Float64.NaN(not a number)!")
+            throw IllegalArgumentException("Divisor value cannot be 'Float64.NaN'.")
         }
         let result = this.toFloat64Nanoseconds() / divisor
-        return getDurationByFloat64(result).getOrThrow(
-            {=> ArithmeticException("Out of range of representation of 'Duration'!")})
+        return getDurationByFloat64(result).getOrThrow({=> ArithmeticException("Duration value overflow.")})
     }
 
     /**
@@ -444,7 +442,7 @@ public struct Duration <: ToString & Hashable & Comparable<Duration> {
      */
     public operator func /(other: Duration): Float64 {
         if (other == Zero) {
-            throw IllegalArgumentException("The value of right operand cannot be Duration.Zero!")
+            throw IllegalArgumentException("Divisor cannot be 'Duration.Zero'.")
         }
         return this.toFloat64Nanoseconds() / other.toFloat64Nanoseconds()
     }

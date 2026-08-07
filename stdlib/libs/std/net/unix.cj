@@ -13,7 +13,7 @@ package std.net
  */
 func checkUnixSocketAddress(address: SocketAddress, name: String): SocketAddress {
     if (!(address is UnixSocketAddress)) {
-        throw IllegalArgumentException("${name} should be a Unix Path address but got ${address.family}: ${address}")
+        throw IllegalArgumentException("Invalid '${name}': expected Unix Path address, got '${address.family}: ${address}'.")
     }
     return address
 }
@@ -608,7 +608,7 @@ public class UnixServerSocket <: ServerSocket {
             this.impl.checkNotBound()
             this.impl.checkNotClosed()
             backlogSize_ = match {
-                case newSize <= 0 => throw IllegalArgumentException("BacklogSize should be positive: ${newSize}.")
+                case newSize <= 0 => throw IllegalArgumentException("Backlog size must be positive, got '${newSize}'.")
                 case newSize >= Int64(Int32.Max) => Int32.Max - 1
                 case _ => Int32(newSize)
             }
@@ -821,7 +821,7 @@ public class UnixServerSocket <: ServerSocket {
             this.impl.checkNotBound()
             this.impl.checkNotClosed()
             backlogSize_ = match {
-                case newSize <= 0 => throw IllegalArgumentException("BacklogSize should be positive: ${newSize}.")
+                case newSize <= 0 => throw IllegalArgumentException("Backlog size must be positive, got '${newSize}'.")
                 case newSize >= Int64(Int32.Max) => Int32.Max - 1
                 case _ => Int32(newSize)
             }

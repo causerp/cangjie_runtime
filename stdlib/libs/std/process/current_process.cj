@@ -115,7 +115,7 @@ public class CurrentProcess <: Process {
 
     public func getEnv(key: String): Option<String> {
         if (key.contains(NULL_BYTE)) {
-            throw IllegalArgumentException("The path cannot contain null character!")
+            throw IllegalArgumentException("Environment variable key contains null character.")
         }
 
         unsafe {
@@ -132,7 +132,7 @@ public class CurrentProcess <: Process {
 
     public func setEnv(k: String, v: String): Unit {
         if (k.contains(NULL_BYTE) || v.contains(NULL_BYTE)) {
-            throw IllegalArgumentException("The path cannot contain null character!")
+            throw IllegalArgumentException("Environment variable key or value contains null character.")
         }
 
         unsafe {
@@ -141,7 +141,7 @@ public class CurrentProcess <: Process {
                     nativeSetEnv(ck.value, cv.value, Int32(1))
                 }
                 if (errno != 0) {
-                    throw ProcessException("Failed to set env ${k}.")
+                    throw ProcessException("Failed to set environment variable '${k}'.")
                 }
             }
         }
@@ -149,7 +149,7 @@ public class CurrentProcess <: Process {
 
     public func removeEnv(k: String): Unit {
         if (k.contains(NULL_BYTE)) {
-            throw IllegalArgumentException("The path cannot contain null character!")
+            throw IllegalArgumentException("Environment variable key contains null character.")
         }
 
         unsafe {
@@ -158,7 +158,7 @@ public class CurrentProcess <: Process {
                     nativeRemoveEnv(ck.value)
                 }
                 if (errno != 0) {
-                    throw ProcessException("Failed to remove env ${k}.")
+                    throw ProcessException("Failed to remove environment variable '${k}'.")
                 }
             }
         }
@@ -245,10 +245,10 @@ public class CurrentProcess <: Process {
         }
 
         if (status == PROCESS_STATUS_PID_REUSED) {
-            throw ProcessException("Process pid \"${pid}\" has been reused, not allow kill the new process.")
+            throw ProcessException("Process '${pid}' has been reused: cannot kill the new process.")
         }
 
-        throw ProcessException("Process pid \"${pid}\" not exist, not allow kill process.")
+        throw ProcessException("Process '${pid}' does not exist.")
     }
 }
 

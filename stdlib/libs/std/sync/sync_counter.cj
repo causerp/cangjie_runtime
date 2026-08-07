@@ -19,7 +19,7 @@ public class SyncCounter {
      */
     public init(count: Int64) {
         if (count < 0) {
-            throw IllegalArgumentException("Negative count.")
+            throw IllegalArgumentException("Invalid argument 'count': must be non-negative, got ${count}.")
         }
         countValue = AtomicInt64(count)
         syncList = SyncList()

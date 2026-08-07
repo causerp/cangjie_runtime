@@ -25,21 +25,21 @@ public class StructTypeInfo <: TypeInfo {
     public static redef func get(qualifiedName: String): StructTypeInfo {
         match (TypeInfo.get(qualifiedName)) {
             case typ: StructTypeInfo => return typ
-            case _ => throw IllegalTypeException("The type of '${qualifiedName}' is not a Struct Type.")
+            case _ => throw IllegalTypeException("Type '${qualifiedName}' is not a struct type.")
         }
     }
 
     public static redef func of(a: Any): StructTypeInfo {
         match (TypeInfo.of(a)) {
             case typ: StructTypeInfo => return typ
-            case _ => throw IllegalTypeException("The type of parameter 'a' is not a Struct Type.")
+            case _ => throw IllegalTypeException("Parameter 'a' is not a struct type.")
         }
     }
 
     public static redef func of<T>(): StructTypeInfo {
         match (TypeInfo.of<T>()) {
             case typ: StructTypeInfo => return typ
-            case _ => throw IllegalTypeException("The type of generic type 'T' is not a Struct Type.")
+            case _ => throw IllegalTypeException("Generic type 'T' is not a struct type.")
         }
     }
 

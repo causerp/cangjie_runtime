@@ -61,8 +61,7 @@ public class TcpSocket <: StreamingSocket & Equatable<TcpSocket> & Hashable {
             checkAddress(localAddress, "localAddress")
             if (address.family != localAddress.family) {
                 throw IllegalArgumentException(
-                    "remote address kind (${address.family}) should have the same address " +
-                        " family as local (${localAddress.family})")
+                    "Remote address family '${address.family}' must match local address family '${localAddress.family}'.")
             }
         }
         throwIfIPv4ZeroOnWindows(address)
@@ -267,8 +266,12 @@ public class TcpSocket <: StreamingSocket & Equatable<TcpSocket> & Hashable {
      * @throws IllegalArgumentException if the specified buffer size is negative or 0.
      */
     public mut prop sendBufferSize: Int64 {
-        get() { impl.getSendBufferSize() }
-        set(newSize) { impl.setSendBufferSize(newSize) }
+        get() {
+            impl.getSendBufferSize()
+        }
+        set(newSize) {
+            impl.setSendBufferSize(newSize)
+        }
     }
 
     /**
@@ -459,7 +462,7 @@ public class TcpSocket <: StreamingSocket & Equatable<TcpSocket> & Hashable {
     private static func checkAddress(address: SocketAddress, name: String): SocketAddress {
         if (address.family != AddressFamily.INET && address.family != AddressFamily.INET6) {
             throw IllegalArgumentException(
-                "${name} should be either IPv4 or IPv6 but got ${address.family}: ${address}")
+                "${name} must be IPv4 or IPv6, got '${address.family}': '${address}'.")
         }
         return address
     }

@@ -56,12 +56,12 @@ public class Matcher {
     private func findFromBegin(): Option<MatchData> {
         let inputCString = unsafe { LibC.mallocCString(input) }
         if (inputCString.isNull()) {
-            throw RegexException("Failed to mallocCString.")
+            throw RegexException("Failed to allocate memory for input string.")
         }
         let pcre2md = unsafe { CJ_REGEX_CreateMatchData(this.regex.re) }
         if (pcre2md.isNull()) {
             release(inputCString)
-            throw RegexException("Create match_data for pattern `${this.regex.pattern}` failed.")
+            throw RegexException("Failed to create match data for pattern '${this.regex.pattern}'.")
         }
         let result: Option<MatchData>
         try {
@@ -128,7 +128,7 @@ public class Matcher {
      */
     public func find(index: Int64): Option<MatchData> {
         if (index < 0 || index >= input.size) {
-            throw IndexOutOfBoundsException("Invalid index: ${index} against size: ${input.size}.")
+            throw IndexOutOfBoundsException("Index out of bounds: index is ${index}, but size is ${input.size}.")
         }
         setRegion(index, this.input.size)
         return find()
@@ -211,7 +211,7 @@ public class Matcher {
      */
     public func replace(replacement: String, index: Int64): String {
         if (index < 0 || index >= input.size) {
-            throw IndexOutOfBoundsException("Invalid index: ${index} against size: ${input.size}.")
+            throw IndexOutOfBoundsException("Index out of bounds: index is ${index}, but size is ${input.size}.")
         }
         setRegion(index, input.size)
         return regex.replace(input, replacement, index)
@@ -273,13 +273,13 @@ public class Matcher {
      */
     public func setRegion(beginIndex: Int64, endIndex: Int64): Matcher {
         if (beginIndex < 0 || beginIndex > input.size) {
-            throw IndexOutOfBoundsException("Begin ${beginIndex}.")
+            throw IndexOutOfBoundsException("Begin index out of bounds: begin is ${beginIndex}, but size is ${input.size}.")
         }
         if (endIndex < 0 || endIndex > input.size) {
-            throw IndexOutOfBoundsException("End ${endIndex}.")
+            throw IndexOutOfBoundsException("End index out of bounds: end is ${endIndex}, but size is ${input.size}.")
         }
         if (beginIndex > endIndex) {
-            throw IndexOutOfBoundsException("End ${endIndex} must be greater than or equal to Start ${beginIndex}.")
+            throw IndexOutOfBoundsException("Invalid range: end ${endIndex} is less than begin ${beginIndex}.")
         }
 
         begin = beginIndex

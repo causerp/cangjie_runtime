@@ -49,7 +49,7 @@ struct SockAddr {
     init() {
         let buffer = CPointer<Unit>(LibC.malloc<UInt8>(count: socket_address_all_len))
         if (buffer.isNull()) {
-            throw SocketException("Failed to allocate memory")
+            throw SocketException("Failed to allocate memory.")
         }
         zeroMemory(CPointer<UInt8>(buffer), socket_address_all_len)
 
@@ -67,20 +67,20 @@ struct SockAddr {
             match {
                 case sa.family == AddressFamily.INET =>
                     len = socket_address_in_len
-                    let ip = (sa as IPSocketAddress)?.address ?? throw SocketException("invalid IP family")
+                    let ip = (sa as IPSocketAddress)?.address ?? throw SocketException("Invalid socket address type, expected IPSocketAddress.")
                     let port = (sa as IPSocketAddress)?.port ?? 0
                     ptr = CPointer<Unit>(LibC.malloc<UInt8>(count: Int64(socket_address_in_len)))
                     if (ptr.isNull()) {
-                        throw SocketException("failed to malloc socket_address_in_len.")
+                        throw SocketException("Failed to malloc socket_address_in_len.")
                     }
                     setIpv4(ip.getAddressBytes(), port)
                 case sa.family == AddressFamily.INET6 =>
                     len = socket_address_in6_len
-                    let ip = (sa as IPSocketAddress)?.address ?? throw SocketException("invalid IP family")
+                    let ip = (sa as IPSocketAddress)?.address ?? throw SocketException("Invalid socket address type, expected IPSocketAddress.")
                     let port = (sa as IPSocketAddress)?.port ?? 0
                     ptr = CPointer<Unit>(LibC.malloc<UInt8>(count: Int64(socket_address_in6_len)))
                     if (ptr.isNull()) {
-                        throw SocketException("failed to malloc socket_address_in6_len.")
+                        throw SocketException("Failed to malloc socket_address_in6_len.")
                     }
                     let scopeId = match (ip) {
                         case ipv6: IPv6Address => ipv6.scopeId ?? UInt32(0)
@@ -89,10 +89,10 @@ struct SockAddr {
                     setIpv6(ip.getAddressBytes(), port, scopeId)
                 case sa.family == AddressFamily.UNIX =>
                     len = socket_address_un_len
-                    let un = (sa as UnixSocketAddress)?.toString() ?? throw SocketException("invalid IP family")
+                    let un = (sa as UnixSocketAddress)?.toString() ?? throw SocketException("Invalid socket address type, expected UnixSocketAddress.")
                     ptr = CPointer<Unit>(LibC.malloc<UInt8>(count: Int64(socket_address_un_len)))
                     if (ptr.isNull()) {
-                        throw SocketException("failed to malloc socket_address_un_len.")
+                        throw SocketException("Failed to malloc socket_address_un_len.")
                     }
                     zeroMemory(CPointer<UInt8>(ptr), Int64(socket_address_un_len))
                     setUnix(un.toArray())
@@ -184,7 +184,7 @@ struct SockAddr {
                 IPSocketAddress(IPv4Address(ip[0], ip[1], ip[2], ip[3]), getPort())
             case family == AF_INET6 => IPSocketAddress(IPv6Address(getIpv6()), getPort())
             case family == AF_UNIX => UnixSocketAddress(getDomain())
-            case _ => throw SocketException("Unsupported socket family ${family}")
+            case _ => throw SocketException("Unsupported socket family '${family}'.")
         }
     }
 

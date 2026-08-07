@@ -76,7 +76,7 @@ public class TreeMap<K, V> <: OrderedMap<K, V> where K <: Comparable<K> {
      */
     public init(size: Int64, initElement: (Int64) -> (K, V)) {
         if (size < 0) {
-            throw IllegalArgumentException("Invalid size of TreeMap: ${size}.")
+            throw IllegalArgumentException("Invalid size '${size}': expected a non-negative value.")
         } else {
             this.root = Node<K, V>(Node<K, V>.nullNode())
             for (i in 0..size) {
@@ -492,7 +492,7 @@ public class TreeMap<K, V> <: OrderedMap<K, V> where K <: Comparable<K> {
      */
     public operator func [](key: K): V {
         return match (this.get(key)) {
-            case None => throw NoneValueException("Value does not exist!")
+            case None => throw NoneValueException("Value does not exist.")
             case Some(val) => val
         }
     }

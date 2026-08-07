@@ -110,7 +110,7 @@ enum FormatType {
 
     func checkFormatLength(length: Int64, maxLen: Int64, r: Rune): Unit {
         if (length > maxLen) {
-            throw IllegalArgumentException("The number of character \"${r}\" can not exceed ${maxLen}.")
+            throw IllegalArgumentException("Invalid format string: character '${r}' exceeds maximum length ${maxLen}.")
         }
     }
 }

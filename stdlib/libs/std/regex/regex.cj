@@ -45,12 +45,12 @@ class FindIterator <: Iterator<MatchData> {
         this.input = input
         this.inputCString = unsafe { LibC.mallocCString(input) }
         if (this.inputCString.isNull()) {
-            throw RegexException("Failed to mallocCString.")
+            throw RegexException("Failed to allocate memory for input string.")
         }
         this.pcre2md = unsafe { CJ_REGEX_CreateMatchData(regex.re) }
         if (pcre2md.isNull()) {
             release(inputCString)
-            throw RegexException("Create match_data for pattern `${regex.pattern}` failed.")
+            throw RegexException("Failed to create match data for pattern '${regex.pattern}'.")
         }
         this.group = group
     }
@@ -95,13 +95,13 @@ public class Regex {
         unsafe {
             let patternCString = LibC.mallocCString(pattern)
             if (patternCString.isNull()) {
-                throw RegexException("Failed to mallocCString.")
+                throw RegexException("Failed to allocate memory for pattern.")
             }
 
             let resultCPointer: CPointer<CompileResult> = CJ_REGEX_Compile(patternCString, options)
             LibC.free(patternCString)
             if (resultCPointer.isNull()) {
-                throw RegexException("Compilation for pattern `${pattern}` failed.")
+                throw RegexException("Failed to compile pattern '${pattern}'.")
             }
 
             let result: CompileResult = resultCPointer.read()
@@ -109,12 +109,12 @@ public class Regex {
             if (result.re.isNull()) {
                 let errorMsgCString = CJ_REGEX_GetErrorMsg(result.errorCode)
                 if (errorMsgCString.isNull()) {
-                    throw RegexException("Compilation for pattern `${pattern}` failed at offset ${result.errorOffset}.")
+                    throw RegexException("Failed to compile pattern '${pattern}' at offset ${result.errorOffset}.")
                 }
                 try {
                     let errorMsg = errorMsgCString.toString()
                     throw RegexException(
-                        "Compilation for pattern `${pattern}` failed at offset ${result.errorOffset}: ${errorMsg}.")
+                        "Failed to compile pattern '${pattern}' at offset ${result.errorOffset}: ${errorMsg}.")
                 } finally {
                     LibC.free(errorMsgCString)
                 }
@@ -144,7 +144,7 @@ public class Regex {
         unsafe {
             let inputCString = LibC.mallocCString(input)
             if (inputCString.isNull()) {
-                throw RegexException("Failed to mallocCString.")
+                throw RegexException("Failed to allocate memory for input string.")
             }
             return inputCString
         }
@@ -155,7 +155,7 @@ public class Regex {
             let pcre2md = CJ_REGEX_CreateMatchData(this.re)
             if (pcre2md.isNull()) {
                 release(inputCString)
-                throw RegexException("Create match_data for pattern `${pattern}` failed.")
+                throw RegexException("Failed to create match data for pattern '${pattern}'.")
             }
             return pcre2md
         }
@@ -163,13 +163,13 @@ public class Regex {
 
     private func throwIfMatchError(result: Int64): Unit {
         if (result == PCRE2_ERROR_NOMEMORY) {
-            throw RegexException("Failed to create match context for pattern `${pattern}`.")
+            throw RegexException("Failed to create match context for pattern '${pattern}'.")
         }
         if (result == PCRE2_ERROR_MATCHLIMIT) {
-            throw RegexException("Match limit exceeded for pattern `${pattern}`.")
+            throw RegexException("Match limit exceeded for pattern '${pattern}'.")
         }
         if (result == PCRE2_ERROR_RECURSIONLIMIT) {
-            throw RegexException("Recursion limit exceeded for pattern `${pattern}`.")
+            throw RegexException("Recursion limit exceeded for pattern '${pattern}'.")
         }
     }
 
@@ -207,7 +207,7 @@ public class Regex {
             let nameTableInfoCPointer: CPointer<NameTableInfo> = CJ_REGEX_GetNameTableInfo(this.re)
             keepAlive(this)
             if (nameTableInfoCPointer.isNull()) {
-                throw RegexException("GetNameTableInfo failed.")
+                throw RegexException("Failed to get name table info for pattern '${pattern}'.")
             }
             let nameTableInfo = nameTableInfoCPointer.read()
             LibC.free(nameTableInfoCPointer)
@@ -242,7 +242,7 @@ public class Regex {
      */
     private func nameToIndex(name: String): Int64 {
         let map = getNamedGroups()
-        return map.get(name) ?? throw IllegalArgumentException("Capture group `${name}` not found.")
+        return map.get(name) ?? throw IllegalArgumentException("Capture group '${name}' not found.")
     }
 
     /**
@@ -280,7 +280,7 @@ public class Regex {
             // ovector cannot be `free()` because it's not created by `malloc`
             let ovector: CPointer<UIntNative> = CJ_REGEX_GetOvector(pcre2md)
             if (ovector.isNull()) {
-                throw RegexException("Process matched data failed.")
+                throw RegexException("Failed to process matched data.")
             }
             let positions: Array<Position>
             if (group) {
@@ -334,7 +334,7 @@ public class Regex {
                     // ovector cannot be `free()` because it's not created by `malloc`
                     let ovector: CPointer<UIntNative> = CJ_REGEX_GetOvector(pcre2md)
                     if (ovector.isNull()) {
-                        throw RegexException("Processing matched data failed.")
+                        throw RegexException("Failed to process matched data.")
                     }
                     let positions: Array<Position>
                     if (group) {
@@ -398,7 +398,7 @@ public class Regex {
      */
     public func replace(input: String, replacement: String, index: Int64): String {
         if (index < 0 || index >= input.size) {
-            throw IndexOutOfBoundsException("Invalid index: ${index} against size: ${input.size}.")
+            throw IndexOutOfBoundsException("Index out of bounds: index is ${index}, but size is ${input.size}.")
         }
 
         let sb = if (input.size == 0) {
