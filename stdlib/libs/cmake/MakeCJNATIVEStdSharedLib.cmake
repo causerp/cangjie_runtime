@@ -347,7 +347,8 @@ function(make_cangjie_lib target_name)
 
     if(CANGJIE_LIBRARY_IS_SHARED)
         install(FILES ${target_lib_full_name} DESTINATION runtime/lib/${output_cj_lib_dir})
-        if(target_name STREQUAL "std-regex")
+        if(target_name STREQUAL "std-regex" AND NOT OHOS)
+            # On OHOS, libpcre2.z.so is provided by the ROM; do not ship libpcre2-8.so.
             file(GLOB PCRE2_DYNAMIC_LIB
                 ${CMAKE_BINARY_DIR}/third_party/pcre2/bin/libpcre2-8.dll
                 ${CMAKE_BINARY_DIR}/third_party/pcre2/lib/libpcre2-8.so*
