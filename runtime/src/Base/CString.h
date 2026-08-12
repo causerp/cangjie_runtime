@@ -126,7 +126,7 @@ public:
     // Helper for logging one line with no more than 256 characters.
     static CString FormatString(const char* format, ...);
 
-    // Helper for parsing infomation from environment variables.
+    // Helper for parsing information from environment variables.
     static size_t ParseSizeFromEnv(const CString& env);
     static uint64_t ParseTimeFromEnv(const CString& env);
     static int ParseNumFromEnv(const CString& env);
@@ -135,10 +135,10 @@ public:
     static double ParsePosDecFromEnv(const CString& env);
     static bool ParseFlagFromEnv(const CString& s);
 
-    // Check whether the CString `s` can convert to a positive number.
+    // Check whether the CString `s` can be converted to a positive number.
     static bool IsPosNumber(const CString& s);
     static bool IsPosDecimal(const CString& s);
-    // Check whether the CString `s` can convert to a number.
+    // Check whether the CString `s` can be converted to a number.
     static bool IsNumber(const CString& s);
 
 private:
