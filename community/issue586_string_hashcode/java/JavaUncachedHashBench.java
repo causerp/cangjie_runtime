@@ -18,7 +18,7 @@ import java.util.Random;
  *   - java_hot_cached: String.hashCode after warmup (Issue JMH-like)
  *   - java_forced_recompute: clear hash field then hashCode (true String path, no cache)
  *   - java_algo_nocache: reimplement Java polyhash on chars (no field/cache, no clear cost)
- *   - java_latin1_algo: byte-polyhash like OpenJDK LATIN1 compact strings
+ *   - java_latin1_algo: byte-polyhash like Java LATIN1 compact strings
  *
  * Compare Cangjie always-recompute String.hashCode to java_forced_recompute / java_*_algo.
  */
@@ -68,7 +68,7 @@ public class JavaUncachedHashBench {
     }
 
     /**
-     * OpenJDK-style LATIN1 compact hash (ASCII subset of our printable strings).
+     * Java-style LATIN1 compact hash (ASCII subset of our printable strings).
      * Uses getBytes once outside the timed hash when possible — here we hash chars as bytes.
      */
     static int latin1Algo(String s) {
@@ -150,7 +150,7 @@ public class JavaUncachedHashBench {
         System.out.printf("java_hot_cached_us=%.6f  (Issue JMH-like; cache hits)%n", hotUs);
         System.out.printf("java_forced_recompute_us=%.6f  (clear field + String.hashCode; includes clear)%n", forcedUs);
         System.out.printf("java_algo_nocache_us=%.6f  (31*h+c on chars; pure algo)%n", algoUs);
-        System.out.printf("java_latin1_algo_us=%.6f  (31*h+(c&0xff); OpenJDK LATIN1-like)%n", latin1Us);
+        System.out.printf("java_latin1_algo_us=%.6f  (31*h+(c&0xff); LATIN1-like)%n", latin1Us);
         System.out.println("Compare Cangjie always-recompute (~1.5ms on SDK 1.1.3) to java_*_algo / forced_recompute.");
     }
 }

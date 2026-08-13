@@ -108,7 +108,7 @@ main() {
     println("This run simulated_java_cached_us≈${cachedUs}")
     println("cache_speedup≈${recomputeUs / cachedUs}x")
     println("")
-    println("Companion Java bench (same shape) on OpenJDK 25 / aarch64-darwin:")
+    println("Companion Java bench (same shape) on Java 25 / aarch64-darwin:")
     println("  java_hot_cached        ≈ 0.29 ms   (cache hits; Issue JMH-like)")
     println("  java_algo_nocache      ≈ 3.25 ms   (31*h+c, no cache)")
     println("  java_forced_recompute  ≈ 4.59 ms   (clear hash field + hashCode)")
