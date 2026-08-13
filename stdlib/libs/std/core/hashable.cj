@@ -787,11 +787,13 @@ func bswap64(x: UInt64): UInt64 {
 /* Load 8 bytes at base+pos with the same value as r8 (endian-aware). */
 @OverflowWrapping
 func r8Wide(base: CPointer<UInt8>, pos: Int64, littleEndian: Bool): UInt64 {
-    let native = CPointer<UInt64>(base + pos).read()
-    if (littleEndian) {
-        bswap64(native)
-    } else {
-        native
+    unsafe {
+        let native = CPointer<UInt64>(base + pos).read()
+        if (littleEndian) {
+            bswap64(native)
+        } else {
+            native
+        }
     }
 }
 
