@@ -127,6 +127,7 @@ typedef void (*INT_IterateFramesWithStateFn)(
 // - state - visiting state that was initialized in iterateFramesWithState callback. This state is passed between
 // consecutive calls to this function for different frames.
 // - frameDesc - description of the frame which slots are being visited.
+// - refVisitor - visitor callback provided by CJNative runtime for processing pointers to objects.
 // - stackPtrVisitor - visitor callback provided by CJNative runtime for processing slots with stack pointers.
 // - derivedPtrVisitor - derived pointers visitor callback provided by CJNative runtime for processing slots with
 // intrapointers (which point to stack).
@@ -134,7 +135,9 @@ typedef void (*INT_IterateFramesWithStateFn)(
 // Provided visitors cannot be called directly by interpreter. Interpreter should pass visitor to the callbacks defined
 // in `DYN_CJNativeInterface` to process slots.
 typedef void (*INT_VisitFrameRootsExpansionFn)(DYN_VisitingState state, INT_FrameDesc frameDesc,
-    DYN_RootVisitor stackPtrVisitor, DYN_DerivedPtrVisitor derivedPtrVisitor);
+    DYN_RootVisitor stackPtrVisitor,
+    DYN_DerivedPtrVisitor derivedPtrVisitor,
+    DYN_RootVisitor refVisitor);
 
 // Visit frame roots (local variables) of interpreted code with marking visitor.
 // params:
