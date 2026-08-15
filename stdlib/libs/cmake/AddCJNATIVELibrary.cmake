@@ -537,6 +537,7 @@ elseif(TRIPLE STREQUAL "arm-linux-android23")
 endif()
 make_cangjie_lib(
     std-ast IS_SHARED ${STD_AST_ALLOW_UNDEFINED}
+    IOS_DEPLOYMENT_VERSION 12.0.0
     DEPENDS cangjie${BACKEND_TYPE}AST cangjie-std-astFFI-objs
     CANGJIE_STD_LIB_DEPENDS
         std-core
