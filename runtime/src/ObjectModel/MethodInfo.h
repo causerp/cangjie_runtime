@@ -17,6 +17,8 @@
 namespace MapleRuntime {
 class TypeInfo;
 class GenericTypeInfo;
+class Mutator;
+struct ObjectRef;
 class ATTR_PACKED(4) ParameterInfo {
 public:
     U32 GetIndex() { return idx; }
@@ -60,8 +62,11 @@ public:
     ScopedAllocBuffer() {}
     ~ScopedAllocBuffer();
     std::vector<void*>& GetArgBuffers() { return argBuffers; }
+    void AddNativeFrameRoot(BaseObject* obj);
 private:
     std::vector<void*> argBuffers;
+    Mutator* mutator = nullptr;
+    std::vector<ObjectRef*> nativeFrameRoots;
 };
 
 class ATTR_PACKED(4) MethodInfo {
@@ -94,10 +99,10 @@ private:
     Value ApplyCJMethodImpl(ArgValue* argValues, void** sretSlot);
     void PrepareSRet(ArgValue *argValues, void**& sretSlot, TypeInfo* retType);
     void PrepareCJMethodActualArgs(ArgValue* argValues, void* actualArgsArray, void *genericArgsArray,
-                                   std::vector<void*>* argBuffers = nullptr);
+                                   ScopedAllocBuffer& allocBuffer);
     void PrepareCJMethodGenericArgs(ArgValue* argValues, void *genericArgsArray);
     void AddCJArg(ArgValue* argValues, TypeInfo* argType, ObjRef argObj,
-                  std::vector<void*>* argBuffers = nullptr);
+                  ScopedAllocBuffer& allocBuffer);
     bool IsStaticMethod() { return static_cast<bool>(modifier & MODIFIER_STATIC); }
     bool HasSRet();
     bool HasSRetNotGeneric() { return static_cast<bool>(modifier & MODIFIER_HAS_SRET0); }

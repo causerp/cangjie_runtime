@@ -9,10 +9,14 @@
 #include "Heap/Heap.h"
 #include "ObjectManager.inline.h"
 #include "ExceptionManager.inline.h"
+#include "Mutator/Mutator.h"
 
 namespace MapleRuntime {
 ScopedAllocBuffer::~ScopedAllocBuffer()
 {
+    for (ObjectRef* nativeFrameRoot : nativeFrameRoots) {
+        mutator->RemoveNativeFrameRoot(nativeFrameRoot);
+    }
     AllocBuffer* buffer = AllocBuffer::GetAllocBuffer();
     if (buffer != nullptr) {
         buffer->CommitRawPointerRegions();
@@ -24,6 +28,16 @@ ScopedAllocBuffer::~ScopedAllocBuffer()
         }
     }
     argBuffers.clear();
+}
+
+void ScopedAllocBuffer::AddNativeFrameRoot(BaseObject* obj)
+{
+    CHECK_DETAIL(obj->HasRefField(), "native frame root must contain reference fields");
+    if (mutator == nullptr) {
+        mutator = ThreadLocal::GetMutator();
+    }
+    CHECK_DETAIL(mutator != nullptr, "reflected invocation has no mutator");
+    nativeFrameRoots.emplace_back(mutator->AddNativeFrameRoot(obj));
 }
 
 void* ParameterInfo::GetAnnotations(TypeInfo* arrayTi)
@@ -317,7 +331,7 @@ TypeInfo* MethodInfo::GetActualTypeFromGenericType(GenericTypeInfo* genericTi, v
 }
 
 void MethodInfo::AddCJArg(ArgValue *argValues, TypeInfo *argType, ObjRef argObj,
-                          std::vector<void*>* argBuffers)
+                          ScopedAllocBuffer& allocBuffer)
 {
     I8 type = argType->GetType();
     size_t offset = 8;
@@ -371,16 +385,37 @@ void MethodInfo::AddCJArg(ArgValue *argValues, TypeInfo *argType, ObjRef argObj,
                 argValues->AddInt64(0);
                 break;
             }
-            // Track the buffer so the caller can free it after ApplyCJMethodImpl returns.
-            void* dst = MemoryAlloc(1, typeSize);
-            if (argBuffers != nullptr) {
-                argBuffers->push_back(dst);
+            void* dst = nullptr;
+            if (argType->HasRefField()) {
+                MSize objSize = MRT_ALIGN(typeSize + TYPEINFO_PTR_SIZE, TYPEINFO_PTR_SIZE);
+                ObjRef structArgObj = ObjectManager::NewObject(argType, objSize, AllocType::RAW_POINTER_OBJECT);
+                if (structArgObj == nullptr) {
+                    ExceptionManager::CheckAndThrowPendingException("failed to allocate reflected struct argument");
+                }
+                dst = reinterpret_cast<void*>(reinterpret_cast<Uptr>(structArgObj) + TYPEINFO_PTR_SIZE);
+                void* snapshot = MemoryAlloc(1, typeSize);
+                Heap::GetBarrier().ReadStruct(
+                    reinterpret_cast<MAddress>(snapshot),
+                    argObj,
+                    reinterpret_cast<MAddress>(reinterpret_cast<Uptr>(argObj) + TYPEINFO_PTR_SIZE),
+                    typeSize);
+                Heap::GetBarrier().WriteStruct(
+                    structArgObj,
+                    reinterpret_cast<MAddress>(dst),
+                    typeSize,
+                    reinterpret_cast<MAddress>(snapshot),
+                    typeSize);
+                MemoryFree(snapshot);
+                allocBuffer.AddNativeFrameRoot(structArgObj);
+            } else {
+                dst = MemoryAlloc(1, typeSize);
+                allocBuffer.GetArgBuffers().push_back(dst);
+                Heap::GetBarrier().ReadStruct(
+                    reinterpret_cast<MAddress>(dst),
+                    argObj,
+                    reinterpret_cast<MAddress>(reinterpret_cast<Uptr>(argObj) + TYPEINFO_PTR_SIZE),
+                    typeSize);
             }
-            Heap::GetBarrier().ReadStruct(
-                reinterpret_cast<MAddress>(dst),
-                argObj,
-                reinterpret_cast<MAddress>(reinterpret_cast<Uptr>(argObj) + TYPEINFO_PTR_SIZE),
-                typeSize);
             argValues->AddInt64(reinterpret_cast<Uptr>(dst));
             break;
         }
@@ -391,7 +426,7 @@ void MethodInfo::AddCJArg(ArgValue *argValues, TypeInfo *argType, ObjRef argObj,
 }
 
 void MethodInfo::PrepareCJMethodActualArgs(ArgValue* argValues, void* actualArgsArray, void *genericArgsArray,
-                                           std::vector<void*>* argBuffers)
+                                           ScopedAllocBuffer& allocBuffer)
 {
     // Read rawPtr (ref to CJRawArray) through the GC read barrier instead of a raw
     // cast: if GC concurrently moves the CJRawArray, the raw read would return a
@@ -415,7 +450,7 @@ void MethodInfo::PrepareCJMethodActualArgs(ArgValue* argValues, void* actualArgs
         if (argType->IsVArray()) {
             LOG(RTLOG_FATAL, "not support varray now!!!!\n");
         }
-        AddCJArg(argValues, argType, argObj, argBuffers);
+        AddCJArg(argValues, argType, argObj, allocBuffer);
     }
 }
 
@@ -602,6 +637,12 @@ void* MethodInfo::ApplyCJMethod(ObjRef instanceObj, void* genericArgs, void* act
             U32 size = declaringTi->GetInstanceSize();
             MSize objSize = MRT_ALIGN(size + TYPEINFO_PTR_SIZE, TYPEINFO_PTR_SIZE);
             instanceObj = ObjectManager::NewObject(declaringTi, objSize, AllocType::RAW_POINTER_OBJECT);
+            if (instanceObj == nullptr) {
+                ExceptionManager::CheckAndThrowPendingException("failed to allocate reflected receiver");
+            }
+            if (declaringTi->HasRefField()) {
+                scopedAllocBuffer.AddNativeFrameRoot(instanceObj);
+            }
             argValues.AddReference(instanceObj);
         } else if (IsInitializer() && declaringTi->IsStruct()) {
             instanceObj = reinterpret_cast<ObjRef>(MemoryAlloc(1, declaringTi->GetInstanceSize()));
@@ -611,7 +652,7 @@ void* MethodInfo::ApplyCJMethod(ObjRef instanceObj, void* genericArgs, void* act
     }
 
     if (actualArgs != nullptr) {
-        PrepareCJMethodActualArgs(&argValues, actualArgs, genericArgs, &argBuffers);
+        PrepareCJMethodActualArgs(&argValues, actualArgs, genericArgs, scopedAllocBuffer);
     }
     if (genericArgs != nullptr) {
         PrepareCJMethodGenericArgs(&argValues, genericArgs);
