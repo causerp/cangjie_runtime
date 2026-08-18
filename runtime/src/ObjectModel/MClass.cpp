@@ -504,8 +504,12 @@ void TypeInfo::GetInterfaces(std::vector<TypeInfo*> &itfs)
     if (IsGenericTypeInfo()) {
         TraverseOuterExtensionDefs();
     }
+    U32 selfUUID = GetUUID();
     for (const auto& pair : mTableDesc->mTable) {
         auto super = pair.second.GetSuperTi();
+        if (super == this || super->GetUUID() == selfUUID) {
+            continue;
+        }
         if (super->IsInterface()) {
             itfs.emplace_back(super);
         }
