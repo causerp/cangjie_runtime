@@ -3359,9 +3359,22 @@ extend String <: UnicodeStringExtension {
         if (this.isAsciiBlank()) {
             return true
         }
-        for (i in this.runes()) {
-            if (!i.isWhiteSpace()) {
-                return false
+        let data = this.toArray()
+        var i: Int64 = 0
+        let end = data.size
+        while (i < end) {
+            let b = data[i]
+            if (b < UInt8(0x80)) {
+                if (!b.isAsciiWhiteSpace()) {
+                    return false
+                }
+                i += 1
+            } else {
+                let (r, size) = Rune.fromUtf8(data, i)
+                if (!r.isWhiteSpace()) {
+                    return false
+                }
+                i += size
             }
         }
         return true
