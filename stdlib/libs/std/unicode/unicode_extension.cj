@@ -3356,8 +3356,8 @@ extend String <: UnicodeStringExtension {
         if (this.isEmpty()) {
             return true
         }
-        if (this.isAscii()) {
-            return this.isAsciiBlank()
+        if (this.isAsciiBlank()) {
+            return true
         }
         for (i in this.runes()) {
             if (!i.isWhiteSpace()) {
