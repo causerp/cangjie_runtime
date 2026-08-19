@@ -3356,10 +3356,7 @@ extend String <: UnicodeStringExtension {
         if (this.isEmpty()) {
             return true
         }
-        if (this.isAsciiBlank()) {
-            return true
-        }
-        let data = this.toArray()
+        let data = unsafe { this.rawData() }
         var i: Int64 = 0
         let end = data.size
         while (i < end) {
