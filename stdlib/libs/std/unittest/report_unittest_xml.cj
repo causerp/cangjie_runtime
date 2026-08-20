@@ -158,6 +158,12 @@ extend String {
             .replace(",", ".")
             .replace(">", "")
             .replace("/", "_")
+            .replace("\\", "_")
+            .replace(":", "_")
+            .replace("*", "_")
+            .replace("?", "_")
+            .replace("\"", "_")
+            .replace("|", "_")
             .replace(" ", "")
     }
 }
