@@ -166,8 +166,8 @@ public class ClassTypeInfo <: TypeInfo {
      *
      * @param args parameter list.
      *
-     * @throw IllegalTypeException, if this class ia abstract.
-     * @throw MisMatchException, if no public constructor is found to construct new instance.
+     * @throw InvocationTargetException, if this class is abstract.
+     * @throw InfoNotFoundException, if no public constructor is found to construct new instance.
      * @throw InvocationTargetException, if an exception is thrown when the constructor is called to construct the instance.
      */
     public func construct(args: Array<Any>): Any {
@@ -182,7 +182,7 @@ public class ClassTypeInfo <: TypeInfo {
     }
 
     /**
-     * Returns true if type info is 'public', false otherwise.
+     * Returns true if type info is 'open', false otherwise.
      */
     public func isOpen(): Bool {
         containsModifier(modifiers, ModifierInfo.Open)
