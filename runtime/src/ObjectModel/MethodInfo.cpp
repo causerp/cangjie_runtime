@@ -376,7 +376,24 @@ void MethodInfo::AddCJArg(ArgValue *argValues, TypeInfo *argType, ObjRef argObj,
             argValues->AddReference(argObj);
             break;
         }
-        case TypeKind::TYPE_KIND_ENUM:
+        case TypeKind::TYPE_KIND_ENUM: {
+            if (argType->IsZeroSizedEnum()) {
+                // Zero-sized enum same as Unit and Nothing, its payload is empty.
+                argValues->AddInt64(0);
+            } else if (argType->IsEnumKind0()) {
+                // When enumkind0, except zero-sized enum, is used as a function parameter,
+                // the actual argument passed is the tag value of the enum.
+                argValues->AddInt64(argObj->Load<I32>(offset));
+            } else if (argType->IsOptionLikeRefEnum()) {
+                // When option-like-ref is used as a function parameter,
+                // the actual argument passed is the object pointed to by the ref.
+                ObjRef innerRef = argObj->LoadRef(offset);
+                argValues->AddReference(innerRef);
+            } else {
+                argValues->AddInt64(reinterpret_cast<Uptr>(reinterpret_cast<Uptr>(argObj) + TYPEINFO_PTR_SIZE));
+            }
+            break;
+        }
         case TypeKind::TYPE_KIND_TUPLE:
         case TypeKind::TYPE_KIND_STRUCT:
         case TypeKind::TYPE_KIND_VARRAY: {
@@ -472,7 +489,7 @@ void* MethodInfo::RetValueToAny(Value ret, void* sret, TypeInfo* retType)
 {
     if (retType->IsRef()) {
         return ret.ref;
-    } else if (retType->IsStruct() || retType->IsTuple()) {
+    } else if (retType->IsStruct() || retType->IsTuple() || retType->IsEnum()) {
         MSize typeSize = retType->GetInstanceSize();
         MSize size = MRT_ALIGN(typeSize + TYPEINFO_PTR_SIZE, TYPEINFO_PTR_SIZE);
         MObject* obj = ObjectManager::NewObject(retType, size, AllocType::RAW_POINTER_OBJECT);
@@ -482,6 +499,10 @@ void* MethodInfo::RetValueToAny(Value ret, void* sret, TypeInfo* retType)
         if (HasSRetNotGeneric()) {
             Heap::GetBarrier().WriteStruct(obj, reinterpret_cast<Uptr>(obj) + TYPEINFO_PTR_SIZE,
                                            typeSize, reinterpret_cast<Uptr>(sret), typeSize);
+        } else if (retType->IsEnum() && !HasSRetWithKnowGenericStruct()) {
+            // Return type is enum type, and don't have sret, function actually returns the object body.
+            Heap::GetBarrier().WriteStruct(obj, reinterpret_cast<Uptr>(obj) + TYPEINFO_PTR_SIZE,
+                                           typeSize, reinterpret_cast<Uptr>(&ret), typeSize);
         } else {
             Heap::GetBarrier().WriteStruct(obj, reinterpret_cast<Uptr>(obj) + TYPEINFO_PTR_SIZE,
                                            typeSize, reinterpret_cast<Uptr>(ret.ref), typeSize);
