@@ -70,6 +70,15 @@ foreign {
 
     func CJ_OS_WaitSubProcessExit(pid: Int32): Int64
 
+    /*
+     * Non-blocking waitpid(WNOHANG) wrapper for the timeout-correct
+     * SubProcess.wait(timeout:). Return values:
+     *   1  - child reaped, *exitCode set (exit code or terminating signal number)
+     *   0  - child still running
+     *  -1  - error (ECHILD etc.)
+     */
+    func CJ_OS_WaitSubProcessExitNonBlocking(pid: Int32, exitCode: CPointer<Int64>): Int32
+
     // File
     func CJ_OS_CloseFile(fd: IntNative): Int64 // -1: failed, (>= 0): success
 

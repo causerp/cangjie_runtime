@@ -11,6 +11,7 @@ package std.process
 import std.collection.*
 import std.fs.*
 import std.io.*
+import std.time.*
 
 /**
  * SubProcess
@@ -22,6 +23,13 @@ public class SubProcess <: Process {
     // Non-iOS exposes streams from fields initialized by the constructor.
     var _stdOut: InputStream
     var _stdErr: InputStream
+
+    // Wait-state cache: once the child has been reaped, the exit status is kept
+    // on the object so any later wait() returns the same result instead of
+    // failing with ECHILD. This is what makes wait() idempotent and makes a
+    // timed-out wait() recoverable.
+    var _waitReaped: Bool = false
+    var _waitExitCode: Int64 = -1
 
     init(
         pid: Int64,
@@ -105,6 +113,10 @@ public class SubProcess <: Process {
     // iOS keeps pipe storage behind native accessors.
     var _stdOut: InputStream
     var _stdErr: InputStream
+
+    // See the non-iOS SubProcess for the wait-state cache contract.
+    var _waitReaped: Bool = false
+    var _waitExitCode: Int64 = -1
 
     init(
         pid: Int64,
@@ -203,7 +215,7 @@ private func subProcessStdErrPipe(process: SubProcess): InputStream {
 }
 
 private func subProcessWait(process: SubProcess, timeout: ?Duration): Int64 {
-    let exitCode: Int64 = getWaitExitCode(timeout ?? Duration.Zero, Int32(process.pid), process._handle)
+    let exitCode: Int64 = getWaitExitCode(process, timeout ?? Duration.Zero)
     process.closeStdStream()
     return exitCode
 }
@@ -229,7 +241,7 @@ private func subProcessWaitOutput(process: SubProcess): (Int64, Array<Byte>, Arr
 
     let outArr: Array<Byte> = outStreamFuture.get()
     let errArr: Array<Byte> = errStreamFuture.get()
-    let exitCode: Int64 = getWaitExitCode(Duration.Zero, Int32(process.pid), process._handle)
+    let exitCode: Int64 = getWaitExitCode(process, Duration.Zero)
 
     process.closeStdStream()
     return (exitCode, outArr, errArr)
@@ -268,11 +280,15 @@ private func subProcessCloseStdStream(process: SubProcess): Unit {
 }
 
 @When[os == "Windows"]
-func getWaitExitCode(timeout: Duration, pid: Int32, handle: IntNative): Int64 {
-    let exitCode: Int64
+func getWaitExitCode(process: SubProcess, timeout: Duration): Int64 {
+    if (process._waitReaped) {
+        return process._waitExitCode
+    }
+    let pid: Int32 = Int32(process.pid)
+    var exitCode: Int64 = -1
     if (timeout > Duration.Zero) {
         let future: Future<CPointer<ExitInfo>> = spawn {
-            => return unsafe { CJ_OS_WaitSubProcessExit(handle) }
+            => return unsafe { CJ_OS_WaitSubProcessExit(process._handle) }
         }
         var waitExitInfo_cp: CPointer<ExitInfo> = CPointer<ExitInfo>()
         try {
@@ -281,23 +297,26 @@ func getWaitExitCode(timeout: Duration, pid: Int32, handle: IntNative): Int64 {
             } else {
                 future.get(timeout)
             }
-            return parseExitInfoPointer(waitExitInfo_cp, pid)
+            exitCode = parseExitInfoPointer(waitExitInfo_cp, pid)
+        } finally {
+            if (!waitExitInfo_cp.isNull()) {
+                unsafe { LibC.free(waitExitInfo_cp) }
+            }
+        }
+    } else {
+        var waitExitInfo_cp: CPointer<ExitInfo> = CPointer<ExitInfo>()
+        try {
+            waitExitInfo_cp = unsafe { CJ_OS_WaitSubProcessExit(process._handle) }
+            exitCode = parseExitInfoPointer(waitExitInfo_cp, pid)
         } finally {
             if (!waitExitInfo_cp.isNull()) {
                 unsafe { LibC.free(waitExitInfo_cp) }
             }
         }
     }
-
-    var waitExitInfo_cp: CPointer<ExitInfo> = CPointer<ExitInfo>()
-    try {
-        waitExitInfo_cp = unsafe { CJ_OS_WaitSubProcessExit(handle) }
-        return parseExitInfoPointer(waitExitInfo_cp, pid)
-    } finally {
-        if (!waitExitInfo_cp.isNull()) {
-            unsafe { LibC.free(waitExitInfo_cp) }
-        }
-    }
+    process._waitExitCode = exitCode
+    process._waitReaped = true
+    return exitCode
 }
 
 @When[os == "Windows"]
@@ -313,18 +332,47 @@ func parseExitInfoPointer(waitExitInfo_cp: CPointer<ExitInfo>, pid: Int32): Int6
 }
 
 @When[os != "Windows"]
-func getWaitExitCode(timeout: Duration, pid: Int32, _: IntNative): Int64 {
-    return if (timeout > Duration.Zero) {
-        let future: Future<Int64> = spawn {
-            => return unsafe { CJ_OS_WaitSubProcessExit(pid) }
-        }
-
-        if (timeout >= MAX_TIMEOUT_DURATION) {
-            future.get(MAX_TIMEOUT_DURATION)
-        } else {
-            future.get(timeout)
-        }
-    } else {
-        unsafe { CJ_OS_WaitSubProcessExit(pid) }
+func getWaitExitCode(process: SubProcess, timeout: Duration): Int64 {
+    // Idempotent fast path: the child was already reaped by an earlier wait.
+    if (process._waitReaped) {
+        return process._waitExitCode
     }
+    let pid: Int32 = Int32(process.pid)
+    if (timeout <= Duration.Zero) {
+        // Blocking wait executed in the calling thread. No background reaper is
+        // spawned, so a later wait() can never be poisoned by a stray ECHILD.
+        let exitCode: Int64 = unsafe { CJ_OS_WaitSubProcessExit(pid) }
+        if (exitCode != -1) {
+            process._waitExitCode = exitCode
+            process._waitReaped = true
+        }
+        return exitCode
+    }
+    // timeout > Duration.Zero: poll with waitpid(pid, &status, WNOHANG). Each
+    // poll either reaps the child (then the exit status is cached) or times out
+    // cleanly. A timed-out wait leaves no residual thread behind, so a later
+    // wait() still finds the (possibly zombie) child and returns its real exit
+    // status instead of -1 (ECHILD).
+    let waitDuration: Duration = if (timeout >= MAX_TIMEOUT_DURATION) { MAX_TIMEOUT_DURATION } else { timeout }
+    let deadline: MonoTime = MonoTime.now() + waitDuration
+    while (true) {
+        var exitCode: Int64 = -1
+        let ret: Int32 = unsafe { CJ_OS_WaitSubProcessExitNonBlocking(pid, inout exitCode) }
+        if (ret == 1) {
+            process._waitExitCode = exitCode
+            process._waitReaped = true
+            return exitCode
+        }
+        if (ret == 0) {
+            if (MonoTime.now() >= deadline) {
+                throw TimeoutException("wait subProcess(${pid}) timeout.")
+            }
+            sleep(WAIT_POLL_INTERVAL)
+            continue
+        }
+        // ret == -1: the child is not waitable (ECHILD or other error).
+        return -1
+    }
+    // Unreachable: the loop above exits only via return/throw.
+    return -1
 }
