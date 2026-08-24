@@ -496,7 +496,8 @@ public func construct(args: Array<Any>): Any
 
 异常：
 
-- [MisMatchException](reflect_package_exceptions.md#class-mismatchexception) - 如果入参未能成功匹配任何该 `class` 类型的可见性为 `public` 的构造函数，则抛出异常。
+- [InfoNotFoundException](reflect_package_exceptions.md#class-infonotfoundexception) - 如果入参未能成功匹配任何该 `class` 类型的可见性为 `public` 的构造函数，则抛出异常。
+- [InvocationTargetException](reflect_package_exceptions.md#class-invocationtargetexception) - 如果该 `class` 类型拥有 `abstract` 语义，则抛出异常，因为抽象类无法被实例化。
 - [InvocationTargetException](reflect_package_exceptions.md#class-invocationtargetexception) - 在被调用的构造函数内部抛出的任何异常均将被封装为 [InvocationTargetException](reflect_package_exceptions.md#class-invocationtargetexception) 异常并抛出。
 
 示例：

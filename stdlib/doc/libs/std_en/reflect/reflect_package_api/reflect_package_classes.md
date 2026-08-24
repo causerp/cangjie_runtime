@@ -174,8 +174,8 @@ Returns:
 
 Exceptions:
 
-- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - Thrown if the `class` type has `abstract` semantics, as abstract classes cannot be instantiated.
-- [MisMatchException](reflect_package_exceptions.md#class-mismatchexception) - Thrown if `args` fails to match any `public` constructor of the `class` type.
+- [InvocationTargetException](reflect_package_exceptions.md#class-invocationtargetexception) - Thrown if the `class` type has `abstract` semantics, as abstract classes cannot be instantiated.
+- [InfoNotFoundException](reflect_package_exceptions.md#class-infonotfoundexception) - Thrown if `args` fails to match any `public` constructor of the `class` type.
 - [InvocationTargetException](reflect_package_exceptions.md#class-invocationtargetexception) - Any exception thrown within the invoked constructor will be wrapped as [InvocationTargetException](reflect_package_exceptions.md#class-invocationtargetexception) and rethrown.
 
 Example:
