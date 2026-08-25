@@ -21,7 +21,7 @@ public func parseExpr(input: Tokens): Expr {
                 }, p, CPointer<Int64>())
             })
         } catch (e: Exception) {
-            throw ParseASTException("\n" + e.message + "parsing expr error.")
+            throw ParseASTException("Failed to parse expr.")
         }
     }
     /* Get decl info from flatbuffer */
@@ -44,7 +44,7 @@ public func parseExprFragment(input: Tokens, startFrom!: Int64 = 0): (Expr, Int6
                 }
             )
         } catch (e: Exception) {
-            throw ParseASTException("\n" + e.message + "parsing expr fragment error.")
+            throw ParseASTException("Failed to parse expr fragment.")
         }
     }
     var astNode = generateExprAST(node.GetRootAsExpr())
@@ -58,7 +58,7 @@ func generateExprAST(exprNode: Option<NodeFormat_Expr>): Expr {
     }
     var exprBase = match (expr.GetBase()) {
         case Some(v) => v
-        case None => throw ParseASTException("Generate Expression failed")
+        case None => throw ParseASTException("Expression has no base information.")
     }
     var astKind: String = exprBase.GetAstKind()
     var astNode = match (astKind) {
@@ -103,7 +103,7 @@ func generateExprAST(exprNode: Option<NodeFormat_Expr>): Expr {
         case "match_expr" => createMatchExpr(expr, exprBase)
         case "let_pattern_destructor" => createLetPatternExpr(expr, exprBase)
         case "macro_expand_expr" => createMacroExpandExpr(expr)
-        case _ => throw ParseASTException("Unsupported parse the expr node: ${astKind}.\n")
+        case _ => throw ParseASTException("Unsupported expr node kind: '${astKind}'.")
     }
     addPositionInfo(astNode, exprBase)
     return astNode
@@ -250,7 +250,7 @@ func generateRefExpr(ref: Option<NodeFormat_RefExpr>) {
                     Token(TokenKind.IDENTIFIER, v.GetIdentifier()).addPosition(v.GetIdentifierPos())
                 }
         }
-        case None => throw ParseASTException("Can not get reference from CallExpr")
+        case None => throw ParseASTException("'RefExpr' has no reference.")
     }
 
     var lAngle = Token(TokenKind.LT).addPosition(refExpr.GetLeftAnglePos())
@@ -572,7 +572,7 @@ func createSpawnExpr(expr: NodeFormat_Expr): Expr {
     }
     var task = match (generateExprAST(spawnExpr.GetTaskExpr()) as LambdaExpr) {
         case Some(v) => v
-        case None => throw ParseASTException("createSpawnExpr : get LambdaExpr")
+        case None => throw ParseASTException("The task of 'SpawnExpr' is not a 'LambdaExpr'.")
     }
     return SpawnExpr(keyWord, lParen, context, rParen, task)
 }
@@ -804,7 +804,7 @@ func createTryExpr(expr: NodeFormat_Expr, exprBase: NodeFormat_NodeBase): Expr {
     for (item in tryExpr.GetHandlers()) {
         var fbHandler = match (item) {
             case Some(v) => v
-            case None => throw ParseASTException("fbHandler is None")
+            case None => throw ParseASTException("Failed to get a handler in 'TryExpr'.")
         }
         var handle_ = Token(TokenKind.HANDLE).addPosition(fbHandler.GetHandlerPos())
         var commandPattern = generatePatternAST(fbHandler.GetCommandPattern())
@@ -893,10 +893,10 @@ func createArrayExpr(expr: NodeFormat_Expr): Expr {
 func createMacroExpandExpr(expr: NodeFormat_Expr) {
     var me = match (expr.GetExprAsMacroExpandExpr()) {
         case Some(v) => v
-        case None => throw ParseASTException("Failed to get MacroExpand Node")
+        case None => throw ParseASTException("Failed to get the 'MacroExpandExpr' node.")
     }
     return match (createMacroExpand(me.GetInvocation()) as Expr) {
         case Some(v) => v
-        case None => throw ParseASTException("Failed to create MacroExpandExpr Node")
+        case None => throw ParseASTException("Failed to create the 'MacroExpandExpr' node.")
     }
 }

@@ -33,7 +33,7 @@ func isValidToken(tk: Token): Bool {
 func getNodeBeginPos(nodeBase: Option<NodeFormat_NodeBase>): NodeFormat_Position {
     return match (nodeBase) {
         case Some(v) => v.GetBegin()
-        case None => throw ParseASTException()
+        case None => throw ParseASTException("'Node' has no begin position.")
     }
 }
 
@@ -237,7 +237,7 @@ extend Token {
 
 func checkTokenType(tk: Token, kind: TokenKind) {
     if (tk.kind != kind) {
-        throw ASTException("Illegal TokenKind, TokenKind should be ${kind}")
+        throw ASTException("Illegal token kind: expected '${kind}', got '${tk.kind}'.")
     }
 }
 
@@ -255,7 +255,7 @@ func checkTokenTypeAssign(tk: Token) {
             return
         }
     }
-    throw ASTException("Illegal TokenKind, TokenKind should be assign")
+    throw ASTException("Illegal token kind: expected an assignment operator, got '${tk.kind}'.")
 }
 
 func checkPrimitiveType(tk: Token) {
@@ -266,7 +266,7 @@ func checkPrimitiveType(tk: Token) {
             return
         }
     }
-    throw ASTException("Illegal TokenKind, TokenKind should be a primitive type.")
+    throw ASTException("Illegal token kind: expected a primitive type, got '${tk.kind}'.")
 }
 
 func checkValid(input: Token) {

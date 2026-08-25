@@ -106,12 +106,12 @@ public func parseProgram(input: Tokens): Program {
                 }, p)
             })
         } catch (e: Exception) {
-            throw ParseASTException("\n" + e.message + "parsing program error.")
+            throw ParseASTException("Failed to parse program.")
         }
     }
     return match (createProgram(node.GetRootAsFile()) as Program) {
         case Some(v) => v
-        case None => throw ParseASTException("Illegal argument was encountered while obtaining the Program node.")
+        case None => throw ParseASTException("Failed to obtain the 'Program' node.")
     }
 }
 
@@ -145,10 +145,10 @@ func generateNode(n: Option<NodeFormat_Node>): Node {
     }
     var astNode = match (astKind) {
         case "file" => createProgram(node.GetRootAsFile())
-        case "features_directive" => createFeatureHeader(node.GetRootAsFeaturesDirective()) ?? throw ParseASTException("Failed to parse the node: ${astKind}")
+        case "features_directive" => createFeatureHeader(node.GetRootAsFeaturesDirective()) ?? throw ParseASTException("Failed to parse the '${astKind}' node.")
         case "package_spec" => createPackageHeader(node.GetRootAsPackageSpec())
         case "import_spec" => createImportList(node.GetRootAsImportSpec())
-        case _ => throw ParseASTException("Unsupported parse the node: ${astKind}.\n")
+        case _ => throw ParseASTException("Unsupported node kind: '${astKind}'.")
     }
     addPositionInfo(astNode, nodeBase)
     return astNode
@@ -361,7 +361,7 @@ func processCustomAnnotationLikeMacro(macroInputDecl: Option<Decl>, macroNode: D
         case Some(v) =>
             v.annotations.add(createCustomAnnotation(macroNode), at: 0)
             return v
-        case None => throw ParseASTException("can't create macro extend declaration")
+        case None => throw ParseASTException("Cannot create the macro extend declaration.")
     }
 }
 
@@ -635,7 +635,7 @@ func createConstructor(decl: Option<NodeFormat_Decl>): Constructor {
         let param = params[i].getOrThrow()
         var ty = match (param.GetBase()) {
             case Some(v) => generateTypeAST(v.GetType())
-            case None => throw ParseASTException("Cannot get param from enum decl constructor")
+            case None => throw ParseASTException("Cannot get the parameter from the enum constructor.")
         }
         params_.add(ty)
 
@@ -681,7 +681,7 @@ func createCustomAnnotation(m: Decl): Annotation {
         try {
             parse(argTokens, {p: CPointer<UInt8> => return CJ_AST_ParseAnnotationArguments(p)})
         } catch (e: Exception) {
-            throw ParseASTException("\n" + e.message + "parsing custom annotation error.")
+            throw ParseASTException("Failed to parse the custom annotation.")
         }
     }
     createAnnotation(node.GetRootAsAnnotation())

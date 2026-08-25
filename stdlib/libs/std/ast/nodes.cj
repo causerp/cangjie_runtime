@@ -95,7 +95,7 @@ public class Annotation <: Node {
         }
         set(v) {
             if (v.kind != TokenKind.AT && v.kind != TokenKind.AT_EXCL) {
-                throw ASTException("Illegal TokenKind, TokenKind should be ${AT} or ${AT_EXCL}")
+                throw ASTException("Illegal token kind: expected '${TokenKind.AT}' or '${TokenKind.AT_EXCL}', got '${v.kind}'.")
             }
             at_ = v
         }
@@ -128,7 +128,7 @@ public class Annotation <: Node {
         get() {
             match (cond_) {
                 case Some(v) => v
-                case None => throw ASTException("Current Annotation node is not `When` annotation")
+                case None => throw ASTException("Current 'Annotation' node is not a 'When' annotation.")
             }
         }
         set(v) {
@@ -558,13 +558,13 @@ public class Argument <: Node {
     public mut prop identifier: Token {
         get() {
             if (identifier_.kind != IDENTIFIER || identifier_.value.isEmpty()) {
-                throw ASTException("Illegal Identifier")
+                throw ASTException("Illegal identifier.")
             }
             identifier_
         }
         set(v) {
             if (v.kind != IDENTIFIER || v.value.isEmpty()) {
-                throw ASTException("Illegal Identifier")
+                throw ASTException("Illegal identifier.")
             }
             identifier_ = v
         }
@@ -684,7 +684,7 @@ public class MatchCase <: Node {
         get() {
             match (expr_) {
                 case Some(v) => v
-                case None => throw ASTException("Cannot get expression from match case")
+                case None => throw ASTException("'MatchCase' has no expression.")
             }
         }
         set(v) {
@@ -721,7 +721,7 @@ public class MatchCase <: Node {
         get() {
             match (patternGuard_) {
                 case Some(v) => v
-                case None => throw ASTException("Cannot get patternGuard from match case")
+                case None => throw ASTException("'MatchCase' has no pattern guard.")
             }
         }
         set(v) {
@@ -1303,7 +1303,7 @@ public class PackageHeader <: Node {
         set(v) {
             checkTokenType(v, IDENTIFIER)
             if (v.value == "") {
-                throw ASTException("orgName should not be empty")
+                throw ASTException("Organization name is empty.")
             }
             if (!isValidPosition(orgToken_)) {
                 orgToken_ = Token(TokenKind.DOUBLE_COLON)
@@ -1323,7 +1323,7 @@ public class PackageHeader <: Node {
         set(v) {
             checkTokenType(v, DOUBLE_COLON)
             if (orgName_.value == "" || !isValidPosition(orgName_)) {
-                throw ASTException("orgName should not be empty")
+                throw ASTException("Organization name is empty.")
             }
             orgToken_ = v
         }
@@ -1486,7 +1486,7 @@ public class ImportContent <: Node {
         set(v) {
             checkTokenType(v, IDENTIFIER)
             if (v.value == "") {
-                throw ASTException("orgName should not be empty")
+                throw ASTException("Organization name is empty.")
             }
             if (!isValidPosition(orgToken_)) {
                 orgToken_ = Token(TokenKind.DOUBLE_COLON)
@@ -1506,7 +1506,7 @@ public class ImportContent <: Node {
         set(v) {
             checkTokenType(v, DOUBLE_COLON)
             if (orgName_.value == "" || !isValidPosition(orgName_)) {
-                throw ASTException("orgName should not be empty")
+                throw ASTException("Organization name is empty.")
             }
             orgToken_ = v
         }
@@ -1994,7 +1994,7 @@ extend<T> ArrayList<T> <: ToTokens {
                     }
                 }
                 ret
-            case _ => throw IllegalArgumentException("Unsupported ArrayList<T> in function toTokens().\n")
+            case _ => throw IllegalArgumentException("Unsupported 'ArrayList<T>' in function toTokens().")
         }
     }
 }
@@ -2113,7 +2113,7 @@ extend<T> Array<T> <: ToTokens {
                     }
                 }
                 rString.append(Token(TokenKind.RSQUARE))
-            case _ => throw IllegalArgumentException("Unsupported Array<T> input in function toTokens().\n")
+            case _ => throw IllegalArgumentException("Unsupported 'Array<T>' input in function toTokens().")
         }
     }
 }

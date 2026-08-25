@@ -137,11 +137,7 @@ public class BinaryExpr <: Expr {
                 case None => throw ASTException("Cannot construct the 'BinaryExpr' node.")
             }
         } catch (e: ParseASTException) {
-            if (e.message == String.empty) {
-                throw ASTException("Cannot construct the 'BinaryExpr' node.")
-            } else {
-                throw ASTException(e.message)
-            }
+            throw ASTException("Cannot construct the 'BinaryExpr' node.")
         }
     }
     init(leftExpr: Expr, op: Token, rightExpr: Expr) {
@@ -242,11 +238,7 @@ public class UnaryExpr <: Expr {
                 case None => throw ASTException("Cannot construct the 'UnaryExpr' node.")
             }
         } catch (e: ParseASTException) {
-            if (e.message == String.empty) {
-                throw ASTException("Cannot construct the 'UnaryExpr' node.")
-            } else {
-                throw ASTException(e.message)
-            }
+            throw ASTException("Cannot construct the 'UnaryExpr' node.")
         }
     }
     init(op: Token, expr: Expr) {
@@ -323,11 +315,7 @@ public class IsExpr <: Expr {
                 case None => throw ASTException("Cannot construct the 'IsExpr' node.")
             }
         } catch (e: ParseASTException) {
-            if (e.message == String.empty) {
-                throw ASTException("Cannot construct the 'IsExpr' node.")
-            } else {
-                throw ASTException(e.message)
-            }
+            throw ASTException("Cannot construct the 'IsExpr' node.")
         }
     }
     public init() {
@@ -418,11 +406,7 @@ public class AsExpr <: Expr {
                 case None => throw ASTException("Cannot construct the 'AsExpr' node.")
             }
         } catch (e: ParseASTException) {
-            if (e.message == String.empty) {
-                throw ASTException("Cannot construct the 'AsExpr' node.")
-            } else {
-                throw ASTException(e.message)
-            }
+            throw ASTException("Cannot construct the 'AsExpr' node.")
         }
     }
     public init() {
@@ -512,11 +496,7 @@ public class ParenExpr <: Expr {
                 case None => throw ASTException("Cannot construct the 'ParenExpr' node.")
             }
         } catch (e: ParseASTException) {
-            if (e.message == String.empty) {
-                throw ASTException("Cannot construct the 'ParenExpr' node.")
-            } else {
-                throw ASTException(e.message)
-            }
+            throw ASTException("Cannot construct the 'ParenExpr' node.")
         }
     }
     public init() {
@@ -596,11 +576,7 @@ public class LitConstExpr <: Expr {
                 case None => throw ASTException("Cannot construct the 'LitConstExpr' node.")
             }
         } catch (e: ParseASTException) {
-            if (e.message == String.empty) {
-                throw ASTException("Cannot construct the 'LitConstExpr' node.")
-            } else {
-                throw ASTException(e.message)
-            }
+            throw ASTException("Cannot construct the 'LitConstExpr' node.")
         }
     }
     init(literal: Token) {
@@ -692,11 +668,7 @@ public class RefExpr <: Expr {
                 case None => throw ASTException("Cannot construct the 'RefExpr' node.")
             }
         } catch (e: ParseASTException) {
-            if (e.message == String.empty) {
-                throw ASTException("Cannot construct the 'RefExpr' node.")
-            } else {
-                throw ASTException(e.message)
-            }
+            throw ASTException("Cannot construct the 'RefExpr' node.")
         }
     }
     public init() {
@@ -799,11 +771,7 @@ public class ReturnExpr <: Expr {
                 case None => throw ASTException("Cannot construct the 'ReturnExpr' node.")
             }
         } catch (e: ParseASTException) {
-            if (e.message == String.empty) {
-                throw ASTException("Cannot construct the 'ReturnExpr' node.")
-            } else {
-                throw ASTException(e.message)
-            }
+            throw ASTException("Cannot construct the 'ReturnExpr' node.")
         }
     }
     public init() {
@@ -824,7 +792,7 @@ public class ReturnExpr <: Expr {
         get() {
             match (expr_) {
                 case Some(v) => v
-                case None => throw ASTException("Current ReturnExpr has none expr")
+                case None => throw ASTException("'ReturnExpr' has no expression.")
             }
         }
         set(v) {
@@ -887,11 +855,7 @@ public class ThrowExpr <: Expr {
                 case None => throw ASTException("Cannot construct the 'ThrowExpr' node.")
             }
         } catch (e: ParseASTException) {
-            if (e.message == String.empty) {
-                throw ASTException("Cannot construct the 'ThrowExpr' node.")
-            } else {
-                throw ASTException(e.message)
-            }
+            throw ASTException("Cannot construct the 'ThrowExpr' node.")
         }
     }
     public init() {
@@ -958,11 +922,7 @@ public class PerformExpr <: Expr {
                 case None => throw ASTException("Cannot construct the 'PerformExpr' node.")
             }
         } catch (e: ParseASTException) {
-            if (e.message == String.empty) {
-                throw ASTException("Cannot construct the 'PerformExpr' node.")
-            } else {
-                throw ASTException(e.message)
-            }
+            throw ASTException("Cannot construct the 'PerformExpr' node.")
         }
     }
     public init() {
@@ -1035,11 +995,7 @@ public class ResumeExpr <: Expr {
                 case None => throw ASTException("Cannot construct the 'ResumeExpr' node.")
             }
         } catch (e: ParseASTException) {
-            if (e.message == String.empty) {
-                throw ASTException("Cannot construct the 'ResumeExpr' node.")
-            } else {
-                throw ASTException(e.message)
-            }
+            throw ASTException("Cannot construct the 'ResumeExpr' node.")
         }
     }
     public init() {
@@ -1187,11 +1143,7 @@ public class AssignExpr <: Expr {
                 case None => throw ASTException("Cannot construct the 'AssignExpr' node.")
             }
         } catch (e: ParseASTException) {
-            if (e.message == String.empty) {
-                throw ASTException("Cannot construct the 'AssignExpr' node.")
-            } else {
-                throw ASTException(e.message)
-            }
+            throw ASTException("Cannot construct the 'AssignExpr' node.")
         }
     }
     public init() {
@@ -1286,11 +1238,7 @@ public class CallExpr <: Expr {
                 case None => throw ASTException("Cannot construct the 'CallExpr' node.")
             }
         } catch (e: ParseASTException) {
-            if (e.message == String.empty) {
-                throw ASTException("Cannot construct the 'CallExpr' node.")
-            } else {
-                throw ASTException(e.message)
-            }
+            throw ASTException("Cannot construct the 'CallExpr' node.")
         }
     }
     public init() {
@@ -1400,11 +1348,7 @@ public class MemberAccess <: Expr {
                 case None => throw ASTException("Cannot construct the 'MemberAccess' node.")
             }
         } catch (e: ParseASTException) {
-            if (e.message == String.empty) {
-                throw ASTException("Cannot construct the 'MemberAccess' node.")
-            } else {
-                throw ASTException(e.message)
-            }
+            throw ASTException("Cannot construct the 'MemberAccess' node.")
         }
     }
     public init() {
@@ -1552,11 +1496,7 @@ public class IfExpr <: Expr {
                 case None => throw ASTException("Cannot construct the 'IfExpr' node.")
             }
         } catch (e: ParseASTException) {
-            if (e.message == String.empty) {
-                throw ASTException("Cannot construct the 'IfExpr' node.")
-            } else {
-                throw ASTException(e.message)
-            }
+            throw ASTException("Cannot construct the 'IfExpr' node.")
         }
     }
     public init() {
@@ -1635,7 +1575,7 @@ public class IfExpr <: Expr {
         get() {
             match (elseExpr_) {
                 case Some(v) => v
-                case None => throw ASTException("Cannot get else expr from current If expression")
+                case None => throw ASTException("'IfExpr' has no else expression.")
             }
         }
         set(v) {
@@ -1708,11 +1648,7 @@ public class LetPatternExpr <: Expr {
                 case None => throw ASTException("Cannot construct the 'LetPatternExpr' node.")
             }
         } catch (e: ParseASTException) {
-            if (e.message == String.empty) {
-                throw ASTException("Cannot construct the 'LetPatternExpr' node.")
-            } else {
-                throw ASTException(e.message)
-            }
+            throw ASTException("Cannot construct the 'LetPatternExpr' node.")
         }
     }
     public init() {
@@ -1811,11 +1747,7 @@ public class MatchExpr <: Expr {
                 case None => throw ASTException("Cannot construct the 'MatchExpr' node.")
             }
         } catch (e: ParseASTException) {
-            if (e.message == String.empty) {
-                throw ASTException("Cannot construct the 'MatchExpr' node.")
-            } else {
-                throw ASTException(e.message)
-            }
+            throw ASTException("Cannot construct the 'MatchExpr' node.")
         }
     }
     public init() {
@@ -1860,7 +1792,7 @@ public class MatchExpr <: Expr {
         get() {
             match (selector_) {
                 case Some(v) => v
-                case None => throw ASTException("Current match expr has an empty selector")
+                case None => throw ASTException("'MatchExpr' has no selector.")
             }
         }
         set(v) {
@@ -1967,11 +1899,7 @@ public class WhileExpr <: Expr {
                 case None => throw ASTException("Cannot construct the 'WhileExpr' node.")
             }
         } catch (e: ParseASTException) {
-            if (e.message == String.empty) {
-                throw ASTException("Cannot construct the 'WhileExpr' node.")
-            } else {
-                throw ASTException(e.message)
-            }
+            throw ASTException("Cannot construct the 'WhileExpr' node.")
         }
     }
     public init() {
@@ -2081,11 +2009,7 @@ public class DoWhileExpr <: Expr {
                 case None => throw ASTException("Cannot construct the 'DoWhileExpr' node.")
             }
         } catch (e: ParseASTException) {
-            if (e.message == String.empty) {
-                throw ASTException("Cannot construct the 'DoWhileExpr' node.")
-            } else {
-                throw ASTException(e.message)
-            }
+            throw ASTException("Cannot construct the 'DoWhileExpr' node.")
         }
     }
     public init() {
@@ -2206,11 +2130,7 @@ public class LambdaExpr <: Expr {
                 case None => throw ASTException("Cannot construct the 'LambdaExpr' node.")
             }
         } catch (e: ParseASTException) {
-            if (e.message == String.empty) {
-                throw ASTException("Cannot construct the 'LambdaExpr' node.")
-            } else {
-                throw ASTException(e.message)
-            }
+            throw ASTException("Cannot construct the 'LambdaExpr' node.")
         }
     }
     public init() {
@@ -2348,11 +2268,7 @@ public class SpawnExpr <: Expr {
                 case None => throw ASTException("Cannot construct the 'SpawnExpr' node.")
             }
         } catch (e: ParseASTException) {
-            if (e.message == String.empty) {
-                throw ASTException("Cannot construct the 'SpawnExpr' node.")
-            } else {
-                throw ASTException(e.message)
-            }
+            throw ASTException("Cannot construct the 'SpawnExpr' node.")
         }
     }
     public init() {
@@ -2392,7 +2308,7 @@ public class SpawnExpr <: Expr {
         get() {
             match (context_) {
                 case Some(v) => v
-                case None => throw ASTException("Cannot get context from SpawnExpr")
+                case None => throw ASTException("'SpawnExpr' has no thread context.")
             }
         }
         set(v) {
@@ -2474,11 +2390,7 @@ public class SynchronizedExpr <: Expr {
                 case None => throw ASTException("Cannot construct the 'SynchronizedExpr' node.")
             }
         } catch (e: ParseASTException) {
-            if (e.message == String.empty) {
-                throw ASTException("Cannot construct the 'SynchronizedExpr' node.")
-            } else {
-                throw ASTException(e.message)
-            }
+            throw ASTException("Cannot construct the 'SynchronizedExpr' node.")
         }
     }
     public init() {
@@ -2581,11 +2493,7 @@ public class TrailingClosureExpr <: Expr {
                 case None => throw ASTException("Cannot construct the 'TrailingClosureExpr' node.")
             }
         } catch (e: ParseASTException) {
-            if (e.message == String.empty) {
-                throw ASTException("Cannot construct the 'TrailingClosureExpr' node.")
-            } else {
-                throw ASTException(e.message)
-            }
+            throw ASTException("Cannot construct the 'TrailingClosureExpr' node.")
         }
     }
     public init() {
@@ -2658,11 +2566,7 @@ public class TypeConvExpr <: Expr {
                 case None => throw ASTException("Cannot construct the 'TypeConvExpr' node.")
             }
         } catch (e: ParseASTException) {
-            if (e.message == String.empty) {
-                throw ASTException("Cannot construct the 'TypeConvExpr' node.")
-            } else {
-                throw ASTException(e.message)
-            }
+            throw ASTException("Cannot construct the 'TypeConvExpr' node.")
         }
     }
     public init() {
@@ -2761,11 +2665,7 @@ public class ForInExpr <: Expr {
                 case None => throw ASTException("Cannot construct the 'ForInExpr' node.")
             }
         } catch (e: ParseASTException) {
-            if (e.message == String.empty) {
-                throw ASTException("Cannot construct the 'ForInExpr' node.")
-            } else {
-                throw ASTException(e.message)
-            }
+            throw ASTException("Cannot construct the 'ForInExpr' node.")
         }
     }
     public init() {
@@ -2848,7 +2748,7 @@ public class ForInExpr <: Expr {
         get() {
             match (patternGuard_) {
                 case Some(v) => v
-                case None => throw ASTException("Cannot get patternGuard from ForInExpr")
+                case None => throw ASTException("'ForInExpr' has no pattern guard.")
             }
         }
         set(v) {
@@ -2926,7 +2826,7 @@ public class ForInExpr <: Expr {
 public class PrimitiveTypeExpr <: Expr {
     public init(kind: Tokens) {
         if (kind.size == 0) {
-            throw ASTException("Cannot construct the 'PrimitiveTypeExpr' node. (Empty Input)")
+            throw ASTException("Cannot construct the 'PrimitiveTypeExpr' node: input is empty.")
         }
         keyword_ = kind[0]
         checkPrimitiveType(keyword_)
@@ -2990,11 +2890,7 @@ public class ArrayLiteral <: Expr {
                 case None => throw ASTException("Cannot construct the 'ArrayLiteral' node.")
             }
         } catch (e: ParseASTException) {
-            if (e.message == String.empty) {
-                throw ASTException("Cannot construct the 'ArrayLiteral' node.")
-            } else {
-                throw ASTException(e.message)
-            }
+            throw ASTException("Cannot construct the 'ArrayLiteral' node.")
         }
     }
     public init() {
@@ -3089,11 +2985,7 @@ public class TupleLiteral <: Expr {
                 case None => throw ASTException("Cannot construct the 'TupleLiteral' node.")
             }
         } catch (e: ParseASTException) {
-            if (e.message == String.empty) {
-                throw ASTException("Cannot construct the 'TupleLiteral' node.")
-            } else {
-                throw ASTException(e.message)
-            }
+            throw ASTException("Cannot construct the 'TupleLiteral' node.")
         }
     }
     public init() {
@@ -3189,11 +3081,7 @@ public class RangeExpr <: Expr {
                 case None => throw ASTException("Cannot construct the 'RangeExpr' node.")
             }
         } catch (e: ParseASTException) {
-            if (e.message == String.empty) {
-                throw ASTException("Cannot construct the 'RangeExpr' node.")
-            } else {
-                throw ASTException(e.message)
-            }
+            throw ASTException("Cannot construct the 'RangeExpr' node.")
         }
     }
     public init() {
@@ -3208,7 +3096,7 @@ public class RangeExpr <: Expr {
         get() {
             match (start_) {
                 case Some(v) => v
-                case None => throw ASTException("Current range expr cannot get start")
+                case None => throw ASTException("'RangeExpr' has no start.")
             }
         }
         set(v) {
@@ -3227,7 +3115,7 @@ public class RangeExpr <: Expr {
         get() {
             match (endExpr_) {
                 case Some(v) => v
-                case None => throw ASTException("Current range expr cannot get end")
+                case None => throw ASTException("'RangeExpr' has no end.")
             }
         }
         set(v) {
@@ -3247,7 +3135,7 @@ public class RangeExpr <: Expr {
         get() {
             match (step_) {
                 case Some(v) => v
-                case None => throw ASTException("Current range expr cannot get step")
+                case None => throw ASTException("'RangeExpr' has no step.")
             }
         }
         set(v) {
@@ -3351,11 +3239,7 @@ public class SubscriptExpr <: Expr {
                 case None => throw ASTException("Cannot construct the 'SubscriptExpr' node.")
             }
         } catch (e: ParseASTException) {
-            if (e.message == String.empty) {
-                throw ASTException("Cannot construct the 'SubscriptExpr' node.")
-            } else {
-                throw ASTException(e.message)
-            }
+            throw ASTException("Cannot construct the 'SubscriptExpr' node.")
         }
     }
     public init() {
@@ -3457,11 +3341,11 @@ public class SubscriptExpr <: Expr {
 public class JumpExpr <: Expr {
     public init(kind: Tokens) {
         if (kind.size == 0) {
-            throw ASTException("Cannot construct the 'JumpExpr' node. (Empty Input)")
+            throw ASTException("Cannot construct the 'JumpExpr' node: input is empty.")
         }
         kind_ = kind[0]
         if (kind_.kind != BREAK && kind_.kind != CONTINUE) {
-            throw ASTException("Cannot construct the 'JumpExpr' node, TokenKind should be BREAK or CONTINUE")
+            throw ASTException("Cannot construct the 'JumpExpr' node: expected 'BREAK' or 'CONTINUE' token.")
         }
         this.begin_ = kind_.pos
         this.end_ = Position(begin_.fileID, begin_.line, begin_.column + Int32(kind_.value.size))
@@ -3475,7 +3359,7 @@ public class JumpExpr <: Expr {
         }
         set(v) {
             if (v.kind != BREAK && v.kind != CONTINUE) {
-                throw ASTException("Illegal TokenKind, TokenKind should be BREAK or CONTINUE")
+                throw ASTException("Illegal token kind: expected 'BREAK' or 'CONTINUE', got '${v.kind}'.")
             }
             kind_ = v
         }
@@ -3518,11 +3402,7 @@ public class IncOrDecExpr <: Expr {
                 case None => throw ASTException("Cannot construct the 'IncOrDecExpr' node.")
             }
         } catch (e: ParseASTException) {
-            if (e.message == String.empty) {
-                throw ASTException("Cannot construct the 'IncOrDecExpr' node.")
-            } else {
-                throw ASTException(e.message)
-            }
+            throw ASTException("Cannot construct the 'IncOrDecExpr' node.")
         }
     }
     public init() {
@@ -3635,11 +3515,7 @@ public class TryExpr <: Expr {
                 case None => throw ASTException("Cannot construct the 'TryExpr' node.")
             }
         } catch (e: ParseASTException) {
-            if (e.message == String.empty) {
-                throw ASTException("Cannot construct the 'TryExpr' node.")
-            } else {
-                throw ASTException(e.message)
-            }
+            throw ASTException("Cannot construct the 'TryExpr' node.")
         }
     }
     public init() {
@@ -3730,7 +3606,7 @@ public class TryExpr <: Expr {
         get() {
             match (finallyBlock_) {
                 case Some(v) => v
-                case None => throw ASTException("Cannot get finally block from current TryExpr")
+                case None => throw ASTException("'TryExpr' has no finally block.")
             }
         }
         set(v) {
@@ -3971,11 +3847,7 @@ public class QuoteExpr <: Expr {
                 case None => throw ASTException("Cannot construct the 'QuoteExpr' node.")
             }
         } catch (e: ParseASTException) {
-            if (e.message == String.empty) {
-                throw ASTException("Cannot construct the 'QuoteExpr' node.")
-            } else {
-                throw ASTException(e.message)
-            }
+            throw ASTException("Cannot construct the 'QuoteExpr' node.")
         }
     }
     public init() {
@@ -4072,7 +3944,7 @@ public class QuoteExpr <: Expr {
 public class WildcardExpr <: Expr {
     public init(keyword: Tokens) {
         if (keyword.size == 0) {
-            throw ASTException("Cannot construct the 'WildcardExpr' node. (Empty Input)")
+            throw ASTException("Cannot construct the 'WildcardExpr' node: input is empty.")
         }
         keyword_ = keyword[0]
         checkTokenType(keyword_, WILDCARD)
@@ -4133,11 +4005,7 @@ public class VArrayExpr <: Expr {
                 case None => throw ASTException("Cannot construct the 'VArrayExpr' node.")
             }
         } catch (e: ParseASTException) {
-            if (e.message == String.empty) {
-                throw ASTException("Cannot construct the 'VArrayExpr' node.")
-            } else {
-                throw ASTException(e.message)
-            }
+            throw ASTException("Cannot construct the 'VArrayExpr' node.")
         }
     }
     public init() {
@@ -4258,11 +4126,7 @@ public class MacroExpandExpr <: Expr {
                 case None => throw ASTException("Cannot construct the 'MacroExpandExpr' node.")
             }
         } catch (e: ParseASTException) {
-            if (e.message == String.empty) {
-                throw ASTException("Cannot construct the 'MacroExpandExpr' node.")
-            } else {
-                throw ASTException(e.message)
-            }
+            throw ASTException("Cannot construct the 'MacroExpandExpr' node.")
         }
     }
     public init() {}

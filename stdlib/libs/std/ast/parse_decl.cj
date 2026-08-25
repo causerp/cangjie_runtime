@@ -41,7 +41,7 @@ public func parseDecl(input: Tokens, astKind!: String = ""): Decl {
             }) }
         }
     } catch (e: Exception) {
-        throw ParseASTException("\n" + e.message + "parsing decl error.")
+        throw ParseASTException("Failed to parse decl.")
     }
 
     /* Get decl info from flatbuffer */
@@ -64,7 +64,7 @@ public func parseDeclFragment(input: Tokens, startFrom!: Int64 = 0): (Decl, Int6
                 }
             )
         } catch (e: Exception) {
-            throw ParseASTException("\n" + e.message + "parsing decl fragment error.")
+            throw ParseASTException("Failed to parse decl fragment.")
         }
     }
     var astNode = generateDeclAST(node.GetRootAsDecl())
@@ -119,7 +119,7 @@ func generateDeclAST(declNode: Option<NodeFormat_Decl>): Decl {
         case "macro_expand_decl" => createMacroExpandDecl(decl)
         case "func_param" => createFuncParam(decl)
         case "macro_expand_param" => createMacroExpandParam(decl)
-        case _ => throw ParseASTException("Unsupported parse the decl node: ${astKind}.\n")
+        case _ => throw ParseASTException("Unsupported decl node kind: '${astKind}'.")
     }
     addPositionInfo(astNode, nodeBase)
     return astNode
@@ -374,7 +374,7 @@ func createMacroExpandParam(decl: NodeFormat_Decl): Decl {
     }
     return match (createMacroExpand(pm.GetInvocation(), isDecl: false, isFuncParam: true) as FuncParam) {
         case Some(v) => v
-        case None => throw ParseASTException("Failed to create MacroExpandParam Node")
+        case None => throw ParseASTException("Failed to create the 'MacroExpandParam' node.")
     }
 }
 
@@ -394,12 +394,12 @@ func createFuncParam(param: Option<NodeFormat_FuncParam>, index: Int64, length: 
         }
         var mep = match (pm.GetMacroParamAsMacroExpandParam()) {
             case Some(v) => v
-            case None => throw ParseASTException("Failed to get MacroExpandParam Node")
+            case None => throw ParseASTException("Failed to get the 'MacroExpandParam' node.")
         }
         return match (createMacroExpand(mep.GetInvocation(), isDecl: false, isFuncParam: true) as FuncParam) {
             case Some(v) => v.annotations.add(all: annos, at: 0)
                             v
-            case None => throw ParseASTException("Failed to create MacroExpandParam Node")
+            case None => throw ParseASTException("Failed to create the 'MacroExpandParam' node.")
         }
     }
     var varDecl = match (pm.GetBase()) {
@@ -699,11 +699,11 @@ func createMacroExpandDecl(decl: NodeFormat_Decl) {
     }
     var me = match (decl.GetDeclAsMacroExpandDecl()) {
         case Some(v) => v
-        case None => throw ParseASTException("Failed to get MacroExpand Node")
+        case None => throw ParseASTException("Failed to get the 'MacroExpandDecl' node.")
     }
     return match (createMacroExpand(me.GetInvocation(), isDecl: true) as Decl) {
         case Some(v) => v.annotations.add(all: annos, at: 0)
                         v
-        case None => throw ParseASTException("Failed to create MacroExpandDecl Node")
+        case None => throw ParseASTException("Failed to create the 'MacroExpandDecl' node.")
     }
 }
