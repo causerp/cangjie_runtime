@@ -15,6 +15,10 @@ namespace MapleRuntime {
 // cannot be found.
 uint32_t StackMetadataHelper::GetLineNumber() const
 {
+    if (funcDesc == nullptr) {
+        // No valid function descriptor for this frame: no line number information.
+        return 0;
+    }
     StackMapBuilder stackMapBuild(funcStartAddress, reinterpret_cast<uintptr_t>(funcPC), 0, funcDesc);
 
     MethodMap methodMap = stackMapBuild.Build<MethodMap>();

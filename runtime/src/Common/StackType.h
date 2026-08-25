@@ -375,6 +375,11 @@ public:
     ~SigHandlerFrameinfo() override { Reset(); }
 
     void PrintFrameInfo(uint32_t frameIdx = 0) const override;
+
+private:
+    FuncDescRef GetFuncDescForSignal() const;
+    void PrintManagedFrame(char* methodName, char* fileName, char* outputStr, uint32_t& lineNumber) const;
+    void PrintNativeFrame(char* methodName, char* fileName, char* outputStr) const;
 };
 
 // N2CFrame is a stub frame constructed by native code to invoke compiled methods. N2CFrame saves
