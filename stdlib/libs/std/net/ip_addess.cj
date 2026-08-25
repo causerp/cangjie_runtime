@@ -354,12 +354,15 @@ func parseIPv6Hextet(s: String, origin: String): Result<(UInt32, Int64)> {
 
 func validateMappedIPv4Position(i: Int64, ellipsis: ?Int64, origin: String): Result<Bool> {
     let mappedIPv4Start = IPV6_ADDRESS_LEN - IPV4_ADDRESS_LEN
-    // Without "::" compression, an embedded IPv4 address must occupy the final
-    // IPv4-sized suffix of the IPv6 byte array.
-    if (ellipsis.isNone() && i != mappedIPv4Start) {
+    // The trailing IPv4 text overlaps the last hextet: its first octet has already
+    // been consumed as a hextet, so the hextet being replaced begins at i - 2.
+    let lastHextetStart = i - IPV6_HEXTET_LEN
+    if (ellipsis.isNone() && lastHextetStart != mappedIPv4Start) {
+        // Without "::" compression, an embedded IPv4 address must occupy the final
+        // IPv4-sized suffix of the IPv6 byte array.
         return Err(IllegalFormatException("Parse (${origin}): expect hex digits but got IPv4 address."))
     }
-    if (i + IPV4_ADDRESS_LEN > IPV6_ADDRESS_LEN) {
+    if (lastHextetStart + IPV4_ADDRESS_LEN > IPV6_ADDRESS_LEN) {
         return Err(IllegalFormatException("Parse (${origin}): too many hex fields."))
     }
     return Ok(true)
