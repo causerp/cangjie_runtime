@@ -1148,13 +1148,16 @@ void ScheduleExitMode(struct Schedule *schedule, bool threadExit)
     // Ensure that all processors are stopped. When the system exits, the processor is not
     // woken up. The non-default scheduler has only one processor and does not sleep.
     if (schedule->scheduleType == SCHEDULE_DEFAULT) {
-        schedule->state = SCHEDULE_EXITING;
-        // Ensure that the monitoring thread is stopped.
-        ScheduleSchmonExit();
+        // Stop GC threads before SCHEDULE_EXITING: otherwise schd-worker self-terminates
+        // and drops parked spawn, deadlocking FinalizerProcessor::Stop if finalizer waits
+        // on a lock held by that spawn.
         hookFunc = g_scheduleManager.schdCJThreadHook[SCHD_STOP];
         if (hookFunc != nullptr) {
             hookFunc();
         }
+        schedule->state = SCHEDULE_EXITING;
+        // Ensure that the monitoring thread is stopped.
+        ScheduleSchmonExit();
         ScheduleProcessorExit(schedule);
         // All processors enter the PROCESSOR_EXITING state in ScheduleProcessorExit. The
         // processors in ffi are blocked in the stub of the warehouse program. At this time,
