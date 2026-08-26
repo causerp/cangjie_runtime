@@ -7,6 +7,7 @@
 
 #ifndef PRINT_H
 #define PRINT_H
+#include <cstdlib>
 #if (defined(__OHOS__) && (__OHOS__ == 1))
 #include "hilog/log.h"
 
@@ -73,6 +74,7 @@ if (OH_LOG_IsLoggable(LOG_DOMAIN, LOG_TAG, LOG_WARN)) {       \
             if (OH_LOG_IsLoggable(LOG_DOMAIN, LOG_TAG, LOG_FATAL)) {       \
                 OH_LOG_FATAL(LOG_APP, __VA_ARGS__);                    \
             } \
+            std::abort(); \
         } \
     } while (0)
 
@@ -105,6 +107,7 @@ if (OH_LOG_IsLoggable(LOG_DOMAIN, LOG_TAG, LOG_WARN)) {       \
     do { \
         if (conf) { \
             __android_log_print(ANDROID_LOG_FATAL, LOG_TAG, __VA_ARGS__); \
+            std::abort(); \
         } \
     } while (0)
 
@@ -133,6 +136,7 @@ inline os_log_t GetOsLogger()
     do { \
         if (conf) { \
             os_log_fault(::MapleRuntime::GetOsLogger(), __VA_ARGS__); \
+            std::abort(); \
         } \
     } while (0)
 

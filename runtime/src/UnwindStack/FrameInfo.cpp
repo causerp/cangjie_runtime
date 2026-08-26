@@ -21,6 +21,12 @@ void FrameInfo::ResolveProcInfo()
 #else
     FuncDescRef funcDesc = MFuncDesc::GetFuncDesc(reinterpret_cast<Uptr>(startProc));
 #endif
+    if (funcDesc == nullptr) {
+        // The frame does not start at a valid function entry (e.g. a corrupted stack
+        // while dumping a crash): no exception table can be resolved for it.
+        lsdaStart = nullptr;
+        return;
+    }
     lsdaStart = reinterpret_cast<uint8_t*>(funcDesc->GetEHTable());
 }
 
@@ -114,6 +120,15 @@ CString FrameInfo::GetFrameInfo(uint32_t frameIdx) const
 }
 #endif
 
+FuncDescRef SigHandlerFrameinfo::GetFuncDescForSignal() const
+{
+#ifdef __APPLE__
+    return MFuncDesc::GetFuncDesc(mFrame.GetFA());
+#else
+    return MFuncDesc::GetFuncDesc(reinterpret_cast<Uptr>(GetFuncStartPC()));
+#endif
+}
+
 void SigHandlerFrameinfo::PrintFrameInfo(uint32_t frameIdx) const
 {
     if (frameIdx > 0 && fType == FrameType::NATIVE) {
@@ -128,48 +143,58 @@ void SigHandlerFrameinfo::PrintFrameInfo(uint32_t frameIdx) const
     char outputStr[maxPrcessSize];
     CHECK_IN_SIG(sprintf_s(outputStr, maxPrcessSize, "  #%d  %p", frameIdx, mFrame.GetIP()) != -1);
     if (fType == FrameType::MANAGED) {
-        uintptr_t funcStartAddress = reinterpret_cast<uintptr_t>(GetFuncStartPC());
-#ifdef __APPLE__
-        FuncDescRef funcDesc = MFuncDesc::GetFuncDesc(mFrame.GetFA());
-#else
-        FuncDescRef funcDesc = MFuncDesc::GetFuncDesc(reinterpret_cast<Uptr>(GetFuncStartPC()));
-#endif
-        CHECK_IN_SIG(sprintf_s(methodName, maxPrcessSize, "%s", funcDesc->GetFuncName().Str()) != -1);
-        CHECK_IN_SIG(sprintf_s(fileName, maxPrcessSize, "%s", funcDesc->GetFuncDir().Str()) != -1);
-        if (*fileName != '\0') {
-#ifdef _WIN64
-            CHECK_IN_SIG(sprintf_s(fileName, maxPrcessSize, "%s%s", fileName, "\\") != -1);
-            CHECK_IN_SIG(sprintf_s(fileName, maxPrcessSize, "%s%s", fileName, funcDesc->GetFuncFilename().Str()) != -1);
-#else
-            CHECK_IN_SIG(sprintf_s(fileName, maxPrcessSize, "%s%s", fileName, "/") != -1);
-            CHECK_IN_SIG(sprintf_s(fileName, maxPrcessSize, "%s%s", fileName, funcDesc->GetFuncFilename().Str()) != -1);
-#endif
-        }
-
-        StackMapBuilder stackMapBuild(funcStartAddress, reinterpret_cast<uintptr_t>(mFrame.GetIP()),
-                                      reinterpret_cast<uintptr_t>(mFrame.GetFA()));
-        MethodMap methodMap = stackMapBuild.Build<MethodMap>();
-        lineNumber = methodMap.IsValid() ? methodMap.GetLineNum() : 0;
-        CHECK_IN_SIG(
-            sprintf_s(outputStr, maxPrcessSize, "%s in %s", outputStr, *methodName == '\0' ? "?" : methodName) != -1);
-        if (*fileName != '\0') {
-            CHECK_IN_SIG(sprintf_s(outputStr, maxPrcessSize, "%s at %s", outputStr, fileName) != -1);
-            if (lineNumber != 0) {
-                CHECK_IN_SIG(sprintf_s(outputStr, maxPrcessSize, "%s:%d", outputStr, lineNumber) != -1);
-            }
-        }
+        PrintManagedFrame(methodName, fileName, outputStr, lineNumber);
     } else {
-        Os::Loader::BinaryInfo binInfo;
-        CHECK_IN_SIG(Os::Loader::GetBinaryInfoFromAddress(mFrame.GetIP(), &binInfo) != -1);
-        CHECK_IN_SIG(sprintf_s(fileName, maxPrcessSize, "%s", binInfo.filePathName.Str()) != -1);
-        CHECK_IN_SIG(sprintf_s(methodName, maxPrcessSize, "%s", binInfo.symbolName.Str()) != -1);
-        CHECK_IN_SIG(
-            sprintf_s(outputStr, maxPrcessSize, "%s in %s", outputStr, *methodName == '\0' ? "?" : methodName) != -1);
-        if (*fileName != '\0') {
-            CHECK_IN_SIG(sprintf_s(outputStr, maxPrcessSize, "%s from %s", outputStr, fileName) != -1);
-        }
+        PrintNativeFrame(methodName, fileName, outputStr);
     }
     FLOG(RTLOG_ERROR, outputStr);
+}
+
+void SigHandlerFrameinfo::PrintManagedFrame(char* methodName, char* fileName, char* outputStr,
+    uint32_t& lineNumber) const
+{
+    constexpr size_t maxPrcessSize = 1024;
+    FuncDescRef funcDesc = GetFuncDescForSignal();
+    if (funcDesc == nullptr) {
+        return;
+    }
+    CHECK_IN_SIG(sprintf_s(methodName, maxPrcessSize, "%s", funcDesc->GetFuncName().Str()) != -1);
+    CHECK_IN_SIG(sprintf_s(fileName, maxPrcessSize, "%s", funcDesc->GetFuncDir().Str()) != -1);
+    if (*fileName != '\0') {
+#ifdef _WIN64
+        CHECK_IN_SIG(sprintf_s(fileName, maxPrcessSize, "%s%s", fileName, "\\") != -1);
+        CHECK_IN_SIG(sprintf_s(fileName, maxPrcessSize, "%s%s", fileName, funcDesc->GetFuncFilename().Str()) != -1);
+#else
+        CHECK_IN_SIG(sprintf_s(fileName, maxPrcessSize, "%s%s", fileName, "/") != -1);
+        CHECK_IN_SIG(sprintf_s(fileName, maxPrcessSize, "%s%s", fileName, funcDesc->GetFuncFilename().Str()) != -1);
+#endif
+    }
+    StackMapBuilder stackMapBuild(reinterpret_cast<uintptr_t>(GetFuncStartPC()),
+        reinterpret_cast<uintptr_t>(mFrame.GetIP()), reinterpret_cast<uintptr_t>(mFrame.GetFA()));
+    MethodMap methodMap = stackMapBuild.Build<MethodMap>();
+    lineNumber = methodMap.IsValid() ? methodMap.GetLineNum() : 0;
+    CHECK_IN_SIG(sprintf_s(outputStr, maxPrcessSize, "%s in %s", outputStr,
+        *methodName == '\0' ? "?" : methodName) != -1);
+    if (*fileName != '\0') {
+        CHECK_IN_SIG(sprintf_s(outputStr, maxPrcessSize, "%s at %s", outputStr, fileName) != -1);
+        if (lineNumber != 0) {
+            CHECK_IN_SIG(sprintf_s(outputStr, maxPrcessSize, "%s:%d", outputStr, lineNumber) != -1);
+        }
+    }
+}
+
+void SigHandlerFrameinfo::PrintNativeFrame(char* methodName, char* fileName, char* outputStr) const
+{
+    constexpr size_t maxPrcessSize = 1024;
+    Os::Loader::BinaryInfo binInfo;
+    CHECK_IN_SIG(Os::Loader::GetBinaryInfoFromAddress(mFrame.GetIP(), &binInfo) != -1);
+    CHECK_IN_SIG(sprintf_s(fileName, maxPrcessSize, "%s", binInfo.filePathName.Str()) != -1);
+    CHECK_IN_SIG(sprintf_s(methodName, maxPrcessSize, "%s", binInfo.symbolName.Str()) != -1);
+    CHECK_IN_SIG(sprintf_s(outputStr, maxPrcessSize, "%s in %s", outputStr,
+        *methodName == '\0' ? "?" : methodName) != -1);
+    if (*fileName != '\0') {
+        CHECK_IN_SIG(sprintf_s(outputStr, maxPrcessSize, "%s from %s", outputStr, fileName) != -1);
+    }
 }
 
 const CString FrameInfo::GetFuncName() const

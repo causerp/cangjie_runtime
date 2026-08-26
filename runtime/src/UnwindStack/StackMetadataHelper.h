@@ -23,9 +23,17 @@ public:
     explicit StackMetadataHelper(const uint32_t* ip, const uint32_t* startPC, uint64_t* funcDesc)
         : funcPC(ip), funcStartAddress(reinterpret_cast<uintptr_t>(startPC)), funcDesc(funcDesc)
     {
-        mangleNameHelper = new (std::nothrow)
-            MangleNameHelper(reinterpret_cast<FuncDescRef>(funcDesc)->GetFuncName(),
-                             StackTraceFormatFlag(reinterpret_cast<FuncDescRef>(funcDesc)->GetStackTraceFormat()));
+        FuncDescRef tmpFuncDesc = reinterpret_cast<FuncDescRef>(funcDesc);
+        if (tmpFuncDesc != nullptr) {
+            mangleNameHelper =
+                new (std::nothrow) MangleNameHelper(tmpFuncDesc->GetFuncName(),
+                                                    StackTraceFormatFlag(tmpFuncDesc->GetStackTraceFormat()));
+        } else {
+            // funcDesc is invalid (e.g. the frame does not start at a valid function entry while
+            // dumping a corrupted stack). Use an empty helper so that all getters stay safe.
+            mangleNameHelper = new (std::nothrow) MangleNameHelper("");
+        }
+        CHECK_DETAIL(mangleNameHelper != nullptr, "new mangleNameHelper failed when create StackMetadataHelper.");
     }
 
     explicit StackMetadataHelper(const FrameInfo& frameInfo)
@@ -33,8 +41,15 @@ public:
           funcDesc(ResolveFuncDesc(frameInfo))
     {
         FuncDescRef tmpFuncDesc = reinterpret_cast<FuncDescRef>(funcDesc);
-        mangleNameHelper = new (std::nothrow)
-            MangleNameHelper(tmpFuncDesc->GetFuncName(), StackTraceFormatFlag(tmpFuncDesc->GetStackTraceFormat()));
+        if (tmpFuncDesc != nullptr) {
+            mangleNameHelper =
+                new (std::nothrow) MangleNameHelper(tmpFuncDesc->GetFuncName(),
+                                                    StackTraceFormatFlag(tmpFuncDesc->GetStackTraceFormat()));
+        } else {
+            // funcDesc is invalid (e.g. the frame does not start at a valid function entry while
+            // dumping a corrupted stack). Use an empty helper so that all getters stay safe.
+            mangleNameHelper = new (std::nothrow) MangleNameHelper("");
+        }
         CHECK_DETAIL(mangleNameHelper != nullptr, "new mangleNameHelper failed when create StackMetadataHelper.");
     }
 
@@ -52,10 +67,16 @@ public:
     uint32_t GetLineNumber() const;
 
     // Get file path information.
-    CString GetFilePath() const { return reinterpret_cast<FuncDescRef>(funcDesc)->GetFuncDir(); }
+    CString GetFilePath() const
+    {
+        return funcDesc == nullptr ? CString() : reinterpret_cast<FuncDescRef>(funcDesc)->GetFuncDir();
+    }
 
     // Get file name information.
-    CString GetFileName() const { return reinterpret_cast<FuncDescRef>(funcDesc)->GetFuncFilename(); }
+    CString GetFileName() const
+    {
+        return funcDesc == nullptr ? CString() : reinterpret_cast<FuncDescRef>(funcDesc)->GetFuncFilename();
+    }
 
     // Get file path and file name.
     CString GetFilePathAndName() const

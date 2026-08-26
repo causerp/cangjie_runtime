@@ -295,7 +295,6 @@ void Mutator::RemoveNativeFrameRoot(ObjectRef* root)
             return;
         }
     }
-    LOG(RTLOG_FATAL, "native frame root %p is not registered", root);
 }
 
 void Mutator::VisitHeapReferencesOnStack(const RootVisitor& rootVisitor, const DerivedPtrVisitor& derivedPtrVisitor)

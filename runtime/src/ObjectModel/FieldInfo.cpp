@@ -508,6 +508,10 @@ I32 GetEnumTag(ObjRef obj, TypeInfo* ti)
     if (ti->IsEnumCtor()) {
         enumInfo = ti->GetSuperTypeInfo()->GetEnumInfo();
     }
+    if (enumInfo == nullptr) {
+        // The type does not carry valid enum information: keep the default tag.
+        return 0;
+    }
 
     I32 tag = 0;
     if (ti->IsZeroSizedEnum()) {
