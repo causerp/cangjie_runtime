@@ -568,6 +568,13 @@ public class LinkedList<T> <: Collection<T> {
     }
 
     public func clear(): Unit {
+        var node = _head
+        while (let Some(n) <- node) {
+            node = n._next
+            n._next = None
+            n._prev = None
+            n._list = None
+        }
         _size = 0
         _head = None
         _tail = None
