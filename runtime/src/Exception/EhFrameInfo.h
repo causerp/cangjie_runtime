@@ -145,8 +145,18 @@ public:
             context.SetValueByIdx(idx, *slotAddr);
 #endif // __APPLE__
 #elif defined(__arm__)
-            uint32_t* slotAddr = reinterpret_cast<uint32_t*>(calleeFrameAddress + SLOT_SIZE_FACTOR * offset);
-            context.SetValueByIdx(idx, *slotAddr);
+            constexpr uint32_t gprCount = 9; // r4-r11 and lr
+            const auto* slotAddr = reinterpret_cast<const uint32_t*>(
+                calleeFrameAddress + SLOT_SIZE_FACTOR * offset);
+            if (idx < gprCount) {
+                context.SetValueByIdx(idx, slotAddr[0]);
+            } else {
+                // ARM32 stackmap offsets use 4-byte slots. Read the low and high
+                // halves separately to avoid a potentially unaligned 64-bit load.
+                const uint64_t value = static_cast<uint64_t>(slotAddr[0]) |
+                    (static_cast<uint64_t>(slotAddr[1]) << 32);
+                context.SetValueByIdx(idx, value);
+            }
 #else // not (_WIN64 || __aarch64__)
             uint64_t* slotAddr = reinterpret_cast<uint64_t*>(calleeFrameAddress + SLOT_SIZE_FACTOR * offset);
             context.SetValueByIdx(idx, *slotAddr);
