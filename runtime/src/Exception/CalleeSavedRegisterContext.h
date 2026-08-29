@@ -62,14 +62,19 @@ struct CalleeSavedRegisterContext {
     uint32_t r10;
     uint32_t r11;
     uint32_t lr;
-    uint64_t d8;
-    uint64_t d9;
-    uint64_t d10;
-    uint64_t d11;
-    uint64_t d12;
-    uint64_t d13;
-    uint64_t d14;
-    uint64_t d15;
+    union {
+        struct {
+            uint64_t d8;
+            uint64_t d9;
+            uint64_t d10;
+            uint64_t d11;
+            uint64_t d12;
+            uint64_t d13;
+            uint64_t d14;
+            uint64_t d15;
+        };
+        uint64_t fpRegs[8];
+    };
     uint32_t sp;
 #elif defined(_WIN64)
     // rbx-r15 correspond to callee saved registers bitmap respectively in stackmap.
@@ -103,12 +108,26 @@ struct CalleeSavedRegisterContext {
         *(++slotAddr) = value->high;
     }
 #endif
-    void SetValueByIdx(uint32_t idx, ArchUInt value)
+#if defined(__arm__)
+    void SetValueByIdx(uint32_t idx, uint64_t value)
     {
-        ArchUInt* baseSlotAddr = reinterpret_cast<ArchUInt*>(this);
-        ArchUInt* slotAddr = baseSlotAddr + idx;
+        constexpr uint32_t gprCount = 9;   // r4-r11 and lr
+        constexpr uint32_t fpRegCount = 8; // d8-d15
+        if (idx < gprCount) {
+            auto* gpr = reinterpret_cast<uint32_t*>(this);
+            gpr[idx] = static_cast<uint32_t>(value);
+        } else if (idx < gprCount + fpRegCount) {
+            fpRegs[idx - gprCount] = value;
+        }
+    }
+#else
+    void SetValueByIdx(uint32_t idx, uint64_t value)
+    {
+        uint64_t* baseSlotAddr = reinterpret_cast<uint64_t*>(this);
+        uint64_t* slotAddr = baseSlotAddr + idx;
         *slotAddr = value;
     }
+#endif
 };
 } // namespace MapleRuntime
 #endif // ~MRT_CALLEE_SAVED_REGISTER_CONTEXT_H
