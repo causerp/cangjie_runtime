@@ -971,7 +971,9 @@ bool TypeInfo::IsOptionLikeUnassociatedCtor()
         TypeInfo* ctorTi = enumInfo->GetCtorTypeInfo(idx);
         if (ctorTi->GetUUID() == GetUUID()) {
             CString ctorName = CString(enumInfo->GetEnumCtor(idx)->GetName());
-            return ctorName.StartWith("N$_");
+            // Older SDKs encode the unassociated constructor with the N$_ prefix.
+            // The current SDK exposes the unassociated constructor as None.
+            return ctorName == CString("None") || ctorName.StartWith("N$_");
         }
     }
     return false;
