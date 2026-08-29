@@ -247,10 +247,6 @@ public struct String <: Collection<Byte> & Comparable<String> & Hashable & ToStr
     @Frozen
     @OverflowWrapping
     public func hashCode(): Int64 {
-        // Empty path: wyhash(_, 0, 0, 0) == mix(SECRET0, SECRET1)
-        if (length == 0u32) {
-            return Int64(mix(SECRET0, SECRET1))
-        }
         return Int64(wyhash(myData, Int64(start), Int64(length), 0))
     }
 
