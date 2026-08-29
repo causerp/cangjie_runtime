@@ -33,4 +33,5 @@ public enum Endian {
     }
 }
 
+@FastNative
 foreign func CJ_PlatformEndian(): UInt8

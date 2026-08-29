@@ -481,8 +481,11 @@ extend Bool <: BigEndianOrder<Bool> & LittleEndianOrder<Bool> {
     }
 }
 
+@FastNative
 foreign func CJ_Bswap64(n: UInt64): UInt64
 
+@FastNative
 foreign func CJ_Bswap32(n: UInt32): UInt32
 
+@FastNative
 foreign func CJ_Bswap16(n: UInt16): UInt16
