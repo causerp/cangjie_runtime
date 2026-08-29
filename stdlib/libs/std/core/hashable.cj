@@ -786,13 +786,12 @@ func bswap64(x: UInt64): UInt64 {
 
 /* Load 8 bytes at base+pos with the same value as r8 (endian-aware). */
 @OverflowWrapping
-func r8Wide(base: CPointer<UInt8>, pos: Int64, littleEndian: Bool): UInt64 {
+func r8Wide(base: CPointer<UInt8>, pos: Int64): UInt64 {
     unsafe {
         let native = CPointer<UInt64>(base + pos).read()
-        if (littleEndian) {
-            bswap64(native)
-        } else {
-            native
+        match (Endian.Platform) {
+            case Little => bswap64(native)
+            case Big => native
         }
     }
 }
@@ -824,10 +823,6 @@ func wyhash(arr: RawArray<UInt8>, start: Int64, size: Int64, see: UInt64) {
             // Long path: pin once; wide loads keep hash identical to byte-wise r8.
             unsafe {
                 let base = acquireRawData(arr)
-                let littleEndian = match (Endian.Platform) {
-                    case Little => true
-                    case Big => false
-                }
                 var pos = start
                 var l = size
                 if (l > 48) {
@@ -835,12 +830,12 @@ func wyhash(arr: RawArray<UInt8>, start: Int64, size: Int64, see: UInt64) {
                     var seed2 = seed
 
                     do {
-                        seed = mix(r8Wide(base, pos, littleEndian) ^ SECRET1,
-                            r8Wide(base, pos + 8, littleEndian) ^ seed)
-                        seed1 = mix(r8Wide(base, pos + 16, littleEndian) ^ SECRET2,
-                            r8Wide(base, pos + 24, littleEndian) ^ seed1)
-                        seed2 = mix(r8Wide(base, pos + 32, littleEndian) ^ SECRET3,
-                            r8Wide(base, pos + 40, littleEndian) ^ seed2)
+                        seed = mix(r8Wide(base, pos) ^ SECRET1,
+                            r8Wide(base, pos + 8) ^ seed)
+                        seed1 = mix(r8Wide(base, pos + 16) ^ SECRET2,
+                            r8Wide(base, pos + 24) ^ seed1)
+                        seed2 = mix(r8Wide(base, pos + 32) ^ SECRET3,
+                            r8Wide(base, pos + 40) ^ seed2)
                         pos += 48
                         l -= 48
                     } while (l > 48)
@@ -848,13 +843,13 @@ func wyhash(arr: RawArray<UInt8>, start: Int64, size: Int64, see: UInt64) {
                 }
 
                 while (l > 16) {
-                    seed = mix(r8Wide(base, pos, littleEndian) ^ SECRET1,
-                        r8Wide(base, pos + 8, littleEndian) ^ seed)
+                    seed = mix(r8Wide(base, pos) ^ SECRET1,
+                        r8Wide(base, pos + 8) ^ seed)
                     l -= 16
                     pos += 16
                 }
-                a = r8Wide(base, pos + l - 16, littleEndian)
-                b = r8Wide(base, pos + l - 8, littleEndian)
+                a = r8Wide(base, pos + l - 16)
+                b = r8Wide(base, pos + l - 8)
                 releaseRawData(arr, base)
             }
     }
