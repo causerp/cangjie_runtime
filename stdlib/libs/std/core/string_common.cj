@@ -342,7 +342,11 @@ class StringLineIterator <: Iterator<String> {
             }
             pos++
         }
-        let str = String(iteratorData.myData[iteratorData.nextPos..])
+        let str = if (haveCR) {
+            String(iteratorData.myData[iteratorData.nextPos..pos - 1])
+        } else {
+            String(iteratorData.myData[iteratorData.nextPos..])
+        }
         iteratorData.nextPos = iteratorData.end
         return Some(str)
     }
