@@ -34,7 +34,7 @@ public func diagReport(level: DiagReportLevel, tokens: Tokens, message: String, 
         let fileID = tokens[0].pos.fileID
         for (token in tokens) {
             if (token.pos.fileID != fileID) {
-                throw ASTException("Input tokens are not from a single file.")
+                throw ASTException("Input tokens span multiple files.")
             }
         }
 
@@ -61,8 +61,8 @@ public func diagReport(level: DiagReportLevel, tokens: Tokens, message: String, 
     let rangeError: UInt8 = 1
     let fileIDError: UInt8 = 2
     match {
-        case ret == rangeError => throw ASTException("The range of input tokens is out of the macro call range.")
-        case ret == fileIDError => throw ASTException("Input tokens is not from the macro call.")
+        case ret == rangeError => throw ASTException("Range of input tokens exceeds the macro call range.")
+        case ret == fileIDError => throw ASTException("Input tokens are not from the macro call file.")
         case _ => ()
     }
 }

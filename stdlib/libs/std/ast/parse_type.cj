@@ -21,7 +21,7 @@ public func parseType(input: Tokens): TypeNode {
                 }, p, CPointer<Int64>())
             })
         } catch (e: Exception) {
-            throw ParseASTException("parsing type error.")
+            throw ParseASTException("Failed to parse type.")
         }
     }
     /* Get decl info from flatbuffer */
@@ -44,7 +44,7 @@ public func parseTypeFragment(input: Tokens, startFrom!: Int64 = 0): (TypeNode, 
                 }
             )
         } catch (e: Exception) {
-            throw ParseASTException("parsing type fragment error.")
+            throw ParseASTException("Failed to parse type fragment.")
         }
     }
     var astNode = generateTypeAST(node.GetRootAsType())
@@ -77,7 +77,7 @@ func generateTypeAST(tyNode: Option<NodeFormat_Type>): TypeNode {
         case "func_type" => createFuncType(ty, nodeBase)
         case "tuple_type" => createTupleType(ty, nodeBase)
         case "this_type" => createThisType(ty, nodeBase)
-        case _ => throw ParseASTException("Unsupported parse the type node: ${astKind}.\n")
+        case _ => throw ParseASTException("Unsupported type node kind: '${astKind}'.")
     }
     astNode.beginPos = Position(begin.fileId, begin.line, begin.column)
     astNode.endPos = Position(end.fileId, end.line, end.column)

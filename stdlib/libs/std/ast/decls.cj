@@ -117,7 +117,7 @@ public open class Decl <: Node {
         get() {
             match (genericParam_) {
                 case Some(v) => v
-                case None => throw ASTException("Get Generic parameters failed")
+                case None => throw ASTException("Generic parameters are not available.")
             }
         }
         set(v) {
@@ -744,10 +744,10 @@ public class ExtendDecl <: Decl {
     private var body_ = Body()
     public mut override prop identifier: Token {
         get() {
-            throw ASTException("Current ExtendDecl don't have identifier")
+            throw ASTException("'ExtendDecl' has no identifier.")
         }
         set(_) {
-            throw ASTException("Current ExtendDecl don't have identifier")
+            throw ASTException("'ExtendDecl' has no identifier.")
         }
     }
     public mut prop extendType: TypeNode {
@@ -910,7 +910,7 @@ public class FuncDecl <: Decl {
         get() {
             match (retTy_) {
                 case Some(v) => v
-                case None => throw ASTException("Current FuncDecl has empty return type")
+                case None => throw ASTException("'FuncDecl' has no return type.")
             }
         }
         set(v) {
@@ -1104,7 +1104,7 @@ public class MainDecl <: Decl {
         get() {
             match (retTy_) {
                 case Some(v) => v
-                case None => throw ASTException("Current MainDecl has empty return type")
+                case None => throw ASTException("'MainDecl' has no return type.")
             }
         }
         set(v) {
@@ -1243,7 +1243,7 @@ public class MacroDecl <: Decl {
         get() {
             match (retTy_) {
                 case Some(v) => v
-                case None => throw ASTException("Current MacroDecl has empty return type")
+                case None => throw ASTException("'MacroDecl' has no return type.")
             }
         }
         set(v) {
@@ -1337,12 +1337,8 @@ public class PrimaryCtorDecl <: Decl {
                     this.block_ = v.block_
                 case None => throw ASTException("Cannot construct the 'PrimaryCtorDecl' node.")
             }
-        } catch (e: ParseASTException) {
-            if (e.message == String.empty) {
-                throw ASTException("Cannot construct the 'PrimaryCtorDecl' node.")
-            } else {
-                throw ASTException(e.message)
-            }
+        } catch (_: ParseASTException) {
+            throw ASTException("Cannot construct the 'PrimaryCtorDecl' node.")
         }
     }
     public init() {
@@ -1491,7 +1487,7 @@ public class VarDecl <: Decl {
         get() {
             match (pattern_) {
                 case Some(v) => v
-                case None => throw ASTException("Current VarDecl is with an empty pattern")
+                case None => throw ASTException("'VarDecl' has no pattern.")
             }
         }
         set(v) {
@@ -1511,7 +1507,7 @@ public class VarDecl <: Decl {
         get() {
             match (declType_) {
                 case Some(v) => v
-                case None => throw ASTException("Current VarDecl has an implicit type")
+                case None => throw ASTException("'VarDecl' has no explicit type.")
             }
         }
         set(v) {
@@ -1531,7 +1527,7 @@ public class VarDecl <: Decl {
         get() {
             match (expr_) {
                 case Some(v) => v
-                case None => throw ASTException("Current VarDecl has not be initialized")
+                case None => throw ASTException("'VarDecl' is not initialized.")
             }
         }
         set(v) {
@@ -1641,7 +1637,7 @@ public open class FuncParam <: Decl {
         super()
         var v = parseFuncParam(inputs)
         var decl: Decl = v
-        // @ amd @! annotations are considered as macro expansion nodes
+        // @ and @! annotations are considered as macro expansion nodes
         // extract the FuncParam node from Annotations with a loop
         while (true) {
             decl = match (decl as MacroExpandParam) {
@@ -1722,7 +1718,7 @@ public open class FuncParam <: Decl {
         get() {
             match (expr_) {
                 case Some(v) => v
-                case None => throw ASTException("The expression of FuncParam is None")
+                case None => throw ASTException("'FuncParam' has no expression.")
             }
         }
         set(v) {
@@ -1863,7 +1859,7 @@ public class PropDecl <: Decl {
         get() {
             match (getter_) {
                 case Some(v) => v
-                case None => throw ASTException("The PropDecl have empty 'get()' function")
+                case None => throw ASTException("'PropDecl' has no 'get()' function.")
             }
         }
         set(v) {
@@ -1874,7 +1870,7 @@ public class PropDecl <: Decl {
         get() {
             match (setter_) {
                 case Some(v) => v
-                case None => throw ASTException("The PropDecl have empty 'set()' function")
+                case None => throw ASTException("'PropDecl' has no 'set()' function.")
             }
         }
         set(v) {
@@ -2111,12 +2107,8 @@ public class MacroExpandDecl <: Decl {
                     this.annotations = v.annotations
                 case None => throw ASTException("Cannot construct the 'MacroExpandDecl' node.")
             }
-        } catch (e: ParseASTException) {
-            if (e.message == String.empty) {
-                throw ASTException("Cannot construct the 'MacroExpandDecl' node.")
-            } else {
-                throw ASTException(e.message)
-            }
+        } catch (_: ParseASTException) {
+            throw ASTException("Cannot construct the 'MacroExpandDecl' node.")
         }
     }
     public init() {}
@@ -2216,7 +2208,7 @@ public class MacroExpandDecl <: Decl {
         get() {
             match (macroInputDecl_) {
                 case Some(v) => v
-                case None => throw ASTException()
+                case None => throw ASTException("No macro input declaration available.")
             }
         }
         set(v) {
@@ -2389,7 +2381,7 @@ public class MacroExpandParam <: FuncParam {
         get() {
             match (macroInputDecl_) {
                 case Some(v) => v
-                case None => throw ASTException()
+                case None => throw ASTException("No macro input declaration available.")
             }
         }
         set(v) {
