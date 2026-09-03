@@ -87,6 +87,7 @@ The std library includes several packages that provide rich foundational functio
 | [binary](./binary/binary_package_overview.md) | The binary package provides interfaces for converting between basic data types and binary byte arrays with different endianness, as well as endianness reversal. |
 | [collection](./collection/collection_package_overview.md) | The collection package offers efficient implementations of common data structures, definitions of related abstract interfaces, and frequently used functions in collection types. |
 | [collection.concurrent](./collection_concurrent/collection_concurrent_package_overview.md) | The collection.concurrent package provides thread-safe implementations of collection types. |
+| [concurrent](./concurrent/concurrent_package_overview.md) | The concurrent package provides APIs for structured concurrency. |
 | [console](./console/console_package_overview.md) | The console package provides methods for interacting with standard input, output, and error streams. |
 | [convert](./convert/convert_package_overview.md) | The convert package offers Convert series functions for converting strings to specific types, as well as formatting capabilities, primarily for converting Cangjie type instances to formatted strings. |
 | [crypto.cipher](./crypto/cipher/cipher_package_overview.md) | The crypto.cipher package provides generic interfaces for symmetric encryption and decryption. |

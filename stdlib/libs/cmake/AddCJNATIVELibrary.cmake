@@ -144,6 +144,22 @@ add_library(cangjie-std-collection.concurrent STATIC
 set_target_properties(cangjie-std-collection.concurrent PROPERTIES LINKER_LANGUAGE C)
 install(TARGETS cangjie-std-collection.concurrent DESTINATION lib/${output_triple_name}_${CJNATIVE_BACKEND}${SANITIZER_SUBPATH})
 
+if(NOT OHOS)
+    make_cangjie_lib(
+        std-concurrent IS_SHARED
+        DEPENDS cangjie${BACKEND_TYPE}Concurrent
+        CANGJIE_STD_LIB_DEPENDS
+            std-core
+            std-collection
+            std-collection.concurrent
+            std-sync
+        OBJECTS ${output_cj_object_dir}/std/concurrent.o)
+
+    add_library(cangjie-std-concurrent STATIC ${output_cj_object_dir}/std/concurrent.o)
+    set_target_properties(cangjie-std-concurrent PROPERTIES LINKER_LANGUAGE C)
+    install(TARGETS cangjie-std-concurrent DESTINATION lib/${output_triple_name}_${CJNATIVE_BACKEND}${SANITIZER_SUBPATH})
+endif()
+
 if(NOT DARWIN)
     make_cangjie_lib(
         std-reflect IS_SHARED
@@ -908,6 +924,20 @@ add_cangjie_library(
     SOURCES ${CONCURRENT_COLLECTION_SRCS}
     SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/std/collection/concurrent
     DEPENDS ${CONCURRENT_COLLECTION_DEPENDENCIES})
+
+if(NOT OHOS)
+    add_cangjie_library(
+        cangjie${BACKEND_TYPE}Concurrent
+        NO_SUB_PKG
+        IS_STDLIB
+        IS_PACKAGE
+        IS_CJNATIVE_BACKEND
+        PACKAGE_NAME "concurrent"
+        MODULE_NAME "std"
+        SOURCES ${CONCURRENT_SRCS}
+        SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/std/concurrent
+        DEPENDS ${CONCURRENT_DEPENDENCIES})
+endif()
 
 add_cangjie_library(
     cangjie${BACKEND_TYPE}MathNumeric
