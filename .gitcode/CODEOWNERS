@@ -1,49 +1,7 @@
-/.gitcode/ @xuanjz
+/.gitcode/ @kkkkkkkbbbbbbb
 OAT.xml @xuanjz
 
 *.md @luojianing
 
-# stdlib
-
-/stdlib/libs/std/argopt/ @MinamiK
-/stdlib/libs/std/env/ @MinamiK
-/stdlib/libs/std/process/ @MinamiK
-/stdlib/libs/std/reflect/ @MinamiK
-/stdlib/libs/std/runtime/ @MinamiK
-
-/stdlib/libs/std/convert/ @chongweizhi
-/stdlib/libs/std/crypto/ @chongweizhi
-/stdlib/libs/std/database/ @chongweizhi
-/stdlib/libs/std/io/ @chongweizhi
-
-/stdlib/libs/std/net/ @PigHardWorking
-/stdlib/libs/std/random/ @PigHardWorking
-/stdlib/libs/std/sync/ @PigHardWorking
-
-/stdlib/libs/std/math/ @jiyuan_99
-/stdlib/libs/std/overflow/ @jiyuan_99
-
-/stdlib/libs/std/binary/ @renyi43
-/stdlib/libs/std/console/ @renyi43
-/stdlib/libs/std/posix/ @renyi43
-/stdlib/libs/std/sort/ @renyi43
-/stdlib/libs/std/unicode/ @renyi43
-
-/stdlib/libs/std/collection/ @xdst
-/stdlib/libs/std/core/ @xdst
-/stdlib/libs/std/fs/ @xdst
-/stdlib/libs/std/time/ @xdst
-
-/stdlib/libs/std/objectpool/ @ChaosJohn
-/stdlib/libs/std/regex/ @ChaosJohn
-
-
-/stdlib/libs/std/deriving/ @belyaev-mikhail
-/stdlib/libs/std/unittest/ @belyaev-mikhail
-
-/stdlib/libs/std/ast/ @mini-tang
-
-#stdlib docs
-/stdlib/doc/ @luojianing @renyi43
-
-/stdlib/doc/libs/std/ast/ @mini-tang @luojianing
+stdlib @kkkkkkkbbbbbbb
+runtime @kongbx
