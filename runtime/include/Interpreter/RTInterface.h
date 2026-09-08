@@ -109,7 +109,7 @@ typedef struct INT_InterpretedFrameDesc {
 // endregion Calling Conventions
 
 #define INT_INTERPRETER_INTERFACE_VERSION 2
-#define DYN_CJNATIVE_INTERFACE_VERSION 3
+#define DYN_CJNATIVE_INTERFACE_VERSION 4
 
 // region interpreter interface
 
@@ -597,6 +597,37 @@ typedef DYN_ObjRef (*DYN_PostThrowExceptionFn)(DYN_ExceptionWrapper exceptionWra
 // - message - log message
 typedef void (*DYN_NativeLoggerFn)(int logLevel, char* tag, char* message);
 
+// Atomically reads the reference.
+// params:
+// - obj - pointer to AtomicReference object
+// - field - pointer to field within AtomicReference object
+// return: reference
+typedef DYN_ObjRef (*DYN_AtomicReadRef)(DYN_ObjRef obj, DYN_FieldRef field);
+
+// Atomically writes the reference.
+// params:
+// - ref - new reference
+// - obj - pointer to AtomicReference object
+// - field - pointer to field within AtomicReference object
+typedef void (*DYN_AtomicWriteRef)(DYN_ObjRef ref, DYN_ObjRef obj, DYN_FieldRef field);
+
+// Atomically swaps the reference.
+// params:
+// - ref - new reference
+// - obj - pointer to AtomicReference object
+// - field - pointer to field within AtomicReference object
+// return: old reference
+typedef DYN_ObjRef (*DYN_AtomicSwapRef)(DYN_ObjRef ref, DYN_ObjRef obj, DYN_FieldRef field);
+
+// CAS.
+// params:
+// - oldRef - reference to compare
+// - newRef - new reference
+// - obj - pointer to AtomicReference object
+// - field - pointer to field within AtomicReference object
+// return: 1, if oldRef matches current field value, 0 otherwise
+typedef int (*DYN_AtomicCompareAndSwapRef)(DYN_ObjRef oldRef, DYN_ObjRef newRef, DYN_ObjRef obj, DYN_FieldRef field);
+
 // endregion CJNative interface
 
 // region Interfaces
@@ -690,6 +721,11 @@ struct DYN_CJNativeInterface {
     DYN_I2NStubFn i2nStub;
 
     DYN_NativeLoggerFn nativeLogger;
+
+    DYN_AtomicReadRef atomicReadRef;
+    DYN_AtomicWriteRef atomicWriteRef;
+    DYN_AtomicSwapRef atomicSwapRef;
+    DYN_AtomicCompareAndSwapRef atomicCompareAndSwapRef;
 };
 
 // Initalize interpreter and fill it`s interface.
