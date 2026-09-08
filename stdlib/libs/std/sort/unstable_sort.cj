@@ -20,6 +20,13 @@ public func unstableSort<T>(data: Array<T>): Unit where T <: Comparable<T> {
     if (data.size < 2) {
         return
     }
+    if (data.isAscending(0, data.size - 1)) {
+        return
+    }
+    if (data.isDescending(0, data.size - 1)) {
+        data.reverseRange(0, data.size - 1)
+        return
+    }
     data.introSort(0, data.size - 1, data.depth())
 }
 
@@ -38,6 +45,13 @@ public func unstableSort<T>(data: Array<T>): Unit where T <: Comparable<T> {
 @Deprecated[message: "Use global function `public func sort<T>(data: Array<T>, by!: (T, T) -> Ordering, stable!: Bool = false, descending!: Bool = false): Unit` instead."]
 public func unstableSort<T>(data: Array<T>, comparator: (T, T) -> Ordering): Unit {
     if (data.size < 2) {
+        return
+    }
+    if (data.isAscending(0, data.size - 1, comparator)) {
+        return
+    }
+    if (data.isDescending(0, data.size - 1, comparator)) {
+        data.reverseRange(0, data.size - 1)
         return
     }
     data.introSort(0, data.size - 1, data.depth(), comparator)
