@@ -176,7 +176,6 @@ Exceptions:
 
 - [InvocationTargetException](reflect_package_exceptions.md#class-invocationtargetexception) - Thrown if the `class` type has `abstract` semantics, as abstract classes cannot be instantiated.
 - [InfoNotFoundException](reflect_package_exceptions.md#class-infonotfoundexception) - Thrown if `args` fails to match any `public` constructor of the `class` type.
-- [InvocationTargetException](reflect_package_exceptions.md#class-invocationtargetexception) - Any exception thrown within the invoked constructor will be wrapped as [InvocationTargetException](reflect_package_exceptions.md#class-invocationtargetexception) and rethrown.
 
 Example:
 
@@ -701,7 +700,6 @@ Exceptions:
 - [InvocationTargetException](reflect_package_exceptions.md#class-invocationtargetexception) - Thrown if the type to which this constructor belongs is an abstract class.
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if the number of arguments in `args` does not match the number of parameters in the constructor's parameter list.
 - [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - Thrown if the runtime type of any argument in `args` is not a subtype of the declared type of the corresponding parameter in the constructor.
-- [Exception](../../core/core_package_api/core_package_exceptions.md#class-exception) - If the invoked constructor throws an exception internally, it will be wrapped as an [Exception](../../core/core_package_api/core_package_exceptions.md#class-exception) and rethrown.
 
 ### func findAllAnnotations\<T>() where T <: Annotation
 
@@ -955,7 +953,7 @@ main(): Unit {
 Execution Result:
 
 ```text
-test.E.M2<Int64>
+test.E.M2(Int64)
 ```
 
 ### prop parameters
@@ -1008,7 +1006,7 @@ Function: Retrieves the [EnumConstructorInfo](#class-enumconstructorinfo) corres
 
 Parameters:
 
-- qualifiedName: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The qualified name of the enum constructor, for example `default.E.M2<Int64>`.
+- qualifiedName: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The qualified name of the enum constructor, for example `default.E.M2(Int64)`.
 
 Returns:
 
@@ -1031,7 +1029,7 @@ public enum E {
 }
 
 main(): Unit {
-    let ctor = EnumConstructorInfo.get("test.E.M2<Int64>")
+    let ctor = EnumConstructorInfo.get("test.E.M2(Int64)")
     println(ctor.qualifiedName)
     return
 }
@@ -1040,7 +1038,7 @@ main(): Unit {
 Execution Result:
 
 ```text
-test.E.M2<Int64>
+test.E.M2(Int64)
 ```
 
 ### static func of(Any)
@@ -1102,7 +1100,7 @@ public enum E {
 }
 
 main(): Unit {
-    let ctor = EnumConstructorInfo.get("test.E.M3<Int64, String>")
+    let ctor = EnumConstructorInfo.get("test.E.M3(Int64, String)")
     let inst = (ctor.apply([7, "hi"]) as E).getOrThrow()
     match (inst) {
         case E.M3(v1, v2) => println("${v1}, ${v2}")
@@ -1214,10 +1212,10 @@ Execution Result:
 0
 ```
 
-### func findAllAnnotation<T>() where T <: Annotation
+### func findAnnotation<T>() where T <: Annotation
 
 ```cangjie
-public func findAllAnnotation<T>(): ?T where T <: Annotation
+public func findAnnotation<T>(): ?T where T <: Annotation
 ```
 
 Function: Retrieves any one annotation of type `T` applied to this constructor.
@@ -1245,7 +1243,7 @@ public enum E {
 
 main(): Unit {
     let ctor = EnumTypeInfo.get("test.E").getConstructor("M1")
-    println(ctor.findAllAnnotation<A1>().isNone())
+    println(ctor.findAnnotation<A1>().isNone())
     return
 }
 ```
@@ -1484,8 +1482,8 @@ Function: Retrieves the [EnumTypeInfo](#class-enumtypeinfo) for the type specifi
 >
 > - `default.E`
 > - `default.E.M1`
-> - `default.E.M2<Int64>`
-> - `default.E.M3<Int64, String>`
+> - `default.E.M2(Int64)`
+> - `default.E.M3(Int64, String)`
 
 Parameters:
 
@@ -1547,7 +1545,8 @@ Exceptions:
 
 > **Note:**
 >
-> Unsupported platforms: macOS, iOS.
+> - When the runtime type of the argument is a `class` type, the call resolves to the `static func of(Object)` overload of [TypeInfo](#class-typeinfo) (which is going to be deprecated), returns the [ClassTypeInfo](#class-classtypeinfo) of that argument and throws nothing. Use `of<T>()` when the kind of the type must be enforced.
+> - Unsupported platforms: macOS, iOS.
 
 Example:
 
@@ -1625,7 +1624,7 @@ Function: Constructs an enum instance using the given constructor signature and 
 
 Parameters:
 
-- constructor: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Constructor signature.
+- constructor: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Constructor signature, such as `M3(Int64, String)`; a constructor without associated values is written by its name only, such as `M1`.
 - args: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Any](../../core/core_package_api/core_package_interfaces.md#interface-any)> - Argument list for the constructor.
 
 Returns:
@@ -1656,7 +1655,7 @@ public enum E {
 
 main(): Unit {
     let e = EnumTypeInfo.get("test.E")
-    let inst = (e.construct("M3<Int64, String>", [42, "abc"]) as E).getOrThrow()
+    let inst = (e.construct("M3(Int64, String)", [42, "abc"]) as E).getOrThrow()
     match (inst) {
         case E.M3(v1, v2) => println("${v1}, ${v2}")
         case _ => println("unexpected")
@@ -1722,7 +1721,7 @@ main(): Unit {
 Execution Result:
 
 ```text
-test.E.M2<Int64>
+test.E.M2(Int64)
 1
 Some(7)
 ```
@@ -1779,8 +1778,8 @@ Execution Result:
 
 ```text
 test.E.M1
-test.E.M2<Int64>
-test.E.M2<Int64, Int64>
+test.E.M2(Int64)
+test.E.M2(Int64, Int64)
 ```
 
 ## class FunctionTypeInfo
@@ -1879,7 +1878,8 @@ The runtime type is determined through dynamic binding during program execution 
 
 > **Note:**
 >
-> Unsupported platforms: macOS, iOS.
+> - When the runtime type of the argument is a `class` type, the call resolves to the `static func of(Object)` overload of [TypeInfo](#class-typeinfo) (which is going to be deprecated), returns the [ClassTypeInfo](#class-classtypeinfo) of that argument and throws nothing. Use `of<T>()` when the kind of the type must be enforced.
+> - Unsupported platforms: macOS, iOS.
 
 Parameters:
 
@@ -2085,11 +2085,11 @@ public prop genericParams: Collection<GenericTypeInfo>
 
 Function: Retrieves the generic parameter information list of the instance member function corresponding to this [GlobalFunctionInfo](reflect_package_classes.md#class-globalfunctioninfo).
 
+> **Note:**
+>
+> - An empty collection is returned when the function has no generic parameters; no exception is thrown in that case.
+
 Type: [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<[GenericTypeInfo](reflect_package_classes.md#class-generictypeinfo)>
-
-Exceptions:
-
-- [InfoNotFoundException](./reflect_package_exceptions.md#class-infonotfoundexception) - Thrown if the [GlobalFunctionInfo](reflect_package_classes.md#class-globalfunctioninfo) has no generic parameters.
 
 ### prop name
 
@@ -2154,7 +2154,6 @@ Exceptions:
 - [InvocationTargetException](../reflect_package_api/reflect_package_exceptions.md#class-invocationtargetexception) - Thrown if a function with generic parameters invokes this method.
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if the number of arguments in the argument list `args` does not match the number of parameters in the formal parameter list of the global function corresponding to this `GlobalFunctionInfo`.
 - [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - Thrown if the runtime type of any argument in `args` is not a subtype of the declared type of the corresponding parameter in the global function.
-- [Exception](../../core/core_package_api/core_package_exceptions.md#class-exception) - If the invoked global function throws an exception internally, it will be wrapped as an [Exception](../../core/core_package_api/core_package_exceptions.md#class-exception) and rethrown.
 
 ### func apply(Array\<TypeInfo>, Array\<Any>)
 
@@ -2184,7 +2183,6 @@ Exceptions:
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if the number of parameters in `genericTypeArgs` does not match the number of generic parameters in the global function's `genericParams` list.
 - [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - Thrown if the runtime type of any argument in `args` is not a subtype of the declared type of the corresponding parameter in the global function.
 - [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - Thrown if `args` and `genericTypeArgs` do not satisfy the type constraints of the global function's parameters.
-- [Exception](../../core/core_package_api/core_package_exceptions.md#class-exception) - If the invoked global function throws an exception internally, it will be wrapped as an [Exception](../../core/core_package_api/core_package_exceptions.md#class-exception) and rethrown.
 
 ### func findAllAnnotations\<T>() where T <: Annotation
 
@@ -2502,11 +2500,11 @@ public prop genericParams: Collection<GenericTypeInfo>
 
 Function: Retrieves the list of generic parameter information for the corresponding instance member function of this [InstanceFunctionInfo](reflect_package_classes.md#class-instancefunctioninfo).
 
+> **Note:**
+>
+> - An empty collection is returned when the function has no generic parameters; no exception is thrown in that case.
+
 Type: [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<[GenericTypeInfo](reflect_package_classes.md#class-generictypeinfo)>
-
-Exceptions:
-
-- [InfoNotFoundException](./reflect_package_exceptions.md#class-infonotfoundexception) - Thrown when [GlobalFunctionInfo](reflect_package_classes.md#class-globalfunctioninfo) has no generic parameters.
 
 ### prop modifiers
 
@@ -2591,7 +2589,6 @@ Exceptions:
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if the number of arguments in `args` does not match the number of parameters in the corresponding instance member function.
 - [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - Thrown if the runtime type of `instance` does not match the type of the corresponding instance member function.
 - [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - Thrown if the runtime type of any argument in `args` is not a subtype of the declared type of the corresponding parameter in the instance member function.
-- [Exception](../../core/core_package_api/core_package_exceptions.md#class-exception) - If the invoked instance member function throws an exception internally, it will be wrapped as an [Exception](../../core/core_package_api/core_package_exceptions.md#class-exception) and thrown.
 
 ### func apply(Any, Array\<TypeInfo>, Array\<Any>)
 
@@ -2624,7 +2621,6 @@ Exceptions:
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if the number of parameters in `genericTypeArgs` does not match the number of generic parameters in `genericParams` of the corresponding member function.
 - [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - Thrown if the runtime type of any argument in `args` is not a subtype of the declared type of the corresponding parameter in the instance member function.
 - [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - Thrown if the argument list `args` and generic parameter type list `genericTypeArgs` do not satisfy the type constraints of the corresponding member function.
-- [Exception](../../core/core_package_api/core_package_exceptions.md#class-exception) - If the invoked instance member function throws an exception internally, it will be wrapped as an [Exception](../../core/core_package_api/core_package_exceptions.md#class-exception) and thrown.
 
 Example:
 
@@ -3383,6 +3379,10 @@ public redef static func of(a: Any): InterfaceTypeInfo
 
 Function: Gets the type information corresponding to the runtime type of the given instance.
 
+> **Note:**
+>
+> - When the runtime type of the argument is a `class` type, the call resolves to the `static func of(Object)` overload of [TypeInfo](#class-typeinfo) (which is going to be deprecated), returns the [ClassTypeInfo](#class-classtypeinfo) of that argument and throws nothing. Use `of<T>()` when the kind of the type must be enforced.
+
 The runtime type is determined through dynamic binding during program execution and is bound to the instance object. In inheritance scenarios, the runtime type may differ from the static type.
 
 Parameters:
@@ -4002,6 +4002,10 @@ public static redef func of(a: Any): PrimitiveTypeInfo
 
 Function: Retrieves the type information corresponding to the runtime type of the given instance of any type.
 
+> **Note:**
+>
+> - When the runtime type of the argument is a `class` type, the call resolves to the `static func of(Object)` overload of [TypeInfo](#class-typeinfo) (which is going to be deprecated), returns the [ClassTypeInfo](#class-classtypeinfo) of that argument and throws nothing. Use `of<T>()` when the kind of the type must be enforced.
+
 The runtime type refers to the type determined through dynamic binding during program execution, which is bound to the instance object. In inheritance scenarios, the runtime type may differ from the static type.
 
 Parameters:
@@ -4110,11 +4114,11 @@ public prop genericParams: Collection<GenericTypeInfo>
 
 Function: Retrieve the list of generic parameter information for the instance member function corresponding to this [StaticFunctionInfo](reflect_package_classes.md#class-staticfunctioninfo).
 
+> **Note:**
+>
+> - An empty collection is returned when the function has no generic parameters; no exception is thrown in that case.
+
 Type: [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<[GenericTypeInfo](reflect_package_classes.md#class-generictypeinfo)>
-
-Exceptions:
-
-- [InfoNotFoundException](./reflect_package_exceptions.md#class-infonotfoundexception) - Thrown when the [GlobalFunctionInfo](reflect_package_classes.md#class-globalfunctioninfo) has no generic parameters.
 
 ### prop modifiers
 
@@ -4198,7 +4202,6 @@ Exceptions:
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if the number of arguments in `args` does not match the number of parameters in the static member function's parameter list.
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if `thisType` does not match the function signature of the static function.
 - [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - Thrown if the runtime type of any argument in `args` is not a subtype of the declared type of the corresponding parameter in the static member function.
-- [Exception](../../core/core_package_api/core_package_exceptions.md#class-exception) - If the static member function internally throws an exception, it will be wrapped as an [Exception](../../core/core_package_api/core_package_exceptions.md#class-exception) and rethrown.
 
 Example:
 
@@ -4264,7 +4267,6 @@ Exceptions:
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if `thisType` does not match the function signature of the static function.
 - [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - Thrown if the runtime type of any argument in `args` is not a subtype of the declared type of the corresponding parameter in the static member function.
 - [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - Thrown if the argument list `args` and generic type argument list `genericTypeArgs` do not satisfy the type constraints of the static member function's parameters.
-- [Exception](../../core/core_package_api/core_package_exceptions.md#class-exception) - If the static member function internally throws an exception, it will be wrapped as an [Exception](../../core/core_package_api/core_package_exceptions.md#class-exception) and rethrown.
 
 ### func findAllAnnotations\<T>() where T <: Annotation
 
@@ -4999,8 +5001,7 @@ Returns:
 
 Exceptions:
 
-- [MisMatchException](reflect_package_exceptions.md#class-mismatchexception) - Thrown if `args` fails to match any `public` constructor of the `struct` type.
-- [InvocationTargetException](reflect_package_exceptions.md#class-invocationtargetexception) - Any exception thrown inside the invoked constructor will be wrapped as an [InvocationTargetException](reflect_package_exceptions.md#class-invocationtargetexception) and thrown.
+- [InfoNotFoundException](reflect_package_exceptions.md#class-infonotfoundexception) - Thrown if `args` fails to match any `public` constructor of the `struct` type.
 
 Example:
 
@@ -5206,6 +5207,10 @@ public static redef func of(a: Any): StructTypeInfo
 
 Function: Retrieves the type information corresponding to the runtime type of the given instance.
 
+> **Note:**
+>
+> - When the runtime type of the argument is a `class` type, the call resolves to the `static func of(Object)` overload of [TypeInfo](#class-typeinfo) (which is going to be deprecated), returns the [ClassTypeInfo](#class-classtypeinfo) of that argument and throws nothing. Use `of<T>()` when the kind of the type must be enforced.
+
 The runtime type refers to the type determined through dynamic binding during program execution, which is bound to the instance object. In scenarios like inheritance, the runtime type may differ from the static type.
 
 Parameters:
@@ -5350,7 +5355,8 @@ Function: Retrieves the [TupleTypeInfo](#class-tupletypeinfo) corresponding to t
 
 > **Note:**
 >
-> Unsupported platforms: macOS, iOS.
+> - When the runtime type of the argument is a `class` type, the call resolves to the `static func of(Object)` overload of [TypeInfo](#class-typeinfo) (which is going to be deprecated), returns the [ClassTypeInfo](#class-classtypeinfo) of that argument and throws nothing. Use `of<T>()` when the kind of the type must be enforced.
+> - Unsupported platforms: macOS, iOS.
 
 Parameters:
 
@@ -5655,6 +5661,7 @@ Function: Retrieves the name of the type corresponding to this [TypeInfo](reflec
 >
 > - The name does not include any module or package prefixes.
 > - The type information of a type alias is essentially the type information of its underlying actual type. Therefore, this function returns the name of the actual type rather than the type alias itself. For example, the type information name of the type alias [Byte](../../core/core_package_api/core_package_types.md#type-byte) is [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8), not [Byte](../../core/core_package_api/core_package_types.md#type-byte).
+> - For a type whose visibility is lower than `public`, the name is a compiler-generated internal name, which is neither human readable nor stable.
 
 Type: [String](../../core/core_package_api/core_package_structs.md#struct-string)
 
@@ -5671,6 +5678,7 @@ Function: Gets the qualified name of the type corresponding to this [TypeInfo](r
 > - The qualified name includes module and package name prefixes.
 > - Specifically, built-in Cangjie data types and all types under the `core` package in the `std` module have qualified names without any module or package name prefixes.
 > - All types defined in contexts without explicit module or package names have no module name prefix but carry the package name prefix "`default`", e.g., "`default.MyType`".
+> - For a type whose visibility is lower than `public`, the qualified name is a compiler-generated internal name (such as `default._CN7defaultU00000003a6imS13MyTypeE`) and does not follow the formats above. Such a type can only be obtained from its instance or by that internal name: calling `get(String)` with the readable `package.Type` name throws [InfoNotFoundException](reflect_package_exceptions.md#class-infonotfoundexception).
 
 Type: [String](../../core/core_package_api/core_package_structs.md#struct-string)
 
