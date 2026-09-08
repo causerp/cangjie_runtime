@@ -51,7 +51,7 @@ public func parseTypeFragment(input: Tokens, startFrom!: Int64 = 0): (TypeNode, 
     return (astNode, count)
 }
 
-func generateTypeAST(tyNode: Option<NodeFormat_Type>): TypeNode {
+func generateTypeAST(tyNode: Option<ASTFormat_Type>): TypeNode {
     var ty = match (tyNode) {
         case Some(v) => v
         case None => throw ParseASTException()
@@ -85,7 +85,7 @@ func generateTypeAST(tyNode: Option<NodeFormat_Type>): TypeNode {
     return astNode
 }
 
-func createPrimitiveType(tyNode: NodeFormat_Type, nodeBase: NodeFormat_NodeBase): TypeNode {
+func createPrimitiveType(tyNode: ASTFormat_Type, nodeBase: ASTFormat_NodeBase): TypeNode {
     var primitiveType = match (tyNode.GetTypeAsPrimitiveType()) {
         case Some(v) => v
         case None => throw ParseASTException()
@@ -104,7 +104,7 @@ func createPrimitiveType(tyNode: NodeFormat_Type, nodeBase: NodeFormat_NodeBase)
     return PrimitiveType(typeName, colon, kind)
 }
 
-func createRefType(tyNode: Option<NodeFormat_RefType>, nodeBase: NodeFormat_NodeBase): TypeNode {
+func createRefType(tyNode: Option<ASTFormat_RefType>, nodeBase: ASTFormat_NodeBase): TypeNode {
     var refType = match (tyNode) {
         case Some(v) => v
         case None => throw ParseASTException()
@@ -141,7 +141,7 @@ func createRefType(tyNode: Option<NodeFormat_RefType>, nodeBase: NodeFormat_Node
     return RefType(typeName, colon, identifier, lAngle, types, commas, rAngle)
 }
 
-func createQualifiedType(tyNode: NodeFormat_Type, nodeBase: NodeFormat_NodeBase): TypeNode {
+func createQualifiedType(tyNode: ASTFormat_Type, nodeBase: ASTFormat_NodeBase): TypeNode {
     var qualifiedType = match (tyNode.GetTypeAsQualifiedType()) {
         case Some(v) => v
         case None => throw ParseASTException()
@@ -176,7 +176,7 @@ func createQualifiedType(tyNode: NodeFormat_Type, nodeBase: NodeFormat_NodeBase)
     return QualifiedType(typeName, colon, baseTy, dot, identifier, lAngle, types, commas, rAngle)
 }
 
-func createParenType(tyNode: NodeFormat_Type, nodeBase: NodeFormat_NodeBase): TypeNode {
+func createParenType(tyNode: ASTFormat_Type, nodeBase: ASTFormat_NodeBase): TypeNode {
     var parenType = match (tyNode.GetTypeAsParenType()) {
         case Some(v) => v
         case None => throw ParseASTException()
@@ -195,7 +195,7 @@ func createParenType(tyNode: NodeFormat_Type, nodeBase: NodeFormat_NodeBase): Ty
     return ParenType(typeName, colon, lParen, ty, rParen)
 }
 
-func createTupleType(tyNode: NodeFormat_Type, nodeBase: NodeFormat_NodeBase): TypeNode {
+func createTupleType(tyNode: ASTFormat_Type, nodeBase: ASTFormat_NodeBase): TypeNode {
     var tupleType = match (tyNode.GetTypeAsTupleType()) {
         case Some(v) => v
         case None => throw ParseASTException()
@@ -222,7 +222,7 @@ func createTupleType(tyNode: NodeFormat_Type, nodeBase: NodeFormat_NodeBase): Ty
     return TupleType(typeName, colon, lParen, types, commas, rParen)
 }
 
-func createThisType(tyNode: NodeFormat_Type, nodeBase: NodeFormat_NodeBase): TypeNode {
+func createThisType(tyNode: ASTFormat_Type, nodeBase: ASTFormat_NodeBase): TypeNode {
     var thisType = match (tyNode.GetTypeAsThisType()) {
         case Some(v) => v
         case None => throw ParseASTException()
@@ -240,7 +240,7 @@ func createThisType(tyNode: NodeFormat_Type, nodeBase: NodeFormat_NodeBase): Typ
     return ThisType(typeName, colon, keyword)
 }
 
-func createFuncType(tyNode: NodeFormat_Type, nodeBase: NodeFormat_NodeBase): TypeNode {
+func createFuncType(tyNode: ASTFormat_Type, nodeBase: ASTFormat_NodeBase): TypeNode {
     var funcType = match (tyNode.GetTypeAsFuncType()) {
         case Some(v) => v
         case None => throw ParseASTException()
@@ -271,7 +271,7 @@ func createFuncType(tyNode: NodeFormat_Type, nodeBase: NodeFormat_NodeBase): Typ
     return FuncType(typeName, colon, token, lParen, types, commas, rParen, arrow, retTy)
 }
 
-func createVArrayType(tyNode: NodeFormat_Type, nodeBase: NodeFormat_NodeBase): TypeNode {
+func createVArrayType(tyNode: ASTFormat_Type, nodeBase: ASTFormat_NodeBase): TypeNode {
     var vArrayType = match (tyNode.GetTypeAsVArrayType()) {
         case Some(v) => v
         case None => throw ParseASTException()
@@ -301,7 +301,7 @@ func createVArrayType(tyNode: NodeFormat_Type, nodeBase: NodeFormat_NodeBase): T
     return VArrayType(typeName, colon, keyword, lAngle, ty, dollar, size, rAngle)
 }
 
-func createPrefixType(tyNode: NodeFormat_Type, nodeBase: NodeFormat_NodeBase): TypeNode {
+func createPrefixType(tyNode: ASTFormat_Type, nodeBase: ASTFormat_NodeBase): TypeNode {
     var prefixType = match (tyNode.GetTypeAsOptionType()) {
         case Some(v) => v
         case None => throw ParseASTException()

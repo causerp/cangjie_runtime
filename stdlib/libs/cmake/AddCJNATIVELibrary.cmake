@@ -535,8 +535,18 @@ if (NOT OHOS AND NOT MINGW AND NOT DARWIN AND NOT ANDROID)
     set(GCC_S_FLAG -lgcc_s)
 endif()
 set(EXCLUDE_STD_AST_FFI_OPTION)
+set(EXCLUDE_FLATBUFFERS_OPTION)
 if(NOT DARWIN AND NOT MINGW)
     set(EXCLUDE_STD_AST_FFI_OPTION ${LINKER_OPTION_PREFIX}--exclude-libs=libcangjie-std-astFFI.a)
+    # Hide Cangjie package `flatbuffers` symbols force-linked into libcangjie-std-ast.so.
+    # stdx.syntax / stdx.chir also compile the same package from CANGJIE_HOME and
+    # statically embed it. If these mangled names stay DEFAULT-visible, a process
+    # that loads both DSOs (stdx.syntax already DT_NEEDED's std-ast) is subject to
+    # ELF interposition. The package currently has no process-global mutable state,
+    # but hidden visibility keeps the copies isolated if that ever changes.
+    # Darwin uses two-level namespace so it does not interpose; MinGW exports all
+    # symbols. Same skip as EXCLUDE_STD_AST_FFI_OPTION.
+    set(EXCLUDE_FLATBUFFERS_OPTION ${LINKER_OPTION_PREFIX}--exclude-libs=libcangjie-flatbuffers.a)
 endif()
 set(STDCPP_FLAG -lstdc++)
 if(DARWIN)
@@ -551,10 +561,21 @@ if(TRIPLE STREQUAL "arm-linux-ohos")
 elseif(TRIPLE STREQUAL "arm-linux-android23")
     set(arm32_ast_support -L$ENV{CANGJIE_HOME}/lib/linux_android23_arm_cjnative)
 endif()
+
+# Build only the flatbuffers static library: no shared library, and do not install it.
+# Users never use flatbuffers directly; it only supports serialization/deserialization for ast.
+# Consumers should use the ast library instead. The flatbuffers static archive is force-linked
+# into the ast shared library (see FORCE_LINK_ARCHIVES below), and flatbuffers.o is also
+# packaged into the ast static archive. On ELF, --exclude-libs hides those package symbols
+# so they are not dynamically exported (see EXCLUDE_FLATBUFFERS_OPTION).
+add_library(cangjie-flatbuffers STATIC ${output_cj_object_dir}/flatbuffers.o)
+set_target_properties(cangjie-flatbuffers PROPERTIES LINKER_LANGUAGE C)
+set_source_files_properties(${output_cj_object_dir}/flatbuffers.o PROPERTIES GENERATED TRUE)
+
 make_cangjie_lib(
     std-ast IS_SHARED ${STD_AST_ALLOW_UNDEFINED}
     IOS_DEPLOYMENT_VERSION 12.0.0
-    DEPENDS cangjie${BACKEND_TYPE}AST cangjie-std-astFFI-objs
+    DEPENDS cangjie${BACKEND_TYPE}AST cangjie-std-astFFI-objs cangjie-flatbuffers
     CANGJIE_STD_LIB_DEPENDS
         std-core
         std-collection
@@ -562,6 +583,8 @@ make_cangjie_lib(
     CANGJIE_STD_LIB_INDIRECT_DEPENDS
         std-math
     OBJECTS ${output_cj_object_dir}/std/ast.o
+    FORCE_LINK_ARCHIVES
+        cangjie-flatbuffers
     FLAGS
         $<TARGET_OBJECTS:cangjie-std-astFFI-objs>
         ${arm32_ast_support}
@@ -570,12 +593,31 @@ make_cangjie_lib(
         ${GCC_S_FLAG}
         $<$<NOT:$<BOOL:${ANDROID}>>:-lpthread>
         ${EXCLUDE_STD_AST_FFI_OPTION}
+        ${EXCLUDE_FLATBUFFERS_OPTION}
         # if(NOT WIN32) then add -ldl, because there is no libdl on Windows.
         $<$<NOT:$<BOOL:${WIN32}>>:-ldl>)
 
-add_library(cangjie-std-ast STATIC ${output_cj_object_dir}/std/ast.o)
+add_library(cangjie-std-ast STATIC
+    ${output_cj_object_dir}/std/ast.o
+    ${output_cj_object_dir}/flatbuffers.o)
 set_target_properties(cangjie-std-ast PROPERTIES LINKER_LANGUAGE C)
+add_dependencies(cangjie-std-ast cangjie${BACKEND_TYPE}AST cangjie-flatbuffers)
 install(TARGETS cangjie-std-ast DESTINATION lib/${output_triple_name}_${CJNATIVE_BACKEND}${SANITIZER_SUBPATH})
+
+# Confirm the force-linked Cangjie flatbuffers package is not in the dynamic
+# symbol table. Link+run coverage of "std.ast together with stdx.syntax/chir"
+# lives in cangjie_test LLT/API/stdx/chir/mix_build, not in this repo.
+if(NOT DARWIN AND NOT MINGW AND NOT WIN32)
+    get_target_property(_std_ast_so std-ast CJ_LIB_OUTPUT_FILE)
+    add_custom_command(
+        TARGET std-ast POST_BUILD
+        COMMAND ${CMAKE_COMMAND}
+            -DLIB=${_std_ast_so}
+            -DNM=${CMAKE_NM}
+            -P ${CMAKE_CURRENT_LIST_DIR}/CheckFlatbuffersSymbolsHidden.cmake
+        COMMENT "Checking Cangjie flatbuffers symbols are hidden in libcangjie-std-ast"
+        VERBATIM)
+endif()
 
 make_cangjie_lib(
     std-unittest IS_SHARED
@@ -1210,11 +1252,40 @@ add_cangjie_library(
     DEPENDS ${RUNTIME_DEPENDENCIES})
 
 add_cangjie_library(
+    cangjie${BACKEND_TYPE}Flatbuffers
+    NO_SUB_PKG
+    IS_STDLIB
+    IS_PACKAGE
+    IS_CJNATIVE_BACKEND
+    NO_INSTALL
+    PACKAGE_NAME "flatbuffers"
+    SOURCE_DIR $ENV{CANGJIE_HOME}/third_party/flatbuffers/cangjie
+    DEPENDS ${FLATBUFFERS_DEPENDENCIES})
+add_dependencies(cangjie-flatbuffers cangjie${BACKEND_TYPE}Flatbuffers)
+# flatbuffers.cjo is a third-party module artifact; install next to the compiler SDK's
+# third_party/flatbuffers/{bin,include,cangjie} layout instead of modules/<triple>/.
+if(NOT CANGJIE_SANITIZER_SUPPORT_ENABLED)
+    install(FILES ${output_cj_object_dir}/flatbuffers.cjo
+            DESTINATION third_party/flatbuffers/modules)
+    # Also install into CANGJIE_HOME so the compiler SDK can resolve flatbuffers.cjo.
+    # Runtime is the sole producer of this cjo; compiler and stdx only consume it.
+    # Use install(CODE) so CANGJIE_HOME is read at install time, not configure time.
+    install(CODE "
+        if(\"\$ENV{CANGJIE_HOME}\" STREQUAL \"\")
+            message(FATAL_ERROR \"CANGJIE_HOME is not set; cannot install flatbuffers.cjo\")
+        endif()
+        set(_flatbuffers_modules_dir \"\$ENV{CANGJIE_HOME}/third_party/flatbuffers/modules\")
+        file(MAKE_DIRECTORY \"\${_flatbuffers_modules_dir}\")
+        file(INSTALL \"${output_cj_object_dir}/flatbuffers.cjo\"
+             DESTINATION \"\${_flatbuffers_modules_dir}\")
+    ")
+endif()
+
+add_cangjie_library(
     cangjie${BACKEND_TYPE}AST
     IS_STDLIB
     IS_PACKAGE
     IS_CJNATIVE_BACKEND
-    NO_SANCOV
     PACKAGE_NAME "ast"
     MODULE_NAME "std"
     SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/std/ast

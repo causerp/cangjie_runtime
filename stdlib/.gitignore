@@ -75,7 +75,6 @@ autoconf/autom4te.cache
 **/.gdb_history
 
 third_party/rapidjson
-third_party/flatbuffers
 third_party/boundscheck-v1.1.16
 third_party/context-boost-1.72.0
 third_party/panda
@@ -87,14 +86,7 @@ third_party/pcre2
 third_party/stdx/
 tests/HLT
 # flatc generated file
-libs/std/ast/NodeFormat_generated.cj
-libs/std/ast/nodeformat_generated.cj
-libs/std/ast/table.cj
-libs/std/ast/flatbuffer_object.cj
-libs/std/ast/decode.cj
-libs/std/ast/builder.cj
-libs/std/ast/constants.cj
-libs/std/ast/flatc_exception.cj
+libs/std/ast/StdAstFormat_generated.cj
 
 libs/encoding/json/native/*.a
 libs/encoding/json/native/json_api.h

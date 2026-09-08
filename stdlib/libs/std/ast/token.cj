@@ -77,7 +77,7 @@ public struct Token <: ToBytes {
         return Token(this.kind, this.value, fileID, line, colum, isSingleQuote: this.isSingleQuote_)
     }
 
-    func addPosition(position: NodeFormat_Position) {
+    func addPosition(position: ASTFormat_Position) {
         return Token(this.kind, this.value, position.fileId, position.line, position.column, isSingleQuote: this.isSingleQuote_)
     }
 

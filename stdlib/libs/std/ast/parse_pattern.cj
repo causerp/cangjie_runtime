@@ -51,7 +51,7 @@ public func parsePatternFragment(input: Tokens, startFrom!: Int64 = 0): (Pattern
     return (astNode, count)
 }
 
-func generatePatternAST(patternNode: Option<NodeFormat_Pattern>): Pattern {
+func generatePatternAST(patternNode: Option<ASTFormat_Pattern>): Pattern {
     var pattern = match (patternNode) {
         case Some(v) => v
         case None => throw ParseASTException("Failed to get the pattern node.")
@@ -77,7 +77,7 @@ func generatePatternAST(patternNode: Option<NodeFormat_Pattern>): Pattern {
     return astNode
 }
 
-func createVarPattern(pattern: NodeFormat_Pattern): VarPattern {
+func createVarPattern(pattern: ASTFormat_Pattern): VarPattern {
     var varPattern = match (pattern.GetPatternAsVarPattern()) {
         case Some(v) => v
         case None => throw ParseASTException("Failed to get the var pattern.")
@@ -94,7 +94,7 @@ func createVarPattern(pattern: NodeFormat_Pattern): VarPattern {
     return VarPattern(indentifier)
 }
 
-func createConstPattern(pattern: NodeFormat_Pattern): ConstPattern {
+func createConstPattern(pattern: ASTFormat_Pattern): ConstPattern {
     var constPattern = match (pattern.GetPatternAsConstPattern()) {
         case Some(v) => v
         case None => throw ParseASTException("Failed to get the constant pattern.")
@@ -107,12 +107,12 @@ func createConstPattern(pattern: NodeFormat_Pattern): ConstPattern {
     return ConstPattern(litConstExpr)
 }
 
-func createWildcardPattern(_: NodeFormat_Pattern, pos: NodeFormat_Position): WildcardPattern {
+func createWildcardPattern(_: ASTFormat_Pattern, pos: ASTFormat_Position): WildcardPattern {
     var keyWord = Tokens().append(Token(TokenKind.WILDCARD).addPosition(pos))
     return WildcardPattern(keyWord)
 }
 
-func createVarOrEnumPattern(pattern: NodeFormat_Pattern, pos: NodeFormat_Position): VarOrEnumPattern {
+func createVarOrEnumPattern(pattern: ASTFormat_Pattern, pos: ASTFormat_Position): VarOrEnumPattern {
     var varOrEnumPattern = match (pattern.GetPatternAsVarOrEnumPattern()) {
         case Some(v) => v
         case None => throw ParseASTException("Failed to get the var or enum pattern.")
@@ -122,7 +122,7 @@ func createVarOrEnumPattern(pattern: NodeFormat_Pattern, pos: NodeFormat_Positio
     return VarOrEnumPattern(identifier)
 }
 
-func createExceptTypePattern(pattern: NodeFormat_Pattern): ExceptTypePattern {
+func createExceptTypePattern(pattern: ASTFormat_Pattern): ExceptTypePattern {
     var exceptTypePattern = match (pattern.GetPatternAsExceptTypePattern()) {
         case Some(v) => v
         case None => throw ParseASTException("Failed to get the except type pattern.")
@@ -140,7 +140,7 @@ func createExceptTypePattern(pattern: NodeFormat_Pattern): ExceptTypePattern {
     return ExceptTypePattern(p, colon, types, bitOr)
 }
 
-func createCommandTypePattern(pattern: NodeFormat_Pattern): CommandTypePattern {
+func createCommandTypePattern(pattern: ASTFormat_Pattern): CommandTypePattern {
     var commandTypePattern = match (pattern.GetPatternAsCommandTypePattern()) {
         case Some(v) => v
         case None => throw ParseASTException("Failed to get the command type pattern.")
@@ -158,7 +158,7 @@ func createCommandTypePattern(pattern: NodeFormat_Pattern): CommandTypePattern {
     return CommandTypePattern(p, colon, types, bitOr)
 }
 
-func createTypePattern(pattern: NodeFormat_Pattern): TypePattern {
+func createTypePattern(pattern: ASTFormat_Pattern): TypePattern {
     var typePattern = match (pattern.GetPatternAsTypePattern()) {
         case Some(v) => v
         case None => throw ParseASTException("Failed to get the type pattern.")
@@ -169,7 +169,7 @@ func createTypePattern(pattern: NodeFormat_Pattern): TypePattern {
     return TypePattern(p, colon, ty)
 }
 
-func createEnumPattern(pattern: NodeFormat_Pattern): EnumPattern {
+func createEnumPattern(pattern: ASTFormat_Pattern): EnumPattern {
     var enumPattern = match (pattern.GetPatternAsEnumPattern()) {
         case Some(v) => v
         case None => throw ParseASTException("Failed to get the enum pattern.")
@@ -191,7 +191,7 @@ func createEnumPattern(pattern: NodeFormat_Pattern): EnumPattern {
     return EnumPattern(exprNode, lParen, patterns, commas, rParen)
 }
 
-func createTuplePattern(pattern: NodeFormat_Pattern): TuplePattern {
+func createTuplePattern(pattern: ASTFormat_Pattern): TuplePattern {
     var tuplePattern = match (pattern.GetPatternAsTuplePattern()) {
         case Some(v) => v
         case None => throw ParseASTException("Failed to get the tuple pattern.")
