@@ -1737,7 +1737,7 @@ Function: Looks up constructor information by constructor name and parameter cou
 Parameters:
 
 - constructor: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Constructor name (without parameter signature), e.g. `M2`.
-- argsCount!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Parameter count; `0` means no restriction.
+- argsCount!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Parameter count; the constructor is matched only when its parameter count equals this value. The default `0` matches constructors with no parameters (i.e. enum cases without associated values). To find constructors by name regardless of parameter count, iterate over the `constructors` property and filter by name.
 
 Returns:
 
