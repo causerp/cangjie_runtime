@@ -181,6 +181,9 @@ static std::vector<std::pair<std::string, std::string>> checkList = {
     { "_CPI9pkg1.pkg212global_test3HlllE1cHll", "pkg1.pkg2.global_test3(Int64, Int64, Int64).c(Int64, Int64)" },
     // Global var function
     { "_CGV9pkg1.pkg28global_aHv", "pkg1.pkg2.global_a" },
+    // Call operator: its name is "()" — the guard against double-rendered parameter lists
+    // must not mistake those parentheses for a rendered (and empty) parameter list.
+    { "_CN7default1AclHCNY_1AE", "default.A.()(default.A)" },
     // Local modal on function decls (this param and param modal).
     { "_CN18stdx.encoding.json9parseJsonHCNY_15JsonParserLocalEQLE",
       "stdx.encoding.json.parseJson(stdx.encoding.json.JsonParserLocal @ local!)" },
