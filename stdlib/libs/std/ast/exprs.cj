@@ -792,7 +792,7 @@ public class ReturnExpr <: Expr {
         get() {
             match (expr_) {
                 case Some(v) => v
-                case None => throw ASTException("'ReturnExpr' has no expression.")
+                case None => throw ASTException("'ReturnExpr' has no return value.")
             }
         }
         set(v) {
@@ -1575,7 +1575,7 @@ public class IfExpr <: Expr {
         get() {
             match (elseExpr_) {
                 case Some(v) => v
-                case None => throw ASTException("'IfExpr' has no else expression.")
+                case None => throw ASTException("'IfExpr' has no else branch.")
             }
         }
         set(v) {
@@ -1792,7 +1792,7 @@ public class MatchExpr <: Expr {
         get() {
             match (selector_) {
                 case Some(v) => v
-                case None => throw ASTException("'MatchExpr' has no selector.")
+                case None => throw ASTException("'MatchExpr' has no value to be matched.")
             }
         }
         set(v) {

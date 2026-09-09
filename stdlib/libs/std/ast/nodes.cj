@@ -684,7 +684,7 @@ public class MatchCase <: Node {
         get() {
             match (expr_) {
                 case Some(v) => v
-                case None => throw ASTException("'MatchCase' has no expression.")
+                case None => throw ASTException("'MatchCase' has no expression following '=>'.")
             }
         }
         set(v) {

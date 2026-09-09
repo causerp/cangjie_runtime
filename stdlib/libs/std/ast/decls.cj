@@ -117,7 +117,7 @@ public open class Decl <: Node {
         get() {
             match (genericParam_) {
                 case Some(v) => v
-                case None => throw ASTException("Generic parameters are not available.")
+                case None => throw ASTException("'Decl' has no generic parameters.")
             }
         }
         set(v) {
@@ -1651,9 +1651,8 @@ public open class FuncParam <: Decl {
                 case None => break
             }
         }
-        v = match (decl as FuncParam) {
-            case Some(val) => val
-            case None => throw ParseASTException()
+        if (let Some(val) <- (decl as FuncParam)) {
+            v = val
         }
         this.annotations_.add(all: v.annotations_)
         this.not_ = checkValid(v.not_)
@@ -1718,7 +1717,7 @@ public open class FuncParam <: Decl {
         get() {
             match (expr_) {
                 case Some(v) => v
-                case None => throw ASTException("'FuncParam' has no expression.")
+                case None => throw ASTException("'FuncParam' has no default value.")
             }
         }
         set(v) {

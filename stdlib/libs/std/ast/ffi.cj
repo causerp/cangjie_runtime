@@ -101,7 +101,7 @@ unsafe func parse(input: Tokens, nativeParse: (CPointer<UInt8>) -> CPointer<Pars
     let parseResultRaw: CPointer<ParseRes> = nativeParse(pTokensBytes)
     if (parseResultRaw.isNull()) {
         LibC.free(pTokensBytes)
-        throw ParseASTException("Failed to get parse result.")
+        throw ParseASTException("Failed to get parse result in 'parse'.")
     }
     let pNode = getParsedNodeAndReleaseParseResult(parseResultRaw, pTokensBytes)
     /*
@@ -123,13 +123,13 @@ unsafe func parseFragment(
     let sizeRef = LibC.malloc<Int64>()
     if (sizeRef.isNull()) {
         LibC.free(pTokensBytes)
-        throw IllegalMemoryException("malloc failed inside 'parseFragment'.")
+        throw IllegalMemoryException("Failed to allocate memory in 'parseFragment'.")
     }
     let parseResultRaw = nativeParse(pTokensBytes, sizeRef)
     if (parseResultRaw.isNull()) {
         LibC.free(pTokensBytes)
         LibC.free(sizeRef)
-        throw ParseASTException("Failed to get parse result.")
+        throw ParseASTException("Failed to get parse result in 'parseFragment'.")
     }
     tokenCounter = sizeRef.read()
     var pNode = CPointer<UInt8>()
@@ -149,7 +149,7 @@ unsafe func parseFragment(
 func genASTFormatNode(pNode: CPointer<UInt8>, pTokensBytes: CPointer<UInt8>) {
     if (pNode.isNull()) {
         unsafe { LibC.free(pTokensBytes) }
-        throw IllegalArgumentException("Node is null.")
+        throw IllegalArgumentException("Node in 'genNodeFormatNode' is null.")
     }
     let bufferSize: Int64 = Int64(getInt32FromUnsafePointer(pNode))
     if (bufferSize <= 0) {
@@ -169,7 +169,7 @@ func genASTFormatNode(pNode: CPointer<UInt8>, pTokensBytes: CPointer<UInt8>) {
 
 func getTokensFromBytes(pTokenArray: CPointer<UInt8>): Tokens {
     if (pTokenArray.isNull()) {
-        throw IllegalArgumentException("Token array is null.")
+        throw IllegalArgumentException("Token array in 'getTokensFromBytes' is null.")
     }
     var length: Int64 = Int64(getInt32FromUnsafePointer(pTokenArray))
     if (length <= 0) {
@@ -197,7 +197,7 @@ public func cangjieLex(code: String, truncated: Bool): Tokens {
     /* NOTE: call cangjie compiler lexer. */
     var pCode = unsafe { LibC.mallocCString(code) }
     if (pCode.isNull()) {
-        throw IllegalMemoryException("malloc failed inside 'cangjieLex'.")
+        throw IllegalMemoryException("Failed to allocate memory in 'cangjieLex'.")
     }
     var fPtr = CPointer<Unit>()
     if (let Some(macroObjPtr) <- MACRO_OBJECT.get()) {
@@ -207,7 +207,7 @@ public func cangjieLex(code: String, truncated: Bool): Tokens {
         let lexResultRaw: CPointer<ParseRes> = CJ_AST_Lex(fPtr, pCode, code.size)
         if (lexResultRaw.isNull()) {
             LibC.free(pCode)
-            throw IllegalMemoryException("Failed to get lexer result.")
+            throw IllegalMemoryException("Failed to get lexer result in 'cangjieLex'.")
         }
         let pTokens = lexResultRaw.read().node
         let pErrorMsg = lexResultRaw.read().errMsg
@@ -247,7 +247,7 @@ func unsafePointerCastFromUint8Array(arr: Array<UInt8>): CPointer<UInt8> {
     }
     var ptr: CPointer<UInt8> = unsafe { LibC.malloc<UInt8>(count: arrSize) }
     if (ptr.isNull()) {
-        throw IllegalMemoryException("malloc failed inside 'unsafePointerCastFromUint8Array'.")
+        throw IllegalMemoryException("Failed to allocate memory in 'unsafePointerCastFromUint8Array'.")
     }
     for (i in 0..arrSize) {
         unsafe { ptr.write(i, arr[i]) }
@@ -284,7 +284,7 @@ public func assertParentContext(parentMacroName: String): Unit {
         if (let Some(macroObjPtr) <- MACRO_OBJECT.get()) {
             var pStr = LibC.mallocCString(parentMacroName)
             if (pStr.isNull()) {
-                throw IllegalMemoryException("malloc failed inside 'assertParentContext'.")
+                throw IllegalMemoryException("Failed to allocate memory in 'assertParentContext'.")
             }
             var flag = CJ_CheckParentContext(macroObjPtr, pStr, true)
             LibC.free(pStr)
@@ -306,7 +306,7 @@ public func insideParentContext(parentMacroName: String): Bool {
         if (let Some(macroObjPtr) <- MACRO_OBJECT.get()) {
             var pStr = LibC.mallocCString(parentMacroName)
             if (pStr.isNull()) {
-                throw IllegalMemoryException("malloc failed inside 'insideParentContext'.")
+                throw IllegalMemoryException("Failed to allocate memory in 'insideParentContext'.")
             }
             var flag = CJ_CheckParentContext(macroObjPtr, pStr, false)
             LibC.free(pStr)
@@ -333,12 +333,12 @@ public func setItem(key: String, value: String): Unit {
         if (let Some(macroObjPtr) <- MACRO_OBJECT.get()) {
             var keyStr = LibC.mallocCString(key)
             if (keyStr.isNull()) {
-                throw IllegalMemoryException("malloc failed inside 'setItem'.")
+                throw IllegalMemoryException("Failed to allocate memory in 'setItem'.")
             }
             var strV = LibC.mallocCString(value)
             if (strV.isNull()) {
                 LibC.free(keyStr)
-                throw IllegalMemoryException("malloc failed inside 'setItem'.")
+                throw IllegalMemoryException("Failed to allocate memory in 'setItem'.")
             }
             CJ_SetItemInfo(macroObjPtr, keyStr, CPointer<Unit>(strV.getChars()), ITEM_TYPE_STRING)
         }
@@ -350,12 +350,12 @@ public func setItem(key: String, value: Int64): Unit {
         if (let Some(macroObjPtr) <- MACRO_OBJECT.get()) {
             var keyStr = LibC.mallocCString(key)
             if (keyStr.isNull()) {
-                throw IllegalMemoryException("malloc failed inside 'setItem'.")
+                throw IllegalMemoryException("Failed to allocate memory in 'setItem'.")
             }
             var intV = LibC.malloc<Int64>()
             if (intV.isNull()) {
                 LibC.free(keyStr)
-                throw IllegalMemoryException("malloc failed inside 'setItem'.")
+                throw IllegalMemoryException("Failed to allocate memory in 'setItem'.")
             }
             intV.write(value)
             CJ_SetItemInfo(macroObjPtr, keyStr, CPointer<Unit>(intV), ITEM_TYPE_INT64)
@@ -368,12 +368,12 @@ public func setItem(key: String, value: Bool): Unit {
         if (let Some(macroObjPtr) <- MACRO_OBJECT.get()) {
             var keyStr = LibC.mallocCString(key)
             if (keyStr.isNull()) {
-                throw IllegalMemoryException("malloc failed inside 'setItem'.")
+                throw IllegalMemoryException("Failed to allocate memory in 'setItem'.")
             }
             var boolV = LibC.malloc<Bool>()
             if (boolV.isNull()) {
                 LibC.free(keyStr)
-                throw IllegalMemoryException("malloc failed inside 'setItem'.")
+                throw IllegalMemoryException("Failed to allocate memory in 'setItem'.")
             }
             boolV.write(value)
             CJ_SetItemInfo(macroObjPtr, keyStr, CPointer<Unit>(boolV), ITEM_TYPE_BOOL)
@@ -386,7 +386,7 @@ public func setItem(key: String, value: Tokens): Unit {
         if (let Some(macroObjPtr) <- MACRO_OBJECT.get()) {
             var keyStr = LibC.mallocCString(key)
             if (keyStr.isNull()) {
-                throw IllegalMemoryException("malloc failed inside 'setItem'.")
+                throw IllegalMemoryException("Failed to allocate memory in 'setItem'.")
             }
             let tokensBytes = value.toBytes()
             var tksV: CPointer<UInt8> = unsafePointerCastFromUint8Array(tokensBytes)
@@ -564,7 +564,7 @@ public func getChildMessages(children: String): ArrayList<MacroMessage> {
 
     var childrenStr = unsafe { LibC.mallocCString(children) }
     if (childrenStr.isNull()) {
-        throw IllegalMemoryException("malloc failed inside 'getChildMessages'.")
+        throw IllegalMemoryException("Failed to allocate memory in 'getChildMessages'.")
     }
     var resVector: CPointer<CPointer<CPointer<Unit>>> = unsafe { CJ_GetChildMessages(macroObjPtr, childrenStr) }
     var res: ArrayList<MacroMessage> = ArrayList<MacroMessage>()
