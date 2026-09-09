@@ -3670,8 +3670,7 @@ Returns:
 
 Exceptions:
 
-- [InfoNotFoundException](reflect_package_exceptions.md#class-infonotfoundexception) - Thrown if the subpackage does not exist or is not loaded.
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if `qualifiedName` is invalid.
+- [InfoNotFoundException](reflect_package_exceptions.md#class-infonotfoundexception) - Thrown if `qualifiedName` is invalid, or if the subpackage does not exist or is not loaded.
 
 ### func getTypeInfo(String)
 
