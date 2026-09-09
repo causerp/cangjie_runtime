@@ -835,9 +835,9 @@ public class HashMap<K, V> <: Map<K, V> where K <: Hashable & Equatable<K> {
      */
     @When[env != "ohos"]
     public func mapValues<R>(transform: (K, V) -> R): HashMap<K, R> {
-        let size: Int64 = entries.size
-        var newMap = HashMap<K, R>()
-        for (i in 0..size) {
+        let len: Int64 = entries.size
+        var newMap = HashMap<K, R>(this.size)
+        for (i in 0..len) {
             if (entries[i].hash >= 0) {
                 newMap.add(entries[i].key, transform(entries[i].key, entries[i].value))
             }
@@ -853,9 +853,9 @@ public class HashMap<K, V> <: Map<K, V> where K <: Hashable & Equatable<K> {
      */
     @When[env != "ohos"]
     public func mapValues<R>(transform: (V) -> R): HashMap<K, R> {
-        let size: Int64 = entries.size
-        var newMap = HashMap<K, R>()
-        for (i in 0..size) {
+        let len: Int64 = entries.size
+        var newMap = HashMap<K, R>(this.size)
+        for (i in 0..len) {
             if (entries[i].hash >= 0) {
                 newMap.add(entries[i].key, transform(entries[i].value))
             }
@@ -871,9 +871,9 @@ public class HashMap<K, V> <: Map<K, V> where K <: Hashable & Equatable<K> {
      */
     @When[env != "ohos"]
     public func filter(predicate: (K, V) -> Bool): HashMap<K, V> {
-        let size: Int64 = entries.size
-        var newMap = HashMap<K, V>()
-        for (i in 0..size) {
+        let len: Int64 = entries.size
+        var newMap = HashMap<K, V>(this.size)
+        for (i in 0..len) {
             if (entries[i].hash >= 0 && predicate(entries[i].key, entries[i].value)) {
                 newMap.add(entries[i].key, entries[i].value)
             }

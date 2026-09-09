@@ -273,7 +273,7 @@ public class HashSet<T> <: Set<T> where T <: Hashable & Equatable<T> {
     @When[env != "ohos"]
     public func map<R>(transform: (T) -> R): HashSet<R> where R <: Hashable & Equatable<R> {
         let entries = myMap.entries
-        var result: HashSet<R> = HashSet<R>()
+        var result: HashSet<R> = HashSet<R>(this.size)
         let len = entries.size
         for (i in 0..len) {
             if (entries[i].hash >= 0) {
@@ -292,7 +292,7 @@ public class HashSet<T> <: Set<T> where T <: Hashable & Equatable<T> {
     @When[env != "ohos"]
     public func filter(predicate: (T) -> Bool): HashSet<T> {
         let entries = myMap.entries
-        var result: HashSet<T> = HashSet<T>()
+        var result: HashSet<T> = HashSet<T>(this.size)
         let len = entries.size
         for (i in 0..len) {
             if (entries[i].hash >= 0 && predicate(entries[i].key)) {
@@ -311,7 +311,7 @@ public class HashSet<T> <: Set<T> where T <: Hashable & Equatable<T> {
     @When[env != "ohos"]
     public func filterMap<R>(transform: (T) -> Option<R>): HashSet<R> where R <: Hashable & Equatable<R> {
         let entries = myMap.entries
-        var result: HashSet<R> = HashSet<R>()
+        var result: HashSet<R> = HashSet<R>(this.size)
         let len = entries.size
         for (i in 0..len) {
             if (entries[i].hash >= 0) {
@@ -524,7 +524,7 @@ public class HashSet<T> <: Set<T> where T <: Hashable & Equatable<T> {
      */
     @Frozen
     public operator func &(other: ReadOnlySet<T>): HashSet<T> {
-        let result = HashSet<T>()
+        let result = HashSet<T>(this.size)
         for (key in this.myMap.keys() where other.contains(key)) {
             result.add(key)
         }
@@ -568,7 +568,7 @@ public class HashSet<T> <: Set<T> where T <: Hashable & Equatable<T> {
      */
     @Frozen
     public operator func -(other: ReadOnlySet<T>): HashSet<T> {
-        let result = HashSet<T>()
+        let result = HashSet<T>(this.size)
         for (key in this.myMap.keys() where !other.contains(key)) {
             result.add(key)
         }
