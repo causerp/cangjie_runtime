@@ -29,7 +29,7 @@ func getTypeAnnotations(info: CPointer<Unit>): Collection<Annotation> {
  * It does not contain the parameter name, default value, or outermost parenthesis.
  * @return TypeInfo array converted from a parameter type string.
  *
- * @throws IllegalArgumentException if the input string does not comply with the specifications
+ * @throws IllegalArgumentException if the input string contains mismatched parentheses or an empty type name between commas
  */
 public func parseParameterTypes(parameters: String): Array<TypeInfo> {
     let parameterTypes = parameters.trimAscii()

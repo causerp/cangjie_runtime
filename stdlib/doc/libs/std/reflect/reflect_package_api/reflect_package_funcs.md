@@ -32,8 +32,8 @@ func f(a: Int64, b: T1, c!: Int64 = 0, d!: Int64 = 0): Int64 { ... }
 
 异常：
 
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 字符串格式错误，则会抛出异常。
-- [InfoNotFoundException](reflect_package_exceptions.md#class-infonotfoundexception) - 如果无法获得参数中的类型信息，则会抛出异常。
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当字符串中括号不匹配（如出现多余的反括号）或逗号分隔出空的类型名时，抛出异常。
+- [InfoNotFoundException](reflect_package_exceptions.md#class-infonotfoundexception) - 如果无法获得字符串中的类型信息（包括类型名不符合规范的情形），则会抛出异常。
 
 示例：
 
