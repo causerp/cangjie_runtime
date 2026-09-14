@@ -8,39 +8,44 @@
 
 ```cangjie
 import std.collection.*
-/* 测试 */
+
 main() {
-    var set: HashSet<String> = HashSet<String>() // set: []
-    set.add("apple") // set: ["apple"]
-    set.add("banana") // set: ["apple", "banana"], not in order
-    set.add("orange") // set: ["apple", "banana", "orange"], not in order
-    set.add("peach") // set: ["apple", "banana", "orange", "peach"], not in order
-    var itset = set.iterator()
+    var set: HashSet<String> = HashSet<String>()
+
+    // 添加元素
+    set.add("apple")
+    set.add("banana")
+    set.add("orange")
+    set.add("peach")
+    println("添加元素后: ${set}")
+
+    // 使用迭代器遍历集合
+    println("遍历集合:")
+    var iterator = set.iterator()
     while (true) {
-        var value = itset.next()
-        match (value) {
-            case Some(v) =>
-                if (!set.contains(v)) {
-                    print("Operation failed")
-                    return 1
-                } else {
-                    println(v)
-                }
+        var nextValue = iterator.next()
+        match (nextValue) {
+            case Some(v) => println(v)
             case None => break
         }
     }
-    set.remove("apple") // set: ["banana", "orange", "peach"], not in order
-    println(set)
+
+    // 删除元素
+    set.remove("apple")
+    println("删除apple后: ${set}")
+
     return 0
 }
 ```
 
-由于 Set 中的顺序不是固定的，因此运行结果可能如下：
+由于 HashSet 中的顺序不是固定的，因此运行结果可能如下：
 
 ```text
+添加元素后: [apple, banana, orange, peach]
+遍历集合:
 apple
 banana
 orange
 peach
-[banana, orange, peach]
+删除apple后: [banana, orange, peach]
 ```

@@ -16,24 +16,29 @@ func sendSignal(sig: Int32): Unit {
     sleep(Duration.second)
 }
 
-func func_1(sig: Int32) {
-    println("func_1_start_${sig}")
+// 处理器返回 false 表示未处理该信号
+func signalHandler1(sig: Int32): Bool {
+    println("处理器1执行, 信号: ${sig}, 返回 false")
     return false
 }
 
-func func_2(sig: Int32) {
-    println("func_2_start_${sig}")
+// 处理器返回 true 表示已处理该信号
+func signalHandler2(sig: Int32): Bool {
+    println("处理器2执行, 信号: ${sig}, 返回 true")
     return true
 }
 
-let signal: Int32 = 3
+let signalNumber: Int32 = 3
 
 main() {
+    // 重置信号处理器后，注册两个处理器
     resetSignalHandler()
-    registerSignalHandler(Signal(signal, "cj"), func_1)
-    registerSignalHandler(Signal(signal, "cj"), func_2)
+    registerSignalHandler(Signal(signalNumber, "cj"), signalHandler1)
+    registerSignalHandler(Signal(signalNumber, "cj"), signalHandler2)
+
+    // 发送信号（信号 3 即 SIGQUIT）
     spawn {
-        sendSignal(signal) // 模拟发送信号
+        sendSignal(signalNumber)
     }
     sleep(Duration.second * 1)
     println("end")
@@ -44,9 +49,9 @@ main() {
 可能的运行结果：
 
 ```text
-81632 E CJNative Handle signal: 3.
-func_1_start_3
-func_2_start_3
+25659 E CJNative Handle signal: 3.
+处理器1执行, 信号: 3, 返回 false
+处理器2执行, 信号: 3, 返回 true
 end
 ```
 
@@ -66,24 +71,29 @@ func sendSignal(sig: Int32): Unit {
     sleep(Duration.second)
 }
 
-func func_1(sig: Int32) {
-    println("func_1_start_${sig}")
+// 处理器返回 false 表示未处理该信号
+func signalHandler1(sig: Int32): Bool {
+    println("处理器1执行, 信号: ${sig}, 返回 false")
     return false
 }
 
-func func_2(sig: Int32) {
-    println("func_2_start_${sig}")
+// 处理器返回 false 表示未处理该信号
+func signalHandler2(sig: Int32): Bool {
+    println("处理器2执行, 信号: ${sig}, 返回 false")
     return false
 }
 
-let signal: Int32 = 3
+let signalNumber: Int32 = 3
 
 main() {
+    // 重置信号处理器后，注册两个处理器
     resetSignalHandler()
-    registerSignalHandler(Signal(signal, "cj"), func_1)
-    registerSignalHandler(Signal(signal, "cj"), func_2)
+    registerSignalHandler(Signal(signalNumber, "cj"), signalHandler1)
+    registerSignalHandler(Signal(signalNumber, "cj"), signalHandler2)
+
+    // 发送信号（信号 3 即 SIGQUIT）
     spawn {
-        sendSignal(signal) // 模拟信号发送
+        sendSignal(signalNumber)
     }
     sleep(Duration.second * 1)
     println("end")
@@ -94,8 +104,8 @@ main() {
 可能的运行结果：
 
 ```text
-82934 E CJNative Handle signal: 3.
-func_1_start_3
-func_2_start_3
-[8]    82934 quit (core dumped)  ./main
+26095 E CJNative Handle signal: 3.
+处理器1执行, 信号: 3, 返回 false
+处理器2执行, 信号: 3, 返回 false
+[8]    26095 quit (core dumped)  ./main
 ```

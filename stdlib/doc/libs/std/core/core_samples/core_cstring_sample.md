@@ -17,30 +17,29 @@ void printCString(char *s) { printf("%s\n", s); }
 示例：
 
 <!-- special -->
-
 ```cangjie
 foreign func getCString(): CString
 
 foreign func printCString(s: CString): Unit
 
 main() {
-    // 仓颉侧构造 CString 实例，传递到 C 侧
+    // 仓颉侧构造 CString 实例，传递到 C 侧打印
     unsafe {
-        let s: CString = LibC.mallocCString("CString in Cangjie code.")
-        printCString(s)
-        LibC.free(s)
+        let cangjieStr: CString = LibC.mallocCString("CString in Cangjie code.")
+        printCString(cangjieStr)
+        LibC.free(cangjieStr)
     }
 
+    // 获取 C 侧字符串指针，转换为仓颉 String 后打印
     unsafe {
-        // C 侧申请字符串指针，传递到仓颉侧成为 CString 实例，再转换为仓颉字符串 String 类型
-        let cs = getCString()
-        println(cs.toString())
+        let cStr = getCString()
+        println(cStr.toString())
     }
 
     // 在 try-with-resource 语法上下文中使用 CStringResource 自动管理 CString 内存
-    let cs = unsafe { LibC.mallocCString("CString in Cangjie code.") }
-    try (csr = cs.asResource()) {
-        unsafe { printCString(csr.value) }
+    let cStr = unsafe { LibC.mallocCString("CString in Cangjie code.") }
+    try (resource = cStr.asResource()) {
+        unsafe { printCString(resource.value) }
     }
 
     0

@@ -5,17 +5,21 @@
 示例：
 
 <!-- run -->
-
 ```cangjie
 import std.process.*
 
 main(): Int64 {
-    let echoProcess: SubProcess = launch("sleep", "10s")
-    let ofProcess: Process = findProcess(echoProcess.pid)
-    println(ofProcess.pid)
-    println(ofProcess.name)
-    println(ofProcess.command)
-    ofProcess.terminate(force: true)
+    // 启动一个 sleep 子进程
+    let sleepProcess: SubProcess = launch("sleep", "10s")
+
+    // 通过进程 ID 查找该进程
+    let foundProcess: Process = findProcess(sleepProcess.pid)
+    println("进程 ID: ${foundProcess.pid}")
+    println("进程名: ${foundProcess.name}")
+    println("进程命令: ${foundProcess.command}")
+
+    // 强制终止该进程
+    foundProcess.terminate(force: true)
     return 0
 }
 ```
@@ -23,7 +27,7 @@ main(): Int64 {
 运行结果可能如下：
 
 ```text
-70753
-sleep
-sleep
+进程 ID: 70753
+进程名: sleep
+进程命令: sleep
 ```

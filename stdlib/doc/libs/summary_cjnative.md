@@ -225,7 +225,7 @@
     - [结构体](std/sync/sync_package_api/sync_package_structs.md)
     - [异常类](std/sync/sync_package_api/sync_package_exceptions.md)
     - [示例教程]()
-        - [Atomic、Monitor 和 Timer 的使用](std/sync/sync_samples/sync_samples.md)
+        - [并发工具类的使用](std/sync/sync_samples/sync_samples.md)
 - [std.time](std/time/time_package_overview.md)
     - [类](std/time/time_package_api/time_package_classes.md)
     - [枚举](std/time/time_package_api/time_package_enums.md)

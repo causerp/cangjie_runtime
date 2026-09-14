@@ -1,4 +1,4 @@
-# Atomic、Monitor 和 Timer 的使用
+# 并发工具类的使用
 
 ## Atomic 的使用
 
@@ -9,30 +9,29 @@
 <!-- verify -->
 ```cangjie
 import std.sync.*
-import std.time.*
 import std.collection.*
 
 let count = AtomicInt64(0)
 
 main(): Int64 {
-    let list = ArrayList<Future<Int64>>()
+    let futures = ArrayList<Future<Int64>>()
 
-    /* 创建 1000 个线程 */
+    // 创建 1000 个线程，各自将计数加 1
     for (_ in 0..1000) {
-        let fut = spawn {
-            sleep(Duration.millisecond) /* 睡眠 1 毫秒 */
+        let task = spawn {
+            sleep(Duration.millisecond)
             count.fetchAdd(1)
         }
-        list.add(fut)
+        futures.add(task)
     }
 
-    /* 等待所有线程完成 */
-    for (f in list) {
+    // 等待所有线程完成
+    for (f in futures) {
         f.get()
     }
 
-    var val = count.load()
-    println("count = ${val}")
+    let value = count.load()
+    println("计数结果: ${value}")
     return 0
 }
 ```
@@ -40,7 +39,7 @@ main(): Int64 {
 运行结果：
 
 ```text
-count = 1000
+计数结果: 1000
 ```
 
 ## Monitor <sup>(deprecated)</sup> 的使用
@@ -57,35 +56,35 @@ count = 1000
 ```cangjie
 import std.sync.*
 
-var mon = Monitor()
+var monitor = Monitor()
 var flag: Bool = true
 
 main(): Int64 {
-    let fut = spawn {
-        mon.lock()
+    let workerFuture = spawn {
+        monitor.lock()
         while (flag) {
-            println("New thread: before wait")
-            mon.wait()
-            println("New thread: after wait")
+            println("新线程: 等待前")
+            monitor.wait()
+            println("新线程: 等待后")
         }
-        mon.unlock()
+        monitor.unlock()
     }
 
-    /* 睡眠 10 毫秒，以确保新线程可以执行 */
+    // 睡眠 10 毫秒，以确保新线程可以先执行到 wait
     sleep(10 * Duration.millisecond)
 
-    mon.lock()
-    println("Main thread: set flag")
+    monitor.lock()
+    println("主线程: 设置 flag")
     flag = false
-    mon.unlock()
+    monitor.unlock()
 
-    println("Main thread: notify")
-    mon.lock()
-    mon.notifyAll()
-    mon.unlock()
+    println("主线程: 通知")
+    monitor.lock()
+    monitor.notifyAll()
+    monitor.unlock()
 
-    /* 等待新线程完成 */
-    fut.get()
+    // 等待新线程完成
+    workerFuture.get()
     return 0
 }
 ```
@@ -93,10 +92,10 @@ main(): Int64 {
 运行结果：
 
 ```text
-New thread: before wait
-Main thread: set flag
-Main thread: notify
-New thread: after wait
+新线程: 等待前
+主线程: 设置 flag
+主线程: 通知
+新线程: 等待后
 ```
 
 ## Mutex 的使用
@@ -109,36 +108,38 @@ New thread: after wait
 ```cangjie
 import std.sync.*
 
-var mt = Mutex()
-var con = synchronized(mt) {
-    mt.condition()
+var mutex = Mutex()
+var condition = synchronized(mutex) {
+    mutex.condition()
 }
 var flag: Bool = true
 
 main(): Int64 {
-    let fut = spawn {
-        mt.lock()
+    let workerFuture = spawn {
+        mutex.lock()
         while (flag) {
-            println("New thread: before wait")
-            con.wait()
-            println("New thread: after wait")
+            println("新线程: 等待前")
+            condition.wait()
+            println("新线程: 等待后")
         }
-        mt.unlock()
+        mutex.unlock()
     }
-    /* 睡眠 10 毫秒，以确保新线程可以执行 */
+
+    // 睡眠 10 毫秒，以确保新线程可以先执行到 wait
     sleep(10 * Duration.millisecond)
-    mt.lock()
-    println("Main thread: set flag")
+
+    mutex.lock()
+    println("主线程: 设置 flag")
     flag = false
-    mt.unlock()
+    mutex.unlock()
 
-    println("Main thread: notify")
-    mt.lock()
-    con.notifyAll()
-    mt.unlock()
+    println("主线程: 通知")
+    mutex.lock()
+    condition.notifyAll()
+    mutex.unlock()
 
-    /* 等待新线程完成 */
-    fut.get()
+    // 等待新线程完成
+    workerFuture.get()
     return 0
 }
 ```
@@ -146,10 +147,10 @@ main(): Int64 {
 运行结果：
 
 ```text
-New thread: before wait
-Main thread: set flag
-Main thread: notify
-New thread: after wait
+新线程: 等待前
+主线程: 设置 flag
+主线程: 通知
+新线程: 等待后
 ```
 
 ## Condition 的使用
@@ -167,30 +168,36 @@ var flag = AtomicBool(true)
 
 main(): Int64 {
     let condition: Condition
+
+    // 在持有锁的情况下生成 Condition 实例
     synchronized(mutex) {
-        condition = mutex.condition() // 在持有锁的情况下生成 Condition 实例
+        condition = mutex.condition()
     }
 
-    let fut = spawn {
+    let workerFuture = spawn {
         synchronized(mutex) {
-            println("New thread: before wait")
-            condition.waitUntil {=> !flag.load()} // 挂起当前线程，等待直到 flag 值为 true
-            println("New thread: after wait")
+            println("新线程: 等待前")
+
+            // 挂起当前线程，等待直到 flag 变为 false
+            condition.waitUntil {=> !flag.load()}
+
+            println("新线程: 等待后")
         }
     }
 
-    /* 睡眠 10 毫秒，以确保新线程可以执行 */
+    // 睡眠 10 毫秒，以确保新线程可以先执行到 waitUntil
     sleep(10 * Duration.millisecond)
 
-    synchronized(mutex) { // 等待子线程挂起
-        println("Main thread: set flag")
-        flag.store(false) // 修改 flag 值
-        println("Main thread: notify")
-        condition.notifyAll() // 唤醒等待中的子线程
+    // 修改 flag 值并唤醒等待中的子线程
+    synchronized(mutex) {
+        println("主线程: 设置 flag")
+        flag.store(false)
+        println("主线程: 通知")
+        condition.notifyAll()
     }
 
-    /* 等待新线程完成 */
-    fut.get()
+    // 等待新线程完成
+    workerFuture.get()
     return 0
 }
 ```
@@ -198,10 +205,10 @@ main(): Int64 {
 运行结果：
 
 ```text
-New thread: before wait
-Main thread: set flag
-Main thread: notify
-New thread: after wait
+新线程: 等待前
+主线程: 设置 flag
+主线程: 通知
+新线程: 等待后
 ```
 
 ## Timer 的使用
@@ -217,26 +224,30 @@ import std.sync.*
 main(): Int64 {
     let count = AtomicInt8(0)
 
+    // 创建 50 毫秒后执行一次的任务
     Timer.once(50 * Duration.millisecond) {
         =>
-            println("run only once")
+            println("一次性任务执行")
             count.fetchAdd(1)
     }
 
+    // 创建延迟 100 毫秒后开始、每 200 毫秒重复执行的任务
     let timer = Timer.repeat(
         100 * Duration.millisecond,
         200 * Duration.millisecond,
         {
             =>
-                println("run repetitively")
+                println("重复任务执行")
                 count.fetchAdd(10)
         }
     )
 
     sleep(Duration.second)
+
+    // 取消重复任务，再等待 500 毫秒确认不再执行
     timer.cancel()
     sleep(500 * Duration.millisecond)
-    println("count = ${count.load()}")
+    println("计数结果: ${count.load()}")
     0
 }
 ```
@@ -244,11 +255,11 @@ main(): Int64 {
 运行结果：
 
 ```text
-run only once
-run repetitively
-run repetitively
-run repetitively
-run repetitively
-run repetitively
-count = 51
+一次性任务执行
+重复任务执行
+重复任务执行
+重复任务执行
+重复任务执行
+重复任务执行
+计数结果: 51
 ```
