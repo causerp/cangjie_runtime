@@ -8443,8 +8443,7 @@ public func getSubPackage(qualifiedName: String): PackageInfo
 
 异常：
 
-- [InfoNotFoundException](reflect_package_exceptions.md#class-infonotfoundexception) - 如果该子包不存在或者未加载，则会抛出异常。
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果 `qualifiedName` 不符合规范，则抛出异常。
+- [InfoNotFoundException](reflect_package_exceptions.md#class-infonotfoundexception) - 如果 `qualifiedName` 不符合规范，或该子包不存在、未加载，则会抛出异常。
 
 示例：
 
