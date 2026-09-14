@@ -156,7 +156,7 @@ public class EnumTypeInfo <: TypeInfo {
      * Finds a constructor by name and optional argument count.
      *
      * @param constructor constructor name without parameters (e.g. "M1").
-     * @param argsCount optional parameter count filter; 0 means no filtering.
+     * @param argsCount exact parameter count to match; 0 (the default) matches only constructors with no parameters (i.e. without associated values).
      * @return matching constructor info.
      * @throws InfoNotFoundException if no matching constructor is found.
      */

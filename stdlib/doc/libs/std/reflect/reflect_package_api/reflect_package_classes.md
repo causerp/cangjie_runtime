@@ -2650,7 +2650,7 @@ public func getConstructor(constructor: String, argsCount!: Int64 = 0): EnumCons
 参数：
 
 - constructor: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 构造器名（不含参数签名），例如 `M2`。
-- argsCount!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 参数个数；为 `0` 时不限制参数个数。
+- argsCount!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 参数个数；按该值精确匹配参数个数相同的构造器。默认 `0` 表示匹配无参构造器（即不带关联值的构造器）。若需按名称匹配任意参数个数的构造器，可遍历 `constructors` 属性并按构造器名过滤。
 
 返回值：
 
