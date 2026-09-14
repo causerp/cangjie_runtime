@@ -401,10 +401,7 @@ func createFeatureHeader(ftrHeader: Option<ASTFormat_FeaturesDirective>): Option
     return match (ftrHeader) {
         case Some(v) =>
             let annos = v.GetAnnotations()
-            let annotations = ArrayList<Annotation>()
-            for (item in annos) {
-                annotations.add(createAnnotation(item))
-            }
+            let annotations = ArrayList<Annotation>(annos.size, {i => createAnnotation(annos[i])})
             let keyword = Token(TokenKind.FEATURES, "features").addPosition(v.GetFeaturesPos())
             let featuresSet = createFeaturesSet(v.GetFeaturesSet())
             FeaturesDirective(annotations, keyword, featuresSet)
@@ -429,7 +426,7 @@ func createFeaturesSet(ftrSet: Option<ASTFormat_FeaturesSet>): FeaturesSet {
 }
  
 func createFeatureContent(ftrContent: Array<Option<ASTFormat_FeatureId>>): ArrayList<FeatureId> {
-    let ret = ArrayList<FeatureId>()
+    let ret = ArrayList<FeatureId>(ftrContent.size)
     for (item in ftrContent) {
         match (item) {
             case Some(v) =>
@@ -519,15 +516,13 @@ func createImportContent(content: Option<ASTFormat_ImportContent>): ImportConten
                     Token(TokenKind.IDENTIFIER, v.GetAsIdentifier(), asIdentPos.fileId, asIdentPos.line,
                         asIdentPos.column))
             }
-            var items = ArrayList<ImportContent>()
+            var items: ArrayList<ImportContent> = ArrayList<ImportContent>()
             var commas = Tokens()
             var lCurl = Token()
             var rCurl = Token()
             if (let ImportKind.Multi <- kind) {
                 let vItems = v.GetItems()
-                for (item in vItems) {
-                    items.add(createImportContent(item))
-                }
+                items = ArrayList<ImportContent>(vItems.size, {i => createImportContent(vItems[i])})
                 for (pos in v.GetCommaPoses()) {
                     commas.append(Token(TokenKind.COMMA, ",", pos.fileId, pos.line, pos.column))
                 }
@@ -583,14 +578,10 @@ func createProgram(file: Option<ASTFormat_File>): Program {
     }
     var ftrDirective: Option<FeaturesDirective> = createFeatureHeader(f.GetFeature())
     var pkgHeader: PackageHeader = createPackageHeader(f.GetPackage())
-    var imports: ArrayList<ImportList> = ArrayList<ImportList>()
-    for (im in f.GetImports()) {
-        imports.add(createImportList(im))
-    }
-    var decls: ArrayList<Decl> = ArrayList<Decl>()
-    for (d in f.GetDecls()) {
-        decls.add(generateDeclAST(d))
-    }
+    let importSrc = f.GetImports()
+    var imports: ArrayList<ImportList> = ArrayList<ImportList>(importSrc.size, {i => createImportList(importSrc[i])})
+    let declSrc = f.GetDecls()
+    var decls: ArrayList<Decl> = ArrayList<Decl>(declSrc.size, {i => generateDeclAST(declSrc[i])})
     return Program(pkgHeader, imports, decls, ftrDirective)
 }
 

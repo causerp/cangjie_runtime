@@ -127,7 +127,7 @@ func createRefType(tyNode: Option<ASTFormat_RefType>, nodeBase: ASTFormat_NodeBa
         case None => throw ParseASTException()
     }
     var lAngle: Token = Token(TokenKind.LT).addPosition(refType.GetLeftAnglePos())
-    var types: ArrayList<TypeNode> = ArrayList<TypeNode>()
+    var types: ArrayList<TypeNode> = ArrayList<TypeNode>(refType.GetTypeArguments().size)
     let commas = Tokens()
     for (tp in refType.GetTypeArguments()) {
         types.add(generateTypeAST(tp))
@@ -162,7 +162,7 @@ func createQualifiedType(tyNode: ASTFormat_Type, nodeBase: ASTFormat_NodeBase): 
     var identifier: Token = Token(TokenKind.IDENTIFIER, qualifiedType.GetField()).addPosition(
         qualifiedType.GetFieldPos())
     var lAngle: Token = Token(TokenKind.LT).addPosition(qualifiedType.GetLeftAnglePos())
-    var types: ArrayList<TypeNode> = ArrayList<TypeNode>()
+    var types: ArrayList<TypeNode> = ArrayList<TypeNode>(qualifiedType.GetTypeArguments().size)
     let commas = Tokens()
     for (tp in qualifiedType.GetTypeArguments()) {
         types.add(generateTypeAST(tp))
@@ -209,10 +209,8 @@ func createTupleType(tyNode: ASTFormat_Type, nodeBase: ASTFormat_NodeBase): Type
         case _ => throw ParseASTException()
     }
     var lParen: Token = Token(TokenKind.LPAREN).addPosition(tupleType.GetLeftParenPos())
-    var types: ArrayList<TypeNode> = ArrayList<TypeNode>()
-    for (tp in tupleType.GetFieldTypes()) {
-        types.add(generateTypeAST(tp))
-    }
+    let fieldSrc = tupleType.GetFieldTypes()
+    var types: ArrayList<TypeNode> = ArrayList<TypeNode>(fieldSrc.size, {i => generateTypeAST(fieldSrc[i])})
 
     var rParen: Token = Token(TokenKind.RPAREN).addPosition(tupleType.GetRightParenPos())
     var commas = Tokens()
@@ -255,7 +253,7 @@ func createFuncType(tyNode: ASTFormat_Type, nodeBase: ASTFormat_NodeBase): TypeN
     }
     var token = Token()
     var lParen: Token = Token(TokenKind.LPAREN).addPosition(funcType.GetLeftParenPos())
-    var types: ArrayList<TypeNode> = ArrayList<TypeNode>()
+    var types: ArrayList<TypeNode> = ArrayList<TypeNode>(funcType.GetParamTypes().size)
     let commas = Tokens()
     for (tp in funcType.GetParamTypes()) {
         types.add(generateTypeAST(tp))

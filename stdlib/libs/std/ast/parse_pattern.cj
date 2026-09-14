@@ -129,10 +129,8 @@ func createExceptTypePattern(pattern: ASTFormat_Pattern): ExceptTypePattern {
     }
     var p = generatePatternAST(exceptTypePattern.GetPattern())
     var colon: Token = Token(TokenKind.COLON).addPosition(exceptTypePattern.GetColonPos())
-    var types: ArrayList<TypeNode> = ArrayList<TypeNode>()
-    for (tp in exceptTypePattern.GetTypes()) {
-        types.add(generateTypeAST(tp))
-    }
+    let typeSrc = exceptTypePattern.GetTypes()
+    var types: ArrayList<TypeNode> = ArrayList<TypeNode>(typeSrc.size, {i => generateTypeAST(typeSrc[i])})
     var bitOr = Tokens()
     for (pos in exceptTypePattern.GetBitOrPosVec()) {
         bitOr.append(Token(TokenKind.BITOR).addPosition(pos))
@@ -147,10 +145,8 @@ func createCommandTypePattern(pattern: ASTFormat_Pattern): CommandTypePattern {
     }
     var p = generatePatternAST(commandTypePattern.GetPattern())
     var colon: Token = Token(TokenKind.COLON).addPosition(commandTypePattern.GetColonPos())
-    var types: ArrayList<TypeNode> = ArrayList<TypeNode>()
-    for (tp in commandTypePattern.GetTypes()) {
-        types.add(generateTypeAST(tp))
-    }
+    let typeSrc = commandTypePattern.GetTypes()
+    var types: ArrayList<TypeNode> = ArrayList<TypeNode>(typeSrc.size, {i => generateTypeAST(typeSrc[i])})
     var bitOr = Tokens()
     for (pos in commandTypePattern.GetBitOrPosVec()) {
         bitOr.append(Token(TokenKind.BITOR).addPosition(pos))
@@ -179,10 +175,8 @@ func createEnumPattern(pattern: ASTFormat_Pattern): EnumPattern {
         case None => throw ParseASTException("Constructor of 'EnumPattern' is not a 'RefExpr'.")
     }
     var lParen: Token = Token(TokenKind.LPAREN).addPosition(enumPattern.GetLeftParenPos())
-    var patterns: ArrayList<Pattern> = ArrayList<Pattern>()
-    for (p in enumPattern.GetPatterns()) {
-        patterns.add(generatePatternAST(p))
-    }
+    let patSrc = enumPattern.GetPatterns()
+    var patterns: ArrayList<Pattern> = ArrayList<Pattern>(patSrc.size, {i => generatePatternAST(patSrc[i])})
     let commas = Tokens()
     for (commaPos in enumPattern.GetCommaPosVec()) {
         commas.append(Token(TokenKind.COMMA).addPosition(commaPos))
@@ -197,10 +191,8 @@ func createTuplePattern(pattern: ASTFormat_Pattern): TuplePattern {
         case None => throw ParseASTException("Failed to get the tuple pattern.")
     }
     var lParen: Token = Token(TokenKind.LPAREN).addPosition(tuplePattern.GetLeftParenPos())
-    var patterns: ArrayList<Pattern> = ArrayList<Pattern>()
-    for (p in tuplePattern.GetPatterns()) {
-        patterns.add(generatePatternAST(p))
-    }
+    let patSrc = tuplePattern.GetPatterns()
+    var patterns: ArrayList<Pattern> = ArrayList<Pattern>(patSrc.size, {i => generatePatternAST(patSrc[i])})
     let commas = Tokens()
     for (commaPos in tuplePattern.GetCommaPosVec()) {
         commas.append(Token(TokenKind.COMMA).addPosition(commaPos))

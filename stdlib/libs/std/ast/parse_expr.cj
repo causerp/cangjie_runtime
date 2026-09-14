@@ -222,10 +222,8 @@ func createCallExpr(expr: ASTFormat_Expr): Expr {
     }
     var childExpr = generateExprAST(callExpr.GetBaseFunc())
     var lParen = Token(TokenKind.LPAREN).addPosition(callExpr.GetLeftParenPos())
-    var args = ArrayList<Argument>()
-    for (arg in callExpr.GetArgs()) {
-        args.add(createArgument(arg))
-    }
+    let argSrc = callExpr.GetArgs()
+    var args = ArrayList<Argument>(argSrc.size, {i => createArgument(argSrc[i])})
     var rParen = Token(TokenKind.RPAREN).addPosition(callExpr.GetRightParenPos())
     return CallExpr(childExpr, lParen, args, rParen)
 }
@@ -423,10 +421,8 @@ func generateMatchCase(mc: Option<ASTFormat_MatchCase>) {
         case None => throw ParseASTException()
     }
     var keyWord = Token(TokenKind.CASE).addPosition(base.GetBegin())
-    var patterns = ArrayList<Pattern>()
-    for (pattern in matchCase.GetPatterns()) {
-        patterns.add(generatePatternAST(pattern))
-    }
+    let patSrc = matchCase.GetPatterns()
+    var patterns = ArrayList<Pattern>(patSrc.size, {i => generatePatternAST(patSrc[i])})
     let bitOrs = Tokens()
     for (bitOrPos in matchCase.GetBitOrPosVec()) {
         bitOrs.append(Token(TokenKind.BITOR).addPosition(bitOrPos))
@@ -654,10 +650,7 @@ func createArrayLiteral(expr: ASTFormat_Expr): Expr {
     }
     let lSquare: Token = Token(TokenKind.LSQUARE).addPosition(arrayLiteral.GetLeftCurlPos())
     let childs = arrayLiteral.GetChildren()
-    var elements = ArrayList<Expr>()
-    for (child in childs) {
-        elements.add(generateExprAST(child))
-    }
+    var elements = ArrayList<Expr>(childs.size, {i => generateExprAST(childs[i])})
     let rSquare: Token = Token(TokenKind.RSQUARE).addPosition(arrayLiteral.GetRightCurlPos())
     var commas = Tokens()
     for (pos in arrayLiteral.GetCommaPosVec()) {
@@ -673,10 +666,7 @@ func createTupleLiteral(expr: ASTFormat_Expr): Expr {
     }
     let lParen: Token = Token(TokenKind.LPAREN).addPosition(tupleLiteral.GetLeftParenPos())
     let childs = tupleLiteral.GetChildren()
-    var elements = ArrayList<Expr>()
-    for (child in childs) {
-        elements.add(generateExprAST(child))
-    }
+    var elements = ArrayList<Expr>(childs.size, {i => generateExprAST(childs[i])})
     let rParen: Token = Token(TokenKind.RPAREN).addPosition(tupleLiteral.GetRightParenPos())
     var commas = Tokens()
     for (pos in tupleLiteral.GetCommaPosVec()) {
@@ -724,10 +714,7 @@ func createSubscriptExpr(expr: ASTFormat_Expr): Expr {
     var postfixExpr = generateExprAST(subscriptExpr.GetBaseExpr())
     var lSquare: Token = Token(TokenKind.LSQUARE).addPosition(subscriptExpr.GetLeftSquarePos())
     let childs = subscriptExpr.GetIndexExprs()
-    var elements = ArrayList<Expr>()
-    for (child in childs) {
-        elements.add(generateExprAST(child))
-    }
+    var elements = ArrayList<Expr>(childs.size, {i => generateExprAST(childs[i])})
     var rSquare: Token = Token(TokenKind.RSQUARE).addPosition(subscriptExpr.GetRightSquarePos())
     return SubscriptExpr(postfixExpr, lSquare, elements, rSquare)
 }
@@ -761,11 +748,8 @@ func createTryExpr(expr: ASTFormat_Expr, exprBase: ASTFormat_NodeBase): Expr {
         case None => throw ParseASTException()
     }
     var tryToken: Token = Token(TokenKind.TRY).addPosition(exprBase.GetBegin())
-    var resourceSpec = ArrayList<VarDecl>()
     let childs = tryExpr.GetResourceSpec()
-    for (child in childs) {
-        resourceSpec.add(createVarDeclNode(child))
-    }
+    var resourceSpec = ArrayList<VarDecl>(childs.size, {i => createVarDeclNode(childs[i])})
     var resourceSpecLParen = Token(TokenKind.LPAREN)
     if (isValidPosition(tryExpr.GetResourceSpecLparenPos())) {
         resourceSpecLParen = resourceSpecLParen.addPosition(tryExpr.GetResourceSpecLparenPos())
@@ -779,7 +763,7 @@ func createTryExpr(expr: ASTFormat_Expr, exprBase: ASTFormat_NodeBase): Expr {
         resourceSpecCommas.append(Token(TokenKind.COMMA).addPosition(commaPos))
     }
     var tryBlock = generateBlock(tryExpr.GetTryBlock())
-    var catchPatterns = ArrayList<Pattern>()
+    var catchPatterns = ArrayList<Pattern>(tryExpr.GetCatchPatterns().size)
     var catches = Tokens()
     for (pos in tryExpr.GetCatchPosVec() where isValidPosition(pos)) {
         catches.append(Token(TokenKind.CATCH).addPosition(pos))
@@ -796,11 +780,8 @@ func createTryExpr(expr: ASTFormat_Expr, exprBase: ASTFormat_NodeBase): Expr {
         catchPatterns.add(generatePatternAST(cp))
     }
     let catchBlocks = tryExpr.GetCatchBlocks()
-    var cbs: ArrayList<Block> = ArrayList<Block>()
-    for (cb in catchBlocks) {
-        cbs.add(generateBlock(cb))
-    }
-    var handlers = ArrayList<Handler>();
+    var cbs: ArrayList<Block> = ArrayList<Block>(catchBlocks.size, {i => generateBlock(catchBlocks[i])})
+    var handlers = ArrayList<Handler>(tryExpr.GetHandlers().size);
     for (item in tryExpr.GetHandlers()) {
         var fbHandler = match (item) {
             case Some(v) => v
@@ -831,10 +812,7 @@ func createQuoteExpr(expr: ASTFormat_Expr, exprBase: ASTFormat_NodeBase): Expr {
     }
     let lParen: Token = Token(TokenKind.LPAREN).addPosition(quoteExpr.GetLeftParenPos())
     let childs = quoteExpr.GetExprs()
-    var elements = ArrayList<Expr>()
-    for (child in childs) {
-        elements.add(generateExprAST(child))
-    }
+    var elements = ArrayList<Expr>(childs.size, {i => generateExprAST(childs[i])})
     let rParen: Token = Token(TokenKind.RPAREN).addPosition(quoteExpr.GetRightParenPos())
     var keyword: Token = Token(TokenKind.QUOTE).addPosition(exprBase.GetBegin())
     return QuoteExpr(keyword, lParen, elements, rParen)

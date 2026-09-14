@@ -126,14 +126,10 @@ func generateDeclAST(declNode: Option<ASTFormat_Decl>): Decl {
 }
 
 func createDeclBase(keyWord: Token, declBase: ASTFormat_DeclBase): Decl {
-    var annos: ArrayList<Annotation> = ArrayList<Annotation>()
-    for (anno in declBase.GetAnnotations()) {
-        annos.add(createAnnotation(anno))
-    }
-    var mods: ArrayList<Modifier> = ArrayList<Modifier>()
-    for (mod in declBase.GetModifiers()) {
-        mods.add(createModifier(mod))
-    }
+    let annoSrc = declBase.GetAnnotations()
+    var annos: ArrayList<Annotation> = ArrayList<Annotation>(annoSrc.size, {i => createAnnotation(annoSrc[i])})
+    let modSrc = declBase.GetModifiers()
+    var mods: ArrayList<Modifier> = ArrayList<Modifier>(modSrc.size, {i => createModifier(modSrc[i])})
     var key = keyWord.addPosition(declBase.GetKeywordPos())
     var indentifier = Token(TokenKind.IDENTIFIER, declBase.GetIdentifier()).addPosition(declBase.GetIdentifierPos())
     var (param, constraint, constraintCommas, isGeneric) = generateGenericInfo(declBase.GetGeneric())
@@ -164,7 +160,9 @@ func generateGenericInfo(generic: Option<ASTFormat_Generic>) {
         case Some(v) =>
             var flag = true
             isGeneric = true
-            for (cons in v.GetGenericConstraints()) {
+            let consSrc = v.GetGenericConstraints()
+            constraint = ArrayList<GenericConstraint>(consSrc.size)
+            for (cons in consSrc) {
                 constraint.add(createGenericConstraint(flag, cons))
                 match (cons?.GetCommaPos()) {
                     case Some(position) where isValidPosition(position) => commas.append(
@@ -187,7 +185,7 @@ func createClassDecl(decl: ASTFormat_Decl, declNode: Decl): ClassDecl {
     if (isValidPosition(classDecl.GetUpperBoundPos())) {
         up = Token(TokenKind.UPPERBOUND).addPosition(classDecl.GetUpperBoundPos())
     }
-    var superTypes: ArrayList<TypeNode> = ArrayList<TypeNode>()
+    var superTypes = ArrayList<TypeNode>(classDecl.GetSuperTypes().size)
     let bitands = Tokens()
     for (ty in classDecl.GetSuperTypes()) {
         superTypes.add(generateTypeAST(ty))
@@ -202,11 +200,9 @@ func createClassDecl(decl: ASTFormat_Decl, declNode: Decl): ClassDecl {
         case None => throw ParseASTException()
     }
     var lcurl: Token = Token(TokenKind.LCURL).addPosition(classbody.GetLeftCurlPos())
-    var declList = ArrayList<Decl>()
+    let declSrc = classbody.GetDecls()
+    var declList = ArrayList<Decl>(declSrc.size, {i => generateDeclAST(declSrc[i])})
     var rcurl: Token = Token(TokenKind.RCURL).addPosition(classbody.GetRightCurlPos())
-    for (dl in classbody.GetDecls()) {
-        declList.add(generateDeclAST(dl))
-    }
     return ClassDecl(declNode, up, superTypes, bitands, Body(lcurl, declList, rcurl))
 }
 
@@ -219,7 +215,7 @@ func createStrucDecl(decl: ASTFormat_Decl, declNode: Decl): StructDecl {
     if (isValidPosition(strucDecl.GetUpperBoundPos())) {
         up = Token(TokenKind.UPPERBOUND).addPosition(strucDecl.GetUpperBoundPos())
     }
-    var superTypes: ArrayList<TypeNode> = ArrayList<TypeNode>()
+    var superTypes = ArrayList<TypeNode>(strucDecl.GetSuperTypes().size)
     let bitands = Tokens()
     for (ty in strucDecl.GetSuperTypes()) {
         superTypes.add(generateTypeAST(ty))
@@ -234,11 +230,9 @@ func createStrucDecl(decl: ASTFormat_Decl, declNode: Decl): StructDecl {
         case None => throw ParseASTException()
     }
     var lcurl: Token = Token(TokenKind.LCURL).addPosition(structbody.GetLeftCurlPos())
-    var declList = ArrayList<Decl>()
+    let declSrc = structbody.GetDecls()
+    var declList = ArrayList<Decl>(declSrc.size, {i => generateDeclAST(declSrc[i])})
     var rcurl: Token = Token(TokenKind.RCURL).addPosition(structbody.GetRightCurlPos())
-    for (dl in structbody.GetDecls()) {
-        declList.add(generateDeclAST(dl))
-    }
     return StructDecl(declNode, up, superTypes, bitands, Body(lcurl, declList, rcurl))
 }
 
@@ -251,7 +245,7 @@ func createInterfaceDecl(decl: ASTFormat_Decl, declNode: Decl): InterfaceDecl {
     if (isValidPosition(interfaceDecl.GetUpperBoundPos())) {
         up = Token(TokenKind.UPPERBOUND).addPosition(interfaceDecl.GetUpperBoundPos())
     }
-    var superTypes: ArrayList<TypeNode> = ArrayList<TypeNode>()
+    var superTypes = ArrayList<TypeNode>(interfaceDecl.GetSuperTypes().size)
     let bitands = Tokens()
     for (ty in interfaceDecl.GetSuperTypes()) {
         superTypes.add(generateTypeAST(ty))
@@ -266,11 +260,9 @@ func createInterfaceDecl(decl: ASTFormat_Decl, declNode: Decl): InterfaceDecl {
         case None => throw ParseASTException()
     }
     var lcurl: Token = Token(TokenKind.LCURL).addPosition(interfacebody.GetLeftCurlPos())
-    var declList = ArrayList<Decl>()
+    let declSrc = interfacebody.GetDecls()
+    var declList = ArrayList<Decl>(declSrc.size, {i => generateDeclAST(declSrc[i])})
     var rcurl: Token = Token(TokenKind.RCURL).addPosition(interfacebody.GetRightCurlPos())
-    for (dl in interfacebody.GetDecls()) {
-        declList.add(generateDeclAST(dl))
-    }
     return InterfaceDecl(declNode, up, superTypes, bitands, Body(lcurl, declList, rcurl))
 }
 
@@ -283,7 +275,7 @@ func createEnumDecl(decl: ASTFormat_Decl, declNode: Decl): EnumDecl {
     if (isValidPosition(em.GetUpperBoundPos())) {
         up = Token(TokenKind.UPPERBOUND).addPosition(em.GetUpperBoundPos())
     }
-    var superTypes: ArrayList<TypeNode> = ArrayList<TypeNode>()
+    var superTypes = ArrayList<TypeNode>(em.GetSuperInterfaceTypes().size)
     let bitands = Tokens()
     for (ty in em.GetSuperInterfaceTypes()) {
         superTypes.add(generateTypeAST(ty))
@@ -298,14 +290,10 @@ func createEnumDecl(decl: ASTFormat_Decl, declNode: Decl): EnumDecl {
     for (pos in em.GetBitOrPosVec()) {
         bitors.append(Token(TokenKind.BITOR).addPosition(pos))
     }
-    var constructors = ArrayList<Constructor>()
-    for (cst in em.GetConstructors()) {
-        constructors.add(createConstructor(cst))
-    }
-    var members = ArrayList<Decl>()
-    for (mem in em.GetMembers()) {
-        members.add(generateDeclAST(mem))
-    }
+    let ctorSrc = em.GetConstructors()
+    var constructors = ArrayList<Constructor>(ctorSrc.size, {i => createConstructor(ctorSrc[i])})
+    let memberSrc = em.GetMembers()
+    var members = ArrayList<Decl>(memberSrc.size, {i => generateDeclAST(memberSrc[i])})
     var rcurl: Token = Token(TokenKind.RCURL).addPosition(em.GetRightCurlPos())
     var ellipsis: Token = Token()
     if (em.GetHasEllipsis()) {
@@ -327,7 +315,7 @@ func createExtendDecl(decl: ASTFormat_Decl, declNode: Decl): ExtendDecl {
     if (isValidPosition(ed.GetUpperBoundPos())) {
         up = Token(TokenKind.UPPERBOUND).addPosition(ed.GetUpperBoundPos())
     }
-    var superTypes: ArrayList<TypeNode> = ArrayList<TypeNode>()
+    var superTypes = ArrayList<TypeNode>(ed.GetInterfaces().size)
     let bitands = Tokens()
     for (ty in ed.GetInterfaces()) {
         superTypes.add(generateTypeAST(ty))
@@ -338,10 +326,8 @@ func createExtendDecl(decl: ASTFormat_Decl, declNode: Decl): ExtendDecl {
         }
     }
     var lcurl: Token = Token(TokenKind.LCURL).addPosition(ed.GetLeftCurlPos())
-    var members = ArrayList<Decl>()
-    for (mem in ed.GetMembers()) {
-        members.add(generateDeclAST(mem))
-    }
+    let memberSrc = ed.GetMembers()
+    var members = ArrayList<Decl>(memberSrc.size, {i => generateDeclAST(memberSrc[i])})
     var rcurl: Token = Token(TokenKind.RCURL).addPosition(ed.GetRightCurlPos())
     return ExtendDecl(declNode, extendTy, up, superTypes, bitands, Body(lcurl, members, rcurl))
 }
@@ -385,13 +371,9 @@ func createFuncParam(param: Option<ASTFormat_FuncParam>, index: Int64, length: I
     }
     var astKind = pm.GetNodeBase().getOrThrow().GetAstKind()
     if (astKind == "macro_expand_param") {
-        let annos: ArrayList<Annotation> = ArrayList<Annotation>()
- 
         let declBase = pm.GetBase().getOrThrow().GetBase().getOrThrow()
-
-        for (anno in declBase.GetAnnotations()) {
-            annos.add(createAnnotation(anno))
-        }
+        let annoSrc = declBase.GetAnnotations()
+        var annos: ArrayList<Annotation> = ArrayList<Annotation>(annoSrc.size, {i => createAnnotation(annoSrc[i])})
         var mep = match (pm.GetMacroParamAsMacroExpandParam()) {
             case Some(v) => v
             case None => throw ParseASTException("Failed to get the 'MacroExpandParam' node.")
@@ -454,14 +436,11 @@ func createFuncParam(param: Option<ASTFormat_FuncParam>, index: Int64, length: I
 }
 
 func generateFuncParams(funcBody: ASTFormat_FuncBody): ArrayList<FuncParam> {
-    var params = match (funcBody.GetParamList()) {
+    let params = match (funcBody.GetParamList()) {
         case Some(v) => v.GetParams()
         case None => throw ParseASTException()
     }
-    var funcParams = ArrayList<FuncParam>()
-    for (i in 0..params.size) {
-        funcParams.add(createFuncParam(params[i], i, params.size))
-    }
+    var funcParams = ArrayList<FuncParam>(params.size, {i => createFuncParam(params[i], i, params.size)})
     return funcParams
 }
 
@@ -514,10 +493,8 @@ func createFuncBody(funcBody: Option<ASTFormat_FuncBody>) {
             if (isValidPosition(blockNode.GetLeftCurlPos())) {
                 lCurl = Token(TokenKind.LCURL).addPosition(blockNode.GetLeftCurlPos())
             }
-            var nodes: ArrayList<Node> = ArrayList<Node>()
-            for (i in 0..blockNode.GetBody().size) {
-                nodes.add(generateNode(blockNode.GetBody()[i]))
-            }
+            let bodySrc = blockNode.GetBody()
+            var nodes: ArrayList<Node> = ArrayList<Node>(bodySrc.size, {i => generateNode(bodySrc[i])})
             var rCurl: Token = Token()
             if (isValidPosition(blockNode.GetRightCurlPos())) {
                 rCurl = Token(TokenKind.RCURL).addPosition(blockNode.GetRightCurlPos())
@@ -691,12 +668,9 @@ func createTypeAliasDecl(decl: ASTFormat_Decl, declBase: ASTFormat_DeclBase) {
 }
 
 func createMacroExpandDecl(decl: ASTFormat_Decl) {
-    var annos: ArrayList<Annotation> = ArrayList<Annotation>()
- 
     var declBase = decl.GetBase().getOrThrow()
-    for (anno in declBase.GetAnnotations()) {
-       annos.add(createAnnotation(anno))
-    }
+    let annoSrc = declBase.GetAnnotations()
+    var annos: ArrayList<Annotation> = ArrayList<Annotation>(annoSrc.size, {i => createAnnotation(annoSrc[i])})
     var me = match (decl.GetDeclAsMacroExpandDecl()) {
         case Some(v) => v
         case None => throw ParseASTException("Failed to get the 'MacroExpandDecl' node.")
