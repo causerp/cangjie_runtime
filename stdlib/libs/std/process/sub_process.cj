@@ -28,6 +28,10 @@ public class SubProcess <: Process {
     // on the object so any later wait() returns the same result instead of
     // failing with ECHILD. This is what makes wait() idempotent and makes a
     // timed-out wait() recoverable.
+    // Contract: concurrent wait()/waitOutput() calls on the same SubProcess are
+    // NOT supported. The cache is unsynchronized and only one caller can reap the
+    // child, so a racing caller may observe ECHILD and get -1. Callers that need
+    // concurrency must serialize the calls themselves.
     var _waitReaped: Bool = false
     var _waitExitCode: Int64 = -1
 
@@ -287,21 +291,20 @@ func getWaitExitCode(process: SubProcess, timeout: Duration): Int64 {
     let pid: Int32 = Int32(process.pid)
     var exitCode: Int64 = -1
     if (timeout > Duration.Zero) {
-        let future: Future<CPointer<ExitInfo>> = spawn {
-            => return unsafe { CJ_OS_WaitSubProcessExit(process._handle) }
+        // Bounded wait executed in the calling thread via
+        // WaitForSingleObject(handle, timeoutMs). No background reaper thread is
+        // spawned and no ExitInfo is allocated, so a timed-out wait leaves no
+        // residual thread behind and leaks nothing; a later wait() still reads
+        // the real exit code because the process handle stays open.
+        let timeoutMs: UInt32 = timeoutToMilliseconds(timeout)
+        let ret: Int32 = unsafe { CJ_OS_WaitSubProcessExitTimeout(process._handle, timeoutMs, inout exitCode) }
+        if (ret == 0) {
+            throw TimeoutException("wait subProcess(${pid}) timeout.")
         }
-        var waitExitInfo_cp: CPointer<ExitInfo> = CPointer<ExitInfo>()
-        try {
-            waitExitInfo_cp = if (timeout >= MAX_TIMEOUT_DURATION) {
-                future.get(MAX_TIMEOUT_DURATION)
-            } else {
-                future.get(timeout)
-            }
-            exitCode = parseExitInfoPointer(waitExitInfo_cp, pid)
-        } finally {
-            if (!waitExitInfo_cp.isNull()) {
-                unsafe { LibC.free(waitExitInfo_cp) }
-            }
+        if (ret == -1) {
+            // Keep the existing wait() error contract: a native wait failure
+            // returns -1 rather than introducing a new ProcessException.
+            return -1
         }
     } else {
         var waitExitInfo_cp: CPointer<ExitInfo> = CPointer<ExitInfo>()
@@ -317,6 +320,21 @@ func getWaitExitCode(process: SubProcess, timeout: Duration): Int64 {
     process._waitExitCode = exitCode
     process._waitReaped = true
     return exitCode
+}
+
+@When[os == "Windows"]
+func timeoutToMilliseconds(timeout: Duration): UInt32 {
+    // UInt32.Max is INFINITE for WaitForSingleObject; clamp huge timeouts to it
+    // so the millisecond conversion can never overflow.
+    let duration: Duration = if (timeout >= MAX_TIMEOUT_DURATION) { MAX_TIMEOUT_DURATION } else { timeout }
+    let millis: Int64 = duration.toMilliseconds()
+    if (millis >= Int64(UInt32.Max)) {
+        return UInt32.Max
+    }
+    if (millis <= 0) {
+        return 0
+    }
+    return UInt32(millis)
 }
 
 @When[os == "Windows"]

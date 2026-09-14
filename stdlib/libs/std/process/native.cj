@@ -71,8 +71,9 @@ foreign {
     func CJ_OS_WaitSubProcessExit(pid: Int32): Int64
 
     /*
-     * Non-blocking waitpid(WNOHANG) wrapper for the timeout-correct
-     * SubProcess.wait(timeout:). Return values:
+     * Non-blocking waitpid(WNOHANG) wrapper used by the timeout-correct
+     * SubProcess.wait(timeout:) on the non-Windows (Linux/macOS) path. Windows
+     * uses CJ_OS_WaitSubProcessExitTimeout instead. Return values:
      *   1  - child reaped, *exitCode set (exit code or terminating signal number)
      *   0  - child still running
      *  -1  - error (ECHILD etc.)
@@ -141,6 +142,21 @@ foreign {
     func CJ_OS_StartProcess(startInfo: CPointer<ProcessStartInfo>): CPointer<ProcessRtnData>
 
     func CJ_OS_WaitSubProcessExit(handle: IntNative): CPointer<ExitInfo>
+
+    /*
+     * Bounded wait for the subprocess to exit, used by the timeout-correct
+     * SubProcess.wait(timeout:) on Windows. It blocks the calling thread for at
+     * most timeoutMilliseconds (UInt32.Max means INFINITE) and writes the exit
+     * code through exitCode. Unlike CJ_OS_WaitSubProcessExit it spawns no
+     * background thread and allocates no ExitInfo, so a timed-out wait leaves no
+     * residual thread behind and leaks nothing. Return values:
+     *   1  - process exited, *exitCode set
+     *   0  - timed out, process still running, *exitCode untouched
+     *  -1  - error (invalid handle / GetExitCodeProcess failure)
+     */
+    func CJ_OS_WaitSubProcessExitTimeout(handle: IntNative, timeoutMilliseconds: UInt32,
+        exitCode: CPointer<Int64>): Int32
+
     // Directory
     func CJ_OS_GetSystemDirectory(): CString
 
