@@ -99,7 +99,7 @@ sealed abstract class IPAddress <: ToString & Equatable<IPAddress> & Hashable & 
         match (this) {
             case v4: IPv4Address => true
             case v6: IPv6Address => false
-            case _ => throw Exception()
+            case _ => throw Exception("Internal error: unexpected IPAddress type.")
         }
     }
     // is ipv6 addr
@@ -107,7 +107,7 @@ sealed abstract class IPAddress <: ToString & Equatable<IPAddress> & Hashable & 
         match (this) {
             case v4: IPv4Address => false
             case v6: IPv6Address => true
-            case _ => throw Exception()
+            case _ => throw Exception("Internal error: unexpected IPAddress type.")
         }
     }
 
@@ -147,7 +147,7 @@ sealed abstract class IPAddress <: ToString & Equatable<IPAddress> & Hashable & 
         match (this) {
             case v4: IPv4Address => v4.getPrefix(prefixLen)
             case v6: IPv6Address => v6.getPrefix(prefixLen)
-            case _ => throw Exception()
+            case _ => throw Exception("Internal error: unexpected IPAddress type.")
         }
     }
 
@@ -155,7 +155,7 @@ sealed abstract class IPAddress <: ToString & Equatable<IPAddress> & Hashable & 
         match (this) {
             case v4: IPv4Address => v4.writeBigEndian(buffer)
             case v6: IPv6Address => v6.writeBigEndian(buffer)
-            case _ => throw Exception()
+            case _ => throw Exception("Internal error: unexpected IPAddress type.")
         }
     }
 
@@ -166,7 +166,7 @@ sealed abstract class IPAddress <: ToString & Equatable<IPAddress> & Hashable & 
         if (buffer.size == 16) {
             return IPv6Address(buffer)
         }
-        throw IllegalArgumentException("The buffer size must be 4 or 16")
+        throw IllegalArgumentException("The buffer size must be 4 or 16.")
     }
 
     public operator func ==(other: IPAddress): Bool {
@@ -190,7 +190,7 @@ sealed abstract class IPAddress <: ToString & Equatable<IPAddress> & Hashable & 
                     df.write(scopeId)
                 }
             }
-            case _ => throw Exception()
+            case _ => throw Exception("Internal error: unexpected IPAddress type.")
         }
         df.finish()
     }
@@ -198,10 +198,10 @@ sealed abstract class IPAddress <: ToString & Equatable<IPAddress> & Hashable & 
 
 func parseIPv4(address: String, origin: String): Result<IPv4Address> {
     if (address.size < 7) {
-        return Err(IllegalFormatException("Parse (${origin}): IPv4 address too short."))
+        return Err(IllegalFormatException("Failed to parse '${origin}': IPv4 address too short."))
     }
     if (address.size > 15) {
-        return Err(IllegalFormatException("Parse (${origin}): IPv4 address too long."))
+        return Err(IllegalFormatException("Failed to parse '${origin}': IPv4 address too long."))
     }
 
     var ip = Array<Byte>(IPV4_ADDRESS_LEN, repeat: 0)
@@ -212,7 +212,7 @@ func parseIPv4(address: String, origin: String): Result<IPv4Address> {
         match (parseNumber(s, 10, 1, 3, false, origin)) {
             case Ok((digit, bytes_read)) =>
                 if (digit > 255) {
-                    return Err(IllegalFormatException("Parse (${origin}): IPv4 field has value >255."))
+                    return Err(IllegalFormatException("Failed to parse '${origin}': IPv4 field value exceeds 255."))
                 }
                 ip[i] = UInt8(digit)
                 s = s[bytes_read..]
@@ -224,7 +224,7 @@ func parseIPv4(address: String, origin: String): Result<IPv4Address> {
                     break
                 }
                 if (s[0] != b'.') {
-                    return Err(IllegalFormatException("Parse (${origin}): unexpected character."))
+                    return Err(IllegalFormatException("Failed to parse '${origin}': unexpected character."))
                 }
                 // skip the dot
                 s = s[1..]
@@ -232,10 +232,10 @@ func parseIPv4(address: String, origin: String): Result<IPv4Address> {
         }
     }
     if (count != IPV4_ADDRESS_LEN) {
-        return Err(IllegalFormatException("Parse (${origin}): invalid IPv4 address."))
+        return Err(IllegalFormatException("Failed to parse '${origin}': invalid IPv4 address."))
     }
     if (s.size != 0) {
-        return Err(IllegalFormatException("Parse (${origin}): unexpected character."))
+        return Err(IllegalFormatException("Failed to parse '${origin}': unexpected character."))
     }
 
     return Ok(IPv4Address(ip[0], ip[1], ip[2], ip[3]))
@@ -245,7 +245,7 @@ func parseIPv4(address: String, origin: String): Result<IPv4Address> {
 func parseNumber(part: String, radix: UInt32, minDigits: UInt8, maxDigits: UInt8, allowZeroPrefix: Bool, origin: String): Result<(UInt32, 
     Int64)> {
     if (part.size == 0) {
-        return Err(IllegalFormatException("Parse (${origin}): got empty field part."))
+        return Err(IllegalFormatException("Failed to parse '${origin}': empty field part."))
     }
     var result = 0u32
     var digitCount = 0u8
@@ -259,15 +259,15 @@ func parseNumber(part: String, radix: UInt32, minDigits: UInt8, maxDigits: UInt8
                 digitCount += 1
                 if (digitCount > maxDigits) {
                     return Err(
-                        IllegalFormatException("Parse (${origin}): field part value width large than ${maxDigits}."))
+                        IllegalFormatException("Failed to parse '${origin}': field part width exceeds '${maxDigits}'."))
                 }
             case _ => break
         }
     }
     if (digitCount < minDigits) {
-        return Err(IllegalFormatException("Parse (${origin}): each segment must have at least ${minDigits} digit."))
+        return Err(IllegalFormatException("Failed to parse '${origin}': each segment must have at least '${minDigits}' digit(s)."))
     } else if (!allowZeroPrefix && hasLeadingZero && digitCount > 1) {
-        return Err(IllegalFormatException("Parse (${origin}): has leading zero."))
+        return Err(IllegalFormatException("Failed to parse '${origin}': leading zero not allowed."))
     } else {
         return Ok((result, Int64(digitCount)))
     }
@@ -279,7 +279,7 @@ func parseIPv6Scope(src: String, origin: String): Result<(String, ?UInt32)> {
     if (let Some(v) <- origin.indexOf(b'%')) {
         let zone = s[v + 1..]
         scopeId = UInt32.tryParse(zone) ?? return Err(
-            IllegalFormatException("Parse (${origin}): IPv6 scope ID must be a valid UInt32 value."))
+            IllegalFormatException("Failed to parse '${origin}': IPv6 scope ID must be a valid UInt32 value."))
         s = s[..v]
     }
     return Ok((s, scopeId))
@@ -297,17 +297,17 @@ func expandIPv6Ellipsis(ip: Array<UInt8>, i: Int64, ellipsis: ?Int64, origin: St
                 ip[index] = 0
             }
         } else {
-            return Err(IllegalFormatException("Parse (${origin}): address string too short."))
+            return Err(IllegalFormatException("Failed to parse '${origin}': address string too short."))
         }
     } else if (ellipsis.isSome()) {
-        return Err(IllegalFormatException("Parse (${origin}): does not contain a valid network address."))
+        return Err(IllegalFormatException("Failed to parse '${origin}': not a valid network address."))
     }
     return Ok(ip)
 }
 
 func parseIPv6(src: String, origin: String): Result<IPv6Address> {
     if (src.size < 2) {
-        return Err(IllegalFormatException("Parse (${origin}): address string too short."))
+        return Err(IllegalFormatException("Failed to parse '${origin}': address string too short."))
     }
     var (s, scopeId) = match (parseIPv6Scope(src, origin)) {
         case Ok(v) => v
@@ -324,7 +324,7 @@ func parseIPv6(src: String, origin: String): Result<IPv6Address> {
                 return Ok(IPv6Address.unspecified.scope(scopeId))
             }
         } else {
-            return Err(IllegalFormatException("Parse (${origin}): unexpected character, want colon."))
+            return Err(IllegalFormatException("Failed to parse '${origin}': unexpected character, expected colon."))
         }
     }
     let res = innerParseIPv6(s, origin, ellipsis)
@@ -335,7 +335,7 @@ func parseIPv6(src: String, origin: String): Result<IPv6Address> {
     s = s[o..]
     ellipsis = e
     if (s.size != 0) {
-        return Err(IllegalFormatException("Parse (${origin}): extra characters at the end of the address."))
+        return Err(IllegalFormatException("Failed to parse '${origin}': extra characters at end of address."))
     }
     let fullIp = match (expandIPv6Ellipsis(ip, i, ellipsis, origin)) {
         case Ok(v) => v
@@ -360,10 +360,10 @@ func validateMappedIPv4Position(i: Int64, ellipsis: ?Int64, origin: String): Res
     if (ellipsis.isNone() && lastHextetStart != mappedIPv4Start) {
         // Without "::" compression, an embedded IPv4 address must occupy the final
         // IPv4-sized suffix of the IPv6 byte array.
-        return Err(IllegalFormatException("Parse (${origin}): expect hex digits but got IPv4 address."))
+        return Err(IllegalFormatException("Failed to parse '${origin}': expected hex digits but got IPv4 address."))
     }
     if (lastHextetStart + IPV4_ADDRESS_LEN > IPV6_ADDRESS_LEN) {
-        return Err(IllegalFormatException("Parse (${origin}): too many hex fields."))
+        return Err(IllegalFormatException("Failed to parse '${origin}': too many hex fields."))
     }
     return Ok(true)
 }
@@ -389,10 +389,10 @@ func innerParseIPv6(src: String, origin: String, e: ?Int64): Result<(Bool, Int64
         }
         if (bytes_read == 0) {
             if (s[0] != b':') {
-                return Err(IllegalFormatException("Parse (${origin}): each field must have at least one digit."))
+                return Err(IllegalFormatException("Failed to parse '${origin}': each field must have at least one digit."))
             }
             if (ellipsis.isSome()) {
-                return Err(IllegalFormatException("Parse (${origin}): an IPv6 address can only have one ellipsis."))
+                return Err(IllegalFormatException("Failed to parse '${origin}': IPv6 address can only have one ellipsis."))
             }
             ellipsis = i
             // the colon
@@ -427,7 +427,7 @@ func innerParseIPv6(src: String, origin: String, e: ?Int64): Result<(Bool, Int64
                     case Err(e) => return Err(e)
                 }
                 break
-            case _ => return Err(IllegalFormatException("Parse (${origin}): contain invalid character."))
+            case _ => return Err(IllegalFormatException("Failed to parse '${origin}': invalid character."))
         }
     }
     return Ok((true, src.size - s.size, i, ellipsis, ip))

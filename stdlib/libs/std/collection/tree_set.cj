@@ -95,7 +95,7 @@ public class TreeSet<T> <: OrderedSet<T> where T <: Comparable<T> {
      */
     public init(size: Int64, initElement: (Int64) -> T) {
         if (size < 0) {
-            throw IllegalArgumentException("Invalid size of TreeSet: ${size}.")
+            throw IllegalArgumentException("Invalid size '${size}': expected a non-negative value.")
         }
         this.myMap = TreeMap<T, Unit>(size, {i => (initElement(i), ())})
     }

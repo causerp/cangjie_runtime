@@ -97,7 +97,7 @@ public class StringWriter<T> where T <: OutputStream {
         }
 
         if (res < 0) {
-            throw IOException("Error writing digit ${v}!")
+            throw IOException("Failed to write Int64 value '${v}'.")
         }
         outputBOS.curPos += res
     }
@@ -134,7 +134,7 @@ public class StringWriter<T> where T <: OutputStream {
             releaseArrayRawData(cp)
         }
         if (res < 0) {
-            throw IOException("Error writing digit ${v}!")
+            throw IOException("Failed to write UInt64 value '${v}'.")
         }
         outputBOS.curPos += res
     }
@@ -151,7 +151,7 @@ public class StringWriter<T> where T <: OutputStream {
         unsafe {
             let p: CPointer<UInt8> = CJ_CORE_Float64ToCPointer(v)
             if (p.isNull()) {
-                throw IOException()
+                throw IOException("Failed to write Float64 value: null pointer returned.")
             }
             let cpSize = Int64(strlen(p)) + 1 // append r'\0' in the end
             ensureEnoughOutBuf(cpSize)
@@ -161,7 +161,7 @@ public class StringWriter<T> where T <: OutputStream {
             LibC.free(p)
             releaseArrayRawData(cp)
             if (copyRes != 0) {
-                throw IOException("Error writing digit ${v}!")
+                throw IOException("Failed to write Float64 value '${v}'.")
             }
             this.outputBOS.curPos += cpSize - 1
         }

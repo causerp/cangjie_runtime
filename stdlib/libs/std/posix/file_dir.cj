@@ -1176,6 +1176,6 @@ public func renameat(oldfd: Int32, oldName: String, newfd: Int32, newName: Strin
 
 func checkPath(path: String): Unit {
     if (path.contains(NULL_BYTE)) {
-        throw IllegalArgumentException("The path cannot contain null character!")
+        throw IllegalArgumentException("Path contains null character.")
     }
 }

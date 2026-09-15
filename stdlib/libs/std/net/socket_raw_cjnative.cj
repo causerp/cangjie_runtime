@@ -132,7 +132,7 @@ public class RawSocket {
     public func bind(addr: RawAddress): Unit {
         throwIfClosed()
         match (localAddr_) {
-            case Some(_) => throw SocketException("Failed to bind: The socket has bound address.")
+            case Some(_) => throw SocketException("Failed to bind: socket already has bound address.")
             case None =>
                 this.sockImpl.bind(addr)
                 localAddr_ = getLocalAddress()
@@ -173,7 +173,7 @@ public class RawSocket {
         let size = try {
             this.localAddress.addr.size
         } catch (e: SocketException) {
-            throw SocketException("Failed to accept: ${e.message}.")
+            throw SocketException("Failed to accept: ${e.message}")
         }
         let remoteAddr = Array<Byte>(size, repeat: 0)
         let (handle, addrPtr) = getAddrPointer(remoteAddr)
@@ -255,7 +255,7 @@ public class RawSocket {
         let size = try {
             this.localAddress.addr.size
         } catch (e: SocketException) {
-            throw SocketException("Failed to receive data: ${e.message}.")
+            throw SocketException("Failed to receive data: ${e.message}")
         }
         return sockImpl.receiveFrom(size, buffer, flags, timeout)
     }
@@ -306,7 +306,7 @@ public class RawSocket {
         let ret = CJ_SockOptionSet(this.sockFd, level, option, CPointer<Unit>(value), len)
         if (ret != 0) {
             let message = formatError(CJ_SockErrnoGet())
-            throw SocketException("Failed to set socket option ${option}: ${message}")
+            throw SocketException("Failed to set socket option '${option}': ${message}.")
         }
     }
 
@@ -325,7 +325,7 @@ public class RawSocket {
         let ret = CJ_SockOptionGet(this.sockFd, level, option, CPointer<Unit>(value), len)
         if (ret != 0) {
             let message = formatError(CJ_SockErrnoGet())
-            throw SocketException("Failed to get socket option ${option}: ${message}")
+            throw SocketException("Failed to get socket option '${option}': ${message}.")
         }
     }
 
@@ -575,7 +575,7 @@ class RawSocketImpl {
                     localArr[0] = UInt8(AF_INET6)
                 case _ =>
                     releaseAddrPointer(remoteHd, remotePtr)
-                    throw SocketException("Failed to connect: Unsupported address family ${af}.")
+                    throw SocketException("Failed to connect: unsupported address family '${af}'.")
             }
             getAddrPointer(localArr)
         } else {

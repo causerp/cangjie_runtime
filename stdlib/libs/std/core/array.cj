@@ -160,8 +160,9 @@ public struct Array<T> {
 
         let (start_, end_): (Int64, Int64) = normalize(range)
         if (!isLegal(start_, end_)) {
-            throw IndexOutOfBoundsException(arrayRangeOutOfBoundsExceptionMessage(
-                this.len, range.start, range.end, range.step, range.hasStart, range.hasEnd, range.isClosed))
+            throw IndexOutOfBoundsException(
+                arrayRangeOutOfBoundsExceptionMessage(this.len, range.start, range.end, range.step, range.hasStart,
+                    range.hasEnd, range.isClosed))
         }
         let rangeSize = end_ - start_
         if (rangeSize != value.size) {
@@ -212,8 +213,9 @@ public struct Array<T> {
 
         let (start_, end_): (Int64, Int64) = normalize(range)
         if (!isLegal(start_, end_)) {
-            throw IndexOutOfBoundsException(arrayRangeOutOfBoundsExceptionMessage(
-                this.len, range.start, range.end, range.step, range.hasStart, range.hasEnd, range.isClosed))
+            throw IndexOutOfBoundsException(
+                arrayRangeOutOfBoundsExceptionMessage(this.len, range.start, range.end, range.step, range.hasStart,
+                    range.hasEnd, range.isClosed))
         }
         return Array<T>(this.rawptr, this.start + start_, end_ - start_)
     }
@@ -288,8 +290,9 @@ public struct Array<T> {
         let (start_, end_): (Int64, Int64) = normalize(range)
         let step = range.step
         if ((step > 0 && !isLegal(start_, end_)) || (step < 0 && !isLegal(end_ + 1, start_ + 1))) {
-            throw IndexOutOfBoundsException(arrayRangeOutOfBoundsExceptionMessage(
-                this.len, range.start, range.end, range.step, range.hasStart, range.hasEnd, range.isClosed))
+            throw IndexOutOfBoundsException(
+                arrayRangeOutOfBoundsExceptionMessage(this.len, range.start, range.end, range.step, range.hasStart,
+                    range.hasEnd, range.isClosed))
         }
 
         let arr: Array<T> = this
@@ -319,19 +322,19 @@ public struct Array<T> {
             return
         }
         if (copyLen < 0) {
-            throw IllegalArgumentException("Negative copy length.")
+            throw IllegalArgumentException("Invalid argument 'copyLen': expected a non-negative value, got '${copyLen}'.")
         }
         if (srcStart < 0 || dstStart < 0) {
-            throw IndexOutOfBoundsException("Array negative index access.")
+            throw IndexOutOfBoundsException("Index out of bounds: negative index, srcStart is '${srcStart}', dstStart is '${dstStart}'.")
         }
         if (srcStart >= this.len) {
-            throw IndexOutOfBoundsException("SrcStart is greater than or equal to the size of this array.")
+            throw IndexOutOfBoundsException("Index out of bounds: srcStart '${srcStart}' is greater than or equal to array size '${this.len}'.")
         }
         if (dstStart >= dst.size) {
-            throw IndexOutOfBoundsException("DstStart is greater than or equal to the size of the target array.")
+            throw IndexOutOfBoundsException("Index out of bounds: dstStart '${dstStart}' is greater than or equal to target array size '${dst.size}'.")
         }
         if (copyLen > this.len - srcStart || copyLen > dst.size - dstStart) {
-            throw IndexOutOfBoundsException("Copy length out of bounds.")
+            throw IndexOutOfBoundsException("Copy length out of bounds: copyLen is '${copyLen}', but available source length is '${this.len - srcStart}' and available destination length is '${dst.size - dstStart}'.")
         }
         intrinsicBuiltInCopyTo<T>(this.rawptr, dst.rawptr, this.start + srcStart, dst.start + dstStart, copyLen)
     }
@@ -342,7 +345,7 @@ public struct Array<T> {
             return
         }
         if (dst.size < this.len) {
-            throw IllegalArgumentException("Dst size is less than the size of this array.")
+            throw IllegalArgumentException("Destination array size '${dst.size}' is less than source array size '${this.len}'.")
         }
         intrinsicBuiltInCopyTo<T>(this.rawptr, dst.rawptr, this.start, dst.start, this.len)
     }
@@ -385,10 +388,10 @@ public struct Array<T> {
     @Frozen
     public func swap(index1: Int64, index2: Int64): Unit {
         if (index1 < 0 || len <= index1) {
-            throw IllegalArgumentException("Index1 is less than 0 or not less than the size of this array.")
+            throw IllegalArgumentException("Invalid argument 'index1': index '${index1}' is out of bounds, array size is '${len}'.")
         }
         if (index2 < 0 || len <= index2) {
-            throw IllegalArgumentException("Index2 is less than 0 or not less than the size of this array.")
+            throw IllegalArgumentException("Invalid argument 'index2': index '${index2}' is out of bounds, array size is '${len}'.")
         }
         if (index1 == index2) {
             return
@@ -401,7 +404,7 @@ public struct Array<T> {
     @Frozen
     public func splitAt(mid: Int64): (Array<T>, Array<T>) {
         if (mid < 0 || this.len < mid) {
-            throw IllegalArgumentException("Mid is less than 0 or not less than the size of this array.")
+            throw IllegalArgumentException("Invalid argument 'mid': value '${mid}' is out of bounds, array size is '${this.len}'.")
         }
         if (this.len == 0) {
             return (this, this)
@@ -414,7 +417,7 @@ public struct Array<T> {
     @Frozen
     public func repeat(n: Int64): Array<T> {
         if (n <= 0) {
-            throw IllegalArgumentException("N is less than or equal to 0.")
+            throw IllegalArgumentException("Invalid argument 'n': expected a positive value, got '${n}'.")
         }
         if (this.len == 0) {
             return this
@@ -442,7 +445,7 @@ public struct Array<T> {
     @When[env != "ohos"]
     public func step(count: Int64): Array<T> {
         if (count <= 0) {
-            throw IllegalArgumentException("Step count must be greater than 0!")
+            throw IllegalArgumentException("Invalid argument 'count': expected a positive value, got '${count}'.")
         }
 
         if (len > 0) {
@@ -473,7 +476,7 @@ public struct Array<T> {
             return Array<T>()
         }
         if (count < 0) {
-            throw IllegalArgumentException("take count must be greater than 0!")
+            throw IllegalArgumentException("Invalid argument 'count': expected a non-negative value, got '${count}'.")
         }
         let newLen = min(count, this.len)
         let newRawPtr = RawArray<T>(newLen, repeat: unsafe { zeroValue<T>() })
@@ -491,7 +494,7 @@ public struct Array<T> {
     @When[env != "ohos"]
     public func skip(count: Int64): Array<T> {
         if (count < 0) {
-            throw IllegalArgumentException("skip count must be greater than 0!")
+            throw IllegalArgumentException("Invalid argument 'count': expected a non-negative value, got '${count}'.")
         }
         if (count == 0) {
             return Array(this.toRawArray(), this.start, this.len)
@@ -765,23 +768,22 @@ private func rangeToString(arraySize: Int64, start: Int64, end: Int64,
 }
 
 private func arraySliceOutOfBoundsExceptionMessage(arraySize: Int64, sliceStart: Int64, sliceLength: Int64): String {
-    "The size of Array is ${arraySize}, start is ${sliceStart}, length is ${sliceLength}."
+    "Slice out of bounds: start is '${sliceStart}', length is '${sliceLength}', but array size is '${arraySize}'."
 }
 
 private func arrayIndexOutOfBoundsExceptionMessage(arraySize: Int64, index: Int64): String {
-    "The length of the array is ${arraySize}, but the index is ${index}."
+    "Index out of bounds: index is '${index}', but array size is '${arraySize}'."
 }
 
 private func arrayRangeOutOfBoundsExceptionMessage(
     arraySize: Int64, start: Int64, end: Int64, step: Int64, hasStart: Bool, hasEnd: Bool, isClosed: Bool): String {
-    "The length of the array is ${arraySize}, " +
-        "but the actual range is ${rangeToString(arraySize, start, end, step, hasStart, hasEnd, isClosed)}."
+    "Range out of bounds: range is '${rangeToString(arraySize, start, end, step, hasStart, hasEnd, isClosed)}', but array size is '${arraySize}'."
 }
 
 private func arrayInvalidRangeSizeExceptionMessage(arraySize: Int64, rangeSize: Int64): String {
-    "The length of the value array is ${arraySize}, which does not match the range length of ${rangeSize}."
+    "Array size '${arraySize}' does not match range size '${rangeSize}'."
 }
 
 private func arrayInvalidRangeStepExceptionMessage(rangeStep: Int64): String {
-    "Illegal step ${rangeStep}, step should be 1."
+    "Array slice step must be 1, got '${rangeStep}'."
 }

@@ -31,7 +31,7 @@ enum Result<T> {
 
     func unwrapErr(): Exception {
         match (this) {
-            case Ok(v) => throw Exception("called `Result.unwrapErr()` on an `Ok` value")
+            case Ok(v) => throw Exception("Called `Result.unwrapErr()` on an `Ok` value.")
             case Err(v) => v
         }
     }

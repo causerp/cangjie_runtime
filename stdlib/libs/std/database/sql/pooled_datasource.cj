@@ -163,11 +163,12 @@ public class PooledDatasource <: Datasource {
         var item = pool.acquire(_connTimeout)
         match (item) {
             case Some(entry) => return ProxyConnection(entry.value, entry)
-            case None => if (isclosed.load()) {
-                throw SqlException("Connection pool is closed.")
-            } else {
-                throw SqlException("Can not acquire connection.")
-            }
+            case None =>
+                if (isclosed.load()) {
+                    throw SqlException("Connection pool is closed.")
+                } else {
+                    throw SqlException("Cannot acquire connection.")
+                }
         }
     }
 

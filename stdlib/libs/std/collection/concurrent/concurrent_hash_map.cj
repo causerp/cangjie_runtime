@@ -563,7 +563,7 @@ public class ConcurrentHashMap<K, V> <: ConcurrentMap<K, V> & Collection<(K, V)>
      */
     public init(capacity: Int64, concurrencyLevel!: Int64 = DEFAULT_CONCUR_LEVEL) {
         if (capacity < 0) {
-            throw IllegalArgumentException("Invalid size of Concurrent HashMap: ${capacity}.")
+            throw IllegalArgumentException("Invalid capacity '${capacity}': expected a non-negative value.")
         }
 
         let lockCnt = tableSizeFor(concurrencyLevel)
@@ -596,7 +596,7 @@ public class ConcurrentHashMap<K, V> <: ConcurrentMap<K, V> & Collection<(K, V)>
      */
     public init(size: Int64, initElement: (Int64) -> (K, V), concurrencyLevel!: Int64 = DEFAULT_CONCUR_LEVEL) {
         if (size < 0) {
-            throw IllegalArgumentException("Invalid size of Concurrent HashMap: ${size}.")
+            throw IllegalArgumentException("Invalid size '${size}': expected a non-negative value.")
         }
 
         let lockCnt = tableSizeFor(concurrencyLevel)
@@ -801,7 +801,7 @@ public class ConcurrentHashMap<K, V> <: ConcurrentMap<K, V> & Collection<(K, V)>
      */
     public operator func [](key: K): V {
         return match (this.get(key)) {
-            case None => throw NoneValueException("Value does not exist!\n")
+            case None => throw NoneValueException("Value does not exist.")
             case Some(val) => val
         }
     }

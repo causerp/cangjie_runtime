@@ -295,7 +295,7 @@ public struct DateTime <: ToString & Hashable & Comparable<DateTime> & Formattab
      */
     public static func ofEpoch(second!: Int64, nanosecond!: Int64): DateTime {
         if (nanosecond < 0 || nanosecond > MAX_NANOSECOND) {
-            throw IllegalArgumentException("The nanosecond value should be in the range [0, 999,999,999].")
+            throw IllegalArgumentException("Invalid nanosecond value '${nanosecond}': expected 0 to 999,999,999.")
         }
         if (second < SECS_OF_MIN_TO_AD1 - SECS_OF_UNIX_TO_AD1) {
             throw ArithmeticException(YEAR_OUT_OF_RANGE)
@@ -1161,7 +1161,7 @@ public struct DateTime <: ToString & Hashable & Comparable<DateTime> & Formattab
                     second: second, nanosecond: nanosecond, timeZone: timeZone)
                 var offset = dateTime.zoneOffset.toSeconds()
                 if (zoneOffset != MAX_OFFSET + 1 && zoneOffset != offset) {
-                    throw TimeParseException("The zone offset does not match.")
+                    throw TimeParseException("Zone offset does not match.")
                 }
                 return dateTime
             } catch (_: InvalidDataException) {
@@ -1169,10 +1169,10 @@ public struct DateTime <: ToString & Hashable & Comparable<DateTime> & Formattab
                 // try to find zone name in local time zone
                 var offset = localTimeZone.lookupName(zoneId, d.sec - SECS_OF_UNIX_TO_AD1)
                 if (offset == MAX_OFFSET + 1) { // failure
-                    throw TimeParseException("Illegal zone name or zone id.")
+                    throw TimeParseException("Invalid zone name or zone ID.")
                 }
                 if (zoneOffset != MAX_OFFSET + 1 && zoneOffset != offset) { // success but offset does not match
-                    throw TimeParseException("The zone offset does not match.")
+                    throw TimeParseException("Zone offset does not match.")
                 }
                 return DateTime(d.sec - offset, d.ns, TimeZone(zoneId, Int32(offset)))
             }
@@ -1192,7 +1192,7 @@ public struct DateTime <: ToString & Hashable & Comparable<DateTime> & Formattab
         }
         if (dayOfWeek != -1) {
             if (dayOfWeek != this.dayOfWeek.toInteger()) {
-                throw TimeParseException("The day of week does not match.")
+                throw TimeParseException("Day of week does not match.")
             }
         }
     }
@@ -1229,24 +1229,24 @@ func checkDateTime(
     nanosecond: Int64
 ): Unit {
     if (year > MAX_YEAR || year < MIN_YEAR) {
-        throw IllegalArgumentException("Year value must be in [-999,999,999, 999,999,999].")
+        throw IllegalArgumentException("Invalid year value '${year}': expected -999,999,999 to 999,999,999.")
     }
     //month validation are in func daysIn
     let days = daysIn(month, year)
     if (dayOfMonth < 1 || dayOfMonth > days) {
-        throw IllegalArgumentException("Day of ${Month.of(month).toString()} in ${year} must be in [1, ${days}].")
+        throw IllegalArgumentException("Invalid day '${dayOfMonth}' for ${Month.of(month)} ${year}: expected 1 to ${days}.")
     }
     if (hour < 0 || hour > 23) {
-        throw IllegalArgumentException("Hour must be in [0, 23].")
+        throw IllegalArgumentException("Invalid hour '${hour}': expected 0 to 23.")
     }
     if (minute < 0 || minute > 59) {
-        throw IllegalArgumentException("Minute must be in [0, 59].")
+        throw IllegalArgumentException("Invalid minute '${minute}': expected 0 to 59.")
     }
     if (second < 0 || second > 59) {
-        throw IllegalArgumentException("Second must be in [0, 59].")
+        throw IllegalArgumentException("Invalid second '${second}': expected 0 to 59.")
     }
     if (nanosecond < 0 || nanosecond > MAX_NANOSECOND) {
-        throw IllegalArgumentException("Nanosecond must be in [0, 999,999,999].")
+        throw IllegalArgumentException("Invalid nanosecond '${nanosecond}': expected 0 to 999,999,999.")
     }
 }
 
@@ -1442,7 +1442,7 @@ func isLeapYear(year: Int64): Bool {
  */
 func daysIn(month: Int64, year: Int64): Int64 {
     if (month < 1 || month > 12) {
-        throw IllegalArgumentException("Month value must be in the range [1, 12].")
+        throw IllegalArgumentException("Invalid month '${month}': expected 1 to 12.")
     }
     if (month == 2 && isLeapYear(year)) {
         return 29
@@ -1550,11 +1550,11 @@ func adjustHour(hour: Int64, is24Hour: Bool, apmFlag: Int64): Int64 {
     if (is24Hour) {
         if (apmFlag == 1) {
             if (hour >= HOUR_24_NOON) {
-                throw TimeParseException("The time is not in the morning.")
+                throw TimeParseException("Invalid time: expected morning (AM).")
             }
         } else if (apmFlag == 2) {
             if (hour >= 0 && hour < HOUR_24_NOON) {
-                throw TimeParseException("The time is not in the afternoon.")
+                throw TimeParseException("Invalid time: expected afternoon (PM).")
             }
         }
         return hour
@@ -1577,7 +1577,7 @@ func adjustHour(hour: Int64, is24Hour: Bool, apmFlag: Int64): Int64 {
 
 func adjustDate(year: Int64, month: Int64, dayOfMonth: Int64, dayOfYear: Int64): (Int64, Int64) {
     if (year == MAX_YEAR + 1) {
-        throw TimeParseException("Lack of year value.")
+        throw TimeParseException("Missing year value.")
     }
     var mon = month
     var day = dayOfMonth
@@ -1585,21 +1585,21 @@ func adjustDate(year: Int64, month: Int64, dayOfMonth: Int64, dayOfYear: Int64):
         var (months, days) = dayOfYearToDate(dayOfYear, year)
         // month comes from "MM", months comes from dayOfYear
         if (month > 0 && month != months) {
-            throw TimeParseException("Month value does not match dayOfYear.")
+            throw TimeParseException("Month and day of year are inconsistent.")
         }
         // dayOfMonth comes from "dd", days comes from dayOfYear
         if (dayOfMonth > 0 && dayOfMonth != days) {
-            throw TimeParseException("DayOfMonth value does not match dayOfYear.")
+            throw TimeParseException("Day of month and day of year are inconsistent.")
         }
         mon = months
         day = days
     }
 
     if (mon == -1) {
-        throw TimeParseException("Lack of month value.")
+        throw TimeParseException("Missing month value.")
     }
     if (day == -1) {
-        throw TimeParseException("Lack of dayOfMonth value.")
+        throw TimeParseException("Missing day of month value.")
     }
     return (mon, day)
 }
@@ -1664,7 +1664,7 @@ func dayOfYearToDate(dayOfYear: Int64, year: Int64): (Int64, Int64) {
         DAYS_OF_NORMAL_YEAR
     }
     if (dayOfYear > max) {
-        throw TimeParseException("DayOfYear value in ${year} must be in [1, ${max}].")
+        throw TimeParseException("Invalid day of year '${dayOfYear}' for ${year}: expected 1 to ${max}.")
     }
     let daysOfYear = dayOfYear
     var monthAfter = 0
@@ -1729,7 +1729,7 @@ struct DateTimeParser {
 
     mut func parseYear(value: Int64, length: Int64): Int64 {
         if (value != MAX_YEAR + 1) {
-            throw TimeParseException("Extra year format.")
+            throw TimeParseException("Duplicate year format.")
         }
         var isPositive = 1
         var parsedYear = 0
@@ -1754,13 +1754,13 @@ struct DateTimeParser {
             this.move(this.parseLen)
             return isPositive * parsedYear
         } else {
-            throw TimeParseException("Fail to parse at index ${index}: year value is not correct.")
+            throw TimeParseException("Failed to parse at index ${index}: invalid year value.")
         }
     }
 
     mut func parseMonth(value: Int64, length: Int64): Int64 {
         if (value != -1) {
-            throw TimeParseException("Extra month format.")
+            throw TimeParseException("Duplicate month format.")
         }
         var parsedMonth = match (length) {
             case 1 => parseExtraInteger(length)
@@ -1773,7 +1773,7 @@ struct DateTimeParser {
             parsedMonth++
         }
         if (parsedMonth < 1 || parsedMonth > 12) {
-            throw TimeParseException("Month value must be in [1, 12].")
+            throw TimeParseException("Invalid month value: expected 1 to 12.")
         }
         this.move(this.parseLen)
         return parsedMonth
@@ -1781,7 +1781,7 @@ struct DateTimeParser {
 
     mut func parseDayOfWeek(value: Int64, length: Int64): Int64 {
         if (value != -1) {
-            throw TimeParseException("Extra dayOfWeek format.")
+            throw TimeParseException("Duplicate day of week format.")
         }
         let parsedWeek = match (length) {
             case 1 => parseExtraInteger(length)
@@ -1803,12 +1803,12 @@ struct DateTimeParser {
                 return i
             }
         }
-        throw TimeParseException("Fail to parse dayOfWeek or month.")
+        throw TimeParseException("Failed to parse day of week or month.")
     }
 
     mut func parseEra(value: Bool, length: Int64): Unit {
         if (value) {
-            throw TimeParseException("Extra era value.")
+            throw TimeParseException("Duplicate era value.")
         }
         let size = match (length) {
             case 1 => 1 /* A */
@@ -1816,18 +1816,18 @@ struct DateTimeParser {
             case _ => 11 /* Anno Domini */
         }
         if (this.getLenToParse() < size) {
-            throw TimeParseException("Illegal era value.")
+            throw TimeParseException("Invalid era value: insufficient length.")
         }
         let str = String(this.value.slice(index, size))
         if (!(str == "A" || str == "AD" || str == "Anno Domini")) {
-            throw TimeParseException("Illegal era value.")
+            throw TimeParseException("Invalid era value '${str}'.")
         }
         this.move(size)
     }
 
     mut func parseDayOfMonth(value: Int64, length: Int64): Int64 {
         if (value != -1) {
-            throw TimeParseException("Extra dayOfMonth format.")
+            throw TimeParseException("Duplicate day of month format.")
         }
         let parsedMonth = parseExtraInteger(length)
         this.move(this.parseLen)
@@ -1836,10 +1836,10 @@ struct DateTimeParser {
 
     mut func parseDayOfYear(value: Int64): Int64 {
         if (value != -1) {
-            throw TimeParseException("Extra dayOfYear format.")
+            throw TimeParseException("Duplicate day of year format.")
         }
         if (this.isEnd()) {
-            throw TimeParseException("No dayOfYear value to match.")
+            throw TimeParseException("No day of year value to match.")
         }
         var len = this.getLenToParse()
         if (len > 3) {
@@ -1854,13 +1854,13 @@ struct DateTimeParser {
                 pos++
             } else {
                 if (pos == -1) {
-                    throw TimeParseException("Fail to parse at index ${i}: dayOfYear value should be integer.")
+                    throw TimeParseException("Failed to parse at index ${i}: day of year must be an integer.")
                 }
                 break
             }
         }
         if (res == 0) {
-            throw TimeParseException("Day of year can not be equal to 0.")
+            throw TimeParseException("Day of year cannot be zero.")
         }
         this.move(pos + 1)
         return res
@@ -1868,7 +1868,7 @@ struct DateTimeParser {
 
     mut func parseISOWeek(value: Int64, length: Int64): Int64 {
         if (value != 0) {
-            throw TimeParseException("Extra isoWeek format.")
+            throw TimeParseException("Duplicate ISO week format.")
         }
         let isoWeek = parseExtraInteger(length)
         this.move(this.parseLen)
@@ -1877,11 +1877,11 @@ struct DateTimeParser {
 
     mut func parseHourIn12(value: Int64, length: Int64): Int64 {
         if (value != -1) {
-            throw TimeParseException("Extra hour format.")
+            throw TimeParseException("Duplicate hour format.")
         }
         let hour = parseExtraInteger(length)
         if (hour > 12 || hour == 0) {
-            throw TimeParseException("Hour value in format \"hh\" must be in [1, 12].")
+            throw TimeParseException("Invalid hour in 'hh' format: expected 1 to 12.")
         }
         this.move(this.parseLen)
         return hour
@@ -1889,11 +1889,11 @@ struct DateTimeParser {
 
     mut func parseHourIn24(value: Int64, length: Int64): Int64 {
         if (value != -1) {
-            throw TimeParseException("Extra hour format.")
+            throw TimeParseException("Duplicate hour format.")
         }
         let hour = parseExtraInteger(length)
         if (hour > 23) {
-            throw TimeParseException("Hour value in format \"HH\" must be in [0, 23].")
+            throw TimeParseException("Invalid hour in 'HH' format: expected 0 to 23.")
         }
         this.move(this.parseLen)
         return hour
@@ -1901,11 +1901,11 @@ struct DateTimeParser {
 
     mut func parseMinute(value: Int64, length: Int64): Int64 {
         if (value != -1) {
-            throw TimeParseException("Extra minute format.")
+            throw TimeParseException("Duplicate minute format.")
         }
         let minute = parseExtraInteger(length)
         if (minute > 59) {
-            throw TimeParseException("Minute value must be in [0, 59].")
+            throw TimeParseException("Invalid minute value: expected 0 to 59.")
         }
         this.move(this.parseLen)
         return minute
@@ -1913,11 +1913,11 @@ struct DateTimeParser {
 
     mut func parseSecond(value: Int64, length: Int64, isRFC3339: Bool): (Int64, Int64) {
         if (value != -1) {
-            throw TimeParseException("Extra second format.")
+            throw TimeParseException("Duplicate second format.")
         }
         let second = parseExtraInteger(length)
         if (second > 59) {
-            throw TimeParseException("Second value must be in [0, 59].")
+            throw TimeParseException("Invalid second value: expected 0 to 59.")
         }
         this.move(this.parseLen)
         if (isRFC3339 && this.getLenToParse() > 2 && this.get(0) == r'.') {
@@ -1930,7 +1930,7 @@ struct DateTimeParser {
 
     mut func parseNanosecond(value: Int64, length: Int64): Int64 {
         if (value != -1) {
-            throw TimeParseException("Extra nanosecond format.")
+            throw TimeParseException("Duplicate nanosecond format.")
         }
         var nanosecond = parseInteger(length * 3)
         /* to nanoseconds*/
@@ -1941,12 +1941,12 @@ struct DateTimeParser {
 
     mut func parseOffset(value: Int64, length: Int64): Int64 {
         if (value != MAX_OFFSET + 1) {
-            throw TimeParseException("Extra zone offset format.")
+            throw TimeParseException("Duplicate zone offset format.")
         }
         if (length < 4) {
             var len = 3 * length - 1
             if (this.getLenToParse() < len + 1) {
-                throw TimeParseException("Illegal zone offset value.")
+                throw TimeParseException("Invalid zone offset value.")
             }
             return parseOffsetDate(length)
         }
@@ -1956,7 +1956,7 @@ struct DateTimeParser {
             return 0
         }
         if (this.getLenToParse() < 6) {
-            throw TimeParseException("Illegal zone offset value.")
+            throw TimeParseException("Invalid zone offset value.")
         } else if (this.getLenToParse() < 9) {
             return parseOffset(value, 2)
         } else {
@@ -1972,7 +1972,7 @@ struct DateTimeParser {
         match (this.get(0)) {
             case r'+' => isPositive = 1
             case r'-' => isPositive = -1
-            case _ => throw TimeParseException("Zone offset should start with \"+\" or \"-\".")
+            case _ => throw TimeParseException("Zone offset must start with '+' or '-'.")
         }
         this.move(1)
         var times = length
@@ -1983,9 +1983,9 @@ struct DateTimeParser {
             let num = getInteger()
             let loopTimes = length - times
             if (loopTimes == 0 && ((isPositive == 1 && num > 25) || (isPositive == -1 && num > 24))) {
-                throw TimeParseException("The hour in offset should be in [-24, 25].")
+                throw TimeParseException("Invalid hour in offset: expected -24 to 25.")
             } else if (loopTimes > 0 && num > 59) {
-                throw TimeParseException("The minute or second in offset should be in [0, 59].")
+                throw TimeParseException("Invalid minute or second in offset: expected 0 to 59.")
             }
             times--
             offset += num * seconds
@@ -1995,7 +1995,7 @@ struct DateTimeParser {
                 break
             }
             if (this.get(0) != r':') {
-                throw TimeParseException("Fail to parse at index ${this.index}: \"${value[index]}\" should be \":\".")
+                throw TimeParseException("Failed to parse at index ${this.index}: expected ':', got '${value[index]}'.")
             }
             this.move(1)
         }
@@ -2004,18 +2004,18 @@ struct DateTimeParser {
 
     mut func parseAmPm(flag: Int64): Int64 {
         if (flag != 0) {
-            throw TimeParseException("Extra AM/PM value.")
+            throw TimeParseException("Duplicate AM/PM value.")
         }
         var apmFlag: Int64
         if (this.getLenToParse() < 2) {
-            throw TimeParseException("Illegal AM/PM value.")
+            throw TimeParseException("Invalid AM/PM value: insufficient length.")
         }
         if (value[index] == r'A' && value[index + 1] == r'M') {
             apmFlag = 1
         } else if (value[index] == r'P' && value[index + 1] == r'M') {
             apmFlag = 2
         } else {
-            throw TimeParseException("Illegal AM/PM value.")
+            throw TimeParseException("Invalid AM/PM value.")
         }
         this.move(2)
         return apmFlag
@@ -2023,7 +2023,7 @@ struct DateTimeParser {
 
     mut func parseZoneInfo(value: String, length: Int64): String {
         if (value != "") {
-            throw TimeParseException("Extra zone id format.")
+            throw TimeParseException("Duplicate zone ID format.")
         }
         return match (length) {
             case 4 => parseZoneId() //zzzz: Asia/Shanghai
@@ -2072,21 +2072,21 @@ struct DateTimeParser {
 
     mut func parseGMTOffset(value: Int64, length: Int64): Int64 {
         if (value != MAX_OFFSET + 1) {
-            throw TimeParseException("Extra zone offset format.")
+            throw TimeParseException("Duplicate zone offset format.")
         }
         // Z: GMT+8 ZZ: GMT+08:00 ZZZ: +08:00:00/GMT+08:00:00 ZZZZ: GMT+08:00/GMT+08:00:00/Z
         checkOffsetLength(5)
         if (this.get(0) == r'G' && this.get(1) == r'M' && this.get(2) == r'T') {
             this.move(3)
         } else {
-            throw TimeParseException("Illegal offset form.")
+            throw TimeParseException("Invalid offset format.")
         }
         if (length == 1) { // +8, +1 +12
             var isPositive = 0
             match (this.get(0)) {
                 case r'+' => isPositive = 1
                 case r'-' => isPositive = -1
-                case _ => throw TimeParseException("Zone offset should start with \"+\" or \"-\".")
+                case _ => throw TimeParseException("Zone offset must start with '+' or '-'.")
             }
             this.move(1)
             if (this.getLenToParse() > 1 && this.get(0).isAsciiNumber() && this.get(1).isAsciiNumber()) {
@@ -2100,7 +2100,7 @@ struct DateTimeParser {
                 this.move(parseLen)
                 return zoneOffset
             } else {
-                throw TimeParseException("Illegal offset form.")
+                throw TimeParseException("Invalid offset format.")
             }
         }
         parseOffset(value, length)
@@ -2108,17 +2108,17 @@ struct DateTimeParser {
 
     mut func checkSeperator(r: Rune): Unit {
         if (isEnd()) {
-            throw TimeParseException("No value to match \"${r}\".")
+            throw TimeParseException("No value to match '${r}'.")
         }
         if (r != this.get(0)) {
-            throw TimeParseException("Fail to parse at index ${index}: \"${value[index]}\" should be \"${r}\".")
+            throw TimeParseException("Failed to parse at index ${index}: expected '${r}', got '${value[index]}'.")
         }
         this.move(1)
     }
 
     func checkEnd(): Unit {
         if (!isEnd()) {
-            throw TimeParseException("Extar value, start at index ${this.index}.")
+            throw TimeParseException("Extra value starting at index ${this.index}.")
         }
     }
 
@@ -2130,7 +2130,7 @@ struct DateTimeParser {
             if (character.isAsciiNumber()) {
                 res = res * 10 + Int64(UInt32(character) - UInt32(r'0'))
             } else {
-                throw TimeParseException("Fail to parse at index ${i}: \"${value[i]}\" should be integer.")
+                throw TimeParseException("Failed to parse at index ${i}: expected an integer, got '${value[i]}'.")
             }
         }
         return res
@@ -2152,7 +2152,7 @@ struct DateTimeParser {
     mut func parseInteger(length: Int64): Int64 {
         this.parseLen = length
         if (!isEnough()) {
-            throw TimeParseException("Fail to parse at index ${index}: insufficient remaining length.")
+            throw TimeParseException("Failed to parse at index ${index}: insufficient remaining length.")
         }
         return getInteger()
     }
@@ -2176,7 +2176,7 @@ struct DateTimeParser {
             }
         }
         if (numLen == 0) {
-            throw TimeParseException("Lack of nanosecond value.")
+            throw TimeParseException("Missing nanosecond value.")
         }
         this.parseLen = numLen
         return nano * 10 ** UInt64(9 - numLen)
@@ -2184,7 +2184,7 @@ struct DateTimeParser {
 
     func checkOffsetLength(n: Int64): Unit {
         if (this.getLenToParse() < n) {
-            throw TimeParseException("Illegal zone offset value.")
+            throw TimeParseException("Invalid zone offset value: insufficient length.")
         }
     }
 }

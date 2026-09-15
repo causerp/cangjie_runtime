@@ -67,14 +67,14 @@ public class ArrayBlockingQueue<E> {
 
     public init(capacity: Int64) {
         if (capacity <= 0) {
-            throw IllegalArgumentException("Invalid size of ArrayBlockingQueue: ${capacity}.")
+            throw IllegalArgumentException("Invalid capacity '${capacity}': expected a positive value.")
         }
 
         this.capacity = capacity
         buffer = Array(capacity, repeat: unsafe { zeroValue<E>() })
         state = unsafe { CjStdSyncStateInit(capacity) }
         if (state.isNull()) {
-            throw IllegalMemoryException("Failed to malloc memory of ${capacity}.")
+            throw IllegalMemoryException("Failed to allocate memory for capacity '${capacity}'.")
         }
 
         unsignedCapacity = UInt64(capacity)
@@ -83,19 +83,18 @@ public class ArrayBlockingQueue<E> {
     @Deprecated[message: "Use the other version of `init` instead."]
     public init(capacity: Int64, elements: Collection<E>) {
         if (capacity < elements.size) {
-            throw IllegalArgumentException(
-                "Size of ArrayBlockingQueue should be equal or greater than ${elements.size}.")
+            throw IllegalArgumentException("Invalid capacity '${capacity}': expected at least '${elements.size}'.")
         }
 
         if (capacity <= 0) {
-            throw IllegalArgumentException("Invalid size of ArrayBlockingQueue: ${capacity}.")
+            throw IllegalArgumentException("Invalid capacity '${capacity}': expected a positive value.")
         }
 
         this.capacity = capacity
         buffer = Array(capacity, repeat: unsafe { zeroValue<E>() })
         state = unsafe { CjStdSyncStateInit(capacity) }
         if (state.isNull()) {
-            throw IllegalMemoryException("Failed to malloc memory of ${capacity}.")
+            throw IllegalMemoryException("Failed to allocate memory for capacity '${capacity}'.")
         }
 
         unsignedCapacity = UInt64(capacity)

@@ -145,7 +145,7 @@ class ResourcePool<T> <: Pool<T> & Equatable<ResourcePool<T>> {
                 return v
             }
         } else {
-            throw SqlException("Acquired entries exceed maxSize(${maxSize})")
+            throw SqlException("Acquired entries exceed maxSize '${maxSize}'.")
         }
 
         let canCreate = synchronized(mux) {
@@ -158,7 +158,7 @@ class ResourcePool<T> <: Pool<T> & Equatable<ResourcePool<T>> {
         }
 
         if (!canCreate) {
-            throw SqlException("Acquired entries exceed maxSize(${maxSize})")
+            throw SqlException("Acquired entries exceed maxSize '${maxSize}'.")
         }
 
         try {
@@ -203,7 +203,7 @@ class ResourcePool<T> <: Pool<T> & Equatable<ResourcePool<T>> {
                     entryQueue.add(entry)
                 }
                 return entry
-            case None => throw Exception("constructor entry failed")
+            case None => throw Exception("Internal error: failed to create entry from constructor.")
         }
     }
 
@@ -211,9 +211,9 @@ class ResourcePool<T> <: Pool<T> & Equatable<ResourcePool<T>> {
         match (entry.pool as ResourcePool<T>) {
             case Some(p) =>
                 if (p != this) {
-                    throw SqlException("the entry is owned by another pool")
+                    throw SqlException("The entry is owned by another pool.")
                 }
-            case None => throw SqlException("the entry is not owned by any pool")
+            case None => throw SqlException("The entry is not owned by any pool.")
         }
 
         if (DateTime.now().toUnixTimeStamp() - entry.creationTime > options.maxLifeTime) {
@@ -231,9 +231,9 @@ class ResourcePool<T> <: Pool<T> & Equatable<ResourcePool<T>> {
         match (entry.pool as ResourcePool<T>) {
             case Some(p) =>
                 if (p != this) {
-                    throw SqlException("the entry is owned by another pool")
+                    throw SqlException("The entry is owned by another pool.")
                 }
-            case None => throw SqlException("the entry is not owned by any pool")
+            case None => throw SqlException("The entry is not owned by any pool.")
         }
         synchronized(mux) {
             if (entryCount > 0) {

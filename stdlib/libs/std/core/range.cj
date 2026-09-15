@@ -23,7 +23,7 @@ public struct Range<T> <: Iterable<T> where T <: Countable<T> & Comparable<T> & 
     @Frozen
     public const init(start: T, end: T, step: Int64, hasStart: Bool, hasEnd: Bool, isClosed: Bool) {
         if (step == 0) {
-            throw IllegalArgumentException("The value of the step should not be zero.")
+            throw IllegalArgumentException("Invalid argument 'step': must be non-zero.")
         }
         this.start = start
         this.end = end

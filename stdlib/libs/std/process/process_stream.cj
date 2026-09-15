@@ -62,7 +62,7 @@ class PipeOutputStream <: OutputStream & Resource {
 
     public func write(buffer: Array<Byte>): Unit {
         if (!isHandleValid(_fileDescriptor._fileHandle)) {
-            throw ProcessException("The stream not opened, can not be written.")
+            throw ProcessException("Stream is not opened.")
         }
         if (buffer.size == 0) {
             return
@@ -102,7 +102,7 @@ class PipeOutputStream <: OutputStream & Resource {
                 UIntNative(bufSize))
             releaseArrayRawData(bufPtr)
             if (!writeSuccess) {
-                throw ProcessException("The stream write error.")
+                throw ProcessException("Stream write error.")
             }
         }
     }
@@ -120,16 +120,16 @@ class PipeInputStream <: InputStream & Resource {
 
     public func read(buffer: Array<Byte>): Int64 {
         if (!isHandleValid(_fileDescriptor._fileHandle)) {
-            throw ProcessException("The stream not opened, can not to read.")
+            throw ProcessException("Stream is not opened.")
         }
 
         if (buffer.size == 0) {
-            throw IllegalArgumentException("The buffer is empty.")
+            throw IllegalArgumentException("Buffer is empty.")
         }
 
         let readBytes: Int64 = directRead(buffer)
         if (readBytes < 0) {
-            throw ProcessException("The stream read Error.")
+            throw ProcessException("Stream read error.")
         }
         return readBytes
     }
@@ -175,7 +175,7 @@ class NullProcessStream <: IOStream & Resource {
     }
 
     public func write(_: Array<Byte>): Unit {
-        throw ProcessException("Invaild outputStream.")
+        throw ProcessException("Invalid output stream.")
     }
 
     public func flush(): Unit {}

@@ -100,7 +100,7 @@ public class File <: Resource & IOStream & Seekable {
         let filePath: Path = Path(path)
         let parent = filePath.parent
         if (!parent.isEmpty() && !exists(parent)) {
-            throw FSException("The input path 'parent' `${parent}` does not exist.")
+            throw FSException("Cannot open file: parent directory '${parent}' does not exist.")
         }
         // Because `filePath` may not exist before `openFile` is executed, `FileInfo` does not check whether the path exists.
         _fileInfo = FileInfo(filePath, false)
@@ -126,7 +126,7 @@ public class File <: Resource & IOStream & Seekable {
 
     private init(path: String, mode: OpenMode, fd: FileHandle) {
         if (!isHandleValid(fd)) {
-            throw FSException("Invalid File Handle ${fd}.")
+            throw FSException("Invalid file handle: ${fd}.")
         }
         let filePath: Path = Path(path)
         _fileInfo = FileInfo(filePath, false)
@@ -163,21 +163,21 @@ public class File <: Resource & IOStream & Seekable {
 
     public func setLength(length: Int64): Unit {
         if (length < 0) {
-            throw IllegalArgumentException("Invalid length: ${length}.")
+            throw IllegalArgumentException("Invalid argument 'length': ${length}.")
         }
         checkCanTruncate()
 
         unsafe {
             let resultPtr = CJ_FS_Truncate(_fileDescriptor.fileHandle, length)
             if (resultPtr.isNull()) {
-                throw FSException("Failed to tuncate the file `${_fileInfo.path}` return null.")
+                throw FSException("Failed to truncate file '${_fileInfo.path}': native function returned null.")
             }
             let result = resultPtr.read()
             LibC.free(resultPtr)
 
             try {
                 if (result.rtnCode != 0) {
-                    throw FSException("Failed to tuncate the file `${_fileInfo.path}`: ${result.msg}.")
+                    throw FSException("Failed to truncate file '${_fileInfo.path}': ${result.msg}.")
                 }
             } finally {
                 LibC.free(result.msg) // it's safe to free(NULL)
@@ -200,13 +200,13 @@ public class File <: Resource & IOStream & Seekable {
     public func read(buffer: Array<Byte>): Int64 {
         checkCanRead()
         if (buffer.size == 0) {
-            throw IllegalArgumentException("The buffer is empty.")
+            throw IllegalArgumentException("Invalid argument 'buffer': buffer is empty.")
         }
         var readBytes: Int64 = directRead(buffer)
         if (readBytes == 0) {
             return 0
         } else if (readBytes < 0) {
-            throw FSException("The file `${_fileInfo.path}` read error return ${readBytes} bytes.")
+            throw FSException("Failed to read file '${_fileInfo.path}': read ${readBytes} bytes.")
         }
         return readBytes
     }
@@ -218,10 +218,10 @@ public class File <: Resource & IOStream & Seekable {
      */
     public func write(buffer: Array<Byte>): Unit {
         if (!isHandleValid(fileHandle)) {
-            throw FSException("The file `${_fileInfo.path}` not opened, can not be written.")
+            throw FSException("Cannot write to file '${_fileInfo.path}': file is not opened.")
         }
         if (!_canWrite) {
-            throw FSException("The file `${_fileInfo.path}` does not have the write permission.")
+            throw FSException("Cannot write to file '${_fileInfo.path}': file does not have write permission.")
         }
         if (buffer.size == 0) {
             return
@@ -238,7 +238,7 @@ public class File <: Resource & IOStream & Seekable {
      */
     public func seek(sp: SeekPosition): Int64 {
         if (!canSeek()) {
-            throw FSException("The file `${_fileInfo.path}` can not seek.")
+            throw FSException("Cannot seek in file '${_fileInfo.path}': file does not support seeking.")
         }
         var (whence, offset): (Int32, Int64) = match (sp) {
             case Current(cOffset) => (SEEK_CUR, cOffset)
@@ -247,7 +247,7 @@ public class File <: Resource & IOStream & Seekable {
         }
         var val: Int64 = unsafe { CJ_FS_Seek(fileHandle, whence, offset) }
         if (val < 0) {
-            throw FSException("Failed to seek file `${_fileInfo.path}`: errno is ${0 - val}.")
+            throw FSException("Failed to seek in file '${_fileInfo.path}': error code ${0 - val}.")
         }
         return val
     }
@@ -284,7 +284,7 @@ public class File <: Resource & IOStream & Seekable {
 
         /* Call the close() in the C Language */
         if (unsafe { CJ_FS_CloseFile(fileHandle) } < 0) {
-            throw FSException("Failed to close file `${_fileInfo.path}`.")
+            throw FSException("Failed to close file '${_fileInfo.path}'.")
         }
         fileHandle = InvalidHandle
     }
@@ -307,7 +307,7 @@ public class File <: Resource & IOStream & Seekable {
      */
     public static func create(path: String): File {
         if (exists(path)) {
-            throw FSException("The file `${path}` is already exists.")
+            throw FSException("Cannot create file: '${path}' already exists.")
         }
         return File(path, Write)
     }
@@ -339,7 +339,7 @@ public class File <: Resource & IOStream & Seekable {
             ret = CJ_FS_CreateTempFile(arrPtr.pointer)
             releaseArrayRawData(arrPtr)
             if (!isHandleValid(ret)) {
-                throw FSException("Failed to create the temporary file!")
+                throw FSException("Failed to create temporary file.")
             }
         }
         var tempPath = String.fromUtf8(tempArr.slice(0, tempArrSize - 1))
@@ -353,7 +353,7 @@ public class File <: Resource & IOStream & Seekable {
     static func copy(sourcePath: String, destinationPath: String, overwrite: Bool): Unit {
         if (overwrite) {
             callNativeFunc(sourcePath, destinationPath, CJ_FS_CopyREF,
-                "Failed to copy file from `${sourcePath}` to `${destinationPath}`")
+                "Failed to copy file from '${sourcePath}' to '${destinationPath}'")
             return
         }
 
@@ -451,7 +451,7 @@ public class File <: Resource & IOStream & Seekable {
     private func openFile(): Unit {
         let isExists = exists(_fileInfo.path)
         let (r, w, s, openMode): (Bool, Bool, Bool, Int32) = match ((_openMode, isExists)) {
-            case (Read, false)        => throw FSException("The file `${_fileInfo.path}` does not exist or permission denied!")
+            case (Read, false)        => throw FSException("Cannot open file '${_fileInfo.path}': file does not exist or permission denied.")
             case (Read, _)            => (true, false, true, READ_ONLY)
             case (Write, _)           => (false, true, true, WRITE_ONLY)
             case (OpenMode.Append, _) => (false, true, false, APPEND)
@@ -470,7 +470,7 @@ public class File <: Resource & IOStream & Seekable {
             fsInfoCp = CJ_FS_OpenFile(cPath, openMode)
             LibC.free(cPath)
             if (fsInfoCp.isNull()) {
-                throw FSException("Failed to open the file `${pathStr}`.")
+                throw FSException("Failed to open file '${pathStr}'.")
             }
             fsInfo = fsInfoCp.read()
             LibC.free(fsInfoCp)
@@ -482,7 +482,7 @@ public class File <: Resource & IOStream & Seekable {
             _fileDescriptor._fileHandle = fsInfo.fd
         }
         if (!isHandleValid(_fileDescriptor._fileHandle)) {
-            var errMsg = "Failed to open the file `${pathStr}`."
+            var errMsg = "Failed to open file '${pathStr}'."
             if (fsInfoErrMsg != "") {
                 errMsg += " ${fsInfoErrMsg}."
             }
@@ -505,25 +505,25 @@ public class File <: Resource & IOStream & Seekable {
      */
     private func checkCanRead(): Unit {
         if (!isHandleValid(_fileDescriptor._fileHandle)) {
-            throw FSException("The file `${_fileInfo.path}` not opened, can not to read.")
+            throw FSException("Cannot read file '${_fileInfo.path}': file is not opened.")
         }
         if (!_canRead) {
-            throw FSException("The file `${_fileInfo.path}` does not have the read permission.")
+            throw FSException("Cannot read file '${_fileInfo.path}': file does not have read permission.")
         }
     }
 
     /**
-     * @throws FSException if the file to read is not opened
-     * @throws FSException if the file does not have the read permission
+     * @throws FSException if the file to truncate is not opened
+     * @throws FSException if the file does not have the write permission
      */
     private func checkCanTruncate(): Unit {
         if (!isHandleValid(_fileDescriptor._fileHandle)) {
-            throw FSException("The file `${_fileInfo.path}` not opened, can not to read.")
+            throw FSException("Cannot truncate file '${_fileInfo.path}': file is not opened.")
         }
 
         match (_openMode) {
             case Write | ReadWrite => ()
-            case _ => throw FSException("The file `${_fileInfo.path}` does not have the write permission.")
+            case _ => throw FSException("Cannot truncate file '${_fileInfo.path}': file does not have write permission.")
         }
     }
 
@@ -560,7 +560,7 @@ public class File <: Resource & IOStream & Seekable {
             let writeSuccess: Bool = CJ_FS_FileWrite(fileHandle, bufPtr.pointer, UIntNative(bufSize))
             releaseArrayRawData(bufPtr)
             if (!writeSuccess) {
-                throw FSException("The file `${_fileInfo.path}` write error.")
+                throw FSException("Failed to write to file '${_fileInfo.path}'.")
             }
         }
     }

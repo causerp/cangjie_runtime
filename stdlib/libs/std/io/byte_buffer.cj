@@ -47,7 +47,7 @@ public class ByteBuffer <: IOStream & Seekable {
      */
     public init(capacity: Int64) {
         if (capacity < 0) {
-            throw IllegalArgumentException("The capacity must be greater than or equal to 0: ${capacity}.")
+            throw IllegalArgumentException("Invalid argument 'capacity': expected a non-negative value, got '${capacity}'.")
         }
         this.myData = Array<Byte>(capacity, repeat: 0)
         this.start = 0
@@ -115,7 +115,7 @@ public class ByteBuffer <: IOStream & Seekable {
         }
         let bufSize = buffer.size
         if (bufSize == 0) {
-            throw IllegalArgumentException("The buffer is empty.")
+            throw IllegalArgumentException("Invalid argument 'buffer': buffer size is 0.")
         }
         let len = if (_length > bufSize) {
             bufSize
@@ -182,7 +182,7 @@ public class ByteBuffer <: IOStream & Seekable {
 
     public func setLength(length: Int64): Unit {
         if (length < 0) {
-            throw IllegalArgumentException("The length must be greater than or equal to 0.")
+            throw IllegalArgumentException("Invalid argument 'length': expected a non-negative value, got '${length}'.")
         }
 
         let size = myData.size
@@ -209,7 +209,7 @@ public class ByteBuffer <: IOStream & Seekable {
      */
     public func reserve(additional: Int64): Unit {
         if (additional < 0) {
-            throw IllegalArgumentException("The additional must be greater than or equal to 0.")
+            throw IllegalArgumentException("Invalid argument 'additional': expected a non-negative value, got '${additional}'.")
         }
 
         if (_length >= 0 && myData.size - start - _length >= additional) {
@@ -248,7 +248,7 @@ public class ByteBuffer <: IOStream & Seekable {
         }
 
         if (pos < 0) {
-            throw IOException("Can't move the position before the beginning of the stream.")
+            throw IOException("Failed to seek: position '${pos}' is before the beginning of the stream.")
         }
 
         this._length += this.start - pos
@@ -273,8 +273,7 @@ public class ByteBuffer <: IOStream & Seekable {
         try {
             return oldSize + additional
         } catch (_: OverflowException) {
-            throw OverflowException(
-                "The maximum value for capacity expansion cannot exceed the maximum value of Int64.")
+            throw OverflowException("Capacity overflow: the maximum value cannot exceed 'Int64 max'.")
         }
     }
 }
