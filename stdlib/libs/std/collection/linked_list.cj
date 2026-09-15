@@ -660,7 +660,7 @@ public class LinkedList<T> <: Collection<T> {
         node._prev = None
         match (this._tail) {
             case Some(v) => v._next = None
-            case None => ()
+            case None => this._head = None
         }
 
         this._size = this._size - subList._size
