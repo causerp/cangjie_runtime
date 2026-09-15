@@ -240,7 +240,7 @@ public open class Tokens <: ToString & Iterable<Token> & ToBytes {
         var spaceFlag: CPointer<Bool> = unsafe { LibC.malloc<Bool>(count: size) }
         if (spaceFlag.isNull()) {
             unsafe { LibC.free(tokBytes) }
-            throw IllegalMemoryException("malloc failed inside 'Tokens.toString()'!")
+            throw IllegalMemoryException("Failed to allocate memory in 'Tokens.toString()'.")
         }
         unsafe { CJ_CheckAddSpace(tokBytes, spaceFlag) }
         var toStr: String = ""
