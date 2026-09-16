@@ -117,7 +117,7 @@ main(): Unit {
 
 ```text
 #未启用 Unicode: 
-IllegalArgumentException: Invalid utf8 byte sequence.
+IllegalArgumentException: Invalid UTF-8 byte sequence: index '4' is not a code point boundary.
 
 #启用 Unicode: 
 匹配到: `①②`

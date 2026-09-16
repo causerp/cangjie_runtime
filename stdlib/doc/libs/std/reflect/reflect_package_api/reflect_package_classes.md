@@ -8306,7 +8306,7 @@ main(): Unit {
 运行结果：
 
 ```text
-加载失败: Failed to load `/path/to/library` because of illegal path.
+加载失败: Failed to load '/path/to/library': illegal path.
 这里仅展示使用方法
 ```
 

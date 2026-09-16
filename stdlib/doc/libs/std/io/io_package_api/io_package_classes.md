@@ -106,7 +106,7 @@ main(): Unit {
 运行结果：
 
 ```text
-Error: The buffer cannot be empty.
+Error: Invalid argument 'buffer': buffer size is 0.
 ```
 
 ### init(T, Int64)
@@ -212,8 +212,8 @@ main(): Unit {
 运行结果：
 
 ```text
-Error: Invalid capacity size: capacity = 0.
-Error: Invalid capacity size: capacity = -1024.
+Error: Invalid argument 'capacity': expected a positive value, got '0'.
+Error: Invalid argument 'capacity': expected a positive value, got '-1024'.
 ```
 
 ### func readByte()
@@ -741,7 +741,7 @@ Length : 11
 Position : 11
 Remain Length : 0
 Position after seek() : 22
-Error: Can't move the position before the beginning of the stream.
+Error: Failed to seek: position '-1' is before the beginning of the stream.
 World
 ```
 
@@ -852,7 +852,7 @@ main(): Unit {
 运行结果：
 
 ```text
-Error: The buffer cannot be empty.
+Error: Invalid argument 'buffer': buffer size is 0.
 ```
 
 ### init(T, Int64)
@@ -911,8 +911,8 @@ main(): Unit {
 运行结果：
 
 ```text
-Error: Invalid capacity size: capacity = 0.
-Error: Invalid capacity size: capacity = -1024.
+Error: Invalid argument 'capacity': expected a positive value, got '0'.
+Error: Invalid argument 'capacity': expected a positive value, got '-1024'.
 ```
 
 ### func flush()
@@ -1498,7 +1498,7 @@ Length : 11
 Position : 0
 Remain Length : 11
 Position after seek() : 11
-Error: Can't move the position before the beginning of the stream.
+Error: Failed to seek: position '-1' is before the beginning of the stream.
 World
 ```
 
@@ -1651,7 +1651,7 @@ main(): Unit {
 
 ```text
 1024
-Error: The capacity must be greater than or equal to 0: -1024.
+Error: Invalid argument 'capacity': expected a non-negative value, got '-1024'.
 ```
 
 ### func bytes()
@@ -1826,7 +1826,7 @@ main(): Unit {
 
 ```text
 Hello
-Error: The buffer is empty.
+Error: Invalid argument 'buffer': buffer size is 0.
 ```
 
 ### func readByte()
@@ -1938,8 +1938,8 @@ main(): Unit {
 initial capacity: 11
 reserve 5: 16
 reserve 2: 16
-Error: The additional must be greater than or equal to 0.
-Error: The maximum value for capacity expansion cannot exceed the maximum value of Int64.
+Error: Invalid argument 'additional': expected a non-negative value, got '-1'.
+Error: Capacity overflow: the maximum value cannot exceed 'Int64 max'.
 ```
 
 ### func seek(SeekPosition)
@@ -2001,7 +2001,7 @@ main(): Unit {
 initial position: 0
 World
 12
-Error: Can't move the position before the beginning of the stream.
+Error: Failed to seek: position '-1' is before the beginning of the stream.
 ```
 
 ### func setLength(Int64)
@@ -2057,7 +2057,7 @@ main(): Unit {
 initial length: 11
 set length to 5: Hello
 Error: add
-Error: The length must be greater than or equal to 0.
+Error: Invalid argument 'length': expected a non-negative value, got '-1'.
 ```
 
 ### func write(Array\<Byte>)
@@ -2191,7 +2191,7 @@ main(): Unit {
 
 ```text
 ChainedInputStream created successfully
-Error: The array of input streams cannot be empty!
+Error: Invalid argument 'input': the array of input streams cannot be empty.
 ```
 
 ### func read(Array\<Byte>)
@@ -2314,7 +2314,7 @@ main(): Unit {
 
 ```text
 MultiOutputStream created successfully
-Error: The array of output streams cannot be empty!
+Error: Invalid argument 'output': the array of output streams cannot be empty.
 ```
 
 ### func flush()
@@ -3060,7 +3060,7 @@ Position : 1
 Length : 11
 Remain Length : 10
 Position after seek() : 12
-Error: Can't move the position before the beginning of the stream.
+Error: Failed to seek: position '-1' is before the beginning of the stream.
 World
 ```
 
@@ -4537,6 +4537,6 @@ main(): Unit {
 
 ```text
 Position after seek() : 11
-Error: Can't move the position before the beginning of the stream.
+Error: Failed to seek: position '-1' is before the beginning of the stream.
 87, 111, 114, 108, 100]
 ```

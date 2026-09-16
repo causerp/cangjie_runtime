@@ -111,7 +111,7 @@ main(): Unit {
 
 ```text
 Read string: Hello, World!
-Error: Invalid unicode scalar value.
+Error: Invalid UTF-8: byte sequence starting at index '0' is not a valid 2-byte UTF-8 encoding.
 ```
 
 ## func readStringUnchecked\<T>(T) where T <: InputStream & Seekable
