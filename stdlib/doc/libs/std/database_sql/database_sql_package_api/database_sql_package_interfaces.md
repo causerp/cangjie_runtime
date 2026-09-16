@@ -303,11 +303,11 @@ prop columnInfos: Array<ColumnInfo>
 func get<T>(index: Int64): T
 ```
 
-功能：从结果集的当前行检索指定列的值。
+功能：从结果集的当前行检索指定下标的列的值。
 
 参数：
 
-- index: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 指定列。
+- index: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 列下标，从 0 开始计数，取值范围为 [0, columnInfos.size)。
 
 返回值：
 
@@ -319,11 +319,11 @@ func get<T>(index: Int64): T
 func getOrNull<T>(index: Int64): ?T
 ```
 
-功能：从结果集的当前行检索指定列的值，数据库列允许 SQL NULL。
+功能：从结果集的当前行检索指定下标的列的值，数据库列允许 SQL NULL。
 
 参数：
 
-- index: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 指定列。
+- index: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 列下标，从 0 开始计数，取值范围为 [0, columnInfos.size)。
 
 返回值：
 
@@ -496,11 +496,11 @@ func query(params: Array<SqlDbType>): QueryResult
 func set<T>(index: Int64, value: T): Unit
 ```
 
-功能：设置 sql 参数，将仓颉的数据类型转成数据库的数据类型。
+功能：设置预处理语句中指定下标的参数，将仓颉的数据类型转成数据库的数据类型。
 
 参数：
 
-- index: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 参数所在序列。
+- index: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 参数下标，从 0 开始计数，取值范围为 [0, parameterColumnInfos.size)。
 - value: T - 参数值。
 
 ### func setNull(Int64)
@@ -509,11 +509,11 @@ func set<T>(index: Int64, value: T): Unit
 func setNull(index: Int64): Unit
 ```
 
-功能：将指定位置处的语句参数设置为 SQL NULL。
+功能：将预处理语句中指定下标的参数设置为 SQL NULL。
 
 参数：
 
-- index: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 参数所在序列。
+- index: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 参数下标，从 0 开始计数，取值范围为 [0, parameterColumnInfos.size)。
 
 ### func setOption(String, String)
 
