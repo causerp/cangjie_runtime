@@ -355,7 +355,7 @@ static void AddLocalRootForHeapRef(ObjectPtr obj, ObjectPtr value, bool objIsLoc
     }
 }
 
-extern "C" void MCC_MaybeLocalWriteRef(const ObjectPtr obj, RefField<false>* field, const ObjectPtr value)
+extern "C" void MCC_MaybeLocalWriteRef(const ObjectPtr value, const ObjectPtr obj, RefField<false>* field)
 {
     CHECK_DETAIL(field != nullptr, "invalid MaybeLocalWriteRef field");
     Mutator* mutator = Mutator::GetMutator();
@@ -424,7 +424,7 @@ extern "C" void MCC_MaybeLocalWriteStruct(const ObjectPtr obj, MAddress dst, siz
             auto* srcField = reinterpret_cast<RefField<>*>(src + offset);
             RefField<> srcSnapshot(srcField->GetFieldValue());
             ObjectPtr value = Heap::GetBarrier().ReadReference(nullptr, srcSnapshot);
-            MCC_MaybeLocalWriteRef(obj, &dstField, value);
+            MCC_MaybeLocalWriteRef(value, obj, &dstField);
             copiedUntil = offset + sizeof(RefField<>);
         },
         dst, dst + srcLen);
@@ -447,7 +447,7 @@ extern "C" void MCC_MaybeLocalWriteGeneric(const ObjectPtr obj, void* fieldPtr, 
         obj, reinterpret_cast<MAddress>(fieldPtr), size, srcPayload, size, src->GetGCTib());
 }
 
-extern "C" void MCC_DemodeWriteRef(const ObjectPtr obj, RefField<false>* field, const ObjectPtr value)
+extern "C" void MCC_DemodeWriteRef(const ObjectPtr value, const ObjectPtr obj, RefField<false>* field)
 {
     CHECK_DETAIL(field != nullptr, "invalid DemodeWriteRef field");
 #if defined(MRT_DEBUG) && (MRT_DEBUG == 1)

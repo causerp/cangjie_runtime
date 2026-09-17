@@ -42,7 +42,7 @@ public class HashSet<T> <: Set<T> where T <: Hashable & Equatable<T> {
 
     @Frozen
     public exclave init(this @local!) {
-        myMap = HashMap<T, Unit>() @local!
+        myMap = HashMap<T, Unit>()
     }
 
     /**
@@ -89,7 +89,7 @@ public class HashSet<T> <: Set<T> where T <: Hashable & Equatable<T> {
 
     @Frozen
     public exclave init(this @local!, capacity: Int64) {
-        this.myMap = HashMap<T, Unit>(capacity) @local!
+        this.myMap = HashMap<T, Unit>(capacity)
     }
 
     /**

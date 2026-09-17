@@ -23,8 +23,8 @@ __asm__(".global _CJ_MCC_WriteStaticRef\n\t.set _CJ_MCC_WriteStaticRef, _MCC_Wri
 extern "C" MRT_EXPORT void CJ_MCC_WriteStaticStruct(MAddress dst, size_t dstLen, MAddress src, size_t srcLen,
                                                     const GCTib gcTib);
 __asm__(".global _CJ_MCC_WriteStaticStruct\n\t.set _CJ_MCC_WriteStaticStruct, _MCC_WriteStaticStruct");
-extern "C" MRT_EXPORT void CJ_MCC_MaybeLocalWriteRef(const ObjectPtr obj, RefField<false>* field,
-                                                     const ObjectPtr value);
+extern "C" MRT_EXPORT void CJ_MCC_MaybeLocalWriteRef(const ObjectPtr value, const ObjectPtr obj,
+                                                      RefField<false>* field);
 __asm__(".global _CJ_MCC_MaybeLocalWriteRef\n\t.set _CJ_MCC_MaybeLocalWriteRef, _MCC_MaybeLocalWriteRef");
 extern "C" MRT_EXPORT void CJ_MCC_MaybeLocalWriteStruct(const ObjectPtr obj, MAddress dst, size_t dstLen,
                                                         MAddress src, size_t srcLen, GCTib gctib);
@@ -34,7 +34,7 @@ extern "C" MRT_EXPORT void CJ_MCC_MaybeLocalWriteGeneric(const ObjectPtr obj, vo
                                                           const ObjectPtr src, size_t size);
 __asm__(".global _CJ_MCC_MaybeLocalWriteGeneric\n\t.set _CJ_MCC_MaybeLocalWriteGeneric, "
         "_MCC_MaybeLocalWriteGeneric");
-extern "C" MRT_EXPORT void CJ_MCC_DemodeWriteRef(const ObjectPtr obj, RefField<false>* field, const ObjectPtr value);
+extern "C" MRT_EXPORT void CJ_MCC_DemodeWriteRef(const ObjectPtr value, const ObjectPtr obj, RefField<false>* field);
 __asm__(".global _CJ_MCC_DemodeWriteRef\n\t.set _CJ_MCC_DemodeWriteRef, _MCC_DemodeWriteRef");
 
 extern "C" MRT_EXPORT void CJ_MCC_AtomicWriteReference(const ObjectPtr ref, const ObjectPtr obj, RefField<true>* field,

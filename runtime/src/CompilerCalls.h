@@ -37,13 +37,13 @@ extern "C" void MCC_WriteStructField(const ObjectPtr obj, MAddress dst, size_t d
                                      GCTib gctib);
 extern "C" void MCC_WriteStaticRef(const ObjectPtr ref, RefField<false>* field);
 extern "C" void MCC_WriteStaticStruct(MAddress dst, size_t dstLen, MAddress src, size_t srcLen, const GCTib gcTib);
-extern "C" MRT_EXPORT void MCC_MaybeLocalWriteRef(const ObjectPtr obj, RefField<false>* field,
-                                                  const ObjectPtr value);
+extern "C" MRT_EXPORT void MCC_MaybeLocalWriteRef(const ObjectPtr value, const ObjectPtr obj,
+                                                  RefField<false>* field);
 extern "C" MRT_EXPORT void MCC_MaybeLocalWriteStruct(const ObjectPtr obj, MAddress dst, size_t dstLen,
                                                      MAddress src, size_t srcLen, GCTib gctib);
 extern "C" MRT_EXPORT void MCC_MaybeLocalWriteGeneric(const ObjectPtr obj, void* fieldPtr,
                                                        const ObjectPtr src, size_t size);
-extern "C" MRT_EXPORT void MCC_DemodeWriteRef(const ObjectPtr obj, RefField<false>* field, const ObjectPtr value);
+extern "C" MRT_EXPORT void MCC_DemodeWriteRef(const ObjectPtr value, const ObjectPtr obj, RefField<false>* field);
 extern "C" void MCC_AtomicWriteReference(const ObjectPtr ref, const ObjectPtr obj, RefField<true>* field,
                                          MemoryOrder order);
 extern "C" ObjectPtr MCC_AtomicReadReference(const ObjectPtr obj, RefField<true>* field, MemoryOrder order);

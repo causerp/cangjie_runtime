@@ -1635,7 +1635,7 @@ public class HashMapIterator<K, V> <: Iterator<(K, V)> where K <: Hashable & Equ
         return Option<(K,V)>.Some((data.entries[index].key, data.entries[index].value))
     }
     @Frozen
-    public func next(this @local?): ?(K, V) @local? {
+    public exclave func next(this @local?): ?(K, V) @local? {
         if (lockVersion != data.version()) {
             throw ConcurrentModificationException()
         }
