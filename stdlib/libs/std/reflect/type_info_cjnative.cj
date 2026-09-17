@@ -113,6 +113,24 @@ class InheritedAndExtendedMembers {}
  */
 sealed abstract class TypeInfo <: Equatable<TypeInfo> & Hashable & ToString {
     private static let CACHE = HashMap<String, TypeInfo>()
+    // Pointer-keyed integer memo consulted while holding TYPE_INFO_CREATE_LOCK. Keyed by
+    // the type-metadata address so a steady-state hit avoids the per-call uuid.toString()
+    // allocation and String hashing of the string cache.
+    //
+    // ASSUMPTION: the type-metadata address is globally unique and stable for the process
+    // lifetime. This holds for standard Cangjie applications (there is no module unload;
+    // PackageInfo.load has no unload counterpart).
+    //
+    // KNOWN LIMITATION (future constraint): the only path that can violate the assumption is an
+    // embedded host calling UnloadCJLibrary (runtime CangjieRuntimeApi -> dlclose) and then
+    // dlopen-ing so the loader reuses the same address range; the unload chain currently has NO
+    // std.reflect-side cache-invalidation hook. Note the difference vs the uuid path: on address
+    // reuse the uuid-based CACHE self-heals because a fresh monotonic tiMaxUUID is assigned
+    // (-> miss -> correct new TypeInfo), whereas PTR_MEMO would keep hitting the stale wrapper
+    // whose _info now aliases the reused metadata, i.e. silent type confusion. If module unload
+    // is ever supported, add a PTR_MEMO/CACHE invalidation hook on the unload notification chain,
+    // or switch this memo to a (module, offset) composite key.
+    private static let PTR_MEMO = HashMap<UIntNative, TypeInfo>()
 
     // this is a pointer to type metadata
     protected let _info: CPointer<Unit>
@@ -331,20 +349,28 @@ sealed abstract class TypeInfo <: Equatable<TypeInfo> & Hashable & ToString {
         if (typeInfoPointer.isNull()) {
             throw InfoNotFoundException("Failed to get TypeInfo from pointer.")
         }
-        let isGenericTypeInfo: Bool = isGeneric(typeInfoPointer)
+        let ptrKey = typeInfoPointer.toUIntNative()
         synchronized(TYPE_INFO_CREATE_LOCK) {
-            if (isGenericTypeInfo) {
-                let qualifiedName = getQualifiedName(typeInfoPointer)
-                return CACHE.get(qualifiedName) ?? createGenericTypeInfo(typeInfoPointer, qualifiedName)
+            // Fast hit: the pointer-keyed memo short-circuits before any native
+            // isGeneric call, qualified-name build, or uuid.toString() allocation.
+            if (let Some(ti) <- PTR_MEMO.get(ptrKey)) {
+                return ti
             }
-
-            let uuid = unsafe { CPointer<Int32>(CPointer<Byte>(typeInfoPointer) + UUID_OFFSET).read().toString() }
-            return if (let Some(ti) <- CACHE.get(uuid)) {
-                ti
+            let isGenericTypeInfo: Bool = isGeneric(typeInfoPointer)
+            let typeInfo = if (isGenericTypeInfo) {
+                let qualifiedName = getQualifiedName(typeInfoPointer)
+                CACHE.get(qualifiedName) ?? createGenericTypeInfo(typeInfoPointer, qualifiedName)
             } else {
-                let qualifiedName = getQualifiedName(typeInfoPointer)
-                CACHE.get(qualifiedName) ?? createConcreteTypeInfo(typeInfoPointer, qualifiedName, uuid: uuid)
+                let uuid = unsafe { CPointer<Int32>(CPointer<Byte>(typeInfoPointer) + UUID_OFFSET).read().toString() }
+                if (let Some(ti) <- CACHE.get(uuid)) {
+                    ti
+                } else {
+                    let qualifiedName = getQualifiedName(typeInfoPointer)
+                    CACHE.get(qualifiedName) ?? createConcreteTypeInfo(typeInfoPointer, qualifiedName, uuid: uuid)
+                }
             }
+            PTR_MEMO.add(ptrKey, typeInfo)
+            return typeInfo
         }
     }
 

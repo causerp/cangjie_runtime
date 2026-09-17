@@ -331,23 +331,31 @@ TypeInfoManager::GenericTiDesc* TypeInfoManager::GenericTiDescHashMap::InsertGen
     const U32 h = desc.GetHash();
     const size_t bucketIdx = h % buckets.size();
     auto &bucket = buckets[bucketIdx];
+    // Allocate/construct the descriptor OUTSIDE the write lock so that the
+    // bucket's critical section only performs the (cheap) lookup + publish.
+    // All contenders on the same bucket previously serialized on memory
+    // allocation inside the lock, which is the dominant cost under concurrent
+    // generic type instantiation.
+    GenericTiDesc* newDesc = new (std::nothrow) GenericTiDesc(desc);
+    CHECK_DETAIL(newDesc != nullptr, "fail to allocate GenericTiDesc");
     bucket.rwLock.LockWrite();
     auto it = bucket.maps.find(h);
     if (it != bucket.maps.end()) {
         for (auto descIt = it->second.begin(); descIt != it->second.end(); ++descIt) {
             if (**descIt == desc) {
-                // Same as GetGenericTiDesc: copy under the lock to avoid UAF.
-                GenericTiDesc* result = *descIt;
+                // Same as GetGenericTiDesc: read the pointer under the lock to
+                // avoid UAF (the vector may be reallocated after unlock). The
+                // speculative descriptor built outside the lock is released here.
+                GenericTiDesc* existed = *descIt;
                 bucket.rwLock.UnlockWrite();
-                return result;
+                delete newDesc;
+                return existed;
             }
         }
     }
-    GenericTiDesc* tiDesc = new (std::nothrow) GenericTiDesc(desc);
-    CHECK_DETAIL(tiDesc != nullptr, "fail to allocate GenericTiDesc");
-    bucket.maps[h].push_back(tiDesc);
+    bucket.maps[h].push_back(newDesc);
     bucket.rwLock.UnlockWrite();
-    return tiDesc;
+    return newDesc;
 }
 
 TypeInfoManager::GenericTiDesc* TypeInfoManager::GetTypeInfo(TypeTemplate* tt, U32 argSize, TypeInfo* args[])
@@ -367,6 +375,13 @@ TypeInfo* TypeInfoManager::GetOrCreateTypeInfo(TypeTemplate* tt, U32 argSize, Ty
         return typeInfoDesc->typeInfo;
     }
     const U32 currentTid = static_cast<U32>(GetTid());
+    // NOTE: currentTid is used as a "who owns this creation" token. GetTid() returns the OS
+    // thread id, which the OS can recycle after a thread exits; in principle a recycled id could
+    // match the `IsIniting() && tid == currentTid` branch for an unrelated new thread and let it
+    // observe a half-initialized typeInfo (offsets/fieldAddr not yet filled). This is not
+    // reachable under the current model because runtime creation aborts on failure and threads
+    // are never force-killed. If this is ever hardened, replace the token with a non-recyclable
+    // one (a thread-local monotonic id, or the Mutator*).
     do {
         if (typeInfoDesc->IsInited()) {
             return typeInfoDesc->typeInfo;
@@ -376,7 +391,19 @@ TypeInfo* TypeInfoManager::GetOrCreateTypeInfo(TypeTemplate* tt, U32 argSize, Ty
         }
         if (typeInfoDesc->IsNotCreated() && typeInfoDesc->tid.load() == currentTid) {
             CreatedTypeInfo(typeInfoDesc, tt, argSize, args);
+            continue;
         }
+        // Another thread owns the creation of this descriptor. Yield instead of
+        // busy-spinning, so the creator can make progress and we avoid burning
+        // CPU while waiting for the TYPEINFO_INITED state.
+        //
+        // Caveat (pre-existing, unrelated to this change): a generic CFunc instantiation never
+        // reaches TYPEINFO_INITED (CreatedTypeInfoImpl's IsCFunc branch returns while still
+        // INITING and FillRemainingField early-returns for CFunc). The creator still returns via
+        // the `IsIniting() && tid == currentTid` branch above, but a cross-thread query of the
+        // same instantiation would spin/yield here forever. Tracked separately
+        // (Cangjie/cangjie_runtime issue #865).
+        sched_yield();
     } while (true);
 }
 
@@ -428,6 +455,14 @@ void TypeInfoManager::CreatedTypeInfoImpl(GenericTiDesc* &tiDesc, TypeTemplate* 
     } else if (tt->IsCFunc()) {
         newTypeInfo->SetInstanceSize(ptrSize);
         newTypeInfo->SetAlign(ptrSize);
+        // NOTE: this branch returns while the descriptor is still TYPEINFO_INITING. Unlike
+        // the array/CPointer branch, it neither registers the new instance nor marks it
+        // initialized. The creator thread still gets the result via the tid-owned branch in
+        // GetOrCreateTypeInfo, but a cross-thread query of the same generic-CFunc instantiation
+        // would never be satisfied. This is a pre-existing, historical condition, not introduced
+        // by this change (tracked in Cangjie/cangjie_runtime issue #865). If such cross-thread
+        // instantiation must be supported, register the instance and mark it initialized here,
+        // mirroring the array/CPointer branch above.
         return;
     }
     U32* offsets = reinterpret_cast<U32*>(Allocate(fieldNum * sizeof(U32)));
