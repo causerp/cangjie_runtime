@@ -1499,6 +1499,31 @@ public struct String <: Collection<Byte> & Comparable<String> & Hashable & ToStr
 
         return Ordering.EQ
     }
+    
+    @Frozen
+    public func compare(this @local?, str: String @local?): Ordering {
+        let minSize: Int64 = if (this.size < str.size) {
+            this.size
+        } else {
+            str.size
+        }
+
+        let res = compareBytes(this.myData, Int64(this.start), str.myData, Int64(str.start), minSize)
+
+        if (res > 0) {
+            return Ordering.GT
+        } else if (res < 0) {
+            return Ordering.LT
+        }
+
+        if (this.size > minSize) {
+            return Ordering.GT
+        } else if (str.size > minSize) {
+            return Ordering.LT
+        }
+
+        return Ordering.EQ
+    }
 
     // Return a string which is the result of concatenating `left` and `right`.
     @Frozen
