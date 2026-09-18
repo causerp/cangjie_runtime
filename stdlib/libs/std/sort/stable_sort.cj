@@ -403,7 +403,15 @@ extend<T> Array<T> where T <: Comparable<T> {
         // init temp data
         let mrl = this.getMinRunLength()
         var temp = TempArray(this.size, this[0])
-        let stackLen = Int64(log2(Float64(this.size) / Float64(mrl) + 2.0)) + 1
+        // Run stack capacity: maybeMerge maintains the invariant that each run
+        // is strictly longer than the two runs above it combined (lengths
+        // decrease Fibonacci-style from bottom to top), so a stack that never
+        // triggers a merge is at most ~1.44 * log2(size) deep (1.44 is
+        // 1/log2(golden ratio)). The 1.5 factor is deliberate headroom over
+        // 1.44 and the +8 covers constant terms for small sizes, so the
+        // formula is a strict upper bound on the stack depth; do not tighten
+        // it into a lower-bound estimate.
+        let stackLen = Int64(log2(Float64(this.size)) * 3.0 / 2.0) + 8
         let startArr = Array<Int64>(stackLen, repeat: 0)
         let lengthArr = Array<Int64>(stackLen, repeat: 0)
         var endIndex = -1
@@ -798,7 +806,15 @@ extend<T> Array<T> {
         // init cmpTemp data
         let cmpMinRunLength = this.getMinRunLength()
         var cmpTemp = TempArray(this.size, this[0])
-        let cmpRunStackLen = Int64(log2(Float64(this.size) / Float64(cmpMinRunLength) + 2.0)) + 1
+        // Run stack capacity: maybeMerge maintains the invariant that each run
+        // is strictly longer than the two runs above it combined (lengths
+        // decrease Fibonacci-style from bottom to top), so a stack that never
+        // triggers a merge is at most ~1.44 * log2(size) deep (1.44 is
+        // 1/log2(golden ratio)). The 1.5 factor is deliberate headroom over
+        // 1.44 and the +8 covers constant terms for small sizes, so the
+        // formula is a strict upper bound on the stack depth; do not tighten
+        // it into a lower-bound estimate.
+        let cmpRunStackLen = Int64(log2(Float64(this.size)) * 3.0 / 2.0) + 8
         let cmpRunStartArr = Array<Int64>(cmpRunStackLen, repeat: 0)
         let cmpRunLengthArr = Array<Int64>(cmpRunStackLen, repeat: 0)
         var cmpStackTop = -1
