@@ -97,7 +97,7 @@ extend<T> Array<T> where T <: Comparable<T> {
             }
             let s = startArr[n - 1]
             let l = lengthArr[n - 1]
-            if (l <= ln + ln1) {
+            if (l <= ln + ln1 || (n > 1 && lengthArr[n - 2] <= lengthArr[n - 1] + ln)) {
                 if (l < ln1) {
                     this.merge(s, l, sn, ln, temp)
                     recordMergedLeftRunAndKeepRightRun(startArr, lengthArr, n, sn1, ln1, l + ln)
@@ -492,7 +492,8 @@ extend<T> Array<T> {
             }
             let cmpPrevStart = cmpRunStartArr[cmpSlot - 1]
             let cmpPrevLen = cmpRunLengthArr[cmpSlot - 1]
-            if (cmpPrevLen <= cmpCurrLen + cmpNextLen) {
+            if (cmpPrevLen <= cmpCurrLen + cmpNextLen ||
+                (cmpSlot > 1 && cmpRunLengthArr[cmpSlot - 2] <= cmpRunLengthArr[cmpSlot - 1] + cmpCurrLen)) {
                 if (cmpPrevLen < cmpNextLen) {
                     this.merge(cmpPrevStart, cmpPrevLen, cmpCurrStart, cmpCurrLen, cmpTemp, compareBy)
                     recordMergedLeftRunAndKeepRightRun(cmpRunStartArr, cmpRunLengthArr, cmpSlot, cmpNextStart, cmpNextLen, cmpPrevLen + cmpCurrLen)
