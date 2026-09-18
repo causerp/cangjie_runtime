@@ -205,12 +205,24 @@ public class StringBuilder <: ToString {
         return
     }
 
+    @OverflowWrapping
     @Frozen
     public func append(runeArr: Array<Rune>): Unit {
-        for (c in runeArr) {
-            this.append(c)
+        if (runeArr.size == 0) {
+            return
         }
-        return
+        this.grow(RunesToUtf8Bytes.getSize(runeArr))
+        var itemLen: Int64 = 0
+        for (i in 0..runeArr.size) {
+            let c = runeArr[i]
+            if (c.isAscii()) {
+                this.data[this.endIndex + itemLen] = UInt8(UInt32(c))
+                itemLen++
+            } else {
+                itemLen += Rune.intoUtf8Array(c, this.data, this.endIndex + itemLen)
+            }
+        }
+        this.endIndex += itemLen
     }
 
     @Frozen
