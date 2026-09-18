@@ -7,22 +7,17 @@
 #ifndef MRT_LOCAL_OBJECT_UTIL_H
 #define MRT_LOCAL_OBJECT_UTIL_H
 
-#include "Heap/Allocator/RegionSpace.h"
 #include "Heap/Heap.h"
 
 namespace MapleRuntime {
-inline bool IsLocalObject(BaseObject* obj, const Mutator* mutator = nullptr)
+inline bool IsLocalObject(BaseObject* obj)
 {
-    if (obj == nullptr) {
-        return false;
-    }
-    RegionSpace& theAllocator = reinterpret_cast<RegionSpace&>(Heap::GetHeap().GetAllocator());
-    return theAllocator.GetLocalObjectAllocator().IsLocalAddress(reinterpret_cast<MAddress>(obj), mutator);
+    return obj != nullptr && obj->IsLocalObject();
 }
 
-inline bool IsManagedObject(BaseObject* obj, const Mutator* mutator = nullptr)
+inline bool IsManagedObject(BaseObject* obj)
 {
-    return Heap::IsHeapAddress(obj) || IsLocalObject(obj, mutator);
+    return Heap::IsHeapAddress(obj) || IsLocalObject(obj);
 }
 } // namespace MapleRuntime
 

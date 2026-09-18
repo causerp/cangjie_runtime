@@ -43,15 +43,16 @@ public:
     // allocation failure.
     virtual MAddress Allocate(Mutator& mutator, size_t size) = 0;
 
-    // Returns whether the address belongs to this backend's local allocation
-    // storage. If mutator is specified, only local regions owned by that
-    // mutator are queried; otherwise all local regions are queried.
-    virtual bool IsLocalAddress(MAddress addr, const Mutator* mutator = nullptr) const = 0;
-
     // Returns bytes occupied by live local objects in the tracing heap address
     // space. Native-backed local objects return 0. This value is used only for
     // heap-capacity/GC allocation decisions and is not part of tracing-heap live bytes.
     virtual size_t GetHeapAllocatedBytes() const = 0;
+
+    // Returns bytes handed out to live local objects across all mutators,
+    // regardless of the backing storage. This is the value reported by the
+    // memory info API (getAllocatedLocalObjectSize) and is not part of
+    // getAllocatedHeapSize.
+    virtual size_t GetAllocatedObjectBytes() const = 0;
 
     // Registers an object whose finalizer should run before the current local
     // region is reclaimed.
@@ -66,6 +67,12 @@ public:
 
     // Visits heap reference fields reachable from local allocator owned local objects.
     virtual void VisitLocalObjectRefFields(Mutator& mutator, const RootVisitor& visitor) = 0;
+
+    // Releases all per-mutator resources (regions, caches, metadata) when the
+    // mutator is destroyed or reset. Regions still alive at this point (e.g.
+    // abnormal thread exit) are reclaimed without running finalizers, because
+    // running user code during teardown can re-enter the runtime.
+    virtual void OnMutatorExit(Mutator& mutator) = 0;
 };
 } // namespace MapleRuntime
 

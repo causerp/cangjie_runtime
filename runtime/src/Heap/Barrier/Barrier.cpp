@@ -213,10 +213,11 @@ void Barrier::ReadStaticStruct(MAddress dst, MAddress src, size_t size, const GC
 
 void Barrier::WriteGeneric(const ObjectPtr obj, void* fieldPtr, const ObjectPtr src, size_t size) const
 {
-    // todo del
+#if defined(MRT_DEBUG) && (MRT_DEBUG == 1)
     if (UNLIKELY(IsLocalObject(obj) || IsLocalObject(src))) {
         LOG(RTLOG_FATAL, "Barrier::WriteGeneric does not support local object: obj %p, src %p", obj, src);
     }
+#endif
     if ((obj != nullptr && !obj->HasRefField()) || (!Heap::IsHeapAddress(obj) && !Heap::IsHeapAddress(src))) {
         CHECK_DETAIL(memcpy_s(fieldPtr, size,
                               reinterpret_cast<void*>(reinterpret_cast<uintptr_t>(src) + TYPEINFO_PTR_SIZE),
@@ -244,48 +245,101 @@ void Barrier::WriteGeneric(const ObjectPtr obj, void* fieldPtr, const ObjectPtr 
 }
 void Barrier::ReadGeneric(const ObjectPtr dstObj, ObjectPtr obj, void* fieldPtr, size_t size) const
 {
-    if (TryReadGenericWithLocalObject(dstObj, obj, fieldPtr, size)) {
+    bool dstIsHeap = Heap::IsHeapAddress(dstObj);
+    bool objIsHeap = Heap::IsHeapAddress(obj);
+
+    if (!dstIsHeap && IsLocalObject(dstObj)) {
+        ReadGenericToLocalObject(dstObj, fieldPtr, size);
         return;
     }
-    if (!Heap::IsHeapAddress(dstObj) && !Heap::IsHeapAddress(obj)) {
+
+    if (!objIsHeap && IsLocalObject(obj)) {
+        ReadGenericFromLocalObject(dstObj, obj, fieldPtr, size);
+        return;
+    }
+
+    if (!dstIsHeap && !objIsHeap) {
         CHECK_DETAIL(memcpy_s(reinterpret_cast<void*>(reinterpret_cast<uintptr_t>(dstObj) + TYPEINFO_PTR_SIZE),
                               size, fieldPtr, size) == EOK,
                      "ReadGeneric memcpy_s failed");
-    } else if (!Heap::IsHeapAddress(dstObj) && Heap::IsHeapAddress(obj)) {
+    } else if (!dstIsHeap && objIsHeap) {
         MAddress dstAddr = reinterpret_cast<MAddress>(dstObj) + TYPEINFO_PTR_SIZE;
         MAddress srcAddr = reinterpret_cast<MAddress>(fieldPtr);
         ReadStruct(dstAddr, obj, srcAddr, size);
-    } else if ((Heap::IsHeapAddress(dstObj) && !Heap::IsHeapAddress(obj))||
-        (Heap::IsHeapAddress(dstObj) && Heap::IsHeapAddress(obj))) {
+    } else {
         MAddress dstAddr = reinterpret_cast<MAddress>(dstObj) + TYPEINFO_PTR_SIZE;
         MAddress srcAddr = reinterpret_cast<MAddress>(fieldPtr);
         WriteStruct(dstObj, dstAddr, size, srcAddr, size);
     }
 }
 
-bool Barrier::TryReadGenericWithLocalObject(const ObjectPtr dstObj, ObjectPtr obj, void* fieldPtr, size_t size) const
+void Barrier::ReadGenericToLocalObject(const ObjectPtr dstObj, void* fieldPtr, size_t size) const
 {
-    Mutator* mutator = Mutator::GetMutator();
-    bool dstIsHeap = Heap::IsHeapAddress(dstObj);
-    bool objIsHeap = Heap::IsHeapAddress(obj);
-    bool dstIsLocal = !dstIsHeap && IsLocalObject(dstObj, mutator);
-    bool objIsLocal = !objIsHeap && IsLocalObject(obj, mutator);
-    if (!dstIsLocal && !objIsLocal) {
-        return false;
+    MAddress dst = reinterpret_cast<MAddress>(dstObj) + TYPEINFO_PTR_SIZE;
+    MAddress src = reinterpret_cast<MAddress>(fieldPtr);
+    if (!dstObj->HasRefField()) {
+        CHECK_DETAIL(memcpy_s(reinterpret_cast<void*>(dst), size, fieldPtr, size) == EOK,
+                     "ReadGeneric local destination payload memcpy_s failed");
+        return;
     }
 
-    CHECK_DETAIL(dstObj != nullptr && fieldPtr != nullptr,
-                 "ReadGeneric with local object has invalid parameter: dstObj %p, obj %p, fieldPtr %p",
+    Mutator* mutator = nullptr;
+    bool localRootRegistered = false;
+    size_t copiedUntil = 0;
+    auto copyRange = [dst, src, size](size_t begin, size_t end) {
+        if (begin == end) {
+            return;
+        }
+        CHECK_DETAIL(begin < end && end <= size,
+                     "invalid ReadGeneric local copy range [%zu, %zu), size: %zu", begin, end, size);
+        CHECK_DETAIL(memcpy_s(reinterpret_cast<void*>(dst + begin), size - begin,
+                              reinterpret_cast<void*>(src + begin), end - begin) == EOK,
+                     "ReadGeneric local destination memcpy_s failed");
+    };
+
+    dstObj->GetGCTib().ForEachBitmapWordInRange(dst,
+        [this, dstObj, dst, src, size, &mutator, &localRootRegistered, &copiedUntil,
+         &copyRange](RefField<>& dstField) {
+            size_t offset = reinterpret_cast<MAddress>(&dstField) - dst;
+            CHECK_DETAIL(offset >= copiedUntil && offset + sizeof(RefField<>) <= size,
+                         "invalid ReadGeneric local reference offset: %zu, copiedUntil: %zu, size: %zu",
+                         offset, copiedUntil, size);
+            copyRange(copiedUntil, offset);
+
+            auto* srcField = reinterpret_cast<RefField<>*>(src + offset);
+            RefField<> srcSnapshot(srcField->GetFieldValue());
+            ObjectPtr value = ReadReference(nullptr, srcSnapshot);
+            if (Heap::IsHeapAddress(value)) {
+                if (!localRootRegistered) {
+                    mutator = Mutator::GetMutator();
+                    CHECK_DETAIL(mutator != nullptr, "cannot register local generic destination without mutator: %p",
+                                 dstObj);
+                    mutator->AddLocalRoot(dstObj);
+                    localRootRegistered = true;
+                }
+                WriteReference(dstObj, dstField, value);
+            } else {
+                dstField.SetTargetObject(value);
+            }
+            copiedUntil = offset + sizeof(RefField<>);
+        },
+        dst, dst + size);
+    copyRange(copiedUntil, size);
+}
+
+void Barrier::ReadGenericFromLocalObject(const ObjectPtr dstObj, ObjectPtr obj, void* fieldPtr, size_t size) const
+{
+    CHECK_DETAIL(Heap::IsHeapAddress(dstObj) && dstObj != nullptr && fieldPtr != nullptr,
+                 "ReadGeneric local source has invalid destination: dstObj %p, obj %p, fieldPtr %p",
                  dstObj, obj, fieldPtr);
     MAddress dstAddr = reinterpret_cast<MAddress>(dstObj) + TYPEINFO_PTR_SIZE;
     if (!dstObj->HasRefField()) {
         CHECK_DETAIL(memcpy_s(reinterpret_cast<void*>(dstAddr), size, fieldPtr, size) == EOK,
-                     "ReadGeneric local payload memcpy_s failed");
-        return true;
+                     "ReadGeneric local source payload memcpy_s failed");
+        return;
     }
     MCC_MaybeLocalWriteStruct(dstObj, dstAddr, size, reinterpret_cast<MAddress>(fieldPtr), size,
                               dstObj->GetGCTib());
-    return true;
 }
 
 } // namespace MapleRuntime
