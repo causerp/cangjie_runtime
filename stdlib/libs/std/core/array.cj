@@ -1159,6 +1159,7 @@ extend<T> Array<T> where T <: Copyable {
         intrinsicBuiltInCopyTo3<T>(this.rawptr, dst.rawptr, this.start + srcStart, dst.start + dstStart, copyLen)
     }
 
+    @Frozen
     public func cloneToLocal(this @local?): Array<T> @local! {
         exclave {
             if (len == 0) {

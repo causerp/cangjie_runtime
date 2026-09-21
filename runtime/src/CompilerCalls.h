@@ -43,7 +43,8 @@ extern "C" MRT_EXPORT void MCC_MaybeLocalWriteStruct(const ObjectPtr obj, MAddre
                                                      MAddress src, size_t srcLen, GCTib gctib);
 extern "C" MRT_EXPORT void MCC_MaybeLocalWriteGeneric(const ObjectPtr obj, void* fieldPtr,
                                                        const ObjectPtr src, size_t size);
-extern "C" MRT_EXPORT void MCC_DemodeWriteRef(const ObjectPtr value, const ObjectPtr obj, RefField<false>* field);
+extern "C" MRT_EXPORT void MCC_DemodeWriteRef(const ObjectPtr value, const ObjectPtr obj,
+                                               RefField<false>* field);
 extern "C" void MCC_AtomicWriteReference(const ObjectPtr ref, const ObjectPtr obj, RefField<true>* field,
                                          MemoryOrder order);
 extern "C" ObjectPtr MCC_AtomicReadReference(const ObjectPtr obj, RefField<true>* field, MemoryOrder order);
@@ -63,6 +64,7 @@ extern "C" void MCC_InvokeGCImpl(bool sync);
 
 extern "C" ssize_t MCC_GetRealHeapSize();
 extern "C" size_t MCC_GetAllocatedHeapSize();
+extern "C" size_t MCC_GetAllocatedLocalObjectSize();
 extern "C" size_t MCC_GetMaxHeapSize();
 extern "C" bool MCC_DumpCJHeapData(int fd);
 

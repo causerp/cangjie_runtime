@@ -31,6 +31,12 @@ extern "C" MRT_EXPORT bool MRT_LeaveSaferegion();
 extern "C" MRT_EXPORT bool MRT_CheckRuntimeFinished();
 
 class BaseObject;
+class Mutator;
+
+// Releases per-mutator local object allocator data (regions, caches and
+// metadata). Defined in Mutator.cpp; no-op when the mutator never used local
+// allocation, so it is safe during static teardown of foreign-process threads.
+void ReleaseMutatorLocalAllocatorData(Mutator& mutator);
 
 class Mutator {
 public:

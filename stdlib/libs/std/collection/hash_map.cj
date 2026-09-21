@@ -1046,6 +1046,7 @@ public class HashMap<K, V> <: Map<K, V> where K <: Hashable & Equatable<K> {
      * @param action the given operation function.
      */
     @When[env != "ohos"]
+    @Frozen
     public func forEach(action: (K, V) -> Unit): Unit {
         let size: Int64 = entries.size
         for (i in 0..size) {
@@ -1054,6 +1055,8 @@ public class HashMap<K, V> <: Map<K, V> where K <: Hashable & Equatable<K> {
             }
         }
     }
+
+    @Frozen
     public exclave func forEach(this @local!, action: (K @local!, V @local!) -> Unit) {
         let size: Int64 = entries.size
         for (i in 0..size) {
@@ -1062,6 +1065,8 @@ public class HashMap<K, V> <: Map<K, V> where K <: Hashable & Equatable<K> {
             }
         }
     }
+
+    @Frozen
     public func forEach(this @local?, action: (K @local?, V @local?) -> Unit) {
         let size: Int64 = entries.size
         for (i in 0..size) {

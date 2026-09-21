@@ -14,6 +14,7 @@
 #include "Common/NativeAllocator.h"
 #include "ExceptionManager.inline.h"
 #include "Heap/Heap.h"
+#include "Mutator/MutatorManager.h"
 #include "Mutator/Mutator.h"
 #include "ObjectModel/MObject.h"
 
@@ -74,8 +75,11 @@ public:
     void EndRegion(Mutator& mutator, FrameAddress* ownerFA) override;
     void EndRegionsForFrame(Mutator& mutator, FrameAddress* ownerFA) override;
     MAddress Allocate(Mutator& mutator, size_t size) override;
-    bool IsLocalAddress(MAddress addr, const Mutator* mutator = nullptr) const override;
     size_t GetHeapAllocatedBytes() const override
+    {
+        return heapAllocatedBytes.load(std::memory_order_relaxed);
+    }
+    size_t GetAllocatedObjectBytes() const override
     {
         return heapAllocatedBytes.load(std::memory_order_relaxed);
     }
@@ -83,6 +87,7 @@ public:
     void RemoveFinalizer(Mutator& mutator, BaseObject* obj) override;
     void AddLocalRoot(Mutator& mutator, BaseObject* obj) override;
     void VisitLocalObjectRefFields(Mutator& mutator, const RootVisitor& visitor) override;
+    void OnMutatorExit(Mutator& mutator) override;
 
 private:
     struct LocalHeapFirstBlock;
@@ -119,7 +124,7 @@ private:
 };
 
 // Native-backed local allocator. It allocates one or more native arenas for
-// each local region and indexes each backing region by its 4KB logical slot.
+// each local region and identifies local objects by walking live region ranges.
 // GC treats native local objects as scan sources and only visits heap reference
 // fields reachable from them.
 class NativeLocalObjectAllocator final : public LocalObjectAllocator {
@@ -131,200 +136,42 @@ public:
     void EndRegion(Mutator& mutator, FrameAddress* ownerFA) override;
     void EndRegionsForFrame(Mutator& mutator, FrameAddress* ownerFA) override;
     MAddress Allocate(Mutator& mutator, size_t size) override;
-    bool IsLocalAddress(MAddress addr, const Mutator* mutator = nullptr) const override;
     size_t GetHeapAllocatedBytes() const override { return 0; }
+    size_t GetAllocatedObjectBytes() const override;
     void AddFinalizer(Mutator& mutator, BaseObject* obj) override;
     void RemoveFinalizer(Mutator& mutator, BaseObject* obj) override;
     void AddLocalRoot(Mutator& mutator, BaseObject* obj) override;
     void VisitLocalObjectRefFields(Mutator& mutator, const RootVisitor& visitor) override;
+    void OnMutatorExit(Mutator& mutator) override;
 
 private:
     struct LocalNativeFirstRegion;
     struct NativeMutatorLocalData;
 
+    // Upper bound of detached default-sized region memory blocks kept per
+    // mutator for reuse. Cached blocks are detached from the live region chain.
+    static constexpr size_t nativeLocalRegionCacheCapacity = 8;
+
     struct LocalNativeRegion {
         LocalNativeRegion(MAddress base, size_t size, LocalNativeRegion* prev, LocalNativeFirstRegion* firstRegion)
             : base(base), cursor(base), end(base + size), size(size), prev(prev), firstRegion(firstRegion) {}
-
         MAddress base;
         MAddress cursor;
         MAddress end;
         size_t size;
         LocalNativeRegion* prev;
         MAddress largeObjectStart = 0;
-        bool hasObjects = false;
         LocalNativeFirstRegion* firstRegion;
-    };
-
-    // A compact open-addressed table avoids the node allocation and per-node
-    // pointers of std::unordered_map while retaining expected O(1) lookup.
-    class LocalRegionIndex {
-    public:
-        LocalNativeRegion* Find(MAddress slot) const
-        {
-            if (entries.empty()) {
-                return nullptr;
-            }
-            size_t idx = Hash(slot) & (entries.size() - 1);
-            for (size_t probe = 0; probe < entries.size(); ++probe) {
-                const Entry& entry = entries[idx];
-                if (entry.region == nullptr) {
-                    return nullptr;
-                }
-                if (entry.region != DeletedEntry() && entry.slot == slot) {
-                    return entry.region;
-                }
-                idx = (idx + 1) & (entries.size() - 1);
-            }
-            return nullptr;
-        }
-
-        bool Insert(MAddress slot, LocalNativeRegion* region)
-        {
-            CHECK_DETAIL(region != nullptr && region != DeletedEntry(), "insert invalid native local region");
-            EnsureInsertCapacity();
-            return InsertWithoutResize(slot, region);
-        }
-
-        bool Erase(MAddress slot)
-        {
-            if (entries.empty()) {
-                return false;
-            }
-            size_t idx = Hash(slot) & (entries.size() - 1);
-            for (size_t probe = 0; probe < entries.size(); ++probe) {
-                Entry& entry = entries[idx];
-                if (entry.region == nullptr) {
-                    return false;
-                }
-                if (entry.region != DeletedEntry() && entry.slot == slot) {
-                    entry.region = DeletedEntry();
-                    --entryCount;
-                    ++deletedEntryCount;
-                    CompactAfterErase();
-                    return true;
-                }
-                idx = (idx + 1) & (entries.size() - 1);
-            }
-            return false;
-        }
-
-    private:
-        struct Entry {
-            MAddress slot = 0;
-            LocalNativeRegion* region = nullptr;
-        };
-
-        static constexpr size_t initialCapacity = 4;
-        static constexpr size_t hashShiftA = 30;
-        static constexpr size_t hashShiftB = 27;
-        static constexpr size_t hashShiftC = 31;
-        static constexpr size_t loadFactorScale = 10;
-        static constexpr size_t loadFactorLimit = 7;
-        static constexpr size_t capacityGrowth = 2;
-        static constexpr size_t shrinkThreshold = 8;
-        static constexpr size_t capacityShift = 1;
-
-        static LocalNativeRegion* DeletedEntry()
-        {
-            return reinterpret_cast<LocalNativeRegion*>(static_cast<uintptr_t>(1));
-        }
-
-        static size_t Hash(MAddress slot)
-        {
-            // Mix adjacent 4KB slots so clustered native regions do not form
-            // long linear-probe runs after table growth.
-            size_t value = static_cast<size_t>(slot);
-            value ^= value >> hashShiftA;
-            value *= static_cast<size_t>(0xbf58476d1ce4e5b9ULL);
-            value ^= value >> hashShiftB;
-            value *= static_cast<size_t>(0x94d049bb133111ebULL);
-            value ^= value >> hashShiftC;
-            return value;
-        }
-
-        void EnsureInsertCapacity()
-        {
-            if (entries.empty()) {
-                Rehash(initialCapacity);
-                return;
-            }
-            // Keep at least 30% empty slots, including deleted entries.
-            if ((entryCount + deletedEntryCount + 1) * loadFactorScale >= entries.size() * loadFactorLimit) {
-                Rehash(entries.size() * capacityGrowth);
-            }
-        }
-
-        bool InsertWithoutResize(MAddress slot, LocalNativeRegion* region)
-        {
-            size_t idx = Hash(slot) & (entries.size() - 1);
-            size_t firstDeletedEntry = entries.size();
-            for (size_t probe = 0; probe < entries.size(); ++probe) {
-                Entry& entry = entries[idx];
-                if (entry.region == nullptr) {
-                    size_t insertIdx = firstDeletedEntry == entries.size() ? idx : firstDeletedEntry;
-                    entries[insertIdx] = { slot, region };
-                    ++entryCount;
-                    if (firstDeletedEntry != entries.size()) {
-                        --deletedEntryCount;
-                    }
-                    return true;
-                }
-                if (entry.region == DeletedEntry()) {
-                    if (firstDeletedEntry == entries.size()) {
-                        firstDeletedEntry = idx;
-                    }
-                } else if (entry.slot == slot) {
-                    return false;
-                }
-                idx = (idx + 1) & (entries.size() - 1);
-            }
-            CHECK_DETAIL(firstDeletedEntry != entries.size(), "native local region index is full");
-            entries[firstDeletedEntry] = { slot, region };
-            ++entryCount;
-            --deletedEntryCount;
-            return true;
-        }
-
-        void CompactAfterErase()
-        {
-            if (entryCount == 0) {
-                std::fill(entries.begin(), entries.end(), Entry {});
-                deletedEntryCount = 0;
-                return;
-            }
-            if (entries.size() > initialCapacity && entryCount * shrinkThreshold <= entries.size()) {
-                Rehash(entries.size() / capacityGrowth);
-            } else if (deletedEntryCount > entryCount) {
-                Rehash(entries.size());
-            }
-        }
-
-        void Rehash(size_t capacity)
-        {
-            CHECK_DETAIL((capacity & (capacity - capacityShift)) == 0,
-                         "native local region index capacity is not power of two");
-            std::vector<Entry> oldEntries;
-            oldEntries.swap(entries);
-            entries.resize(capacity);
-            entryCount = 0;
-            deletedEntryCount = 0;
-            for (const Entry& entry : oldEntries) {
-                if (entry.region != nullptr && entry.region != DeletedEntry()) {
-                    CHECK_DETAIL(InsertWithoutResize(entry.slot, entry.region),
-                                 "duplicate native local region while rebuilding index");
-                }
-            }
-        }
-
-        std::vector<Entry> entries;
-        size_t entryCount = 0;
-        size_t deletedEntryCount = 0;
     };
 
     struct NativeMutatorLocalData {
         LocalNativeRegion* stackTop = nullptr;
-        LocalRegionIndex localRegionIndex;
+        // Detached default-sized region memory blocks, reused by AllocateRegion
+        // to avoid NativeAlloc/NativeFree churn. Accessed only by the owner
+        // mutator thread. Blocks are freed for real when the cache overflows
+        // and all at once on mutator exit.
+        void* regionCache[nativeLocalRegionCacheCapacity] = {};
+        size_t regionCacheCount = 0;
     };
 
     struct LocalNativeFirstRegion final : LocalNativeRegion {
@@ -339,7 +186,9 @@ private:
 
     NativeMutatorLocalData* GetMutatorData(const Mutator& mutator) const;
     NativeMutatorLocalData* CreateMutatorData(Mutator& mutator);
-    void ReleaseMutatorDataIfEmpty(Mutator& mutator);
+    void* PopCachedRegionMemory(NativeMutatorLocalData& data);
+    void PushCachedRegionMemory(NativeMutatorLocalData& data, void* memory);
+    void FreeRegionCache(NativeMutatorLocalData& data);
     LocalNativeRegion* GetRegionStackTop(const Mutator& mutator) const;
     void SetRegionStackTop(Mutator& mutator, LocalNativeRegion* region);
     LocalNativeRegion* AllocateRegion(Mutator& mutator, size_t minSize, LocalNativeRegion* prev, bool firstOfRegion,
@@ -348,29 +197,57 @@ private:
     MAddress TryAllocateInRegion(LocalNativeRegion& region, size_t size);
     LocalNativeRegion* PopRegionChain(Mutator& mutator, FrameAddress* ownerFA);
     LocalNativeRegion* FindRegionOfObject(Mutator& mutator, BaseObject* obj);
+    ALWAYS_INLINE LocalNativeRegion* FindRegionByAddress(LocalNativeRegion* top, MAddress addr) const
+    {
+        while (top != nullptr) {
+            // Regions belonging to one local function share firstRegion and
+            // occupy one contiguous segment in the stack-linked region chain.
+            LocalNativeRegion* first = top->firstRegion;
+            for (LocalNativeRegion* region = top;; region = region->prev) {
+                if (IsAddressInRegion(addr, *region)) {
+                    return region;
+                }
+                if (region == first) {
+                    break;
+                }
+            }
+            top = first->prev;
+        }
+        return nullptr;
+    }
     bool IsAddressInRegion(MAddress addr, const LocalNativeRegion& region) const;
-    void RegisterRegion(LocalNativeRegion& region);
-    void UnregisterRegion(LocalNativeRegion& region);
     void RegisterObject(MAddress obj, LocalNativeRegion& region);
-    void WriteObjectMarker(MAddress obj);
     void RunLocalFinalizers(Mutator& mutator, FrameAddress* ownerFA);
 
-    // Mutator-local queries use their private index without this lock. The lock
-    // only synchronizes region lifetime with rare all-mutator queries.
+    // The lock synchronizes mutator-data lifetime with rare all-mutator queries.
     mutable std::mutex activeMutatorDataMtx;
     std::vector<NativeMutatorLocalData*> activeMutatorData;
-    // Empty regions do not make an address a live local object. Keep a global
-    // summary so normal mode avoids locking and scanning every mutator.
-    std::atomic<size_t> nonEmptyRegionCount = { 0 };
 };
+
+size_t NativeLocalObjectAllocator::GetAllocatedObjectBytes() const
+{
+    CHECK_DETAIL(MutatorManager::Instance().WorldStopped(),
+                 "native local allocated bytes query requires STW");
+    size_t total = 0;
+    std::lock_guard<std::mutex> lock(activeMutatorDataMtx);
+    for (NativeMutatorLocalData* data : activeMutatorData) {
+        if (data == nullptr) {
+            continue;
+        }
+        for (LocalNativeRegion* region = data->stackTop; region != nullptr; region = region->prev) {
+            MAddress cursor = region->cursor;
+            CHECK_DETAIL(cursor >= region->base, "native local region cursor is before base");
+            size_t occupiedBytes = cursor - region->base;
+            CHECK_DETAIL(total <= std::numeric_limits<size_t>::max() - occupiedBytes,
+                         "native local allocated bytes overflow");
+            total += occupiedBytes;
+        }
+    }
+    return total;
+}
 
 namespace {
 constexpr size_t DEFAULT_NATIVE_LOCAL_REGION_SIZE = 4 * KB;
-constexpr size_t NATIVE_LOCAL_REGION_SLOT_SHIFT = 12;
-static_assert(DEFAULT_NATIVE_LOCAL_REGION_SIZE == (static_cast<size_t>(1) << NATIVE_LOCAL_REGION_SLOT_SHIFT),
-              "native local region slot size must match normal region size");
-constexpr size_t LOCAL_OBJECT_MARKER_SIZE = sizeof(uint64_t);
-constexpr uint64_t LOCAL_OBJECT_MARKER = 0x4c4f43414c4f424aULL; // "LOCALOBJ"
 
 void RunLocalObjectFinalizer(Mutator& mutator, BaseObject* obj)
 {
@@ -571,6 +448,26 @@ void HeapLocalObjectAllocator::EndRegionsForFrame(Mutator& mutator, FrameAddress
     }
 }
 
+void HeapLocalObjectAllocator::OnMutatorExit(Mutator& mutator)
+{
+    // Reclaim blocks still alive (abnormal exit with local regions active).
+    // Finalizers are not run here: this is called during thread teardown and
+    // running user code would risk re-entering the runtime.
+    LocalHeapBlock* block = GetBlockStackTop(mutator);
+    while (block != nullptr) {
+        LocalHeapBlock* del = block;
+        block = block->prev;
+        RecordReclamation(*del);
+        regionManager.ReclaimLocalModeRegion(del->region);
+        if (del->firstBlock == del) {
+            delete static_cast<LocalHeapFirstBlock*>(del);
+        } else {
+            delete del;
+        }
+    }
+    SetBlockStackTop(mutator, nullptr);
+}
+
 MAddress HeapLocalObjectAllocator::Allocate(Mutator& mutator, size_t size)
 {
     MAddress addr = 0;
@@ -614,26 +511,6 @@ MAddress HeapLocalObjectAllocator::Allocate(Mutator& mutator, size_t size)
     return addr;
 }
 
-bool HeapLocalObjectAllocator::IsLocalAddress(MAddress addr, const Mutator* mutator) const
-{
-    if (addr == 0 || !Heap::IsHeapAddress(addr)) {
-        return false;
-    }
-    RegionInfo* region = RegionInfo::GetRegionInfoAt(addr);
-    if (!region->IsLocalModeRegion()) {
-        return false;
-    }
-    if (mutator == nullptr) {
-        return true;
-    }
-    for (LocalHeapBlock* block = GetBlockStackTop(*mutator); block != nullptr; block = block->prev) {
-        if (block->region == region) {
-            return true;
-        }
-    }
-    return false;
-}
-
 void HeapLocalObjectAllocator::AddFinalizer(Mutator& mutator, BaseObject* obj)
 {
     if (obj == nullptr) {
@@ -675,9 +552,9 @@ void HeapLocalObjectAllocator::VisitLocalObjectRefFields(Mutator& mutator, const
         if (block->firstBlock != block) {
             continue;
         }
-        block->firstBlock->rootRegistry.VisitLocalObjectRefFields(visitor, [this, &mutator](BaseObject* obj) {
-            return IsLocalAddress(reinterpret_cast<MAddress>(obj), &mutator);
-        }, visited);
+        block->firstBlock->rootRegistry.VisitLocalObjectRefFields(
+            visitor, [this, &mutator](BaseObject* obj) { return FindBlockOfObject(mutator, obj) != nullptr; },
+            visited);
     }
 }
 
@@ -735,10 +612,13 @@ HeapLocalObjectAllocator::LocalHeapBlock* HeapLocalObjectAllocator::PopRegionBlo
 HeapLocalObjectAllocator::LocalHeapBlock* HeapLocalObjectAllocator::FindBlockOfObject(Mutator& mutator,
                                                                                       BaseObject* obj)
 {
-    if (!IsLocalAddress(reinterpret_cast<MAddress>(obj))) {
+    if (obj == nullptr || !Heap::IsHeapAddress(obj)) {
         return nullptr;
     }
     RegionInfo* region = RegionInfo::GetRegionInfoAt(reinterpret_cast<MAddress>(obj));
+    if (!region->IsLocalModeRegion()) {
+        return nullptr;
+    }
     for (LocalHeapBlock* block = GetBlockStackTop(mutator); block != nullptr; block = block->prev) {
         if (block->region == region) {
             return block;
@@ -792,6 +672,7 @@ bool NativeLocalObjectAllocator::StartRegion(Mutator& mutator, FrameAddress* own
 
 void NativeLocalObjectAllocator::EndRegion(Mutator& mutator, FrameAddress* ownerFA)
 {
+    VLOG(LOCAL_REGION, "EndNativeLocalRegion: mutator %p, ownerFA %p", &mutator, ownerFA);
     LocalNativeRegion* currentRegion = GetRegionStackTop(mutator);
     if (currentRegion == nullptr) {
         LOG(RTLOG_WARNING, "end native local region without active region: mutator %p ownerFA %p", &mutator, ownerFA);
@@ -815,12 +696,8 @@ void NativeLocalObjectAllocator::EndRegion(Mutator& mutator, FrameAddress* owner
     while (headRegion != nullptr) {
         LocalNativeRegion* del = headRegion;
         headRegion = headRegion->prev;
-        VLOG(LOCAL_REGION, "CollectNativeLocalRegion: region %p, ownerFA %p, base %p, size %zu", del,
-             del->firstRegion->ownerFA,
-             reinterpret_cast<void*>(del->base), del->size);
         FreeRegion(del);
     }
-    ReleaseMutatorDataIfEmpty(mutator);
 }
 
 void NativeLocalObjectAllocator::EndRegionsForFrame(Mutator& mutator, FrameAddress* ownerFA)
@@ -848,12 +725,7 @@ MAddress NativeLocalObjectAllocator::Allocate(Mutator& mutator, size_t size)
 
     MAddress addr = TryAllocateInRegion(*region, size);
     if (addr == 0) {
-        if (size > std::numeric_limits<size_t>::max() - LOCAL_OBJECT_MARKER_SIZE) {
-            DLOG(REGION, "native local object size is too large");
-            return 0;
-        }
-        size_t minRegionSize = size + LOCAL_OBJECT_MARKER_SIZE;
-        region = AllocateRegion(mutator, minRegionSize, region, false, region->firstRegion->ownerFA);
+        region = AllocateRegion(mutator, size, region, false, region->firstRegion->ownerFA);
         if (region == nullptr) {
             DLOG(REGION, "cannot allocate native local object region");
             return 0;
@@ -863,45 +735,11 @@ MAddress NativeLocalObjectAllocator::Allocate(Mutator& mutator, size_t size)
     }
 
     CHECK_DETAIL(addr != 0, "alloc native local object failed");
-    WriteObjectMarker(addr);
     RegisterObject(addr, *region);
-    if (!region->hasObjects) {
-        region->hasObjects = true;
-        nonEmptyRegionCount.fetch_add(1, std::memory_order_release);
-    }
     VLOG(LOCAL_REGION, "AllocNativeLocalObject: mutator %p, region %p(isFirst %d), ownerFA %p, obj %p, objSize %zu",
          &mutator, region, region->firstRegion == region, region->firstRegion->ownerFA,
          reinterpret_cast<void*>(addr), size);
     return addr;
-}
-
-bool NativeLocalObjectAllocator::IsLocalAddress(MAddress addr, const Mutator* mutator) const
-{
-    if (addr == 0 || Heap::IsHeapAddress(addr)) {
-        return false;
-    }
-    if (mutator != nullptr) {
-        NativeMutatorLocalData* data = GetMutatorData(*mutator);
-        if (data == nullptr) {
-            return false;
-        }
-        LocalNativeRegion* region = data->localRegionIndex.Find(addr >> NATIVE_LOCAL_REGION_SLOT_SHIFT);
-        return region != nullptr && IsAddressInRegion(addr, *region);
-    }
-    if (nonEmptyRegionCount.load(std::memory_order_acquire) == 0) {
-        return false;
-    }
-    std::lock_guard<std::mutex> lock(activeMutatorDataMtx);
-    for (NativeMutatorLocalData* data : activeMutatorData) {
-        if (data == nullptr) {
-            continue;
-        }
-        LocalNativeRegion* region = data->localRegionIndex.Find(addr >> NATIVE_LOCAL_REGION_SLOT_SHIFT);
-        if (region != nullptr && IsAddressInRegion(addr, *region)) {
-            return true;
-        }
-    }
-    return false;
 }
 
 void NativeLocalObjectAllocator::AddFinalizer(Mutator& mutator, BaseObject* obj)
@@ -945,9 +783,9 @@ void NativeLocalObjectAllocator::VisitLocalObjectRefFields(Mutator& mutator, con
         if (region->firstRegion != region) {
             continue;
         }
-        region->firstRegion->rootRegistry.VisitLocalObjectRefFields(visitor, [this, &mutator](BaseObject* obj) {
-            return IsLocalAddress(reinterpret_cast<MAddress>(obj), &mutator);
-        }, visited);
+        region->firstRegion->rootRegistry.VisitLocalObjectRefFields(
+            visitor, [this, &mutator](BaseObject* obj) { return FindRegionOfObject(mutator, obj) != nullptr; },
+            visited);
     }
 }
 
@@ -989,12 +827,50 @@ NativeLocalObjectAllocator::NativeMutatorLocalData* NativeLocalObjectAllocator::
     return data;
 }
 
-void NativeLocalObjectAllocator::ReleaseMutatorDataIfEmpty(Mutator& mutator)
+void* NativeLocalObjectAllocator::PopCachedRegionMemory(NativeMutatorLocalData& data)
 {
-    NativeMutatorLocalData* data = GetMutatorData(mutator);
-    if (data == nullptr || data->stackTop != nullptr) {
+    if (data.regionCacheCount == 0) {
+        return nullptr;
+    }
+    return data.regionCache[--data.regionCacheCount];
+}
+
+void NativeLocalObjectAllocator::PushCachedRegionMemory(NativeMutatorLocalData& data, void* memory)
+{
+    if (data.regionCacheCount < nativeLocalRegionCacheCapacity) {
+        data.regionCache[data.regionCacheCount++] = memory;
         return;
     }
+    // Cache full: release the memory for real instead of growing without bound.
+    NativeAllocator::NativeFree(memory, DEFAULT_NATIVE_LOCAL_REGION_SIZE);
+}
+
+void NativeLocalObjectAllocator::FreeRegionCache(NativeMutatorLocalData& data)
+{
+    for (size_t i = 0; i < data.regionCacheCount; ++i) {
+        NativeAllocator::NativeFree(data.regionCache[i], DEFAULT_NATIVE_LOCAL_REGION_SIZE);
+    }
+    data.regionCacheCount = 0;
+}
+
+void NativeLocalObjectAllocator::OnMutatorExit(Mutator& mutator)
+{
+    NativeMutatorLocalData* data = GetMutatorData(mutator);
+    if (data == nullptr) {
+        return;
+    }
+    // Reclaim regions still alive (abnormal exit with local regions active).
+    // Finalizers are not run here: this is called during thread teardown and
+    // running user code would risk re-entering the runtime.
+    LocalNativeRegion* region = nullptr;
+    region = data->stackTop;
+    data->stackTop = nullptr;
+    while (region != nullptr) {
+        LocalNativeRegion* next = region->prev;
+        FreeRegion(region);
+        region = next;
+    }
+    FreeRegionCache(*data);
     {
         std::lock_guard<std::mutex> lock(activeMutatorDataMtx);
         auto it = std::find(activeMutatorData.begin(), activeMutatorData.end(), data);
@@ -1011,24 +887,30 @@ NativeLocalObjectAllocator::LocalNativeRegion* NativeLocalObjectAllocator::Alloc
     Mutator& mutator, size_t minSize, LocalNativeRegion* prev, bool firstOfRegion, FrameAddress* ownerFA)
 {
     size_t regionSize = std::max(DEFAULT_NATIVE_LOCAL_REGION_SIZE, RoundUp<size_t>(minSize, Allocator::ALLOC_ALIGN));
-    void* memory = NativeAllocator::NativeAlloc(regionSize);
-    if (memory == nullptr) {
-        return nullptr;
-    }
     CHECK_DETAIL(firstOfRegion || prev != nullptr, "allocate non-first native local region without active region");
     NativeMutatorLocalData* ownerData = CreateMutatorData(mutator);
+    void* memory = nullptr;
+    if (regionSize == DEFAULT_NATIVE_LOCAL_REGION_SIZE) {
+        memory = PopCachedRegionMemory(*ownerData);
+    }
+    if (memory == nullptr) {
+        memory = NativeAllocator::NativeAlloc(regionSize);
+        if (memory == nullptr) {
+            return nullptr;
+        }
+    }
     MAddress base = reinterpret_cast<MAddress>(memory);
     LocalNativeRegion* region = firstOfRegion
         ? static_cast<LocalNativeRegion*>(
               new (std::nothrow) LocalNativeFirstRegion(base, regionSize, prev, ownerFA, ownerData))
         : new (std::nothrow) LocalNativeRegion(base, regionSize, prev, prev->firstRegion);
     if (region == nullptr) {
-        NativeAllocator::NativeFree(memory, regionSize);
-        ReleaseMutatorDataIfEmpty(mutator);
+        if (regionSize == DEFAULT_NATIVE_LOCAL_REGION_SIZE) {
+            PushCachedRegionMemory(*ownerData, memory);
+        } else {
+            NativeAllocator::NativeFree(memory, regionSize);
+        }
         return nullptr;
-    }
-    if (regionSize == DEFAULT_NATIVE_LOCAL_REGION_SIZE) {
-        RegisterRegion(*region);
     }
     return region;
 }
@@ -1036,15 +918,13 @@ NativeLocalObjectAllocator::LocalNativeRegion* NativeLocalObjectAllocator::Alloc
 void NativeLocalObjectAllocator::FreeRegion(LocalNativeRegion* region)
 {
     CHECK_DETAIL(region != nullptr, "free null native local region");
-    MAddress indexAddr = region->size == DEFAULT_NATIVE_LOCAL_REGION_SIZE ? region->base : region->largeObjectStart;
-    if (indexAddr != 0) {
-        UnregisterRegion(*region);
+    if (region->size == DEFAULT_NATIVE_LOCAL_REGION_SIZE) {
+        // Default-sized memory goes back to the owner's cache for reuse; it is
+        // fully released on cache overflow or at mutator exit.
+        PushCachedRegionMemory(*region->firstRegion->ownerData, reinterpret_cast<void*>(region->base));
+    } else {
+        NativeAllocator::NativeFree(reinterpret_cast<void*>(region->base), region->size);
     }
-    if (region->hasObjects) {
-        size_t oldCount = nonEmptyRegionCount.fetch_sub(1, std::memory_order_release);
-        CHECK_DETAIL(oldCount != 0, "native local non-empty region count underflow");
-    }
-    NativeAllocator::NativeFree(reinterpret_cast<void*>(region->base), region->size);
     if (region->firstRegion == region) {
         delete static_cast<LocalNativeFirstRegion*>(region);
     } else {
@@ -1055,11 +935,11 @@ void NativeLocalObjectAllocator::FreeRegion(LocalNativeRegion* region)
 MAddress NativeLocalObjectAllocator::TryAllocateInRegion(LocalNativeRegion& region, size_t size)
 {
     size_t allocSize = RoundUp<size_t>(size, Allocator::ALLOC_ALIGN);
-    MAddress markerAddr = RoundUp<MAddress>(region.cursor, Allocator::ALLOC_ALIGN);
-    if (markerAddr > region.end || LOCAL_OBJECT_MARKER_SIZE > region.end - markerAddr) {
+    MAddress cursor = region.cursor;
+    MAddress objAddr = RoundUp<MAddress>(cursor, Allocator::ALLOC_ALIGN);
+    if (objAddr > region.end) {
         return 0;
     }
-    MAddress objAddr = markerAddr + LOCAL_OBJECT_MARKER_SIZE;
     if (allocSize > region.end - objAddr) {
         return 0;
     }
@@ -1070,7 +950,11 @@ MAddress NativeLocalObjectAllocator::TryAllocateInRegion(LocalNativeRegion& regi
 NativeLocalObjectAllocator::LocalNativeRegion* NativeLocalObjectAllocator::PopRegionChain(
     Mutator& mutator, FrameAddress* ownerFA)
 {
-    LocalNativeRegion* curr = GetRegionStackTop(mutator);
+    NativeMutatorLocalData* data = GetMutatorData(mutator);
+    if (data == nullptr) {
+        return nullptr;
+    }
+    LocalNativeRegion* curr = data->stackTop;
     if (curr != nullptr && ownerFA != nullptr && curr->firstRegion->ownerFA != ownerFA) {
         LOG(RTLOG_WARNING, "skip native local region pop with mismatched frame: top ownerFA %p, target ownerFA %p",
             curr->firstRegion->ownerFA, ownerFA);
@@ -1085,7 +969,7 @@ NativeLocalObjectAllocator::LocalNativeRegion* NativeLocalObjectAllocator::PopRe
             return nullptr;
         }
         if (curr->firstRegion == curr) {
-            SetRegionStackTop(mutator, prev);
+            data->stackTop = prev;
             curr->prev = nullptr;
             break;
         }
@@ -1102,15 +986,7 @@ NativeLocalObjectAllocator::LocalNativeRegion* NativeLocalObjectAllocator::FindR
     if (data == nullptr) {
         return nullptr;
     }
-    LocalNativeRegion* top = data->stackTop;
-    if (top != nullptr && IsAddressInRegion(addr, *top)) {
-        return top;
-    }
-    LocalNativeRegion* region = data->localRegionIndex.Find(addr >> NATIVE_LOCAL_REGION_SLOT_SHIFT);
-    if (region == nullptr || !IsAddressInRegion(addr, *region)) {
-        return nullptr;
-    }
-    return region;
+    return FindRegionByAddress(data->stackTop, addr);
 }
 
 bool NativeLocalObjectAllocator::IsAddressInRegion(MAddress addr, const LocalNativeRegion& region) const
@@ -1118,38 +994,8 @@ bool NativeLocalObjectAllocator::IsAddressInRegion(MAddress addr, const LocalNat
     if (region.size == DEFAULT_NATIVE_LOCAL_REGION_SIZE) {
         return addr >= region.base && addr < region.end;
     }
-    // A large native region contains exactly one object. The marker occupies
-    // the first bytes of the allocation, so the object starts after region.base.
+    // A large native region contains exactly one object.
     return addr == region.largeObjectStart;
-}
-
-void NativeLocalObjectAllocator::RegisterRegion(LocalNativeRegion& region)
-{
-    MAddress indexAddr = region.size == DEFAULT_NATIVE_LOCAL_REGION_SIZE ? region.base : region.largeObjectStart;
-    CHECK_DETAIL(indexAddr != 0, "register native local region without index address");
-    if (region.size == DEFAULT_NATIVE_LOCAL_REGION_SIZE) {
-        CHECK_DETAIL((indexAddr & (DEFAULT_NATIVE_LOCAL_REGION_SIZE - 1)) == 0,
-                     "normal native local region is not 4KB aligned: %p", reinterpret_cast<void*>(indexAddr));
-    }
-    MAddress slot = indexAddr >> NATIVE_LOCAL_REGION_SLOT_SHIFT;
-    NativeMutatorLocalData* ownerData = region.firstRegion->ownerData;
-    CHECK_DETAIL(ownerData != nullptr, "native local region has no owner mutator data");
-    std::lock_guard<std::mutex> lock(activeMutatorDataMtx);
-    CHECK_DETAIL(ownerData->localRegionIndex.Insert(slot, &region),
-                 "native local region slot already registered: %zu",
-                 static_cast<size_t>(slot));
-}
-
-void NativeLocalObjectAllocator::UnregisterRegion(LocalNativeRegion& region)
-{
-    MAddress indexAddr = region.size == DEFAULT_NATIVE_LOCAL_REGION_SIZE ? region.base : region.largeObjectStart;
-    CHECK_DETAIL(indexAddr != 0, "unregister native local region without index address");
-    MAddress slot = indexAddr >> NATIVE_LOCAL_REGION_SLOT_SHIFT;
-    NativeMutatorLocalData* ownerData = region.firstRegion->ownerData;
-    CHECK_DETAIL(ownerData != nullptr, "native local region has no owner mutator data");
-    std::lock_guard<std::mutex> lock(activeMutatorDataMtx);
-    CHECK_DETAIL(ownerData->localRegionIndex.Erase(slot), "native local region slot is not registered: %zu",
-                 static_cast<size_t>(slot));
 }
 
 void NativeLocalObjectAllocator::RegisterObject(MAddress obj, LocalNativeRegion& region)
@@ -1159,14 +1005,6 @@ void NativeLocalObjectAllocator::RegisterObject(MAddress obj, LocalNativeRegion&
     }
     CHECK_DETAIL(region.largeObjectStart == 0, "large native local region contains multiple objects");
     region.largeObjectStart = obj;
-    RegisterRegion(region);
-}
-
-void NativeLocalObjectAllocator::WriteObjectMarker(MAddress obj)
-{
-    CHECK_DETAIL(obj >= LOCAL_OBJECT_MARKER_SIZE, "invalid native local object address %p",
-                 reinterpret_cast<void*>(obj));
-    *reinterpret_cast<uint64_t*>(obj - LOCAL_OBJECT_MARKER_SIZE) = LOCAL_OBJECT_MARKER;
 }
 
 void NativeLocalObjectAllocator::RunLocalFinalizers(Mutator& mutator, FrameAddress* ownerFA)

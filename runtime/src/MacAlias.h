@@ -34,7 +34,8 @@ extern "C" MRT_EXPORT void CJ_MCC_MaybeLocalWriteGeneric(const ObjectPtr obj, vo
                                                           const ObjectPtr src, size_t size);
 __asm__(".global _CJ_MCC_MaybeLocalWriteGeneric\n\t.set _CJ_MCC_MaybeLocalWriteGeneric, "
         "_MCC_MaybeLocalWriteGeneric");
-extern "C" MRT_EXPORT void CJ_MCC_DemodeWriteRef(const ObjectPtr value, const ObjectPtr obj, RefField<false>* field);
+extern "C" MRT_EXPORT void CJ_MCC_DemodeWriteRef(const ObjectPtr value, const ObjectPtr obj,
+                                                  RefField<false>* field);
 __asm__(".global _CJ_MCC_DemodeWriteRef\n\t.set _CJ_MCC_DemodeWriteRef, _MCC_DemodeWriteRef");
 
 extern "C" MRT_EXPORT void CJ_MCC_AtomicWriteReference(const ObjectPtr ref, const ObjectPtr obj, RefField<true>* field,
@@ -63,6 +64,9 @@ __asm__(
     "_MCC_GetRealHeapSize");
 extern "C" MRT_EXPORT size_t CJ_MCC_GetAllocatedHeapSize();
 __asm__(".global _CJ_MCC_GetAllocatedHeapSize\n\t.set _CJ_MCC_GetAllocatedHeapSize, _MCC_GetAllocatedHeapSize");
+extern "C" MRT_EXPORT size_t CJ_MCC_GetAllocatedLocalObjectSize();
+__asm__(".global _CJ_MCC_GetAllocatedLocalObjectSize\n\t.set _CJ_MCC_GetAllocatedLocalObjectSize,"
+        " _MCC_GetAllocatedLocalObjectSize");
 extern "C" MRT_EXPORT size_t CJ_MCC_GetMaxHeapSize();
 __asm__(".global _CJ_MCC_GetMaxHeapSize\n\t.set _CJ_MCC_GetMaxHeapSize, _MCC_GetMaxHeapSize");
 extern "C" MRT_EXPORT size_t CJ_MCC_GetCJThreadNumber();
