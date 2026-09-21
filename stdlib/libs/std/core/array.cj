@@ -1114,7 +1114,7 @@ extend<T> Array<T> where T <: Copyable {
 
     @Frozen
     @OverflowWrapping
-    public exclave operator func [](this @local?, index: Int64, value!: T @local?): Unit {
+    public operator func [](this @local?, index: Int64, value!: T @local?): Unit {
         // Using type conversion to replace typical bounds checking,
         // if (index < 0 || index >= this.len), to a single comparison.
         // The negative value of index will be converted to a large positive number

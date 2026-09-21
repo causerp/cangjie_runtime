@@ -194,6 +194,27 @@ public class StringBuilder <: ToString {
         strData.copyTo(this.data, 0, this.endIndex, itemLen)
         this.endIndex += itemLen
     }
+    
+    @OverflowWrapping
+    public exclave func append(this @local!, str: String @local?): Unit {
+        if (str.isEmpty()) {
+            return
+        }
+        let strData = unsafe { str.rawData() }
+        let itemLen = strData.size
+        if (this.data.size - this.endIndex < itemLen) {
+            let oldCapacity = this.data.size
+            var newCapacity = oldCapacity + (oldCapacity >> 1)
+            if (newCapacity < this.endIndex + itemLen) {
+                newCapacity = this.endIndex + itemLen + (oldCapacity >> 1)
+            }
+            let itemData = Array<UInt8>(newCapacity, repeat: 0) @local!
+            this.data.copyTo(itemData, 0, 0, this.endIndex)
+            this.data = itemData
+        }
+        strData.copyTo(this.data, 0, this.endIndex, itemLen)
+        this.endIndex += itemLen
+    }
 
     @OverflowWrapping
     @Frozen

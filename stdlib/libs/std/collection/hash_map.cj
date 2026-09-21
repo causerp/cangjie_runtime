@@ -506,6 +506,26 @@ public class HashMap<K, V> <: Map<K, V> where K <: Hashable & Equatable<K> {
     }
 
     /**
+     * Initializes a hashmap with an incoming list for initialization (local!).
+     *
+     * @param elements an incoming list is initialized.
+     *
+     * @since 0.18.4
+     */
+    @Frozen
+    public exclave init(this @local!, elements: Array<(K, V)> @local!) {
+        let bucketSize: Int64 = elements.size + (elements.size >> 1)
+        buckets = Array<Int64>(tableSizeFor(bucketSize), repeat: -1)
+        entries = Array<HashMapEntry<K, V>>(elements.size, repeat: HashMapEntry<K, V>() @local!)
+        var i: Int64 = 0
+        while (i < elements.size) {
+            let pair = elements[i]
+            putWithoutResize(pair[0], pair[1])
+            i++
+        }
+    }
+
+    /**
      * Initializes a HashMap with an incoming @p DEFAULT_CAPACITY for initialization.
      *
      * @param capacity an incoming capacity is initialized.
@@ -696,6 +716,29 @@ public class HashMap<K, V> <: Map<K, V> where K <: Hashable & Equatable<K> {
         appendIndex++
 
         entries[entryIndex] = HashMapEntry<K, V>(hash, buckets[bucketIndex], key, value)
+        modCount++
+        buckets[bucketIndex] = entryIndex
+    }
+
+    @Frozen
+    @OverflowWrapping
+    protected exclave func putWithoutResize(this @local!, key: K @local!, value: V @local!): Unit {
+        let hash: Int64 = getHash(key.hashCode())
+        var bucketIndex: Int64 = getIndex(hash, buckets.size)
+        var entryIndex: Int64 = buckets[bucketIndex]
+        while (entryIndex >= 0) {
+            if (hash == entries[entryIndex].hash && key == entries[entryIndex].key) {
+                entries[entryIndex] = HashMapEntry<K, V>(entries[entryIndex].hash, entries[entryIndex].next,
+                    entries[entryIndex].key, value) @local!
+                return
+            }
+            entryIndex = entries[entryIndex].next
+        }
+
+        entryIndex = appendIndex
+        appendIndex++
+
+        entries[entryIndex] = HashMapEntry<K, V>(hash, buckets[bucketIndex], key, value) @local!
         modCount++
         buckets[bucketIndex] = entryIndex
     }
