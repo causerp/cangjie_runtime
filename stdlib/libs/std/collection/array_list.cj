@@ -1232,7 +1232,8 @@ extend<T> Array<T> {
 
             let selected = runStarts[runLength - 1]
             let leftBound = runLengths[runLength - 1]
-            if (leftBound <= currentLength + nextLength) {
+            if (leftBound <= currentLength + nextLength || (runLength > 1 && runLengths[runLength - 2] <=
+                runLengths[runLength - 1] + currentLength)) {
                 if (leftBound < nextLength) {
                     this.merge(selected, leftBound, currentStart, currentLength, scratch, compare)
                     runLengths[runLength - 1] = leftBound + currentLength
@@ -1613,7 +1614,15 @@ extend<T> Array<T> {
         // init temp data
         let mrl = this.getMinRunLength()
         var scratch = TempArray(this.size, this[0])
-        let stackLen = Int64(log2(Float64(this.size) / Float64(mrl) + 2.0)) + 1
+        // Run stack capacity: maybeMerge maintains the invariant that each run
+        // is strictly longer than the two runs above it combined (lengths
+        // decrease Fibonacci-style from bottom to top), so a stack that never
+        // triggers a merge is at most ~1.44 * log2(size) deep (1.44 is
+        // 1/log2(golden ratio)). The 1.5 factor is deliberate headroom over
+        // 1.44 and the +8 covers constant terms for small sizes, so the
+        // formula is a strict upper bound on the stack depth; do not tighten
+        // it into a lower-bound estimate.
+        let stackLen = Int64(log2(Float64(this.size)) * 3.0 / 2.0) + 8
         let runStarts = Array<Int64>(stackLen, repeat: 0)
         let runLengths = Array<Int64>(stackLen, repeat: 0)
         var runTop = -1
