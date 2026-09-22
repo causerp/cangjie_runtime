@@ -153,7 +153,7 @@ CString& CString::operator=(const CString& other)
     while (newCapacity < initLen + 1) {
         newCapacity <<= 1;
     }
-    char* newStr = reinterpret_cast<char*>(malloc(newCapacity));
+    char* newStr = static_cast<char*>(malloc(newCapacity));
     PRINT_FATAL_IF(newStr == nullptr, "CString::operator= malloc failed");
     if (!other.IsEmpty()) {
         PRINT_FATAL_IF(memcpy_s(newStr, newCapacity, other.Str(), initLen) != EOK,
@@ -186,7 +186,7 @@ void CString::EnsureSpace(size_t addLen)
     while (newCapacity < length + addLen + 1) {
         newCapacity <<= 1;
     }
-    char* newStr = reinterpret_cast<char*>(malloc(newCapacity));
+    char* newStr = static_cast<char*>(malloc(newCapacity));
     PRINT_FATAL_IF(newStr == nullptr, "CString::EnsureSpace malloc failed");
     if (length != 0) {
         PRINT_FATAL_IF(memcpy_s(newStr, newCapacity, str, length) != EOK, "CString::EnsureSpace memcpy_s failed");
