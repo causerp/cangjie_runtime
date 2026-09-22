@@ -145,8 +145,8 @@ main() {
 ```text
 成功创建容量为3的队列
 队列容量: 3
-捕获到异常: Invalid size of ArrayBlockingQueue: 0.
-捕获到异常: Invalid size of ArrayBlockingQueue: -1.
+捕获到异常: Invalid capacity '0': expected a positive value.
+捕获到异常: Invalid capacity '-1': expected a positive value.
 ```
 
 ### init(Int64, Collection\<E>) <sup>(deprecated)</sup>
@@ -2855,8 +2855,8 @@ main() {
 ```text
 成功创建容量为3的队列
 队列容量: 3
-捕获到异常: Invalid size of BlockingQueue: 0.
-捕获到异常: Invalid size of BlockingQueue: -1.
+捕获到异常: Invalid capacity '0': expected a positive value.
+捕获到异常: Invalid capacity '-1': expected a positive value.
 ```
 
 ### init(Int64, Array\<E>) <sup>(deprecated)</sup>

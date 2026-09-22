@@ -382,7 +382,7 @@ public func getProcessorCount(): Int64
 
 示例：
 
-<!-- verify -->
+<!-- run -->
 ```cangjie
 import std.runtime.*
 
@@ -395,7 +395,7 @@ main() {
 }
 ```
 
-运行结果：
+可能的运行结果：
 
 ```text
 处理器数量: 16

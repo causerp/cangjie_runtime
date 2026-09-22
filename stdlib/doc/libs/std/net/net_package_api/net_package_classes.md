@@ -9855,7 +9855,7 @@ main(): Int64 {
 
 ```text
 Disconnected from server
-Error sending data: Socket is not connected
+Error sending data: Socket is not connected.
 Error receiving data: Failed to read data: read data timeout.
 ```
 
@@ -13464,7 +13464,7 @@ main(): Int64 {
 Address1 toString: /tmp/server1.sock
 Address2 toString: /tmp/server1.sock
 Address1 equals Address2: true
-Exception caught: Unix domain socket path must not contain interior null bytes: [47, 116, 109, 112, 47, 115, 101, 114, 118, 101, 114, 49, 0, 46, 115, 111, 99, 107]
+Exception caught: Unix domain socket path must not contain interior null bytes: '[47, 116, 109, 112, 47, 115, 101, 114, 118, 101, 114, 49, 0, 46, 115, 111, 99, 107]'.
 ```
 
 ### operator func !=(UnixSocketAddress)

@@ -1835,7 +1835,7 @@ main() {
 运行结果：
 
 ```text
-Out of range of the UInt8.
+Value out of UInt8 range.
 ```
 
 ### func toUIntNative(OverflowStrategy)

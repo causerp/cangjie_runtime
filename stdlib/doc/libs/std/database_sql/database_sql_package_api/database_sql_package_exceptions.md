@@ -77,7 +77,7 @@ main() {
 运行结果：
 
 ```text
-Error message: Error message, SqlState: SQLST, errorCode: 12345
+Error message: Error message, SqlState: SQLST, errorCode: 12345.
 ```
 
 ### prop sqlState
@@ -140,7 +140,7 @@ main() {
 运行结果：
 
 ```text
-Exception message: errorCode: 0
+Exception message: errorCode: 0.
 SQL state: 
 Error code: 0
 ```
@@ -177,7 +177,7 @@ main() {
 运行结果：
 
 ```text
-Exception message: Database connection failed, errorCode: 0
+Exception message: Database connection failed, errorCode: 0.
 SQL state: 
 Error code: 0
 ```
@@ -216,7 +216,7 @@ main() {
 运行结果：
 
 ```text
-Exception message: Database connection failed, SqlState: SQLST, errorCode: 12345
+Exception message: Database connection failed, SqlState: SQLST, errorCode: 12345.
 SQL state: SQLST
 Error code: 12345
 ```
