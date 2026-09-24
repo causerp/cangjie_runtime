@@ -210,7 +210,14 @@ public open class Process {
     ): Int64 {
         let subProcess: SubProcess = start(command, arguments, workingDirectory: workingDirectory,
             environment: environment, stdIn: stdIn, stdOut: stdOut, stdErr: stdErr)
-        return subProcess.wait(timeout: timeout)
+        try {
+            return subProcess.wait(timeout: timeout)
+        } catch (e: TimeoutException) {
+            // Only a local reference is held here, so after the timeout the
+            // child would otherwise never be reaped on Unix.
+            reapSubProcessAfterTimeout(subProcess)
+            throw e
+        }
     }
 
     /**
@@ -1047,7 +1054,14 @@ private func executeImpl(
 ): Int64 {
     let subProcess = launch(command, arguments, workingDirectory: workingDirectory, environment: environment,
         stdIn: stdIn, stdOut: stdOut, stdErr: stdErr)
-    subProcess.wait(timeout: timeout)
+    try {
+        return subProcess.wait(timeout: timeout)
+    } catch (e: TimeoutException) {
+        // Only a local reference is held here, so after the timeout the child
+        // would otherwise never be reaped on Unix.
+        reapSubProcessAfterTimeout(subProcess)
+        throw e
+    }
 }
 
 /**

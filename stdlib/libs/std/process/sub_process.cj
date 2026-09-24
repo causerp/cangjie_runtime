@@ -224,6 +224,31 @@ private func subProcessWait(process: SubProcess, timeout: ?Duration): Int64 {
     return exitCode
 }
 
+// Best-effort reclamation for a SubProcess whose timed wait just expired while
+// the caller only holds a local reference (Process.execute / Process.run). Once
+// the TimeoutException propagates, the instance is unreachable and nobody will
+// ever call waitpid() on the child again, so on Unix it would stay a zombie
+// forever. Spawn a detached reaper that blocks until the child exits and then
+// discards the status. Because the instance is unreachable, this cannot steal
+// the exit status from a later wait() on the same object.
+@When[os == "Windows"]
+func reapSubProcessAfterTimeout(_: SubProcess): Unit {
+    // Windows reaps through the process handle in ~init(); no zombie persists.
+}
+
+@When[os != "Windows"]
+func reapSubProcessAfterTimeout(process: SubProcess): Unit {
+    if (process._waitReaped) {
+        return
+    }
+    let pid: Int32 = Int32(process.pid)
+    let _ = spawn {
+        =>
+        let _ = unsafe { CJ_OS_WaitSubProcessExit(pid) }
+        return
+    }
+}
+
 private func subProcessWaitOutput(process: SubProcess): (Int64, Array<Byte>, Array<Byte>) {
     let outStreamFuture: Future<Array<Byte>> = spawn {
         => try {
@@ -299,12 +324,15 @@ func getWaitExitCode(process: SubProcess, timeout: Duration): Int64 {
         let timeoutMs: UInt32 = timeoutToMilliseconds(timeout)
         let ret: Int32 = unsafe { CJ_OS_WaitSubProcessExitTimeout(process._handle, timeoutMs, inout exitCode) }
         if (ret == 0) {
-            throw TimeoutException("wait subProcess(${pid}) timeout.")
+            throw TimeoutException("Wait subProcess(${pid}) timeout.")
         }
         if (ret == -1) {
-            // Keep the existing wait() error contract: a native wait failure
-            // returns -1 rather than introducing a new ProcessException.
-            return -1
+            // A native wait failure (NULL handle / GetExitCodeProcess failure) is
+            // reported exactly like the blocking path below, instead of being
+            // folded into the -1 return value where a caller could mistake it for
+            // a real exit code (Windows exit codes are non-negative once widened
+            // to Int64). This keeps both timeout branches semantically identical.
+            throw ProcessException("Wait subProcess exception, pid: ${pid} not exist.")
         }
     } else {
         var waitExitInfo_cp: CPointer<ExitInfo> = CPointer<ExitInfo>()
@@ -383,7 +411,7 @@ func getWaitExitCode(process: SubProcess, timeout: Duration): Int64 {
         }
         if (ret == 0) {
             if (MonoTime.now() >= deadline) {
-                throw TimeoutException("wait subProcess(${pid}) timeout.")
+                throw TimeoutException("Wait subProcess(${pid}) timeout.")
             }
             sleep(WAIT_POLL_INTERVAL)
             continue
