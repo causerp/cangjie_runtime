@@ -41,6 +41,15 @@ public enum ASTMode {
     public operator func !=(right: ASTMode): Bool {
         return !(this == right)
     }
+
+    public func toString(): String {
+        match (this) {
+            case MODAL_NONE => "MODAL_NONE"
+            case MODAL_NOT => "MODAL_NOT"
+            case MODAL_HALF => "MODAL_HALF"
+            case MODAL_FULL => "MODAL_FULL"
+        }
+    }
 }
 
 // A parsed postfix modal such as `@local!` / `@local?` / `@~local`, attached to a Type, CallExpr,
@@ -103,6 +112,7 @@ public class ModalInfo {
             return ""
         }
         var ret = getIndent(indent) + "ModalInfo {\n"
+        ret += getIndent(indent + 1) + "mode: ${mode_.toString()}\n"
         ret += getTokenIndent("-at", at_, indent + 1)
         if (mode_ == ASTMode.MODAL_NOT) {
             ret += getTokenIndent("-marker", marker_, indent + 1)
