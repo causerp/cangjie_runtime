@@ -614,7 +614,6 @@ func createTypeConvExpr(expr: NodeFormat_Expr): Expr {
     var exprNode = generateExprAST(typeConvExpr.GetExpr())
     var rParen = Token(TokenKind.RPAREN).addPosition(typeConvExpr.GetRightParenPos())
     var typeConv = TypeConvExpr(ty, lParen, exprNode, rParen)
-    typeConv.modal = createModalInfo(typeConvExpr.GetModal())
     return typeConv
 }
 

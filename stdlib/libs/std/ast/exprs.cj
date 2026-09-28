@@ -2662,7 +2662,6 @@ public class TypeConvExpr <: Expr {
                     this.lParen_ = v.lParen_
                     this.expr_ = v.expr_
                     this.rParen_ = v.rParen_
-                    this.modal_ = v.modal_
                 case None => throw ASTException("Cannot construct the 'TypeConvExpr' node.")
             }
         } catch (e: ParseASTException) {
@@ -2686,11 +2685,6 @@ public class TypeConvExpr <: Expr {
     private var lParen_: Token = Token(TokenKind.LPAREN)
     private var expr_: Expr = Expr()
     private var rParen_: Token = Token(TokenKind.RPAREN)
-    private var modal_: ModalInfo = ModalInfo()
-    public mut prop modal: ModalInfo {
-        get() { modal_ }
-        set(v) { modal_ = v }
-    }
     public mut prop targetType: PrimitiveType {
         get() {
             type_
@@ -2726,7 +2720,7 @@ public class TypeConvExpr <: Expr {
         }
     }
     public func toTokens(): Tokens {
-        Tokens().append(type_.toTokens()).append(lParen_).append(expr_.toTokens()).append(rParen_).append(modal_.toTokens())
+        Tokens().append(type_.toTokens()).append(lParen_).append(expr_.toTokens()).append(rParen_)
     }
 
     public func traverse(v: Visitor): Unit {

@@ -24,10 +24,32 @@ public enum Option<T> {
     }
 
     /*
+     * @throws NoneValueException if the value of Option is None
+     */
+    @Frozen
+    public exclave func getOrThrow(this @local!): T @local! {
+        match (this) {
+            case Some(v) => v
+            case None => throw NoneValueException()
+        }
+    }
+
+    /*
      * @throws input Exception if the value of Option is None
      */
     @Frozen
     public func getOrThrow(exception: () -> Exception): T {
+        match (this) {
+            case Some(v) => v
+            case None => throw exception()
+        }
+    }
+
+    /*
+     * @throws input Exception if the value of Option is None
+     */
+    @Frozen
+    public exclave func getOrThrow(this @local!, exception: () -> Exception): T @local! {
         match (this) {
             case Some(v) => v
             case None => throw exception()
@@ -51,7 +73,23 @@ public enum Option<T> {
     }
 
     @Frozen
+    public func isNone(this @local?): Bool {
+        match (this) {
+            case None => true
+            case Some(_) => false
+        }
+    }
+
+    @Frozen
     public func isSome(): Bool {
+        match (this) {
+            case Some(_) => true
+            case None => false
+        }
+    }
+
+    @Frozen
+    public func isSome(this @local?): Bool {
         match (this) {
             case Some(_) => true
             case None => false

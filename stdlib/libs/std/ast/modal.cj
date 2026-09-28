@@ -44,7 +44,7 @@ public enum ASTMode {
 }
 
 // A parsed postfix modal such as `@local!` / `@local?` / `@~local`, attached to a Type, CallExpr,
-// TypeConvExpr, PrimitiveTypeExpr, FuncDecl or ThisParam. `Empty()` is true when there is no modal.
+// PrimitiveTypeExpr, FuncDecl or ThisParam. `Empty()` is true when there is no modal.
 public class ModalInfo {
     init() {}
     init(at: Token, local: Token, mode: ASTMode, marker: Token) {

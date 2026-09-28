@@ -418,7 +418,6 @@ table TypeConvExpr {
   left_paren_pos: Position;
   expr: Expr;
   right_paren_pos: Position;
-  modal: ModalInfo;
 }
 
 table ThrowExpr {

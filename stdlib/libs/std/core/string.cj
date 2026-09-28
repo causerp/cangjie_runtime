@@ -299,6 +299,13 @@ public struct String <: Collection<Byte> & Comparable<String> & Hashable & ToStr
         intrinsicBuiltInCopyTo3<UInt8>(this.myData, newRawPtr, Int64(start), 0, Int64(length))
         return String(newRawPtr, 0, length)
     }
+    @Frozen
+    public exclave func toString(this @local?): String @local! {
+        let newRawPtr = rawArrayAllocate2<UInt8>(this.size)
+        rawArrayInitByValue3<UInt8>(newRawPtr, this.size, 0)
+        intrinsicBuiltInCopyTo3<UInt8>(this.myData, newRawPtr, Int64(start), 0, Int64(length))
+        String(newRawPtr, 0, length)
+    }
 
     @Frozen
     public func iterator(): Iterator<Byte> {
@@ -706,7 +713,7 @@ public struct String <: Collection<Byte> & Comparable<String> & Hashable & ToStr
         }
         return this.splitOfString(str, -1, removeEmpty)
     }
-    
+
     // 提案 9.2：@local! 版 split。两遍扫描（先计数后填充），零拷贝切片。
     @Frozen
     @OverflowWrapping
@@ -1500,6 +1507,31 @@ public struct String <: Collection<Byte> & Comparable<String> & Hashable & ToStr
         return Ordering.EQ
     }
 
+    @Frozen
+    public func compare(this @local?, str: String @local?): Ordering {
+        let minSize: Int64 = if (this.size < str.size) {
+            this.size
+        } else {
+            str.size
+        }
+
+        let res = compareBytes(this.myData, Int64(this.start), str.myData, Int64(str.start), minSize)
+
+        if (res > 0) {
+            return Ordering.GT
+        } else if (res < 0) {
+            return Ordering.LT
+        }
+
+        if (this.size > minSize) {
+            return Ordering.GT
+        } else if (str.size > minSize) {
+            return Ordering.LT
+        }
+
+        return Ordering.EQ
+    }
+
     // Return a string which is the result of concatenating `left` and `right`.
     @Frozen
     @OverflowWrapping
@@ -1514,6 +1546,20 @@ public struct String <: Collection<Byte> & Comparable<String> & Hashable & ToStr
         intrinsicBuiltInCopyTo<UInt8>(this.myData, newData, Int64(this.start), 0, this.size)
         intrinsicBuiltInCopyTo<UInt8>(other.myData, newData, Int64(other.start), this.size, other.size)
         return String(newData, 0, UInt32(newLen))
+    }
+    @Frozen
+    @OverflowWrapping
+    public exclave operator const func +(this @local!, other: String @local?): String @local! {
+        let newLen = size + other.size
+        if (newLen > Int64(UInt32.Max)) {
+            throw IllegalArgumentException("The size of String is too large.")
+        }
+
+        let newData = rawArrayAllocate2<Byte>(newLen)
+        rawArrayInitByValue2(newData, newLen, 0)
+        intrinsicBuiltInCopyTo3<UInt8>(myData, newData, Int64(start), 0, size)
+        intrinsicBuiltInCopyTo3<UInt8>(other.myData, newData, Int64(other.start), size, other.size)
+        String(newData, 0, UInt32(newLen))
     }
 
     @Frozen
