@@ -118,7 +118,7 @@ enum PowerAssertValueKind <: Serializable<PowerAssertValueKind> {
             case 0 => PAValue(String.deserialize(dms.get(VALUE_KEY)))
             case 1 => PAThrown(String.deserialize(dms.get(VALUE_KEY)))
             case 2 => PASkipped
-            case other => throw Exception("Unknown key value during deserialization: ${other}")
+            case other => throw Exception("Expected serialized PowerAssertValueKind, got unknown type '${other}'.")
         }
     }
 }
@@ -363,7 +363,7 @@ class PowerAssertDiagram <: ToString & Serializable<PowerAssertDiagram> & Pretty
 
     private func getLastLineOrThrow(result: ArrayList<ArrayList<Rune>>) {
         return (result |> last<ArrayList<Rune>>) ??
-            throw Exception("Diagram's line to fill shouldn't be empty")
+            throw Exception("Diagram's line to fill shouldn't be empty.")
     }
 
     private func fillWithWhitespace(result: ArrayList<ArrayList<Rune>>, rightBound: Int64) {
@@ -454,11 +454,11 @@ public class PowerAssertDiagramBuilder {
 
         Framework.withCurrentContext{ ctx => ctx.checkFailed(checkResult) }
 
-        throw AssertException("`${expression}` has been evaluated to false", checkResult)
+        throw AssertException("Expression `${expression}` has been evaluated to false.", checkResult)
     }
 
     private func recordException(exception: Exception, expression: String): Nothing {
-        let message = "`${expression}` has thrown an exception while computing"
+        let message = "Expression `${expression}` has thrown an exception while computing."
         let originalException = match (exception) {
             case e: AssertIntermediateException => e.originalException
             case _ => exception

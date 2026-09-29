@@ -511,6 +511,6 @@ class WorkerTestFilter <: FrameworkTestFilter {
     }
 
     private static func reportNoRegister(printable: ToString): Nothing {
-        throw Exception("${printable} was not registered in the bunch filter")
+        throw Exception("Test entity '${printable}' was not registered in the bunch filter.")
     }
 }

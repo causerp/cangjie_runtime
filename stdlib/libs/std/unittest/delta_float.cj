@@ -11,50 +11,48 @@ import std.math.abs
 
 // float delta within interval START
 
-private func isDeltaWithinInterval(delta: Float16) {
+private func isDeltaWithinInterval(delta: Float16, prefix!: String = "Delta value") {
     if (delta >= 0.0f16 && delta < Float16.Max) {
         return (true, "")
     }
-    return (false, "delta must be in interval [0.0, Float16.Max). Actual delta: ${delta}.")
+    return (false, "${prefix} must be in interval [0.0, Float16.Max), got: '${delta}'.")
 }
 
-private func isDeltaWithinInterval(delta: Float32) {
+private func isDeltaWithinInterval(delta: Float32, prefix!: String = "Delta value") {
     if (delta >= 0.0f32 && delta < Float32.Max) {
         return (true, "")
     }
-    return (false, "delta must be in interval [0.0, Float32.Max). Actual delta: ${delta}.")
+    return (false, "${prefix} must be in interval [0.0, Float32.Max), got: '${delta}'.")
 }
 
-private func isDeltaWithinInterval(delta: Float64) {
+private func isDeltaWithinInterval(delta: Float64, prefix!: String = "Delta value") {
     if (delta >= 0.0f64 && delta < Float64.Max) {
         return (true, "")
     }
-    return (false, "delta must be in interval [0.0, Float64.Max). Actual delta: ${delta}.")
+    return (false, "${prefix} must be in interval [0.0, Float64.Max), got: '${delta}'.")
 }
 
 // float delta within interval END
 
 // is float delta NaN START
 
-private let DELTA_IS_NAN_MESSAGE = "delta is NaN."
-
-private func isDeltaNaN(delta: Float16) {
+private func isDeltaNaN(delta: Float16, prefix!: String = "Delta value") {
     if (delta.isNaN()) {
-        return (true, DELTA_IS_NAN_MESSAGE)
+        return (true, "${prefix} is NaN.")
     }
     return (false, "")
 }
 
-private func isDeltaNaN(delta: Float32) {
+private func isDeltaNaN(delta: Float32, prefix!: String = "Delta value") {
     if (delta.isNaN()) {
-        return (true, DELTA_IS_NAN_MESSAGE)
+        return (true, "${prefix} is NaN.")
     }
     return (false, "")
 }
 
-private func isDeltaNaN(delta: Float64) {
+private func isDeltaNaN(delta: Float64, prefix!: String = "Delta value") {
     if (delta.isNaN()) {
-        return (true, DELTA_IS_NAN_MESSAGE)
+        return (true, "${prefix} is NaN.")
     }
     return (false, "")
 }
@@ -63,13 +61,13 @@ private func isDeltaNaN(delta: Float64) {
 
 // is delta valid START
 
-private func isDeltaValid(delta: Float16) {
-    let (isDeltaNaN, nanErrorMessage) = isDeltaNaN(delta)
+private func isDeltaValid(delta: Float16, prefix!: String = "Delta value") {
+    let (isDeltaNaN, nanErrorMessage) = isDeltaNaN(delta, prefix: prefix)
     if (isDeltaNaN) {
         return (false, nanErrorMessage)
     }
 
-    let (isDeltaWithinInterval, intervalErrMessage) = isDeltaWithinInterval(delta)
+    let (isDeltaWithinInterval, intervalErrMessage) = isDeltaWithinInterval(delta, prefix: prefix)
     if (!isDeltaWithinInterval) {
         return (false, intervalErrMessage)
     }
@@ -77,13 +75,13 @@ private func isDeltaValid(delta: Float16) {
     return (true, "")
 }
 
-private func isDeltaValid(delta: Float32) {
-    let (isDeltaNaN, nanErrorMessage) = isDeltaNaN(delta)
+private func isDeltaValid(delta: Float32, prefix!: String = "Delta value") {
+    let (isDeltaNaN, nanErrorMessage) = isDeltaNaN(delta, prefix: prefix)
     if (isDeltaNaN) {
         return (false, nanErrorMessage)
     }
-    
-    let (isDeltaWithinInterval, intervalErrMessage) = isDeltaWithinInterval(delta)
+
+    let (isDeltaWithinInterval, intervalErrMessage) = isDeltaWithinInterval(delta, prefix: prefix)
     if (!isDeltaWithinInterval) {
         return (false, intervalErrMessage)
     }
@@ -91,13 +89,13 @@ private func isDeltaValid(delta: Float32) {
     return (true, "")
 }
 
-private func isDeltaValid(delta: Float64) {
-    let (isDeltaNaN, nanErrorMessage) = isDeltaNaN(delta)
+private func isDeltaValid(delta: Float64, prefix!: String = "Delta value") {
+    let (isDeltaNaN, nanErrorMessage) = isDeltaNaN(delta, prefix: prefix)
     if (isDeltaNaN) {
         return (false, nanErrorMessage)
     }
-    
-    let (isDeltaWithinInterval, intervalErrMessage) = isDeltaWithinInterval(delta)
+
+    let (isDeltaWithinInterval, intervalErrMessage) = isDeltaWithinInterval(delta, prefix: prefix)
     if (!isDeltaWithinInterval) {
         return (false, intervalErrMessage)
     }
@@ -110,44 +108,44 @@ private func isDeltaValid(delta: Float64) {
 // is relative delta valid START
 
 private func isRelativeDeltaValid(delta: RelativeDelta<Float16>) {
-    let (isAbsDeltaValid, absErrMessage) = isDeltaValid(delta.absolute)
+    let (isAbsDeltaValid, absErrMessage) = isDeltaValid(delta.absolute, prefix: "Absolute delta value")
     if (!isAbsDeltaValid) {
-        return (false, "Absolute ${absErrMessage}")
+        return (false, absErrMessage)
     }
 
-    let (isRelDeltaValid, relErrMessage) = isDeltaValid(delta.relative)
+    let (isRelDeltaValid, relErrMessage) = isDeltaValid(delta.relative, prefix: "Relative delta value")
     if (!isRelDeltaValid) {
-        return (false, "Relative ${relErrMessage}")
+        return (false, relErrMessage)
     }
-    
+
     return (true, "")
 }
 
 private func isRelativeDeltaValid(delta: RelativeDelta<Float32>) {
-    let (isAbsDeltaValid, absErrMessage) = isDeltaValid(delta.absolute)
+    let (isAbsDeltaValid, absErrMessage) = isDeltaValid(delta.absolute, prefix: "Absolute delta value")
     if (!isAbsDeltaValid) {
-        return (false, "Absolute ${absErrMessage}")
+        return (false, absErrMessage)
     }
 
-    let (isRelDeltaValid, relErrMessage) = isDeltaValid(delta.relative)
+    let (isRelDeltaValid, relErrMessage) = isDeltaValid(delta.relative, prefix: "Relative delta value")
     if (!isRelDeltaValid) {
-        return (false, "Relative ${relErrMessage}")
+        return (false, relErrMessage)
     }
-    
+
     return (true, "")
 }
 
 private func isRelativeDeltaValid(delta: RelativeDelta<Float64>) {
-    let (isAbsDeltaValid, absErrMessage) = isDeltaValid(delta.absolute)
+    let (isAbsDeltaValid, absErrMessage) = isDeltaValid(delta.absolute, prefix: "Absolute delta value")
     if (!isAbsDeltaValid) {
-        return (false, "Absolute ${absErrMessage}")
+        return (false, absErrMessage)
     }
 
-    let (isRelDeltaValid, relErrMessage) = isDeltaValid(delta.relative)
+    let (isRelDeltaValid, relErrMessage) = isDeltaValid(delta.relative, prefix: "Relative delta value")
     if (!isRelDeltaValid) {
-        return (false, "Relative ${relErrMessage}")
+        return (false, relErrMessage)
     }
-    
+
     return (true, "")
 }
 

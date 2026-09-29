@@ -34,7 +34,7 @@ public interface RandomSource {
 
     func nextInt8(max: Int8): Int8 {
         if (max < 0) {
-            throw IllegalArgumentException("max must be positive")
+            throw IllegalArgumentException("Invalid argument 'max': must be a non negative number, got '${max}'.")
         }
         let i = nextInt8()
         match {
@@ -45,7 +45,7 @@ public interface RandomSource {
     }
     func nextInt16(max: Int16): Int16 {
         if (max < 0) {
-            throw IllegalArgumentException("max must be positive")
+            throw IllegalArgumentException("Invalid argument 'max': must be a non negative number, got '${max}'.")
         }
         let i = nextInt16()
         match {
@@ -56,7 +56,7 @@ public interface RandomSource {
     }
     func nextInt32(max: Int32): Int32 {
         if (max < 0) {
-            throw IllegalArgumentException("max must be positive")
+            throw IllegalArgumentException("Invalid argument 'max': must be a non negative number, got '${max}'.")
         }
         let i = nextInt32()
         match {
@@ -67,7 +67,7 @@ public interface RandomSource {
     }
     func nextInt64(max: Int64): Int64 {
         if (max < 0) {
-            throw IllegalArgumentException("max must be positive")
+            throw IllegalArgumentException("Invalid argument 'max': must be a non negative number, got '${max}'.")
         }
         let i = nextInt64()
         match {

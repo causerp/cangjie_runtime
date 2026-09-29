@@ -416,10 +416,11 @@ protected class JsonArray <: JsonValue {
      */
     public func toJsonString(depth: Int64, bracketInNewLine!: Bool = false, indent!: String = "  "): String {
         if (depth < 0) {
-            throw IllegalArgumentException("Depth cannot be negative.")
+            throw IllegalArgumentException("Invalid argument 'depth': value cannot be negative, got '${depth}'.")
         }
         if (!indent.isContainOnlySpaceAndTab()) {
-            throw IllegalArgumentException("Indent must be an empty string or any combination of spaces and tabs.")
+            throw IllegalArgumentException(
+                "Invalid argument 'indent': expected an empty string or any combination of spaces and tabs, got '${indent}'.")
         }
         let buff = WriteBuffer(asumecapacity(this))
         jsonWriteArray(this, buff, depth, bracketInNewLine, indent)
@@ -489,7 +490,7 @@ protected class JsonArray <: JsonValue {
     public operator func [](index: Int64): JsonValue {
         return match (items.get(index)) {
             case Some(v) => v
-            case None => throw JsonException("The index ${index} of JsonArray does not exist.")
+            case None => throw JsonException("Index '${index}' does not exist in JsonArray.")
         }
     }
 
@@ -574,10 +575,10 @@ protected class JsonObject <: JsonValue {
      */
     public func toJsonString(depth: Int64, bracketInNewLine!: Bool = false, indent!: String = "  "): String {
         if (depth < 0) {
-            throw IllegalArgumentException("Depth cannot be negative.")
+            throw IllegalArgumentException("Invalid argument 'depth': value cannot be negative, got '${depth}'.")
         }
         if (!indent.isContainOnlySpaceAndTab()) {
-            throw IllegalArgumentException("Indent must be an empty string or any combination of spaces and tabs.")
+            throw IllegalArgumentException("Invalid argument 'indent': expected an empty string or any combination of spaces and tabs, got '${indent}'.")
         }
         let buff = WriteBuffer(asumecapacity(this))
         jsonWriteObject(this, buff, depth, bracketInNewLine, indent)
@@ -659,7 +660,7 @@ protected class JsonObject <: JsonValue {
     public operator func [](key: String): JsonValue {
         return match (fields.get(key)) {
             case Some(v) => v
-            case None => throw JsonException("The Value of JsonObject does not exist")
+            case None => throw JsonException("Key '${key}' does not exist in JsonObject.")
         }
     }
 

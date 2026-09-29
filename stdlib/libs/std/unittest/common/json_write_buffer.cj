@@ -214,7 +214,6 @@ func jsonWriteWithoutFormat(json: JsonValue, buff: WriteBuffer): Unit {
             buff.append(jf.getValue())
         case _ =>
             buff.append(NULL_STRING)
-        case _ => throw IllegalStateException()
     }
 }
 
@@ -312,6 +311,6 @@ func asumecapacity(json: JsonValue): Int64 {
             return 200 // not precision
         case _: JsonNull =>
             return 4 // len of "null" is 4
-        case _ => throw IllegalStateException()
+        case _ => throw Exception("Internal error: unknown JSON class received.")
     }
 }

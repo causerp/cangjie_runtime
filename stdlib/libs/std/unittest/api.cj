@@ -391,7 +391,7 @@ public struct TestCaseInfo {
     TestCaseInfo(
         public let groupName: String,
         public let suiteName: String,
-        public let caseName: String        
+        public let caseName: String
     ) {}
 }
 
@@ -425,9 +425,9 @@ public class TestReport <: Report {
         match (reporter) {
             case printer: TextReporterBase<T> => return printer.printReport(this)
             case xmlReporter: XmlReporter => UTestReportFormat.XML(xmlReporter.directory).report(groupResult)
-            case xmlPerPackageReporter: XmlPerPackageReporter => 
+            case xmlPerPackageReporter: XmlPerPackageReporter =>
                 UTestReportFormat.XMLPerPackage(xmlPerPackageReporter.directory).report(groupResult)
-            case _ => throw Exception("Unkown reporter")
+            case _ => throw Exception("Internal error: unsupported reporter type.")
         }
     }
 }
@@ -447,7 +447,7 @@ public class BenchReport <: Report {
             case csv: CsvReporter => BenchReportFormat.CSV(csv.directory).report(groupResult)
             case csvRaw: CsvRawReporter => BenchReportFormat.CSV_RAW(csvRaw.directory).report(groupResult)
             case rawStatsReporter: RawStatsReporter => rawStatsReporter.benchResultsAsMap(groupResult)
-            case _ => throw Exception("Unkown reporter")
+            case _ => throw Exception("Internal error: unsupported reporter type.")
         }
     }
 }

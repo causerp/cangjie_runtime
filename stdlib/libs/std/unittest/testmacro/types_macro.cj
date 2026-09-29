@@ -75,11 +75,11 @@ func walkTypeParameters(
     }
 
     let vars = typeSubst.get(left[0].value) ?? throw MacroException(
-        "Generic type parameter ${left[0].value} is not provided, did you forget to put a @Types macro?")
+        "Generic type parameter '${left[0].value}' is not provided. Use '@Types' macro to provide it.")
     for (v in vars) {
         // because we parse types manually, they can be empty in the parser
         if (v.size == 0) {
-            throw MacroException("Empty type in @Types macro for parameter ${left[0].value}")
+            throw MacroException("Empty type in '@Types' macro for parameter '${left[0].value}'.")
         }
         // to not use quadratic memory, we mutate the same accumulator by adding a new element of combination
         // and then removing it, simultaneously removing the corresponding parameter from `left`
@@ -104,8 +104,8 @@ func checkTypeSubstitution(
             for (vt in vts) {
                 if (vt.kind == IDENTIFIER && typeSubst.contains(vt.value)) {
                     throw MacroException(
-                        "@Types macro does not support recursive types: " +
-                        "type ${typesToString(vts)} is not allowed to use type parameter ${vt.value}")
+                        "'@Types' macro does not support recursive types: " +
+                        "type '${typesToString(vts)}' is not allowed to use type parameter '${vt.value}'.")
                 }
             }
         }
@@ -120,8 +120,9 @@ func checkTypeSubstitution(
         mutableTypeSubst.remove(arg.value)
     }
     if (mutableTypeSubst.size > 0) {
-        let leftoverVars = mutableTypeSubst.keys() |> collectString<String>(delimiter: ", ")
-        throw MacroException("@Types macro provides unknown type variables: ${leftoverVars}")
+        let leftoverVars = mutableTypeSubst.keys() |> map { it => "'${it}'" } |> collectString<String>(delimiter: ", ")
+        throw MacroException(
+            "The following variables in '@Types' macro do not correspond to any generic parameter: ${leftoverVars}.")
     }
 }
 

@@ -143,7 +143,7 @@ func createStubCall(
     if (let Success(matchers) <- matchers) {
         return ParseResult.Success(Stub(callExpr, matchers, asPrefixRef(prefixExpr), declarationName, kind))
     } else {
-        throw Exception("Can't have empty error list")
+        throw Exception("Internal error: ParseResult is Error, but the error list is empty.")
     }
 }
 

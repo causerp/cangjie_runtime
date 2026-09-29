@@ -43,7 +43,7 @@ private class ExecutionResultPartIterator <: Iterator<ExecutionResultPart> {
         }
 
         if (pointer == 0) { return None }
-        if (pointer != size) { throw Exception("Premature end of the stream") }
+        if (pointer != size) { throw Exception("The stream has ended prematurely.") }
         return buffer
     }
 
@@ -222,7 +222,9 @@ struct WorkerOutput {
             let outs = stdouts
             let errs = stderrs
             if (outs.size != errs.size) {
-                throw IllegalStateException("${outs.size} != ${errs.size}")
+                throw IllegalStateException(
+                    "Internal error: number of stdout outputs from workers is expected to be the same as stderr outputs, got "
+                    + "'${outs.size}' stdout outputs and '${errs.size}' stderr outputs.")
             }
 
             outs |> zip(errs) |> map<(String, String), CapturedOutput> { pair =>
