@@ -9,4 +9,5 @@ set(SORT_SRCS
     sort_util.cj
     stable_sort.cj
     unstable_sort.cj
+    primitive_sort_fast_paths.cj
     CACHE INTERNAL "")

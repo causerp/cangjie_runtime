@@ -22,6 +22,9 @@ public func stableSort<T>(data: Array<T>): Unit where T <: Comparable<T> {
     if (data.size < 2) {
         return
     }
+    if (tryPrimitiveStableSort(data)) {
+        return
+    }
     data.timSort()
 }
 

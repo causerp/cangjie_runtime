@@ -27,6 +27,9 @@ public func unstableSort<T>(data: Array<T>): Unit where T <: Comparable<T> {
         data.reverseRange(0, data.size - 1)
         return
     }
+    if (tryPrimitiveUnstableSort(data)) {
+        return
+    }
     data.introSort(0, data.size - 1, data.depth())
 }
 
