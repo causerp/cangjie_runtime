@@ -11,7 +11,10 @@ package std.core
 public interface Hashable {
     func hashCode(): Int64
     func hashCode(this @local?): Int64 {
-        throw Exception()
+        throw UnImplementedException("Current Type does not implement 'hashCode' method for its @local? instance")
+    }
+    func hashCode(this @local!): Int64 {
+        throw UnImplementedException("Current Type does not implement 'hashCode' method for its @local! instance")
     }
 }
 

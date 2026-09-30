@@ -451,7 +451,7 @@ public struct CPointerHandle<T> where T <: CType {
     public let pointer: CPointer<T>
     public let array: Array<T>
 
-    // @Deprecated[message: "Use global function `public unsafe func acquireArrayRawData<T>(arr: Array<T>): CPointerHandle<T> where T <: CType` instead."]
+    @Deprecated[message: "Use global function `public unsafe func acquireArrayRawData<T>(arr: Array<T>): CPointerHandle<T> where T <: CType` instead."]
     public init() {
         pointer = CPointer<T>()
         array = Array<T>()
@@ -462,7 +462,7 @@ public struct CPointerHandle<T> where T <: CType {
         array = Array<T>()
     }
 
-    // @Deprecated[message: "Use global function `public unsafe func acquireArrayRawData<T>(arr: Array<T>): CPointerHandle<T> where T <: CType` instead."]
+    @Deprecated[message: "Use global function `public unsafe func acquireArrayRawData<T>(arr: Array<T>): CPointerHandle<T> where T <: CType` instead."]
     public init(ptr: CPointer<T>, arr: Array<T>) {
         this.pointer = ptr
         this.array = arr
