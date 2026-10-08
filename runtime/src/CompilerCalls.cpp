@@ -1342,6 +1342,10 @@ extern "C" ArrayRef MCC_NewArrayGeneric(const TypeInfo* arrayInfo, MIndex nElems
             break;
     }
     if (array == nullptr) {
+        VLOG(REPORT, "Allocation generic array %s length %zu failed and throw OutOfMemoryError",
+             arrayInfo->GetName(), nElems);
+        LOG(RTLOG_ERROR, "Allocation generic array %s length %zu failed and throw OutOfMemoryError",
+            arrayInfo->GetName(), nElems);
         ExceptionManager::CheckAndThrowPendingException("NewArrayGeneric return nullptr");
     }
     return array;
