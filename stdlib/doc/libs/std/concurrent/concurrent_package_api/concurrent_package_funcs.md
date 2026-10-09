@@ -25,6 +25,8 @@ public func threadScope<T, R>(fn: (ThreadGroup<T>) -> R): R
 > **注意：**
 >
 > 不要允许 `ThreadGroup` 实例逃逸出其 `threadScope`。
+>
+> 不支持平台：OpenHarmony。
 
 返回值：
 

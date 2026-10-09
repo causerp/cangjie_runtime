@@ -12,6 +12,7 @@ import std.collection.ArrayList
 import std.collection.concurrent.LinkedBlockingQueue
 import std.sync.{AtomicUInt64, Mutex}
 
+@When[env != "ohos"]
 class ThreadGroupIterator<T> <: Iterator<T> {
     public ThreadGroupIterator(let group: ThreadGroup<T>) {}
 
