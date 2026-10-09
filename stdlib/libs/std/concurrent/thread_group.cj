@@ -34,6 +34,7 @@ enum Result<T> {
  *
  * ThreadGroup<T> is scoped and is not safe for concurrent iteration.
  */
+ @When[env != "ohos"]
 public class ThreadGroup<T> <: Iterable<T> {
     private let futures = ArrayList<Future<Unit>>()
     private let completed = LinkedBlockingQueue<Result<T>>()
@@ -134,6 +135,7 @@ public class ThreadGroup<T> <: Iterable<T> {
  * @return The return value of fn.
  * @throws Exception or Error if fn fails or an unconsumed task result fails.
  */
+ @When[env != "ohos"]
 public func threadScope<T, R>(fn: (ThreadGroup<T>) -> R): R {
     let group = ThreadGroup<T>()
     try {
