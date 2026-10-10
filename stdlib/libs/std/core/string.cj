@@ -416,6 +416,12 @@ public struct String <: Collection<Byte> & Comparable<String> & Hashable & ToStr
         return Int64(wyhash(myData, Int64(start), Int64(length), 0))
     }
 
+
+    @Frozen
+    @OverflowWrapping
+    public exclave func hashCode(this @local!): Int64 {
+        Int64(wyhash(myData, Int64(start), Int64(length), 0))
+    }
     @Frozen
     @OverflowWrapping
     public func hashCode(this @local?): Int64 {
@@ -430,6 +436,11 @@ public struct String <: Collection<Byte> & Comparable<String> & Hashable & ToStr
      */
     @Frozen
     public static func fromUtf8(utf8Data: Array<UInt8>): String {
+        checkInvalid(utf8Data.rawptr, utf8Data.start, utf8Data.start + utf8Data.size)
+        return String(utf8Data.clone())
+    }
+    @Frozen
+    public exclave static func fromUtf8(utf8Data: Array<UInt8> @local!): String @local! {
         checkInvalid(utf8Data.rawptr, utf8Data.start, utf8Data.start + utf8Data.size)
         return String(utf8Data.clone())
     }
@@ -1198,6 +1209,18 @@ public struct String <: Collection<Byte> & Comparable<String> & Hashable & ToStr
         }
         return res == 0
     }
+    @Frozen
+    @OverflowWrapping
+    public func startsWith(this @local?, prefix: String @local?): Bool {
+        let strLen: Int64 = prefix.size
+        if (strLen == 0) {
+            return true
+        }
+        if (size < strLen) {
+            return false
+        }
+        compareBytes(this.myData, Int64(this.start), prefix.myData, Int64(prefix.start), strLen) == 0
+    }
 
     // Returns true if and only if this string ends with the given `suffix`.
     @Frozen
@@ -1700,6 +1723,11 @@ public struct String <: Collection<Byte> & Comparable<String> & Hashable & ToStr
         String(Array<Byte>(myData, Int64(this.start) + startIndex, len) @local?)
     }
 
+    @Frozen
+    private exclave func sliceUnchecked(this @local!, startIndex: Int64, len: Int64): String @local! {
+        String(Array<Byte>(myData, Int64(this.start) + startIndex, len) @local!)
+    }
+
     /**
      * @return the `String` value at the specified range.
      * @throws IllegalArgumentException if `step` is not equal to one.
@@ -1778,6 +1806,43 @@ public struct String <: Collection<Byte> & Comparable<String> & Hashable & ToStr
             return String.empty
         }
         exclave { sliceUnchecked(start, end - start) }
+    }
+
+    @OverflowWrapping
+    @Frozen
+    public exclave operator const func [](this @local!, range: Range<Int64>): String @local! {
+        let start: Int64 = range.start
+        var end: Int64 = range.end
+        let step: Int64 = range.step
+        let isClosed: Bool = range.isClosed
+
+        if (step != 1) {
+            throw IllegalArgumentException("the value of the step should be '1'")
+        }
+
+        if (isClosed) {
+            end += 1
+        }
+        // If end is omitted, end = size of array.
+        if (!range.hasEnd) {
+            end = size
+        }
+
+        if (start < 0 || end < start || end > size) {
+            throw IndexOutOfBoundsException("Invalid range start: ${start} or end: ${end}")
+        }
+        if (start < size && (arrayGetUnchecked3<UInt8>(myData, start + Int64(this.start)) >> 6) == 0b10) {
+            // 0b10 means the start position is not the code point boundary
+            throw IllegalArgumentException("Invalid utf8 byte sequence.")
+        }
+        if (end < size && (arrayGetUnchecked3<UInt8>(myData, end + Int64(this.start)) >> 6) == 0b10) {
+            // 0b10 means the end position is not the code point boundary
+            throw IllegalArgumentException("Invalid utf8 byte sequence.")
+        }
+        if (end - start == 0) {
+            return String() @local!
+        }
+        sliceUnchecked(start, end - start)
     }
 
     @Frozen

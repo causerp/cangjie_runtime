@@ -667,6 +667,12 @@ public struct Array<T> {
 
     @Frozen
     @OverflowWrapping
+    protected unsafe func getUnchecked(this @local?, index: Int64): T @local? {
+        exclave { arrayGetUnchecked3<T>(this.rawptr, start + index) }
+    }
+
+    @Frozen
+    @OverflowWrapping
     protected unsafe func setUnchecked(index: Int64, element: T): Unit {
         return arraySetUnchecked(this.rawptr, start + index, element)
     }

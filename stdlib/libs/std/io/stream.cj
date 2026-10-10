@@ -35,7 +35,7 @@ public interface InputStream {
      * @return number of bytes read and copied to the buffer (never zero) or 0 when end of stream reached
      */
     func read(buffer: Array<Byte>): Int64
-    func read(buffer: Array<Byte> @local!): Int64 {
+    func read(this @local!, buffer: Array<Byte> @local!): Int64 {
         throw Exception()
     }
 }

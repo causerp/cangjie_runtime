@@ -665,6 +665,17 @@ extend UInt32 <: Parsable<UInt32> {
         return UInt32(parseCompInt(rawData, formatBaseNum, multmin, maxAbsVal))
     }
 
+    @OverflowWrapping
+    public static func parse(data: String @local?): UInt32 {
+        let (rawData, isNegative) = getDataAndFlag(data, false, "UInt32")
+        var (formatBaseNum, multmin, maxAbsVal): (UInt64, UInt64, UInt64) = (FOTMAT_BASE_NUM_UI64_10,
+            DECIMAL_OVERFLOW_LIMIT_UI32, MAXVAL_UI32)
+        if (rawData.size > 1 && rawData[0] == b'0') {
+            (formatBaseNum, multmin, maxAbsVal) = getBaseInfos(TypeBase.UI32, isNegative, rawData)
+        }
+        return UInt32(parseCompInt(rawData, formatBaseNum, multmin, maxAbsVal))
+    }
+
     /**
      * @Description Convert a string of UInt32 literals to an Option<UInt32> value. If the failure occurs, Option<UInt32>.None will be returned.
      *
