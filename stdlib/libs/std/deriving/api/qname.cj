@@ -21,7 +21,7 @@ public struct QualifiedName <: ToString & Equatable<QualifiedName> & Hashable {
         public let tokens: Array<Token>
     ) {
         if (tokens.isEmpty()) {
-            throw IllegalArgumentException("Qualified name shouldn't be empty")
+            throw IllegalArgumentException("Qualified name cannot be empty.")
         }
     }
 
@@ -29,7 +29,9 @@ public struct QualifiedName <: ToString & Equatable<QualifiedName> & Hashable {
         this(tokens |> join, tokens)
 
         if (let Some(bad) <- (tokens |> filter<Token> { t => t.kind != TokenKind.IDENTIFIER } |> first)) {
-            throw IllegalArgumentException("All tokens should be identifiers, found: ${bad.value} (kind: ${bad.kind})")
+            throw IllegalArgumentException(
+                "All tokens in a qualified name should be identifiers," +
+                " got: '${bad.value}' (with kind: '${bad.kind}').")
         }
     }
 
@@ -128,7 +130,7 @@ public struct QualifiedName <: ToString & Equatable<QualifiedName> & Hashable {
 
     private static func validate(name: String): Unit {
         if (name.isEmpty()) {
-            throw IllegalArgumentException("name shouldn't be empty")
+            throw IllegalArgumentException("QualifiedName 'name' field cannot be empty.")
         }
         var empty = true
         for (rune in name.runes()) {
@@ -138,13 +140,15 @@ public struct QualifiedName <: ToString & Equatable<QualifiedName> & Hashable {
                 }
                 empty = true
             } else if (rune.isWhiteSpace()) {
-                throw IllegalArgumentException("Whitespaces in qualified names are not allowed")
+                throw IllegalArgumentException(
+                    "Whitespaces in qualified names are not allowed, got '${name}'.")
             } else {
                 empty = false
             }
         }
         if (empty) {
-            throw IllegalArgumentException("Qualified name shouldn't contain empty components")
+            throw IllegalArgumentException(
+                "Qualified name cannot contain empty components, got '${name}'.")
         }
     }
 }
@@ -198,7 +202,9 @@ extend QualifiedType {
                 case t: ThisType =>
                     components.add(t.keyword)
                     break
-                case _ => throw IllegalArgumentException("Unsupported qualified type")
+                case _ =>
+                    throw IllegalArgumentException(
+                        "Unsupported qualified type. Only RefType, ThisType or QualifiedType are supported.")
             }
         }
 

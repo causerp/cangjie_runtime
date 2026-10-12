@@ -27,7 +27,7 @@ class ToStringDeriving <: Deriving {
 
     public override func queryInterfaceInfo(interfaceName: QualifiedName): DerivingInterfaceInfo {
         if (interfaceName != toStringInfo.name) {
-            throw IllegalArgumentException("Unsupported interface ${interfaceName}")
+            throw IllegalArgumentException("Interface ${interfaceName} is not supported.")
         }
 
         return toStringInfo

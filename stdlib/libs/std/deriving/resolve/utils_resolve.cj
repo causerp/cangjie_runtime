@@ -25,7 +25,7 @@ func unopt<T>(opt: Option<Option<T>>): Option<T> {
 func myParseType(tokens: Tokens): TypeNode {
     let v = match (parseDecl(quote(let x: $tokens))) {
         case v: VarDecl => v
-        case _ => throw Exception()
+        case _ => throw Exception("Unreachable.")
     }
 
     return v.declType

@@ -53,7 +53,7 @@ interface ClassLikeDecl {
                 case v: VarDecl => TargetNamedAttribute.FieldAttribute(v)
                 case fp: FuncParam => ConstructorFieldAttribute(fp)
                 case p: PropDecl => PropertyAttribute(p)
-                case _ => throw Exception()
+                case _ => throw Exception("Unreachable.")
             }
         } |> collectArray
     }
