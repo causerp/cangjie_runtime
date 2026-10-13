@@ -27,7 +27,7 @@ extend Color <: Serializable<Color> {
     public static func deserialize(dm: DataModel): Color {
         let code = match (dm) {
             case dmi: DataModelInt => dmi.getValue()
-            case _ => throw DataModelException("this data is not DataModelInt")
+            case _ => throw DataModelException("Expected DataModelInt.")
         }
         match (code) {
             case 0 => RED
@@ -38,7 +38,7 @@ extend Color <: Serializable<Color> {
             case 5 => MAGENTA
             case 6 => GRAY
             case 7 => DEFAULT_COLOR
-            case _ => throw Exception("Invalid serialized color.")
+            case _ => throw Exception("Expected serialized color value.")
         }
     }
 }
@@ -63,13 +63,13 @@ extend PrettyPrintableTextChunk <: Serializable<PrettyPrintableTextChunk> {
     public static func deserialize(dm: DataModel): PrettyPrintableTextChunk {
         let dms = match (dm) {
             case dms: DataModelStruct => dms
-            case _ => throw DataModelException("this data is not DataModelStruct")
+            case _ => throw DataModelException("Expected DataModelStruct.")
         }
         match (Int8.deserialize(dms.get("code"))) {
             case 0 => PPTextPiece(String.deserialize(dms.get("text")))
             case 1 => PPColorSwitch(Color.deserialize(dms.get("color")))
             case 2 => PPNewLine
-            case _ => throw Exception("Invalid serialized text chunk.")
+            case _ => throw Exception("Expected serialized text chunk.")
         }
     }
 }
@@ -83,7 +83,7 @@ extend PrettyText <: Serializable<PrettyText> {
         match (dm) {
             case dms: DataModelSeq =>
                 PrettyText(ArrayList<PrettyPrintableTextChunk>.deserialize(dms))
-            case _ => throw DataModelException("this data is not DataModelSeq")
+            case _ => throw DataModelException("Expected DataModelSeq.")
         }
     }
 }

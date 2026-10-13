@@ -146,7 +146,7 @@ func randomBiasedRune(random: RandomSource): Rune {
         case 0 => randomAlnumRune(random)
         case 1 => randomAsciiRune(random)
         case 2 => randomUtf8Rune(random)
-        case _ => throw IllegalArgumentException()
+        case _ => throw Exception("Unreachable.")
     }
 }
 

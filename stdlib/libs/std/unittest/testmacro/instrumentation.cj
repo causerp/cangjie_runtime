@@ -71,7 +71,7 @@ class InstrumentedBench <: InstrumentedFunction {
 
         quote(
             measurement: m___,
-            doRun: 
+            doRun:
             @OverflowWrapping
             { prov___, count___: Int64, max___: Int64, batchSize___: Int64,  m___: Measurement =>
 
@@ -392,14 +392,14 @@ class InstrumentedClass {
         //     - particular DSLs in corresponding macros
         let dslTokensList = decl.loadRepeatable(macroKey)
         let dslTokens: Tokens = match (dslTokensList.size) {
-            case 0 => throw MacroException("No ${macroKey} macro used with ${decl.identifier.value}")
+            case 0 => throw MacroException("No ${macroKey} macro used with ${decl.identifier.value}.")
             case 1 => dslTokensList[0]
-            case _ => throw MacroException("${macroKey} macro is not repeatable")
+            case _ => throw MacroException("${macroKey} macro is not repeatable.")
         }
         match (decl) {
             case decl: ClassDecl =>
                 if (dslTokens.size > 0) {
-                    throw MacroException("${macroKey} macro on class does not support parameters")
+                    throw MacroException("${macroKey} macro on class does not support parameters.")
                 }
                 InstrumentedClass(decl)
             case decl: FuncDecl =>
@@ -511,7 +511,7 @@ class InstrumentedClass {
                 case 1 =>
                     let templateType = this.original.superTypes[0]
                     tb.append(quote(suiteBuilder.template(inheritedFromClassAnnotatedByTestTemplate<$templateType>()))).append(NL)
-                case n => throw Exception("A test class can have only one template, got ${n}")
+                case n => throw MacroException("A test class can have only one template, got ${n}.")
             }
 
             LifecycleStages.registerLifecycleStages(bodyDecls, tb)
@@ -629,7 +629,7 @@ func loadTypesDSL(original: ClassDecl, typeParameters: Tokens): Array<(String, A
     match (original.loadSingle(TYPES_MACRO)) {
         case None where typeParameters.size != 0 =>
             throw MacroException(
-                "Generic class ${original.identifier.value} requires a @Types macro to set up generic arguments"
+                "Generic class ${original.identifier.value} requires a @Types macro to set up generic arguments."
             )
         case None => []
         case Some(typeDSL) => parseTypesMacro(typeDSL)
@@ -640,7 +640,7 @@ func loadTypesDSL(original: FuncDecl): Array<(String, Array<Tokens>)> {
     match (original.loadSingle(TYPES_MACRO)) {
         case None where original.isGenericDecl =>
             throw MacroException(
-                "Generic function ${original.identifier.value} requires a @Types macro to set up generic arguments"
+                "Generic function ${original.identifier.value} requires a @Types macro to set up generic arguments."
             )
         case None => []
         case Some(typeDSL) => parseTypesMacro(typeDSL)

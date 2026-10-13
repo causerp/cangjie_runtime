@@ -348,7 +348,8 @@ class Mutator {
                 Insert(value) // duplication
             case 11 => // ~1/12
                 Drop
-            case _ => throw Exception("Logic error: pickRandomMutation")
+            case illegal => throw Exception(
+                "Internal error: random.nextUInt8(12) returned unsupported value '${illegal}'.")
         }
     }
 

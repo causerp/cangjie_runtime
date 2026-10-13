@@ -51,7 +51,7 @@ enum ParallelInfo {
             if (nCores > 1) {
                 if (let Some(true) <- defaultConfiguration().get<Bool>(KeyBench.bench)) {
                     throw UnittestCliOptionsFormatException(
-                        "It is not allowed to use both ${OP_PARALLEL} and ${OP_BENCH} at once")
+                        "It is not permitted to use both '${OP_PARALLEL}' and '${OP_BENCH}' together.")
                 }
             }
         }
@@ -67,8 +67,8 @@ enum ParallelInfo {
         throw UnittestCliOptionsFormatException(
             OP_PARALLEL, actual: actual,
             expected:
-                "Parameter format can be one of the following: positive integer number, " +
-                "'nCores', N'nCores' (N is positive fractional number)."
+                "Expected format is one of the following: positive integer number, " +
+                "'nCores', N'nCores' (N is positive fractional number)"
         )
     }
 

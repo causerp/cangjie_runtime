@@ -135,10 +135,10 @@ func remap(l: UIntNative, r: UIntNative, x: UIntNative): UIntNative {
 @OverflowWrapping
 func remap(l: Float64, r: Float64, x: Float64): Float64 {
     if (r < l) {
-        throw IllegalArgumentException("[${l}, ${r}] is an empty interval")
+        throw IllegalArgumentException("Invalid interval: 'l' must be less or equal to 'r', got 'l' = '${l}', 'r' = '${r}'.")
     }
     if (l.isNaN() || r.isNaN()) {
-        throw IllegalArgumentException("cannot pass nan as border value")
+        throw IllegalArgumentException("Invalid interval: neither 'l' nor 'r' can be NaN.")
     }
     var left = toInt(l)
     var right = toInt(r)
@@ -154,10 +154,10 @@ func remap(l: Float64, r: Float64, x: Float64): Float64 {
 @OverflowWrapping
 func remap(l: Float32, r: Float32, x: Float32): Float32 {
     if (r < l) {
-        throw IllegalArgumentException("[${l}, ${r}] is an empty interval")
+        throw IllegalArgumentException("Invalid interval: 'l' must be less or equal to 'r', got 'l' = '${l}', 'r' = '${r}'.")
     }
     if (l.isNaN() || r.isNaN()) {
-        throw IllegalArgumentException("cannot pass nan as border value")
+        throw IllegalArgumentException("Invalid interval: neither 'l' nor 'r' can be NaN.")
     }
     var left = toInt(l)
     var right = toInt(r)
@@ -173,10 +173,10 @@ func remap(l: Float32, r: Float32, x: Float32): Float32 {
 @OverflowWrapping
 func remap(l: Float16, r: Float16, x: Float16): Float16 {
     if (r < l) {
-        throw IllegalArgumentException("[${l}, ${r}] is an empty interval")
+        throw IllegalArgumentException("Invalid interval: 'l' must be less or equal to 'r', got 'l' = '${l}', 'r' = '${r}'.")
     }
     if (l.isNaN() || r.isNaN()) {
-        throw IllegalArgumentException("cannot pass nan as border value")
+        throw IllegalArgumentException("Invalid interval: neither 'l' nor 'r' can be NaN.")
     }
     var left = toInt(l)
     var right = toInt(r)

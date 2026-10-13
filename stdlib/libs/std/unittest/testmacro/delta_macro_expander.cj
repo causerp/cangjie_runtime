@@ -14,7 +14,7 @@ import std.ast.Expr
 import std.ast.TokenKind
 import std.ast.ASTException
 
-private type FullMacroExpansion = Tokens 
+private type FullMacroExpansion = Tokens
 private type OpLiteral = String
 
 class DeltaMacroExpander {
@@ -35,7 +35,7 @@ class DeltaMacroExpander {
     private static func isDeltaSuitable(args: Array<Expr>, input: Tokens): Bool {
         let deltaIndex = deltaIndex(args, input)
 
-        return deltaIndex > 0 && 
+        return deltaIndex > 0 &&
             input[deltaIndex].toTokens().toString() == DELTA_NAMED_ARG &&
             input[deltaIndex + 1].toTokens().toString() == ":"
     }
@@ -54,13 +54,13 @@ class DeltaMacroExpander {
         let funcName = Token(IDENTIFIER, EXPANDED_FUNC_NAME)
         let (deltaCompareTokens, opLiteral) = match (expr.op.kind) {
             case GT => (quote($funcName($l, $r, delta: $(args[1]), cmpType: "GT")), ">")
-            case LT => (quote($funcName($l, $r, delta: $(args[1]), cmpType: "LT")), "<") 
-            case GE => (quote($funcName($l, $r, delta: $(args[1]), cmpType: "GE")), ">=") 
-            case LE => (quote($funcName($l, $r, delta: $(args[1]), cmpType: "LE")), "<=") 
+            case LT => (quote($funcName($l, $r, delta: $(args[1]), cmpType: "LT")), "<")
+            case GE => (quote($funcName($l, $r, delta: $(args[1]), cmpType: "GE")), ">=")
+            case LE => (quote($funcName($l, $r, delta: $(args[1]), cmpType: "LE")), "<=")
             case NOTEQ => (quote($funcName($l, $r, delta: $(args[1]), cmpType: "NOT_EQ")), "!=")
-            case EQUAL => (quote($funcName($l, $r, delta: $(args[1]), cmpType: "EQ")), "==")           
+            case EQUAL => (quote($funcName($l, $r, delta: $(args[1]), cmpType: "EQ")), "==")
             case _ => throw MacroException(
-                    "Invalid syntax for $macroName. " + 
+                    "Invalid syntax for $macroName. " +
                     "You must use only <, >, <=, >=, ==, != operators to compare with delta."
                 )
         }
@@ -76,20 +76,20 @@ class DeltaMacroExpander {
 
     static func expandTwoArgsIntoEq(args: Array<Expr>): (FullMacroExpansion, OpLiteral) {
         let funcName = Token(IDENTIFIER, EXPANDED_FUNC_NAME)
-        (quote($funcName($(args[0]), $(args[1]), delta: $(args[2]), cmpType: "EQ")), "==") 
+        (quote($funcName($(args[0]), $(args[1]), delta: $(args[2]), cmpType: "EQ")), "==")
     }
 
     private static func parseDeltaAssertFirstArg(input: Tokens, macroName: String): BinaryExpr {
         try {
             let expr = BinaryExpr(input)
-            
+
             if (isBinaryOperatorInvalid(expr.op.kind)) {
                 throw MacroException("Invalid syntax for delta ${macroName}: use ${macroName}(x 'compare token' y, ${DELTA_NAMED_ARG}: delta).")
             } else {
                 expr
             }
         } catch (e: ASTException) {
-            throw MacroException("Expected top-level binary compare operator in ${macroName}.")
+            throw MacroException("Expected top-level binary comparison operator in ${macroName}.")
         }
     }
 
