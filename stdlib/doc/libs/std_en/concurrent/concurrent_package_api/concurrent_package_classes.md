@@ -14,7 +14,8 @@ A `ThreadGroup<T>` records one result for every thread launched by [launch(() ->
 > **Note:**
 >
 > 1. There is no public constructor for `ThreadGroup<T>`. [threadScope](./concurrent_package_funcs.md#func-threadscopet-rthreadgroupt---r) is the only supported means of creating an instance.
-> 2. Results are yielded as threads complete. 
+> 2. Results are yielded as threads complete.
+> 3. Unsupported platform: OpenHarmony
 
 > **Warning:**
 >
