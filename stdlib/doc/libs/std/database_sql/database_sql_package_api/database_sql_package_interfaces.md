@@ -525,8 +525,8 @@ func setOption(key: String, value: String): Unit
 
 参数：
 
-- key: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 连接选项名称。
-- value: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 连接选项的值。
+- key: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 预执行 sql 语句选项名称。
+- value: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 预执行 sql 语句选项的值。
 
 ### func update()
 
@@ -628,7 +628,7 @@ func begin(): Unit
 
 异常：
 
-- [SqlException](database_sql_package_exceptions.md#class-sqlexception) - 当提交事务时服务器端发生错误，以及当事务已提交或回滚或连接已断开时，抛出异常。
+- [SqlException](database_sql_package_exceptions.md#class-sqlexception) - 当开始事务时服务器端发生错误，以及当事务已提交或回滚或连接已断开时，抛出异常。
 
 ### func commit()
 
@@ -656,7 +656,7 @@ func release(savePointName: String): Unit
 
 异常：
 
-- [SqlException](database_sql_package_exceptions.md#class-sqlexception) - 当提交事务时服务器端发生错误，以及当事务已提交或回滚或连接已断开时，抛出异常。
+- [SqlException](database_sql_package_exceptions.md#class-sqlexception) - 当销毁保存点时服务器端发生错误，以及当事务已提交或回滚或连接已断开时，抛出异常。
 
 ### func rollback()
 
@@ -668,7 +668,7 @@ func rollback(): Unit
 
 异常：
 
-- [SqlException](database_sql_package_exceptions.md#class-sqlexception) - 当提交事务时服务器端发生错误，以及当事务已提交或回滚或连接已断开时，抛出异常。
+- [SqlException](database_sql_package_exceptions.md#class-sqlexception) - 当回滚事务时服务器端发生错误，以及当事务已提交或回滚或连接已断开时，抛出异常。
 
 ### func rollback(String)
 
@@ -684,7 +684,7 @@ func rollback(savePointName: String): Unit
 
 异常：
 
-- [SqlException](database_sql_package_exceptions.md#class-sqlexception) - 当提交事务时服务器端发生错误，以及当事务已提交或回滚或连接已断开时，抛出异常。
+- [SqlException](database_sql_package_exceptions.md#class-sqlexception) - 当回滚事务至指定保存点时服务器端发生错误，以及当事务已提交或回滚或连接已断开时，抛出异常。
 
 ### func save(String)
 
@@ -700,7 +700,7 @@ func save(savePointName: String): Unit
 
 异常：
 
-- [SqlException](database_sql_package_exceptions.md#class-sqlexception) - 当提交事务时服务器端发生错误，以及当事务已提交或回滚或连接已断开时，抛出异常。
+- [SqlException](database_sql_package_exceptions.md#class-sqlexception) - 当创建保存点时服务器端发生错误，以及当事务已提交或回滚或连接已断开时，抛出异常。
 
 ## interface UpdateResult
 

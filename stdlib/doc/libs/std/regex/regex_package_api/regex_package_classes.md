@@ -793,7 +793,7 @@ public class Regex {
 }
 ```
 
-功能：用来指定编译类型并创建正则表达式实例。
+功能：表示一个正则表达式，用于检索和替换符合指定模式的文本。
 
 正则匹配规则详见 [regex 规则集](../regex_package_overview.md#regex-规则集)。
 
@@ -1409,11 +1409,11 @@ main(): Unit {
 public func string(): String
 ```
 
-功能：获取正则的输入序列。
+功能：获取此 [Regex](regex_package_classes.md#class-regex) 的模式字符串。
 
 返回值：
 
-- [String](../../core/core_package_api/core_package_structs.md#struct-string) - 输入序列。
+- [String](../../core/core_package_api/core_package_structs.md#struct-string) - 此正则的模式字符串，即创建该 [Regex](regex_package_classes.md#class-regex) 实例时传入的正则表达式。
 
 示例：
 
@@ -1425,7 +1425,7 @@ main(): Unit {
     // 创建一个 Regex 实例
     let regex = Regex("hello")
 
-    // 获取正则的输入序列
+    // 获取正则表达式模式
     let pattern = regex.string()
 
     println("正则表达式: ${pattern}")

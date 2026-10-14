@@ -20,7 +20,7 @@ public class EnvException <: Exception {
 public init(message: String)
 ```
 
-功能：创建 [EnvException](../../process/process_package_api/process_package_exceptions.md#class-processexception) 实例。
+功能：创建 [EnvException](#class-envexception) 实例。
 
 参数：
 

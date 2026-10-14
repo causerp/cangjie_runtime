@@ -2,7 +2,7 @@
 
 ## 功能介绍
 
-net 包用于进行网络通信，提供启动 `Socket` 服务器、连接 `Socket` 服务器、发送数据、接收数据等功能和 `IP` 地址、`IP`前缀（又称`IP`子网）、`Socket` 地址的相关数据结构。
+net 包用于进行网络通信，提供启动 `Socket` 服务器、连接 `Socket` 服务器、发送数据、接收数据等功能和 `IP` 地址、`IP` 前缀（又称 `IP` 子网）、`Socket` 地址的相关数据结构。
 
 我们支持 UDP/TCP/UDS 三种 `Socket` 类型，用户可按需选用。
 
@@ -84,4 +84,4 @@ Hierarchy
 |              异常类名          |           功能           |
 | --------------------------- | ------------------------ |
 | [SocketException](./net_package_api/net_package_exceptions.md#class-socketexception) | 提供套接字相关的异常处理。 |
-| [SocketTimeoutException](./net_package_api/net_package_exceptions.md#class-sockettimeoutexception) | 提供字符格式相关的异常处理。 |
+| [SocketTimeoutException](./net_package_api/net_package_exceptions.md#class-sockettimeoutexception) | 提供套接字操作超时相关的异常处理。 |

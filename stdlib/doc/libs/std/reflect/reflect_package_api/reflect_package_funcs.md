@@ -6,7 +6,7 @@
 public func parseParameterTypes(parameters: String): Array<TypeInfo>
 ```
 
-功能：从字符串中解析出参数类型，并将其转换为类型数组，以便`getStaticFunction`等函数使用。
+功能：从字符串中解析出参数类型，并将其转换为类型数组，以便 `getStaticFunction` 等函数使用。
 
 函数参数类型限定名称为函数类型的参数类型部分，不包含参数名、默认值，也不包含最外层的 `()`。
 因此对于下面的一个仓颉函数：
@@ -16,7 +16,7 @@ import m1.p1.T1
 func f(a: Int64, b: T1, c!: Int64 = 0, d!: Int64 = 0): Int64 { ... }
 ```
 
-其限定名称应该为`"Int64, p1.T1, Int64, Int64"`。对于无参函数的限定名称应该为 `""`。
+其限定名称应该为 `"Int64, p1.T1, Int64, Int64"`。对于无参函数的限定名称应该为 `""`。
 
 > **注意：**
 >

@@ -65,7 +65,7 @@ SQL 数据类型和仓颉数据类型对应表如下：
 | [SqlBool <sup>(deprecated)</sup>](./database_sql_package_api/database_sql_package_classes.md#class-sqlbool-deprecated) | 布尔类型，对应仓颉 `Bool` 类型。                             |
 | [SqlByte <sup>(deprecated)</sup>](./database_sql_package_api/database_sql_package_classes.md#class-sqlbyte-deprecated) | 字节，对应仓颉 `Int8` 类型。                                 |
 | [SqlChar <sup>(deprecated)</sup>](./database_sql_package_api/database_sql_package_classes.md#class-sqlchar-deprecated) | 定长字符串，对应仓颉 `String` 类型。                         |
-| [SqlClob <sup>(deprecated)</sup>](./database_sql_package_api/database_sql_package_classes.md#class-sqlclob-deprecated) | 变长超大字符串（RUNE LARGE OBJECT），对应仓颉 `InputStream` 类型。 |
+| [SqlClob <sup>(deprecated)</sup>](./database_sql_package_api/database_sql_package_classes.md#class-sqlclob-deprecated) | 变长超大字符串（CHARACTER LARGE OBJECT），对应仓颉 `InputStream` 类型。 |
 | [SqlDate <sup>(deprecated)</sup>](./database_sql_package_api/database_sql_package_classes.md#class-sqldate-deprecated) | 日期，仅年月日有效，对应仓颉 `DateTime` 类型。               |
 | [SqlDecimal <sup>(deprecated)</sup>](./database_sql_package_api/database_sql_package_classes.md#class-sqldecimal-deprecated) | 高精度数，对应仓颉 `Decimal` 类型。                          |
 | [SqlDouble <sup>(deprecated)</sup>](./database_sql_package_api/database_sql_package_classes.md#class-sqldouble-deprecated) | 双精度数，对应仓颉 `Float64` 类型。    |
@@ -83,8 +83,8 @@ SQL 数据类型和仓颉数据类型对应表如下：
 | [SqlNullableBlob <sup>(deprecated)</sup>](./database_sql_package_api/database_sql_package_classes.md#class-sqlnullableblob-deprecated) | 变长超大二进制字符串（BINARY LARGE OBJECT），对应仓颉 `InputStream` 类型，可为数据库 `Null` 值。 |
 | [SqlNullableBool <sup>(deprecated)</sup>](./database_sql_package_api/database_sql_package_classes.md#class-sqlnullablebool-deprecated) | 布尔类型，对应仓颉 `Bool` 类型，可为数据库 `Null` 值。       |
 | [SqlNullableByte <sup>(deprecated)</sup>](./database_sql_package_api/database_sql_package_classes.md#class-sqlnullablebyte-deprecated) | 字节，对应仓颉 `Int8` 类型，可为数据库 `Null` 值。           |
-| [SqlNullableChar <sup>(deprecated)</sup>](./database_sql_package_api/database_sql_package_classes.md#class-sqlnullablechar-deprecated) | 定长二进制字符串，对应仓颉 `String` 类型，可为数据库 `Null` 值。 |
-| [SqlNullableClob <sup>(deprecated)</sup>](./database_sql_package_api/database_sql_package_classes.md#class-sqlnullableclob-deprecated) | 变长超大字符串（RUNE LARGE OBJECT），对应仓颉 `InputStream` 类型，可为数据库 `Null` 值。 |
+| [SqlNullableChar <sup>(deprecated)</sup>](./database_sql_package_api/database_sql_package_classes.md#class-sqlnullablechar-deprecated) | 定长字符串，对应仓颉 `String` 类型，可为数据库 `Null` 值。 |
+| [SqlNullableClob <sup>(deprecated)</sup>](./database_sql_package_api/database_sql_package_classes.md#class-sqlnullableclob-deprecated) | 变长超大字符串（CHARACTER LARGE OBJECT），对应仓颉 `InputStream` 类型，可为数据库 `Null` 值。 |
 | [SqlNullableDate <sup>(deprecated)</sup>](./database_sql_package_api/database_sql_package_classes.md#class-sqlnullabledate-deprecated) | 日期，仅年月日有效，对应仓颉 `DateTime` 类型，可为数据库 `Null` 值。 |
 | [SqlNullableDecimal <sup>(deprecated)</sup>](./database_sql_package_api/database_sql_package_classes.md#class-sqlnullabledecimal-deprecated) | 高精度数，对应仓颉 `Decimal` 类型，可为数据库 `Null` 值。    |
 | [SqlNullableDouble <sup>(deprecated)</sup>](./database_sql_package_api/database_sql_package_classes.md#class-sqlnullabledouble-deprecated) | 双精度数，对应仓颉 `Float64` 类型，可为数据库 `Null` 值。    |

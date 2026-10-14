@@ -27,6 +27,6 @@ main(): Unit {
     dataSource.setOption(SqlOption.TlsVersion, "TLSv1.2,TLSv1.3")
 
     // 返回一个可用连接
-    dataSource.connect()
+    let conn = dataSource.connect()
 }
 ```

@@ -65,7 +65,7 @@ main() {
 extend Bool <: ToString
 ```
 
-功能：为 [Bool](core_package_intrinsics.md#bool) 类型其扩展 [ToString](core_package_interfaces.md#interface-tostring) 接口，实现向 [String](core_package_structs.md#struct-string) 类型的转换。
+功能：为 [Bool](core_package_intrinsics.md#bool) 类型扩展 [ToString](core_package_interfaces.md#interface-tostring) 接口，实现向 [String](core_package_structs.md#struct-string) 类型的转换。
 
 父类型：
 
@@ -77,7 +77,7 @@ extend Bool <: ToString
 public func toString(): String
 ```
 
-功能：将 [Bool](core_package_intrinsics.md#bool) 值转换为可输出的字符串。
+功能：将 [Bool](core_package_intrinsics.md#bool) 值转换为字符串。
 
 返回值：
 
@@ -377,7 +377,6 @@ main() {
     unsafe { cptr.write(2, 6) }
 
     println("The third element of the array is ${arr[2]} ")
-    // The first element of the array is 1
     unsafe { releaseArrayRawData<Int64>(cptrHandle) }
 }
 ```
@@ -1149,8 +1148,8 @@ main() {
     let maxValue = Float16.Max
     println("Float16.Max 的值: ${maxValue}")
 
-    // 验证它确实是最大值
-    println("Float16.Max 是否为常规数值: ${maxValue.isNormal()}")
+    // 验证它确实是最大值：等于 -Float16.Min
+    println("Float16.Max 是否等于 -Float16.Min: ${maxValue == -Float16.Min}")
 }
 ```
 
@@ -1158,7 +1157,7 @@ main() {
 
 ```text
 Float16.Max 的值: 65504.000000
-Float16.Max 是否为常规数值: true
+Float16.Max 是否等于 -Float16.Min: true
 ```
 
 #### static prop Min
@@ -1180,8 +1179,8 @@ main() {
     let minValue = Float16.Min
     println("Float16.Min 的值: ${minValue}")
 
-    // 验证它确实是最小值
-    println("Float16.Min 是否为常规数值: ${minValue.isNormal()}")
+    // 验证它确实是最小值：等于 -Float16.Max
+    println("Float16.Min 是否等于 -Float16.Max: ${minValue == -Float16.Max}")
 }
 ```
 
@@ -1189,7 +1188,7 @@ main() {
 
 ```text
 Float16.Min 的值: -65504.000000
-Float16.Min 是否为常规数值: true
+Float16.Min 是否等于 -Float16.Max: true
 ```
 
 #### static prop MinDenormal
@@ -1198,7 +1197,7 @@ Float16.Min 是否为常规数值: true
 public static prop MinDenormal: Float16
 ```
 
-功能：获取半精度浮点数的最小次正规数。最小的正的次正规数是以 IEEE 双精度格式表示的最小正数。
+功能：获取半精度浮点数的最小次正规数。
 
 类型：[Float16](./core_package_intrinsics.md#float16)
 
@@ -1209,18 +1208,18 @@ public static prop MinDenormal: Float16
 main() {
     // 测试 Float16.MinDenormal 属性
     let minDenormalValue = Float16.MinDenormal
-    println("Float16.MinDenormal 的值: ${minDenormalValue}")
 
-    // 验证它确实是最小次正规数
-    println("Float16.MinDenormal 是否为常规数值: ${minDenormalValue.isNormal()}")
+    // 验证它确实是最小次正规数：大于 0 且小于最小正规数
+    println("Float16.MinDenormal 是否大于 0: ${minDenormalValue > Float16(0.0)}")
+    println("Float16.MinDenormal 是否小于最小正规数: ${minDenormalValue < Float16.MinNormal}")
 }
 ```
 
 运行结果：
 
 ```text
-Float16.MinDenormal 的值: 0.000000
-Float16.MinDenormal 是否为常规数值: true
+Float16.MinDenormal 是否大于 0: true
+Float16.MinDenormal 是否小于最小正规数: true
 ```
 
 #### static prop MinNormal
@@ -1344,7 +1343,7 @@ public static func min(a: Float16, b: Float16, others: Array<Float16>): Float16
 参数：
 
 - a: [Float16](./core_package_intrinsics.md#float16) - 第一个待比较的数。
-- b: [Float16](./core_package_intrinsics.md#float16) - 第一个待比较的数。
+- b: [Float16](./core_package_intrinsics.md#float16) - 第二个待比较的数。
 - others: [Array](core_package_structs.md#struct-arrayt)\<[Float16](./core_package_intrinsics.md#float16)> - 其他待比较的数。
 
 返回值：
@@ -1679,7 +1678,7 @@ main() {
 extend Float16 <: ToString
 ```
 
-功能：为 [Float16](core_package_intrinsics.md#float16) 类型其扩展 [ToString](core_package_interfaces.md#interface-tostring) 接口，实现向 [String](core_package_structs.md#struct-string) 类型的转换。默认保留 6 位小数。
+功能：为 [Float16](core_package_intrinsics.md#float16) 类型扩展 [ToString](core_package_interfaces.md#interface-tostring) 接口，实现向 [String](core_package_structs.md#struct-string) 类型的转换。默认保留 6 位小数。
 
 父类型：
 
@@ -1691,7 +1690,7 @@ extend Float16 <: ToString
 public func toString(): String
 ```
 
-功能：将 [Float16](core_package_intrinsics.md#float16) 值转换为可输出的字符串。
+功能：将 [Float16](core_package_intrinsics.md#float16) 值转换为字符串。
 
 返回值：
 
@@ -1792,8 +1791,8 @@ main() {
     let maxValue = Float32.Max
     println("Float32.Max 的值: ${maxValue}")
 
-    // 验证它确实是最大值
-    println("Float32.Max 是否为常规数值: ${maxValue.isNormal()}")
+    // 验证它确实是最大值：等于 -Float32.Min
+    println("Float32.Max 是否等于 -Float32.Min: ${maxValue == -Float32.Min}")
 }
 ```
 
@@ -1801,7 +1800,7 @@ main() {
 
 ```text
 Float32.Max 的值: 340282346638528859811704183484516925440.000000
-Float32.Max 是否为常规数值: true
+Float32.Max 是否等于 -Float32.Min: true
 ```
 
 #### static prop Min
@@ -1823,8 +1822,8 @@ main() {
     let minValue = Float32.Min
     println("Float32.Min 的值: ${minValue}")
 
-    // 验证它确实是最小值
-    println("Float32.Min 是否为常规数值: ${minValue.isNormal()}")
+    // 验证它确实是最小值：等于 -Float32.Max
+    println("Float32.Min 是否等于 -Float32.Max: ${minValue == -Float32.Max}")
 }
 ```
 
@@ -1832,7 +1831,7 @@ main() {
 
 ```text
 Float32.Min 的值: -340282346638528859811704183484516925440.000000
-Float32.Min 是否为常规数值: true
+Float32.Min 是否等于 -Float32.Max: true
 ```
 
 #### static prop MinDenormal
@@ -1852,18 +1851,18 @@ public static prop MinDenormal: Float32
 main() {
     // 测试 Float32.MinDenormal 属性
     let minDenormalValue = Float32.MinDenormal
-    println("Float32.MinDenormal 的值: ${minDenormalValue}")
 
-    // 验证它确实是最小次正规数
-    println("Float32.MinDenormal 是否为常规数值: ${minDenormalValue.isNormal()}")
+    // 验证它确实是最小次正规数：大于 0 且小于最小正规数
+    println("Float32.MinDenormal 是否大于 0: ${minDenormalValue > Float32(0.0)}")
+    println("Float32.MinDenormal 是否小于最小正规数: ${minDenormalValue < Float32.MinNormal}")
 }
 ```
 
 运行结果：
 
 ```text
-Float32.MinDenormal 的值: 0.000000
-Float32.MinDenormal 是否为常规数值: false
+Float32.MinDenormal 是否大于 0: true
+Float32.MinDenormal 是否小于最小正规数: true
 ```
 
 #### static prop MinNormal
@@ -2316,7 +2315,7 @@ main() {
 extend Float32 <: ToString
 ```
 
-功能：为 [Float32](core_package_intrinsics.md#float32) 类型其扩展 [ToString](core_package_interfaces.md#interface-tostring) 接口，实现向 [String](core_package_structs.md#struct-string) 类型的转换。默认保留 6 位小数。
+功能：为 [Float32](core_package_intrinsics.md#float32) 类型扩展 [ToString](core_package_interfaces.md#interface-tostring) 接口，实现向 [String](core_package_structs.md#struct-string) 类型的转换。默认保留 6 位小数。
 
 父类型：
 
@@ -2328,7 +2327,7 @@ extend Float32 <: ToString
 public func toString(): String
 ```
 
-功能：将 [Float32](core_package_intrinsics.md#float32) 值转换为可输出的字符串。
+功能：将 [Float32](core_package_intrinsics.md#float32) 值转换为字符串。
 
 返回值：
 
@@ -2429,8 +2428,8 @@ main() {
     let maxValue = Float64.Max
     println("Float64.Max 的值: ${maxValue}")
 
-    // 验证它确实是最大值
-    println("Float64.Max 是否为常规数值: ${maxValue.isNormal()}")
+    // 验证它确实是最大值：等于 -Float64.Min
+    println("Float64.Max 是否等于 -Float64.Min: ${maxValue == -Float64.Min}")
 }
 ```
 
@@ -2438,7 +2437,7 @@ main() {
 
 ```text
 Float64.Max 的值: 179769313486231570814527423731704356798070567525844996598917476803157260780028538760589558632766878171540458953514382464234321326889464182768467546703537516986049910576551282076245490090389328944075868508455133942304583236903222948165808559332123348274797826204144723168738177180919299881250404026184124858368.000000
-Float64.Max 是否为常规数值: true
+Float64.Max 是否等于 -Float64.Min: true
 ```
 
 #### static prop Min
@@ -2460,8 +2459,8 @@ main() {
     let minValue = Float64.Min
     println("Float64.Min 的值: ${minValue}")
 
-    // 验证它确实是最小值
-    println("Float64.Min 是否为常规数值: ${minValue.isNormal()}")
+    // 验证它确实是最小值：等于 -Float64.Max
+    println("Float64.Min 是否等于 -Float64.Max: ${minValue == -Float64.Max}")
 }
 ```
 
@@ -2469,7 +2468,7 @@ main() {
 
 ```text
 Float64.Min 的值: -179769313486231570814527423731704356798070567525844996598917476803157260780028538760589558632766878171540458953514382464234321326889464182768467546703537516986049910576551282076245490090389328944075868508455133942304583236903222948165808559332123348274797826204144723168738177180919299881250404026184124858368.000000
-Float64.Min 是否为常规数值: true
+Float64.Min 是否等于 -Float64.Max: true
 ```
 
 #### static prop MinDenormal
@@ -2489,18 +2488,18 @@ public static prop MinDenormal: Float64
 main() {
     // 测试 Float64.MinDenormal 属性
     let minDenormalValue = Float64.MinDenormal
-    println("Float64.MinDenormal 的值: ${minDenormalValue}")
 
-    // 验证它确实是最小次正规数
-    println("Float64.MinDenormal 是否为常规数值: ${minDenormalValue.isNormal()}")
+    // 验证它确实是最小次正规数：大于 0 且小于最小正规数
+    println("Float64.MinDenormal 是否大于 0: ${minDenormalValue > Float64(0.0)}")
+    println("Float64.MinDenormal 是否小于最小正规数: ${minDenormalValue < Float64.MinNormal}")
 }
 ```
 
 运行结果：
 
 ```text
-Float64.MinDenormal 的值: 0.000000
-Float64.MinDenormal 是否为常规数值: false
+Float64.MinDenormal 是否大于 0: true
+Float64.MinDenormal 是否小于最小正规数: true
 ```
 
 #### static prop MinNormal
@@ -2953,7 +2952,7 @@ main() {
 extend Float64 <: ToString
 ```
 
-功能：为 [Float64](core_package_intrinsics.md#float64) 类型其扩展 [ToString](core_package_interfaces.md#interface-tostring) 接口，实现向 [String](core_package_structs.md#struct-string) 类型的转换。默认保留 6 位小数。
+功能：为 [Float64](core_package_intrinsics.md#float64) 类型扩展 [ToString](core_package_interfaces.md#interface-tostring) 接口，实现向 [String](core_package_structs.md#struct-string) 类型的转换。默认保留 6 位小数。
 
 父类型：
 
@@ -2965,7 +2964,7 @@ extend Float64 <: ToString
 public func toString(): String
 ```
 
-功能：将 [Float64](core_package_intrinsics.md#float64) 值转换为可输出的字符串。
+功能：将 [Float64](core_package_intrinsics.md#float64) 值转换为字符串。
 
 返回值：
 
@@ -3276,7 +3275,7 @@ extend Int16 <: ToString
 public func toString(): String
 ```
 
-功能：将 [Int16](core_package_intrinsics.md#int16) 值转换为可输出的字符串。
+功能：将 [Int16](core_package_intrinsics.md#int16) 值转换为字符串。
 
 返回值：
 
@@ -3581,7 +3580,7 @@ extend Int32 <: ToString
 public func toString(): String
 ```
 
-功能：将 [Int32](core_package_intrinsics.md#int32) 值转换为可输出的字符串。
+功能：将 [Int32](core_package_intrinsics.md#int32) 值转换为字符串。
 
 返回值：
 
@@ -3720,7 +3719,7 @@ public func compare(other: Int64): Ordering
 
 返回值：
 
-- [Ordering](core_package_enums.md#enum-ordering) - 如果大于，返回 [Ordering](core_package_enums.md#enum-ordering).GT；如果等于，返回 [Ordering](core_package_enums.md#enum-ordering).EQ 如果小于，返回 [Ordering](core_package_enums.md#enum-ordering).LT。
+- [Ordering](core_package_enums.md#enum-ordering) - 如果大于，返回 [Ordering](core_package_enums.md#enum-ordering).GT；如果等于，返回 [Ordering](core_package_enums.md#enum-ordering).EQ；如果小于，返回 [Ordering](core_package_enums.md#enum-ordering).LT。
 
 示例：
 
@@ -3889,7 +3888,7 @@ extend Int64 <: ToString
 public func toString(): String
 ```
 
-功能：将 [Int64](core_package_intrinsics.md#int64) 值转换为可输出的字符串。
+功能：将 [Int64](core_package_intrinsics.md#int64) 值转换为字符串。
 
 返回值：
 
@@ -4230,7 +4229,7 @@ extend Int8 <: ToString
 public func toString(): String
 ```
 
-功能：将 [Int8](core_package_intrinsics.md#int8) 值转换为可输出的字符串。
+功能：将 [Int8](core_package_intrinsics.md#int8) 值转换为字符串。
 
 返回值：
 
@@ -4571,7 +4570,7 @@ extend IntNative <: ToString
 public func toString(): String
 ```
 
-功能：将 [IntNative](core_package_intrinsics.md#intnative) 值转换为可输出的字符串。
+功能：将 [IntNative](core_package_intrinsics.md#intnative) 值转换为字符串。
 
 返回值：
 
@@ -4630,9 +4629,9 @@ IntNative 最小值: -9223372036854775808
 
 ## Rune
 
-功能：表示 unicode 字符集中的字符。
+功能：表示 Unicode 字符集中的字符。
 
-表示范围为 `Unicode scalar value`，即从 `\u{0000}` 到 `\u{D7FF}`，以及从 `\u{E000}` 到 `\u{10FFF}` 的字符。
+表示范围为 `Unicode scalar value`，即从 `\u{0000}` 到 `\u{D7FF}`，以及从 `\u{E000}` 到 `\u{10FFFF}` 的字符。
 
 ### extend Rune
 
@@ -5535,7 +5534,7 @@ extend Rune <: ToString
 public func toString(): String
 ```
 
-功能：将 [Rune](core_package_intrinsics.md#rune) 值转换为可输出的字符串。
+功能：将 [Rune](core_package_intrinsics.md#rune) 值转换为字符串。
 
 返回值：
 
@@ -5838,7 +5837,7 @@ extend UInt16 <: ToString
 public func toString(): String
 ```
 
-功能：将 [UInt16](core_package_intrinsics.md#uint16) 值转换为可输出的字符串。
+功能：将 [UInt16](core_package_intrinsics.md#uint16) 值转换为字符串。
 
 返回值：
 
@@ -6031,7 +6030,7 @@ main() {
 public func position(): Int64
 ```
 
-功能：获取当前 [UInt32](core_package_intrinsics.md#uint32) 值的位置信息，即将该 [UInt32](core_package_intrinsics.md#uint32) 转换为 [UInt64](core_package_intrinsics.md#uint64) 值。
+功能：获取当前 [UInt32](core_package_intrinsics.md#uint32) 值的位置信息，即将该 [UInt32](core_package_intrinsics.md#uint32) 转换为 [Int64](core_package_intrinsics.md#int64) 值。
 
 返回值：
 
@@ -6112,7 +6111,7 @@ extend UInt32 <: ToString
 public func toString(): String
 ```
 
-功能：将 [UInt32](core_package_intrinsics.md#uint32) 值转换为可输出的字符串。
+功能：将 [UInt32](core_package_intrinsics.md#uint32) 值转换为字符串。
 
 返回值：
 
@@ -6375,7 +6374,7 @@ extend UInt64 <: ToString
 public func toString(): String
 ```
 
-功能：将 [UInt64](core_package_intrinsics.md#uint64) 值转换为可输出的字符串。
+功能：将 [UInt64](core_package_intrinsics.md#uint64) 值转换为字符串。
 
 返回值：
 
@@ -6638,7 +6637,7 @@ extend UInt8 <: ToString
 public func toString(): String
 ```
 
-功能：将 [UInt8](core_package_intrinsics.md#uint8) 值转换为可输出的字符串。
+功能：将 [UInt8](core_package_intrinsics.md#uint8) 值转换为字符串。
 
 返回值：
 
@@ -6770,7 +6769,7 @@ main() {
 Ordering.LT
 ```
 
-### extend UIntNative <: Countable
+### extend UIntNative <: Countable\<UIntNative>
 
 ```cangjie
 extend UIntNative <: Countable<UIntNative>
@@ -6901,7 +6900,7 @@ extend UIntNative <: ToString
 public func toString(): String
 ```
 
-功能：将 [UIntNative](core_package_intrinsics.md#uintnative) 值转换为可输出的字符串。
+功能：将 [UIntNative](core_package_intrinsics.md#uintnative) 值转换为字符串。
 
 返回值：
 
@@ -6991,7 +6990,7 @@ main() {
 extend Unit <: ToString
 ```
 
-功能：为 [Unit](core_package_intrinsics.md#unit) 类型其扩展 [ToString](core_package_interfaces.md#interface-tostring) 接口，实现向 [String](core_package_structs.md#struct-string) 类型的转换。
+功能：为 [Unit](core_package_intrinsics.md#unit) 类型扩展 [ToString](core_package_interfaces.md#interface-tostring) 接口，实现向 [String](core_package_structs.md#struct-string) 类型的转换。
 
 [Unit](core_package_intrinsics.md#unit) 的字符串表示是 "()"。
 
@@ -7005,7 +7004,7 @@ extend Unit <: ToString
 public func toString(): String
 ```
 
-功能：将 [Unit](core_package_intrinsics.md#unit) 值转换为可输出的字符串。
+功能：将 [Unit](core_package_intrinsics.md#unit) 值转换为字符串。
 
 返回值：
 

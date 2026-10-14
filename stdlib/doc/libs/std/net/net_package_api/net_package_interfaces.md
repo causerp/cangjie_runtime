@@ -93,7 +93,7 @@ func receiveFrom(buffer: Array<Byte>): (SocketAddress, Int64)
 
 参数：
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - 存储报文内容的缓存空间，`buffer` 应当有一个合适的大小，否则可能导致收取报文时报文被截断，并且返回的报文大小值大于 `buffer` 的大小。
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - 存储报文内容的缓冲区空间，`buffer` 应当有一个合适的大小，否则可能导致收取报文时报文被截断，并且返回的报文大小值大于 `buffer` 的大小。
 
 返回值：
 
@@ -110,7 +110,7 @@ func receiveFrom(buffer: Array<Byte>): (SocketAddress, Int64)
 func sendTo(address: SocketAddress, payload: Array<Byte>): Unit
 ```
 
-功能：发送报文到指定的远端地址，当对端无足够缓存时，此操作可能被阻塞，报文可能被丢弃。
+功能：发送报文到指定的远端地址，当对端缓冲区不足时，此操作可能被阻塞，报文可能被丢弃。
 
 参数：
 
@@ -215,7 +215,7 @@ public interface StreamingSocket <: IOStream & Resource & ToString {
 功能：双工流模式下的运行的 `Socket`，可被读写。
 
 [StreamingSocket](net_package_interfaces.md#interface-streamingsocket) 可以被绑定 (`bind`) 和连接 (`connect`)，用户可以通过属性设置绑定和连接的远端和本地地址。
-[StreamingSocket](net_package_interfaces.md#interface-streamingsocket) 可以有序分包传输字节流。我们会使用一段缓存空间存储读写的字节流。读取接口 (`read()`) 默认在无数据到来时阻塞式等待，直到下一次数据到达或超时。写操作 (`write()`) 会写入缓存中的数据并在后续被发出，如果缓存不足，或者写入速度快于转发速度，写操作将会阻塞等待缓存空闲，或超时。
+[StreamingSocket](net_package_interfaces.md#interface-streamingsocket) 可以有序分包传输字节流。我们会使用一段缓冲区空间存储读写的字节流。读取接口 (`read()`) 默认在无数据到来时阻塞式等待，直到下一次数据到达或超时。写操作 (`write()`) 会写入缓冲区中的数据并在后续被发出，如果缓冲区不足，或者写入速度快于转发速度，写操作将会阻塞等待缓冲区空闲，或超时。
 读写字节始终保持有序，但不保证传输过程中的分包策略及大小与发包时一致。例如：一端发送 10 字节报文后，又发送了 15 字节报文，对端可能分别收到 10 字节 和 15 字节报文，也可能一次性收到 25 字节的一个报文。
 当收到一段异常报文时，将返回报文长度为 -1 。
 

@@ -9,11 +9,11 @@ public class ConsoleReader <: InputStream {}
 功能：提供从控制台读出数据并转换成字符或字符串的功能。
 
 该类型无法构造实例，只能通过 [getStdIn()](./env_package_funcs.md#func-getstdin) 获取实例。
-读操作是同步的，内部设有缓存区来保存控制台输入的内容，当到达控制台输入流的结尾时，控制台读取函数将返回`None`。
+读操作是同步的，内部设有缓冲区来保存控制台输入的内容，当到达控制台输入流的结尾时，控制台读取函数将返回 `None`。
 
 > **说明：**
 >
-> [ConsoleReader](./env_package_classes.md#class-consolereader) 只有一个实例，所有方法共享同一个缓存区，相关`read`方法返回`None`的情形有：
+> [ConsoleReader](./env_package_classes.md#class-consolereader) 只有一个实例，所有方法共享同一个缓冲区，相关 `read` 方法返回 `None` 的情形有：
 >
 > - 将标准输入重定向到文件时，读取到文件结尾 EOF。
 > - Linux 环境，按下 `Ctrl+D`。
@@ -37,7 +37,7 @@ public func read(): ?Rune
 
 异常：
 
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当输入不符合`UTF-8`编码的字符串时，抛此异常。
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当输入不符合 `UTF-8` 编码的字符串时，抛此异常。
 
 示例：
 
@@ -116,7 +116,7 @@ public func readln(): ?String
 
 功能：从标准输入中读取一行字符串。
 
-读取到字符，返回 ?[String](../../core/core_package_api/core_package_structs.md#struct-string)，结果不包含末尾换行符。该接口不会抛出异常，即使输入不符合`UTF-8`编码的字符串，也会构造出一个 [String](../../core/core_package_api/core_package_structs.md#struct-string) 并返回，其行为等同于 [String](../../core/core_package_api/core_package_structs.md#struct-string).[fromUtf8Uncheck](../../core/core_package_api/core_package_structs.md#static-func-fromutf8uncheckedarrayuint8)([Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)>)。
+读取到字符，返回 ?[String](../../core/core_package_api/core_package_structs.md#struct-string)，结果不包含末尾换行符。该接口不会抛出异常，即使输入不符合 `UTF-8` 编码的字符串，也会构造出一个 [String](../../core/core_package_api/core_package_structs.md#struct-string) 并返回，其行为等同于 [String](../../core/core_package_api/core_package_structs.md#struct-string).[fromUtf8Uncheck](../../core/core_package_api/core_package_structs.md#static-func-fromutf8uncheckedarrayuint8)([Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)>)。
 
 返回值：
 
@@ -205,9 +205,9 @@ abcde输入的是: Some(abcde)
 public func readUntil(predicate: (Rune) -> Bool): ?String
 ```
 
-功能：从标准输入中读取数据直到读取到的字符满足`predicate`条件结束。
+功能：从标准输入中读取数据直到读取到的字符满足 `predicate` 条件结束。
 
-满足 predicate: (Rune) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) 条件的字符包含在结果中，读取失败时会返回`None`。
+满足 predicate: (Rune) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) 条件的字符包含在结果中，读取失败时会返回 `None`。
 
 参数：
 
@@ -248,7 +248,7 @@ public func readUntil(ch: Rune): ?String
 
 功能：从标准输入中读取数据直到读取到字符 `ch` 结束。
 
-`ch`包含在结果中，如果读取到文件结束符 EOF，将返回读取到的所有信息，读取失败时会返回 `None`。
+`ch` 包含在结果中，如果读取到文件结束符 EOF，将返回读取到的所有信息，读取失败时会返回 `None`。
 
 参数：
 

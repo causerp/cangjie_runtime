@@ -972,7 +972,7 @@ public prop parameters: ReadOnlyList<ParameterInfo>
 > **注意：**
 >
 > - 不支持平台：macOS、iOS。
-> - 不保证参数顺序，可根据 `ParameterInfo`的 `index` 属性确定参数实际位置。
+> - 不保证参数顺序，可根据 `ParameterInfo` 的 `index` 属性确定参数实际位置。
 
 类型：[ReadOnlyList](../../collection/collection_package_api/collection_package_interface.md#interface-readonlylistt)\<[ParameterInfo](reflect_package_classes.md#class-parameterinfo)>
 
@@ -2322,6 +2322,7 @@ false
 ```
 
 <!--DelEnd-->
+<!--Del-->
 ## class EnumTypeInfo
 
 ```cangjie
@@ -2691,6 +2692,8 @@ test.E.M2(Int64)
 test.E.M2(Int64, Int64)
 ```
 
+<!--DelEnd-->
+<!--Del-->
 ## class FunctionTypeInfo
 
 ```cangjie
@@ -2935,6 +2938,8 @@ main(): Unit {
 ```text
 3
 ```
+
+<!--DelEnd-->
 
 ## class GenericTypeInfo
 
@@ -3205,7 +3210,7 @@ public prop parameters: ReadOnlyList<ParameterInfo>
 > **注意：**
 >
 > - 不支持平台：macOS、iOS。
-> - 不保证参数顺序，可根据 `ParameterInfo`的 `index` 属性确定参数实际位置。
+> - 不保证参数顺序，可根据 `ParameterInfo` 的 `index` 属性确定参数实际位置。
 
 类型：[ReadOnlyList](../../collection/collection_package_api/collection_package_interface.md#interface-readonlylistt)\<[ParameterInfo](reflect_package_classes.md#class-parameterinfo)>
 
@@ -4314,7 +4319,7 @@ public func isMutable(): Bool
 
 返回值：
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该全局变量可被修改则返回 `true` ，否则返回 `false`。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该全局变量可被修改则返回 `true`，否则返回 `false`。
 
 示例：
 
@@ -4863,7 +4868,7 @@ public prop parameters: ReadOnlyList<ParameterInfo>
 
 > **说明：**
 >
-> 不保证参数顺序，可根据 `ParameterInfo`的 `index` 属性确定参数实际位置。
+> 不保证参数顺序，可根据 `ParameterInfo` 的 `index` 属性确定参数实际位置。
 
 类型：[ReadOnlyList](../../collection/collection_package_api/collection_package_interface.md#interface-readonlylistt)\<[ParameterInfo](reflect_package_classes.md#class-parameterinfo)>
 
@@ -6338,7 +6343,7 @@ public func isMutable(): Bool
 
 返回值：
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该实例成员属性信息所对应的实例成员属性可被修改则返回 `true` ，否则返回 `false`。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该实例成员属性信息所对应的实例成员属性可被修改则返回 `true`，否则返回 `false`。
 
 示例：
 
@@ -7231,7 +7236,7 @@ public func isMutable(): Bool
 
 返回值：
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该实例成员变量信息所对应的实例成员变量可被修改则返回 `true` ，否则返回 `false`。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该实例成员变量信息所对应的实例成员变量可被修改则返回 `true`，否则返回 `false`。
 
 示例：
 
@@ -9820,7 +9825,7 @@ public prop parameters: ReadOnlyList<ParameterInfo>
 > **注意：**
 >
 > - 不支持平台：macOS、iOS。
-> - 不保证参数顺序，可根据 `ParameterInfo`的 `index` 属性确定参数实际位置。
+> - 不保证参数顺序，可根据 `ParameterInfo` 的 `index` 属性确定参数实际位置。
 
 类型：[ReadOnlyList](../../collection/collection_package_api/collection_package_interface.md#interface-readonlylistt)\<[ParameterInfo](reflect_package_classes.md#class-parameterinfo)>
 
@@ -11069,7 +11074,7 @@ public func isMutable(): Bool
 
 返回值：
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该静态成员属性信息所对应的静态成员属性可被修改则返回 `true` ，否则返回 `false`。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该静态成员属性信息所对应的静态成员属性可被修改则返回 `true`，否则返回 `false`。
 
 > **注意：**
 >
@@ -11887,7 +11892,7 @@ public func isMutable(): Bool
 
 返回值：
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该静态成员变量信息所对应的静态成员变量可被修改则返回 `true` ，否则返回 `false`。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该静态成员变量信息所对应的静态成员变量可被修改则返回 `true`，否则返回 `false`。
 
 示例：
 
@@ -13004,7 +13009,7 @@ sealed abstract class TypeInfo <: Equatable<TypeInfo> & Hashable & ToString
 
 > **说明：**
 >
-> 类型的限定名称为`(module_name/)?(default|package_name)(.package_name)*.(type_name)`。
+> 类型的限定名称为 `(module_name/)?(default|package_name)(.package_name)*.(type_name)`。
 
 父类型：
 

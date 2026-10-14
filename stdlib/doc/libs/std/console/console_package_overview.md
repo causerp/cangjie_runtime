@@ -1,4 +1,4 @@
-# std.console<sup>(deprecated)</sup>
+# std.console <sup>(deprecated)</sup>
 
 > **注意：**
 >

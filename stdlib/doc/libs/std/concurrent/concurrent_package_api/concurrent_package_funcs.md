@@ -12,7 +12,7 @@ public func threadScope<T, R>(fn: (ThreadGroup<T>) -> R): R
 
 如果 `fn` 正常返回，`threadScope` 会先等待并消费该线程组中所有尚未消费的任务结果，然后返回 `fn` 的返回值。在 `fn` 中未被消费的任务返回值会在作用域等待期间被消费并丢弃。如果任何未消费的任务抛出 [Exception](../../core/core_package_api/core_package_exceptions.md#class-exception) 或 [Error](../../core/core_package_api/core_package_exceptions.md#class-error)，线程组的迭代器会在 `threadScope` 等待期间重新抛出该失败。只会重新抛出第一个 `Exception` 或 `Error`，其余失败会被静默丢弃。
 
-如果 `fn` 抛出异常，或者在消费已启动任务的结果时抛出失败，且该失败未在 `fn` 内被处理，则`threadScope` 会向所有已启动任务发送取消请求，清空尚未处理的任务结果，并重新抛出原始失败。同样，只会重新抛出第一个 `Exception` 或 `Error`，其余失败会被静默丢弃。
+如果 `fn` 抛出异常，或者在消费已启动任务的结果时抛出失败，且该失败未在 `fn` 内被处理，则 `threadScope` 会向所有已启动任务发送取消请求，清空尚未处理的任务结果，并重新抛出原始失败。同样，只会重新抛出第一个 `Exception` 或 `Error`，其余失败会被静默丢弃。
 
 > **注意：**
 >
@@ -45,10 +45,9 @@ import std.concurrent.*
 
 main() {
     threadScope<Unit, Unit> {
-        group =>
-            group.launch {
-                println("task finished")
-            }
+        group => group.launch {
+            println("task finished")
+        }
     }
 
     println("scope finished")

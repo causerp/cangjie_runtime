@@ -10,14 +10,10 @@ main(): Unit {
     const size = 2
 
     // 创建两个 ByteBuffer 并分别写入数据
-    let streams = Array<InputStream>(size, {_ => ByteBuffer()})
+    let streams = Array<ByteBuffer>(size, {_ => ByteBuffer()})
     for (i in 0..size) {
-        match (streams[i]) {
-            case v: OutputStream =>
-                let str = "now ${i}"
-                v.write(str.toArray())
-            case _ => throw Exception()
-        }
+        let str = "now ${i}"
+        streams[i].write(str.toArray())
     }
 
     // 将两个流绑定到 ChainedInputStream，读取时按绑定顺序依次进行

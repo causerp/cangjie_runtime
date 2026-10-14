@@ -1269,7 +1269,7 @@ main() {
     let num1 = map.entryView(3, {view => view.value = 7})
     println(num1)
 
-    /* 当前映射包含 key 为 2 的键值对，对 entryView.value 设置新值 6，等价更新 key 为 1 的值为 6 */
+    /* 当前映射包含 key 为 1 的键值对，对 entryView.value 设置新值 6，等价更新 key 为 1 的值为 6 */
     let num2 = map.entryView(1, {view => view.value = 6})
     println(num2)
 
@@ -1835,11 +1835,11 @@ Some(0)
 public operator func [](key: K): V
 ```
 
-功能：运算符重载集合，如果键存在，返回键对应的值；如果不存在，抛出异常。
+功能：运算符重载 get 方法，如果键存在，返回键对应的值；如果不存在，抛出异常。
 
 参数：
 
-- key: K - 传递值进行判断。
+- key: K - 传入的键。
 
 返回值：
 
@@ -1847,7 +1847,7 @@ public operator func [](key: K): V
 
 异常：
 
-- [NoneValueException](../../core/core_package_api/core_package_exceptions.md#class-nonevalueexception) - 关联中不存在键 key。
+- [NoneValueException](../../core/core_package_api/core_package_exceptions.md#class-nonevalueexception) - 如果该 [ConcurrentHashMap](collection_concurrent_class.md#class-concurrenthashmapk-v-where-k--hashable--equatablek) 不存在该键，抛出异常。
 
 示例：
 
@@ -1886,12 +1886,12 @@ Key 1对应的值: One
 public operator func [](key: K, value!: V): Unit
 ```
 
-功能：运算符重载集合，如果键 key 存在，新 value 覆盖旧 value；如果键不存在，添加此键值对。
+功能：运算符重载 add 方法，如果键 key 存在，新 value 覆盖旧 value；如果键不存在，添加此键值对。
 
 参数：
 
-- key: K - 传递值进行判断。
-- value!: V - 传递要设置的值。
+- key: K - 传入的键。
+- value!: V - 要设置的值。
 
 示例：
 
