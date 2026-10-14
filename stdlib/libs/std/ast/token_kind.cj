@@ -844,6 +844,14 @@ public enum TokenKind <: ToString {
                 case FEATURES => true
                 case _ => false
             }
+            case EXCLAVE => match (right) {
+                case EXCLAVE => true
+                case _ => false
+            }
+            case DEMODE => match (right) {
+                case DEMODE => true
+                case _ => false
+            }
             case ILLEGAL => match (right) {
                 case ILLEGAL => true
                 case _ => false
@@ -1023,6 +1031,8 @@ public enum TokenKind <: ToString {
             case RESUME => return "RESUME"
             case THROWING => return "THROWING"
             case FEATURES => return "FEATURES"
+            case EXCLAVE => return "EXCLAVE"
+            case DEMODE => return "DEMODE"
             case ILLEGAL => return "ILLEGAL"
             case _ => return "INVALID_TOKENKIND"
         }

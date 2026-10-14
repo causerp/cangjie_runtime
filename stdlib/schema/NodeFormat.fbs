@@ -56,7 +56,6 @@ union AnyExpr {
   INC_OR_DEC_EXPR: IncOrDecExpr,
   SPAWN_EXPR: SpawnExpr,
   SYNCHRONIZED_EXPR: SynchronizedExpr,
-  EXCLAVE_EXPR: ExclaveExpr,
   LET_PATTERN_DESTRUCTOR: LetPatternDestructor,
   TOKEN_PART: TokenPart,
   QUOTE_EXPR: QuoteExpr,
@@ -68,6 +67,7 @@ union AnyExpr {
   ARRAY_EXPR: ArrayExpr,
   PERFORM_EXPR: PerformExpr,
   RESUME_EXPR: ResumeExpr,
+  EXCLAVE_EXPR: ExclaveExpr,
 }
 
 table MatchCase {

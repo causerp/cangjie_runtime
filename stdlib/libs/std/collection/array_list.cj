@@ -38,6 +38,16 @@ class ArrayListIterator<T> <: Iterator<T> {
         myData = data
         initVersion = data.myVersion
     }
+    @Frozen
+    exclave init(this @local!, data: ArrayList<T> @local!) {
+        myData = data
+        initVersion = data.myVersion
+    }
+    @Frozen
+    exclave init(this @local?, data: ArrayList<T> @local?) {
+        myData = data
+        initVersion = data.myVersion
+    }
 
     /**
      * Returns the next element in the iteration.
@@ -61,6 +71,38 @@ class ArrayListIterator<T> <: Iterator<T> {
             return v
         } else {
             return None
+        }
+    }
+    @Frozen
+    @OverflowWrapping
+    public exclave func next(this @local!): ?T @local! {
+        if (myData.myVersion != initVersion) {
+            throw ConcurrentModificationException()
+        }
+
+        if (this.myPosition < myData.size) {
+            let v: Option<T> @local! = Option<T>.Some(unsafe { myData.myData.getUnchecked(myPosition) })
+            this.myPosition++
+            return v
+        } else {
+            let n: Option<T> @local! = Option<T>.None
+            return n
+        }
+    }
+    @Frozen
+    @OverflowWrapping
+    public exclave func next(this @local?): ?T @local? {
+        if (myData.myVersion != initVersion) {
+            throw ConcurrentModificationException()
+        }
+
+        if (this.myPosition < myData.size) {
+            let v: Option<T> @local? = Option<T>.Some(myData.myData[myPosition])
+            this.myPosition++
+            return v
+        } else {
+            let n: Option<T> @local? = Option<T>.None
+            return n
         }
     }
 }
@@ -1017,6 +1059,14 @@ public class ArrayList<T> <: List<T> {
     @Frozen
     public func iterator(): Iterator<T> {
         return ArrayListIterator<T>(this)
+    }
+    @Frozen
+    public exclave func iterator(this @local!): Iterator<T> @local! {
+        return ArrayListIterator<T>(this) @local!
+    }
+    @Frozen
+    public exclave func iterator(this @local?): Iterator<T> @local? {
+        return ArrayListIterator<T>(this) @local?
     }
 
     /**

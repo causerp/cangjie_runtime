@@ -16,10 +16,10 @@ public interface Iterable<E> {
     func iterator(): Iterator<E>
 
     func iterator(this @local!): Iterator<E> @local! {
-        throw Exception()
+        throw UnImplementedException("Current Type does not implement 'iterator' method for its @local! instance")
     }
     func iterator(this @local?): Iterator<E> @local? {
-        throw Exception()
+        throw UnImplementedException("Current Type does not implement 'iterator' method for its @local? instance")
     }
 }
 
@@ -29,10 +29,10 @@ public interface Iterable<E> {
 public abstract class Iterator<T> <: Iterable<T> {
     public func next(): Option<T>
     public open func next(this @local!): ?T @local! {
-        throw Exception()
+        throw UnImplementedException("Current Type does not implement 'next' method for its @local! instance")
     }
     public open func next(this @local?): ?T @local? {
-        throw Exception()
+        throw UnImplementedException("Current Type does not implement 'next' method for its @local? instance")
     }
 
     @Frozen

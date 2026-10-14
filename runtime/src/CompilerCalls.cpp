@@ -353,8 +353,10 @@ static void MaybeLocalWriteRef(ObjectPtr obj, RefField<false>* field, ObjectPtr 
     }
 
     if (Heap::IsHeapAddress(obj)) {
-        if (UNLIKELY(value != nullptr && !Heap::IsHeapAddress(value))) {
-            LOG(RTLOG_FATAL, "heap object must not reference non-heap object: obj %p, value %p", obj, value);
+        // Heap may legally reference immortal/static data (e.g. CJStringPool
+        // backing String literals). Only true local-region objects are forbidden
+        if (UNLIKELY(value != nullptr && IsLocalObject(value))) {
+            LOG(RTLOG_FATAL, "heap object must not reference local object: obj %p, value %p", obj, value);
         }
         barrier.WriteReference(obj, *field, value);
         return;

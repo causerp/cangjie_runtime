@@ -203,6 +203,18 @@ public class ByteBuffer <: IOStream & Seekable {
             _length = bufSize
         }
     }
+    @OverflowWrapping
+    public exclave func write(this @local!, buffer: Array<Byte> @local!): Unit {
+        let bufSize = buffer.size
+        reserve(bufSize)
+        if (_length >= 0) {
+            buffer.copyTo(myData, 0, start + _length, bufSize)
+            _length += bufSize
+        } else {
+            buffer.copyTo(myData, 0, start, bufSize)
+            _length = bufSize
+        }
+    }
 
     /**
      * Write a byte to the ByteBuffer.

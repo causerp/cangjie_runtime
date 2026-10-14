@@ -57,10 +57,10 @@ public enum OpenMode <: ToString & Equatable<OpenMode> {
 // FD numbers are indexes into the FD table.
 // Unix/Linux use the Int type for handle, while Windows use HANDLE type.
 // HANDLE is typedef'd void *, which is really just a 32-bit index, only for more opaque.
-public struct FileDescriptor {
+public struct FileDescriptor <: Copyable {
     var _fileHandle: IntNative = InvalidHandle
 
-    public prop fileHandle: IntNative {
+    public prop fileHandle: IntNative @local? {
         get() {
             _fileHandle
         }
@@ -70,12 +70,12 @@ public struct FileDescriptor {
 public class File <: Resource & IOStream & Seekable {
     private var _fileInfo: FileInfo
     private var _openMode: OpenMode
-    var _fileDescriptor: FileDescriptor = FileDescriptor()
+    var _fileDescriptor: FileDescriptor
     private var _canRead: Bool = true
     private var _canWrite: Bool = true
     private var _canSeek: Bool = true
 
-    ~init() {
+    ~init(this @local?) {
         if (isHandleValid(_fileDescriptor._fileHandle)) {
             unsafe { CJ_FS_CloseFile(_fileDescriptor._fileHandle) }
             _fileDescriptor._fileHandle = InvalidHandle
@@ -103,6 +103,21 @@ public class File <: Resource & IOStream & Seekable {
             throw FSException("The input path 'parent' `${parent}` does not exist.")
         }
         // Because `filePath` may not exist before `openFile` is executed, `FileInfo` does not check whether the path exists.
+        _fileDescriptor = FileDescriptor()
+        _fileInfo = FileInfo(filePath, false)
+        _openMode = mode
+        openFile()
+    }
+
+    public exclave init(this @local!, path: String @local!, mode: OpenMode @local!) {
+        PathValidator.throwIfEmptyOrContainsNullByte("path", path, true)
+
+        let filePath: Path @local! = Path(path) @local!
+        let parent = filePath.parent
+        if (!parent.isEmpty() && !exists(parent)) {
+            throw FSException("The input path 'parent' `${parent}` does not exist.")
+        }
+        _fileDescriptor = FileDescriptor()
         _fileInfo = FileInfo(filePath, false)
         _openMode = mode
         openFile()
@@ -129,6 +144,7 @@ public class File <: Resource & IOStream & Seekable {
             throw FSException("Invalid File Handle ${fd}.")
         }
         let filePath: Path = Path(path)
+        _fileDescriptor = FileDescriptor()
         _fileInfo = FileInfo(filePath, false)
         _openMode = mode
         fileHandle = fd
@@ -154,8 +170,22 @@ public class File <: Resource & IOStream & Seekable {
             _fileDescriptor._fileHandle = v
         }
     }
+    mut prop fileHandle: FileHandle @local! {
+        get() {
+            exclave { _fileDescriptor._fileHandle }
+        }
+        set(v) {
+            exclave { _fileDescriptor._fileHandle = v }
+        }
+    }
 
     public prop length: Int64 {
+        get() {
+            getsize()
+        }
+    }
+
+    public prop length: Int64 @local! {
         get() {
             getsize()
         }
@@ -210,6 +240,19 @@ public class File <: Resource & IOStream & Seekable {
         }
         return readBytes
     }
+    public exclave func read(this @local!, buffer: Array<Byte> @local!): Int64 {
+        checkCanRead()
+        if (buffer.size == 0) {
+            throw IllegalArgumentException("The buffer is empty.")
+        }
+        var readBytes: Int64 = directRead(buffer)
+        if (readBytes == 0) {
+            return 0
+        } else if (readBytes < 0) {
+            throw FSException("The file `${_fileInfo.path}` read error return ${readBytes} bytes.")
+        }
+        return readBytes
+    }
 
     /**
      * @throws FSException if system failed to write the file
@@ -230,6 +273,7 @@ public class File <: Resource & IOStream & Seekable {
     }
 
     public func flush(): Unit {}
+    public func flush(this @local?): Unit {}
 
     /**
      * @throws FSException if file can not seek
@@ -252,7 +296,23 @@ public class File <: Resource & IOStream & Seekable {
         return val
     }
 
-    private func canSeek(): Bool {
+    public func seek(this @local!, sp: SeekPosition): Int64 {
+        if (!canSeek()) {
+            throw FSException("The file `${_fileInfo.path}` can not seek.")
+        }
+        var (whence, offset): (Int32, Int64) = match (sp) {
+            case Current(cOffset) => (SEEK_CUR, cOffset)
+            case Begin(bOffset) => (SEEK_SET, bOffset)
+            case End(eOffset) => (SEEK_END, eOffset)
+        }
+        var val: Int64 = unsafe { CJ_FS_Seek(_fileDescriptor._fileHandle, whence, offset) }
+        if (val < 0) {
+            throw FSException("Failed to seek file `${_fileInfo.path}`: errno is ${0 - val}.")
+        }
+        return val
+    }
+
+    private func canSeek(this @local?): Bool {
         if (isClosed()) {
             return false
         }
@@ -289,8 +349,24 @@ public class File <: Resource & IOStream & Seekable {
         fileHandle = InvalidHandle
     }
 
+    public exclave func close(this @local!): Unit {
+        if (!isHandleValid(fileHandle)) {
+            return
+        }
+        flush()
+
+        /* Call the close() in the C Language */
+        if (unsafe { CJ_FS_CloseFile(fileHandle) } < 0) {
+            throw FSException("Failed to close file `${_fileInfo.path}`.")
+        }
+        fileHandle = InvalidHandle
+    }
+
     public func isClosed(): Bool {
         return !isHandleValid(fileHandle)
+    }
+    public func isClosed(this @local?): Bool {
+        return !isHandleValid(_fileDescriptor._fileHandle)
     }
 
     /**
@@ -384,10 +460,11 @@ public class File <: Resource & IOStream & Seekable {
             file.close()
         }
     }
-    public static exclave func readFromLocal(path: String): Array<Byte> @local! {
-        var file = File(path, Read)
+
+    public static exclave func readFrom(path: String @local!): Array<Byte> @local! {
+        var file = File(path, Read) @local!
         try {
-            readToEndLocal(file)
+            readToEnd(file)
         } finally {
             file.close()
         }
@@ -456,7 +533,7 @@ public class File <: Resource & IOStream & Seekable {
      * @throws FSException if file already exists when operation is create
      * @throws FSException if path is invalid
      */
-    private func openFile(): Unit {
+    private func openFile(this @local?): Unit {
         let isExists = exists(_fileInfo.path)
         let (r, w, s, openMode): (Bool, Bool, Bool, Int32) = match ((_openMode, isExists)) {
             case (Read, false)        => throw FSException("The file `${_fileInfo.path}` does not exist or permission denied!")
@@ -478,7 +555,7 @@ public class File <: Resource & IOStream & Seekable {
             fsInfoCp = CJ_FS_OpenFile(cPath, openMode)
             LibC.free(cPath)
             if (fsInfoCp.isNull()) {
-                throw FSException("Failed to open the file `${pathStr}`.")
+                throw FSException("Failed to open the file `${_fileInfo.path}`.")
             }
             fsInfo = fsInfoCp.read()
             LibC.free(fsInfoCp)
@@ -490,7 +567,7 @@ public class File <: Resource & IOStream & Seekable {
             _fileDescriptor._fileHandle = fsInfo.fd
         }
         if (!isHandleValid(_fileDescriptor._fileHandle)) {
-            var errMsg = "Failed to open the file `${pathStr}`."
+            var errMsg = "Failed to open the file `${_fileInfo.path}`."
             if (fsInfoErrMsg != "") {
                 errMsg += " ${fsInfoErrMsg}."
             }
@@ -498,7 +575,7 @@ public class File <: Resource & IOStream & Seekable {
         }
     }
 
-    private func getsize(): Int64 {
+    private func getsize(this @local?): Int64 {
         if (!isHandleValid(_fileDescriptor._fileHandle)) {
             return -1
         }
@@ -511,7 +588,7 @@ public class File <: Resource & IOStream & Seekable {
      * @throws FSException if the file to read is not opened
      * @throws FSException if the file does not have the read permission
      */
-    private func checkCanRead(): Unit {
+    private func checkCanRead(this @local?): Unit {
         if (!isHandleValid(_fileDescriptor._fileHandle)) {
             throw FSException("The file `${_fileInfo.path}` not opened, can not to read.")
         }
@@ -524,11 +601,10 @@ public class File <: Resource & IOStream & Seekable {
      * @throws FSException if the file to read is not opened
      * @throws FSException if the file does not have the read permission
      */
-    private func checkCanTruncate(): Unit {
+    private func checkCanTruncate(this @local?): Unit {
         if (!isHandleValid(_fileDescriptor._fileHandle)) {
             throw FSException("The file `${_fileInfo.path}` not opened, can not to read.")
         }
-
         match (_openMode) {
             case Write | ReadWrite => ()
             case _ => throw FSException("The file `${_fileInfo.path}` does not have the write permission.")
@@ -543,10 +619,10 @@ public class File <: Resource & IOStream & Seekable {
      * @return Length successfully written into the array buffer
      * @since 0.17.4
      */
-    private func directRead(buffer: Array<Byte>): Int64 {
+    private func directRead(this @local?, buffer: Array<Byte> @local?): Int64 {
         unsafe {
-            let bufPtr: CPointerHandle<Byte> = acquireArrayRawData(buffer)
-            let readSize: Int64 = CJ_FS_FileRead(fileHandle, bufPtr.pointer, UIntNative(buffer.size))
+            let bufPtr: CPointerHandle<Byte> @local? = acquireArrayRawData(buffer)
+            let readSize: Int64 = CJ_FS_FileRead(_fileDescriptor._fileHandle, bufPtr.pointer, UIntNative(buffer.size))
             releaseArrayRawData(bufPtr)
             return readSize
         }
