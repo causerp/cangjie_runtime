@@ -43,7 +43,7 @@ math 包提供常见的数学运算，常数定义，浮点数处理等功能。
 | [atan2(Float16, Float16)](./math_package_api/math_package_funcs.md#func-atan2float16-float16) | 计算两个半精度浮点数的反正切函数值，单位为弧度。|
 | [atan2(Float32, Float32)](./math_package_api/math_package_funcs.md#func-atan2float32-float32) | 计算两个单精度浮点数的反正切函数值，单位为弧度。|
 | [atan2(Float64, Float64)](./math_package_api/math_package_funcs.md#func-atan2float64-float64) | 计算两个双精度浮点数的反正切函数值，单位为弧度。|
-| [atanh(Float16)](./math_package_api/math_package_funcs.md#func-asinhfloat16) | 计算半精度浮点数的反双曲正切函数值。|
+| [atanh(Float16)](./math_package_api/math_package_funcs.md#func-atanhfloat16) | 计算半精度浮点数的反双曲正切函数值。|
 | [atanh(Float32)](./math_package_api/math_package_funcs.md#func-atanhfloat32) | 计算单精度浮点数的反双曲正切函数值。|
 | [atanh(Float64)](./math_package_api/math_package_funcs.md#func-atanhfloat64) | 计算双精度浮点数的反双曲正切函数值。|
 | [cbrt(Float16)](./math_package_api/math_package_funcs.md#func-cbrtfloat16) | 求半精度浮点数的立方根。|
@@ -87,9 +87,9 @@ math 包提供常见的数学运算，常数定义，浮点数处理等功能。
 | [exp(Float16)](./math_package_api/math_package_funcs.md#func-expfloat16) | 求自然常数 e 的 `x` 次幂。 |
 | [exp(Float32)](./math_package_api/math_package_funcs.md#func-expfloat32) | 求自然常数 e 的 `x` 次幂。 |
 | [exp(Float64)](./math_package_api/math_package_funcs.md#func-expfloat64) | 求自然常数 e 的 `x` 次幂。 |
-| [exp2(Float16)](./math_package_api/math_package_funcs.md#func-expfloat16) | 求 2 的 `x` 次幂。 |
-| [exp2(Float32)](./math_package_api/math_package_funcs.md#func-expfloat32) | 求 2 的 `x` 次幂。 |
-| [exp2(Float64)](./math_package_api/math_package_funcs.md#func-expfloat64) | 求 2 的 `x` 次幂。 |
+| [exp2(Float16)](./math_package_api/math_package_funcs.md#func-exp2float16) | 求 2 的 `x` 次幂。 |
+| [exp2(Float32)](./math_package_api/math_package_funcs.md#func-exp2float32) | 求 2 的 `x` 次幂。 |
+| [exp2(Float64)](./math_package_api/math_package_funcs.md#func-exp2float64) | 求 2 的 `x` 次幂。 |
 | [floor(Float16)](./math_package_api/math_package_funcs.md#func-floorfloat16) | 求浮点数的向下取整值。 |
 | [floor(Float32)](./math_package_api/math_package_funcs.md#func-floorfloat32) | 求浮点数的向下取整值。 |
 | [floor(Float64)](./math_package_api/math_package_funcs.md#func-floorfloat64) | 求浮点数的向下取整值。 |
@@ -129,9 +129,9 @@ math 包提供常见的数学运算，常数定义，浮点数处理等功能。
 | [log10(Float16)](./math_package_api/math_package_funcs.md#func-log10float16) | 求以 10 为底 `x` 的对数。 |
 | [log10(Float32)](./math_package_api/math_package_funcs.md#func-log10float32) | 求以 10 为底 `x` 的对数。 |
 | [log10(Float64)](./math_package_api/math_package_funcs.md#func-log10float64) | 求以 10 为底 `x` 的对数。 |
-| [log2(Float16)](./math_package_api/math_package_funcs.md#func-logfloat16) | 求以 2 为底 `x` 的对数。 |
-| [log2(Float32)](./math_package_api/math_package_funcs.md#func-logfloat32) | 求以 2 为底 `x` 的对数。 |
-| [log2(Float64)](./math_package_api/math_package_funcs.md#func-logfloat64) | 求以 2 为底 `x` 的对数。 |
+| [log2(Float16)](./math_package_api/math_package_funcs.md#func-log2float16) | 求以 2 为底 `x` 的对数。 |
+| [log2(Float32)](./math_package_api/math_package_funcs.md#func-log2float32) | 求以 2 为底 `x` 的对数。 |
+| [log2(Float64)](./math_package_api/math_package_funcs.md#func-log2float64) | 求以 2 为底 `x` 的对数。 |
 | [logBase(Float16, Float16)](./math_package_api/math_package_funcs.md#func-logbasefloat16-float16) | 求以 `base` 为底 `x` 的对数。 |
 | [logBase(Float32, Float32)](./math_package_api/math_package_funcs.md#func-logbasefloat32-float32) | 求以 `base` 为底 `x` 的对数。 |
 | [logBase(Float64, Float64)](./math_package_api/math_package_funcs.md#func-logbasefloat64-float64) | 求以 `base` 为底 `x` 的对数。 |

@@ -63,7 +63,7 @@ public operator func !=(other: ConnectionState): Bool
 
 返回值：
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 传入数据源连接状态与当前状态相同则返回 `false` ，否则返回 `true`。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 传入数据源连接状态与当前状态相同则返回 `false`，否则返回 `true`。
 
 示例：
 
@@ -111,7 +111,7 @@ public operator func ==(other: ConnectionState): Bool
 
 返回值：
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 传入数据源连接状态与当前状态相同则返回 `true` ，否则返回 `false`。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 传入数据源连接状态与当前状态相同则返回 `true`，否则返回 `false`。
 
 示例：
 

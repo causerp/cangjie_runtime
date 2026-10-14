@@ -584,7 +584,7 @@ public func rename(sourcePath: Path, to!: Path, overwrite!: Bool = false): Unit
 
 > **注意：**
 >
-> 当`overwrite` 为 `true`时，`rename`的一个隐含行为是删除目标位置的原有文件或者目录，如果目标位置是目录，将会递归删除目录内的所有内容，需要谨慎使用。
+> 当 `overwrite` 为 `true` 时，`rename` 的一个隐含行为是删除目标位置的原有文件或者目录，如果目标位置是目录，将会递归删除目录内的所有内容，需要谨慎使用。
 
 参数：
 
@@ -649,7 +649,7 @@ public func rename(sourcePath: String, to!: String, overwrite!: Bool = false): U
 
 > **注意：**
 >
-> 当`overwrite` 为 `true`时，`rename`的一个隐含行为是删除目标位置的原有文件或者目录，如果目标位置是目录，将会递归删除目录内的所有内容，需要谨慎使用。
+> 当 `overwrite` 为 `true` 时，`rename` 的一个隐含行为是删除目标位置的原有文件或者目录，如果目标位置是目录，将会递归删除目录内的所有内容，需要谨慎使用。
 
 参数：
 

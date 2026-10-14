@@ -64,12 +64,12 @@ public init(input: T, buffer: Array<Byte>)
 
 功能：创建 [BufferedInputStream](io_package_classes.md#class-bufferedinputstreamt-where-t--inputstream) 实例。
 
-其内部使用的缓存区由入参决定，在注重性能的场景下，通过复用传入的 `buffer`，可以减少内存分配次数，提高性能。
+其内部使用的缓冲区由入参决定，在注重性能的场景下，通过复用传入的 `buffer`，可以减少内存分配次数，提高性能。
 
 参数：
 
 - input: T - 绑定一个输入流。
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - [BufferedInputStream](io_package_classes.md#class-bufferedinputstreamt-where-t--inputstream) 使用的内部缓存区。
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - [BufferedInputStream](io_package_classes.md#class-bufferedinputstreamt-where-t--inputstream) 使用的内部缓冲区。
 
 异常：
 
@@ -663,7 +663,7 @@ public func seek(sp: SeekPosition): Int64
 >
 > - 指定的位置不能位于流中数据头部之前。
 > - 指定位置可以超过流中数据末尾。
-> - 调用该函数会先清空缓存区，再移动光标的位置。
+> - 调用该函数会先清空缓冲区，再移动光标的位置。
 
 参数：
 
@@ -810,12 +810,12 @@ public init(output: T, buffer: Array<Byte>)
 
 功能：创建 [BufferedOutputStream](io_package_classes.md#class-bufferedoutputstreamt-where-t--outputstream) 实例。
 
-其内部使用的缓存区由入参决定，在注重性能的场景下，通过复用传入的 `buffer`，可以减少内存分配次数，提高性能。
+其内部使用的缓冲区由入参决定，在注重性能的场景下，通过复用传入的 `buffer`，可以减少内存分配次数，提高性能。
 
 参数：
 
 - output: T - 绑定一个输出流。
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - [BufferedOutputStream](io_package_classes.md#class-bufferedoutputstreamt-where-t--outputstream) 使用的内部缓存区。
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - [BufferedOutputStream](io_package_classes.md#class-bufferedoutputstreamt-where-t--outputstream) 使用的内部缓冲区。
 
 异常：
 
@@ -1422,7 +1422,7 @@ public func seek(sp: SeekPosition): Int64
 >
 > - 指定的位置不能位于流中数据头部之前。
 > - 指定位置可以超过流中数据末尾。
-> - 调用该函数会先将缓存区内的数据写到绑定的输出流里，再移动光标的位置。
+> - 调用该函数会先将缓冲区内的数据写到绑定的输出流里，再移动光标的位置。
 
 参数：
 
@@ -2472,7 +2472,7 @@ public func lines(): Iterator<String>
 
 异常：
 
-- [ContentFormatException](io_package_exceptions.md#class-contentformatexception) - 当`for-in`或者调用`next()`方法时读取到非法字符，抛出异常。
+- [ContentFormatException](io_package_exceptions.md#class-contentformatexception) - 当 `for-in` 或者调用 `next()` 方法时读取到非法字符，抛出异常。
 
 示例：
 
@@ -2745,7 +2745,7 @@ public func runes(): Iterator<Rune>
 
 异常：
 
-- [ContentFormatException](io_package_exceptions.md#class-contentformatexception) - 当`for-in`或者调用`next()`方法时读取到非法字符，抛出异常。
+- [ContentFormatException](io_package_exceptions.md#class-contentformatexception) - 当 `for-in` 或者调用 `next()` 方法时读取到非法字符，抛出异常。
 
 示例：
 

@@ -59,7 +59,7 @@
     - [示例教程]()
         - [ConcurrentHashMap 使用示例](std/collection_concurrent/collection_concurrent_samples/sample_concurrenthashmap.md)
         - [ConcurrentLinkedQueue 使用示例](std/collection_concurrent/collection_concurrent_samples/sample_concurrent_linked_queue.md)
-- [std.console<sup>(deprecated)</sup>](std/console/console_package_overview.md)
+- [std.console <sup>(deprecated)</sup>](std/console/console_package_overview.md)
     - [类](std/console/console_package_api/console_package_class.md)
     - [示例教程]()
         - [Console 示例](std/console/console_samples/console_sample.md)

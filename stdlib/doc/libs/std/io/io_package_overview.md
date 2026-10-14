@@ -23,7 +23,7 @@ I/O 操作是指程序与外部设备进行数据交换的操作。仓颉提供�
 | --------------------------- | ------------------------ |
 | [InputStream](./io_package_api/io_package_interfaces.md#interface-inputstream) | 输入流接口。 |
 | [IOStream](./io_package_api/io_package_interfaces.md#interface-iostream) | 输入输出流接口。 |
-| [OutputStream](./io_package_api/io_package_interfaces.md#interface-iostream) | 输出流接口。 |
+| [OutputStream](./io_package_api/io_package_interfaces.md#interface-outputstream) | 输出流接口。 |
 | [Seekable](./io_package_api/io_package_interfaces.md#interface-seekable) | 移动光标接口。 |
 
 ### 类
@@ -32,7 +32,7 @@ I/O 操作是指程序与外部设备进行数据交换的操作。仓颉提供�
 | --------------------------- | ------------------------ |
 | [BufferedInputStream\<T> where T <: InputStream](./io_package_api/io_package_classes.md#class-bufferedinputstreamt-where-t--inputstream) | 提供带缓冲区的输入流。 |
 | [BufferedOutputStream\<T> where T <: OutputStream](./io_package_api/io_package_classes.md#class-bufferedoutputstreamt-where-t--outputstream) | 提供带缓冲区的输出流。 |
-| [ByteBuffer](./io_package_api/io_package_classes.md#class-bytebuffer) | 输入流接口。 |
+| [ByteBuffer](./io_package_api/io_package_classes.md#class-bytebuffer) | 基于字节数组提供对字节流的写入、读取等操作。 |
 | [ChainedInputStream\<T> where T <: InputStream](./io_package_api/io_package_classes.md#class-chainedinputstreamt-where-t--inputstream) | 提供顺序从 InputStream 数组中读取数据的能力。 |
 | [MultiOutputStream\<T> where T <: OutputStream](./io_package_api/io_package_classes.md#class-multioutputstreamt-where-t--outputstream) | 提供将数据同时写入到 OutputStream 数组中每个输出流中的能力。 |
 | [StringReader\<T> where T <: InputStream](./io_package_api/io_package_classes.md#class-stringreadert-where-t--inputstream) | 提供从 InputStream 输入流中读出数据并转换成字符或字符串的能力。 |
@@ -42,7 +42,7 @@ I/O 操作是指程序与外部设备进行数据交换的操作。仓颉提供�
 
 |              枚举名          |           功能           |
 | --------------------------- | ------------------------ |
-| [SeekPosition](./io_package_api/io_package_enums.md#enum-seekposition) | 输入流接口。 |
+| [SeekPosition](./io_package_api/io_package_enums.md#enum-seekposition) | 表示光标在文件中的位置。 |
 
 ### 异常类
 

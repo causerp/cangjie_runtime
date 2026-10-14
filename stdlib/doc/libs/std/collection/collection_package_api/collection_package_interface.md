@@ -113,7 +113,7 @@ public interface EquatableCollection<T> <: Collection<T> {
 func contains(all!: Collection<T>): Bool
 ```
 
-功能：判断 Keys 是否包含指定集合的所有元素。
+功能：判断当前集合中是否包含指定集合中的所有元素。
 
 参数：
 
@@ -129,11 +129,11 @@ func contains(all!: Collection<T>): Bool
 func contains(element: T): Bool
 ```
 
-功能：判断 Keys 是否包含指定元素。
+功能：判断当前集合中是否包含指定元素。
 
 参数：
 
-- element: T - 指定元素，待判断 Keys 是否包含该元素。
+- element: T - 待判断的指定元素。
 
 返回值：
 
@@ -431,12 +431,12 @@ func replace(key: K, value: V): ?V
 operator func [](key: K, value!: V): Unit
 ```
 
-功能：运算符重载集合，如果键存在，新 value 覆盖旧 value，如果键不存在，添加此键值对。
+功能：运算符重载 add 方法，如果键存在，新 value 覆盖旧 value，如果键不存在，添加此键值对。
 
 参数：
 
 - key: K - 需要进行设置的键。
-- value!: V - 传递要设置的值。
+- value!: V - 要设置的值。
 
 ## interface MapEntryView\<K, V>
 
@@ -708,11 +708,11 @@ func add(element: T): Unit
 func peek(): ?T
 ```
 
-功能：访问双端队列头部元素，该操作不会删除头部元素。
+功能：访问队列头部元素，该操作不会删除头部元素。
 
 返回值：
 
-- ?T - Option 封装的头部元素的值，如果双端队列为空，返回 `None`。
+- ?T - Option 封装的头部元素的值，如果队列为空，返回 `None`。
 
 ### func remove()
 
@@ -895,7 +895,7 @@ func values(): Collection<V>
 operator func [](key: K): V
 ```
 
-功能：运算符重载集合，如果键存在，返回键对应的值，如果不存在，抛出异常。
+功能：运算符重载 get 方法，如果键存在，返回键对应的值，如果不存在，抛出异常。
 
 参数：
 
@@ -1025,7 +1025,7 @@ func add(element: T): Bool
 func clear(): Unit
 ```
 
-功能：清除所有键值对。
+功能：从此集合中删除所有元素。
 
 ### func remove(Collection\<T>)
 

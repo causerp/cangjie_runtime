@@ -825,7 +825,7 @@ main() {
 public init()
 ```
 
-功能：构造一个初始容量大小为默认值`16`的[ArrayList](collection_package_class.md#class-arraylistt)。
+功能：构造一个初始容量大小为默认值 `16` 的[ArrayList](collection_package_class.md#class-arraylistt)。
 
 示例：
 
@@ -2119,8 +2119,8 @@ main() {
     // 删除索引1到3的元素(不包括3)
     list.remove(1..3)
 
-    println("删除元素后的列表: ${list}") // [0, 3, 4, 5]
-    println("删除后的列表大小: ${list.size}") // 4
+    println("删除元素后的列表: ${list}") // [0, 3, 4, 5, 6]
+    println("删除后的列表大小: ${list.size}") // 5
 
     return 0
 }
@@ -3456,7 +3456,7 @@ public func add(element: T): Unit
 
 参数：
 
-- element: T - 被插入到此双端队列的元素。
+- element: T - 被插入到此队列的元素。
 
 示例：
 
@@ -3633,7 +3633,7 @@ public func peek():?T
 
 返回值：
 
-- ?T - 队列的头部元素，如果队列为空，返回`None`。
+- ?T - 队列的头部元素，如果队列为空，返回 `None`。
 
 示例：
 
@@ -3749,14 +3749,14 @@ main() {
 
     // 预留额外空间
     queue.reserve(10)
-    println("预留空间后容量: ${queue.capacity}") // 16 (扩容到接近18的合适大小)
+    println("预留空间后容量: ${queue.capacity}") // 12 (原始容量8的1.5倍)
 
     // 添加元素测试
     for (i in 0..15) {
         queue.add(i)
     }
-    println("添加16个元素后容量: ${queue.capacity}") // 16
-    println("添加16个元素后大小: ${queue.size}") // 16
+    println("添加15个元素后容量: ${queue.capacity}") // 18
+    println("添加15个元素后大小: ${queue.size}") // 15
 
     return 0
 }
@@ -3767,8 +3767,8 @@ main() {
 ```text
 初始容量: 8
 预留空间后容量: 12
-添加16个元素后容量: 18
-添加16个元素后大小: 15
+添加15个元素后容量: 18
+添加15个元素后大小: 15
 ```
 
 ### func toArray()
@@ -3837,7 +3837,7 @@ public func toString(): String
 
 功能：获取当前[ArrayQueue](./collection_package_class.md#class-arrayqueuet)\<T>实例的字符串表示。
 
-该字符串包含双端队列内每个元素的字符串表示，其顺序为从前到后的顺序，形如："[elem1, elem2, elem3]"。
+该字符串包含队列内每个元素的字符串表示，其顺序为从前到后的顺序，形如："[elem1, elem2, elem3]"。
 
 返回值：
 
@@ -3969,7 +3969,7 @@ main() {
 添加元素后大小: 2
 ```
 
-### func init()
+### init()
 
 ```cangjie
 public init()
@@ -4003,7 +4003,7 @@ main() {
 是否为空: true
 ```
 
-### func init(Int64)
+### init(Int64)
 
 ```cangjie
 public init(capacity: Int64)
@@ -4354,14 +4354,14 @@ main() {
 
     // 预留额外空间
     stack.reserve(10)
-    println("预留空间后容量: ${stack.capacity}") // 12 (扩容到接近18的合适大小)
+    println("预留空间后容量: ${stack.capacity}") // 12 (原始容量8的1.5倍)
 
     // 添加元素测试
     for (i in 0..15) {
         stack.add(i)
     }
-    println("添加16个元素后容量: ${stack.capacity}") // 18
-    println("添加16个元素后大小: ${stack.size}") // 16
+    println("添加15个元素后容量: ${stack.capacity}") // 18
+    println("添加15个元素后大小: ${stack.size}") // 15
 
     return 0
 }
@@ -4372,8 +4372,8 @@ main() {
 ```text
 初始容量: 8
 预留空间后容量: 12
-添加16个元素后容量: 18
-添加16个元素后大小: 15
+添加15个元素后容量: 18
+添加15个元素后大小: 15
 ```
 
 ### func toArray()
@@ -4587,7 +4587,7 @@ main() {
 public init()
 ```
 
-功能：构造一个具有默认初始容量为 16 和默认负载因子为空的 [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)。
+功能：构造一个初始容量大小为默认值 `16` 的 [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)。
 
 示例：
 
@@ -4668,7 +4668,7 @@ public init(elements: Collection<(K, V)>)
 
 功能：通过传入的键值对集合构造一个 [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)。
 
-该构造函数根据传入集合 elements 的 size 设置 [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) 的容量。由于[HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) 内部不允许键重复，当 [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt) 中存在重复的键时，按照迭代器顺序，出现在后面的键值对将会覆盖前面的键值对。
+该构造函数根据传入集合 elements 的 size 设置 [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) 的容量。由于[HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) 内部不允许键重复，当传入集合中存在重复的键时，按照迭代器顺序，出现在后面的键值对将会覆盖前面的键值对。
 
 参数：
 
@@ -6151,7 +6151,7 @@ public operator func [](key: K): V
 
 参数：
 
-- key: K - 传递值进行判断。
+- key: K - 传入的键。
 
 返回值：
 
@@ -6201,8 +6201,8 @@ public operator func [](key: K, value!: V): Unit
 
 参数：
 
-- key: K - 传递值进行判断。
-- value!: V - 传递要设置的值。
+- key: K - 传入的键。
+- value!: V - 要设置的值。
 
 示例：
 
@@ -6707,7 +6707,7 @@ main() {
 public init(elements: Array<T>)
 ```
 
-功能：使用传入的数组构造 [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet)。该构造函数根据传入数组 elements 的 size 设置 [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) 的容量。
+功能：使用传入的数组构造 [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet)。该构造函数根据传入数组 elements 的 size 设置 [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) 的容量。由于[HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) 内部不允许元素重复，当传入数组中存在重复的元素时，重复的元素只会被添加一次。
 
 参数：
 
@@ -6724,7 +6724,7 @@ main() {
     let elements = ["apple", "banana", "orange", "apple"] // 包含重复元素
     let set = HashSet<String>(elements)
 
-    println("HashSet大小: ${set.size}") // 3无重复元素）
+    println("HashSet大小: ${set.size}") // 3（无重复元素）
     println("HashSet容量: ${set.capacity}") // 4（根据数组大小设置）
 
     // 检查元素是否存在
@@ -6750,7 +6750,7 @@ HashSet容量: 4
 public init(elements: Collection<T>)
 ```
 
-功能：使用传入的集合构造 [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet)。该构造函数根据传入集合 elements 的 size 设置 [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) 的容量。
+功能：使用传入的集合构造 [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet)。该构造函数根据传入集合 elements 的 size 设置 [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) 的容量。由于[HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) 内部不允许元素重复，当传入集合中存在重复的元素时，重复的元素只会被添加一次。
 
 参数：
 
@@ -8800,7 +8800,7 @@ main() {
 public init(elements: Array<T>)
 ```
 
-功能：按照数组的遍历顺序构造一个包含指定集合元素的 [LinkedList](collection_package_class.md#class-linkedlistt) 实例。
+功能：按照数组的遍历顺序构造一个包含指定数组元素的 [LinkedList](collection_package_class.md#class-linkedlistt) 实例。
 
 参数：
 
@@ -12986,11 +12986,11 @@ TreeMap的大小: 4
 public operator func [](key: K): V
 ```
 
-功能：运算符重载集合，如果键存在，返回键对应的值。
+功能：运算符重载 get 方法，如果键存在，返回键对应的值。
 
 参数：
 
-- key: K - 传递值进行判断。
+- key: K - 指定的键。
 
 返回值：
 
@@ -12998,7 +12998,7 @@ public operator func [](key: K): V
 
 异常：
 
-- [NoneValueException](../../core/core_package_api/core_package_exceptions.md#class-nonevalueexception) - 如果该 [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) 不存在该键，抛出异常。
+- [NoneValueException](../../core/core_package_api/core_package_exceptions.md#class-nonevalueexception) - 如果该 [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek) 不存在该键，抛出异常。
 
 示例：
 
@@ -13042,12 +13042,12 @@ cherry的值: 30
 public operator func [](key: K, value!: V): Unit
 ```
 
-功能：运算符重载集合，如果键存在，新 value 覆盖旧 value，如果键不存在，添加此键值对。
+功能：运算符重载 add 方法，如果键存在，新 value 覆盖旧 value，如果键不存在，添加此键值对。
 
 参数：
 
-- key: K - 传递值进行判断。
-- value!: V - 传递要设置的值。
+- key: K - 指定的键。
+- value!: V - 要设置的值。
 
 示例：
 

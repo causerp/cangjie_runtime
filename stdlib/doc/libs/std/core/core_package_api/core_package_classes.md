@@ -3740,7 +3740,7 @@ Type check: true
 public class Thread {}
 ```
 
-功能：获取线程 ID 及名字、查询线程是否存在取消请求、注册线程未处理异常的处理函数等。
+功能：该类代表一个仓颉线程，可用于获取线程 ID 及名字、查询线程是否存在取消请求、注册线程未处理异常的处理函数等。
 
 该类型实例无法通过构造得到，仅能通过 [Future](core_package_classes.md#class-futuret) 对象的 `thread` 属性或是 [Thread](core_package_classes.md#class-thread) 类的 `currentThread` 静态属性获取。
 

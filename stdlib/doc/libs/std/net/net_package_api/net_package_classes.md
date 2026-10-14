@@ -6517,7 +6517,7 @@ readTimeout after setting: Some(10s)
 public mut prop receiveBufferSize: Int64
 ```
 
-功能：设置和读取 `SO_RCVBUF` 属性，提供一种方式指定收包缓存大小。选项的生效情况取决于系统。
+功能：设置和读取 `SO_RCVBUF` 属性，提供一种方式指定收包缓冲区大小。选项的生效情况取决于系统。
 
 类型：[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 
@@ -6625,7 +6625,7 @@ Server read 3 bytes: [4, 5, 6, 0, 0, 0, 0, 0, 0, 0]
 public mut prop sendBufferSize: Int64
 ```
 
-功能：设置和读取 `SO_SNDBUF` 属性，提供一种方式指定发包缓存大小。选项的生效情况取决于系统。
+功能：设置和读取 `SO_SNDBUF` 属性，提供一种方式指定发包缓冲区大小。选项的生效情况取决于系统。
 
 类型：[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 
@@ -8646,7 +8646,7 @@ public override func receiveFrom(buffer: Array<Byte>): (SocketAddress, Int64)
 
 参数：
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - 存储收取到报文的缓存地址。
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - 存储收取到报文的缓冲区地址。
 
 返回值：
 
@@ -8821,7 +8821,7 @@ Client received 3 bytes: [1, 2, 3, 0, 0, 0, 0, 0, 0, 0]
 public override func sendTo(recipient: SocketAddress, payload: Array<Byte>): Unit
 ```
 
-功能：发送报文。当没有足够的缓存地址时可能会被阻塞。
+功能：发送报文。当没有足够的缓冲区空间时可能会被阻塞。
 
 参数：
 
@@ -9160,7 +9160,7 @@ Socket created to: socketPath
 public mut prop receiveBufferSize: Int64
 ```
 
-功能：设置和读取 `SO_RCVBUF` 属性，提供一种方式指定发包缓存大小。选项的生效情况取决于系统。
+功能：设置和读取 `SO_RCVBUF` 属性，提供一种方式指定发包缓冲区大小。选项的生效情况取决于系统。
 
 > **注意：**
 >
@@ -9327,7 +9327,7 @@ Server received 3 bytes: [1, 2, 3]
 public mut prop sendBufferSize: Int64
 ```
 
-功能：设置和读取 `SO_SNDBUF` 属性，提供一种方式指定发包缓存大小。选项的生效情况取决于系统。
+功能：设置和读取 `SO_SNDBUF` 属性，提供一种方式指定发包缓冲区大小。选项的生效情况取决于系统。
 
 > **注意：**
 >
@@ -10446,7 +10446,7 @@ Server received data from senderAddr with 3 bytes: [1, 2, 3]
 public override func sendTo(recipient: SocketAddress, payload: Array<Byte>): Unit
 ```
 
-功能：发送报文。当没有足够的缓存地址时可能会被阻塞。
+功能：发送报文。当没有足够的缓冲区空间时可能会被阻塞。
 
 > **注意：**
 >
@@ -11940,7 +11940,7 @@ public override mut prop readTimeout: ?Duration
 
 功能：设置和读取读操作超时时间。
 
-如果设置的时间过小将会设置为最小时钟周期值，过大时将设置为`None`，默认值为 `None`。
+如果设置的时间过小将会设置为最小时钟周期值，过大时将设置为 `None`，默认值为 `None`。
 
 > **注意：**
 >
