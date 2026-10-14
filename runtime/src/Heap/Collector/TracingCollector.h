@@ -307,6 +307,7 @@ public:
     GCStats& GetGCStats() override { return collectorResources.GetGCStats(); }
 
     virtual void UpdateGCStats();
+    virtual size_t GetPacingThreshold() { return GetGCStats().GetThreshold(); }
     virtual uint16_t GetCurrentTagID() { std::abort(); }
 
     static const size_t MAX_MARKING_WORK_SIZE;
@@ -314,6 +315,11 @@ public:
 
 protected:
     void RequestGCInternal(GCReason reason, bool async) override { collectorResources.RequestGC(reason, async); }
+
+    virtual GCPhase GetPostGarbageCollectionPhase() const
+    {
+        return GCPhase::GC_PHASE_RECLAIM_SATB_NODE;
+    }
 
     Allocator& theAllocator;
 
@@ -358,9 +364,11 @@ protected:
 
     inline void SetGCReason(const GCReason reason) { gcReason = reason; }
 
+public:
     GCThreadPool* GetThreadPool() const { return collectorResources.GetThreadPool(); }
+protected:
     // enum all common roots.
-    void EnumAllCommonRoots(GCThreadPool* threadPool, RootSet& rootSet);
+    virtual void EnumAllCommonRoots(GCThreadPool* threadPool, RootSet& rootSet);
     // enum roots referenced by foreign languages.
     void EnumAllExportRoots(RootSet& foreignRootsSet);
     // let finalizerProcessor process finalizers, and mark resurrected if in light sync gc

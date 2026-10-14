@@ -13,6 +13,7 @@
 #include "Base/ImmortalWrapper.h"
 #include "Common/BaseObject.h"
 #include "Heap/Allocator/RegionSpace.h"
+#include "MixedRegionSpace/MixedRegionSpace.h"
 #include "Mutator/ThreadLocal.h"
 #include "ObjectModel/MObject.h"
 
@@ -74,7 +75,12 @@ PagePool& PagePool::Instance() noexcept
 
 Allocator* Allocator::NewAllocator()
 {
-    RegionSpace* regionSpace = new (std::nothrow) RegionSpace();
+    RegionSpace* regionSpace = nullptr;
+    if (Heap::GetGCMode() == GCMode::GENERATIONAL) {
+        regionSpace = new (std::nothrow) MixedRegionSpace();
+    } else {
+        regionSpace = new (std::nothrow) RegionSpace();
+    }
     CHECK_DETAIL(regionSpace != nullptr, "New RegionSpace failed");
     return regionSpace;
 }

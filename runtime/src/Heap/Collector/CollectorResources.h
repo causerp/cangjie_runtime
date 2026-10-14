@@ -115,7 +115,7 @@ private:
 #endif
     CollectorProxy& collectorProxy;
     FinalizerProcessor finalizerProcessor;
-    GCStats gcStats;
+    GenerationalGCStats gcStats;
 };
 } // namespace MapleRuntime
 #endif // MRT_COLLECTOR_RESOURCES_H

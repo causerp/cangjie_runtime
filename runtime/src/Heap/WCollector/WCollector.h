@@ -13,9 +13,9 @@
 #include "Collector/CopyCollector.h"
 namespace MapleRuntime {
 
-class ForwardTable {
+class RegionForwardTable {
 public:
-    explicit ForwardTable(RegionSpace& space) : theSpace(space) {}
+    explicit RegionForwardTable(RegionSpace& space) : theSpace(space) {}
 
     // if object is not relocated (forwarded or compacted), return nullptr.
     BaseObject* RouteObject(BaseObject* old)
@@ -27,10 +27,10 @@ public:
     // if region is compacted, return false.
     bool RouteRegion(RegionInfo* region) { return theSpace.GetRegionManager().RouteRegion(region); }
 
-    void PrepareForwardTable()
+    void PrepareForwardTable(bool isFull = true)
     {
         DLOG(FORWARD, "reset fwd table");
-        theSpace.PrepareFromSpace();
+        theSpace.PrepareFromSpace(isFull);
 
         ForwardDataManager::GetForwardDataManager().ClearPreviousForwardData();
     }
@@ -109,7 +109,7 @@ public:
         // filter const string object.
         if (Heap::IsHeapAddress(obj)) {
             auto regionInfo = RegionInfo::GetRegionInfoAt(reinterpret_cast<uintptr_t>(obj));
-            return regionInfo->IsFromRegion();
+            return regionInfo->IsMovableRegion();
         }
 
         return false;
@@ -140,17 +140,23 @@ public:
         if (fromRegionInfo == nullptr) {
             return nullptr;
         }
-        RegionSpace& space = reinterpret_cast<RegionSpace&>(theAllocator);
-        return space.GetRegionManager().RouteObject(obj);
+        return FindToVersion(obj, fromRegionInfo);
     }
 
 protected:
+    BaseObject* FindToVersion(BaseObject* obj, RegionInfo* fromRegionInfo) const
+    {
+        RegionSpace& space = reinterpret_cast<RegionSpace&>(theAllocator);
+        return space.GetRegionManager().RouteObject(obj, fromRegionInfo);
+    }
+
     BaseObject* ForwardObjectImpl(BaseObject* obj, RegionInfo* ghostFromRegion);
     BaseObject* ForwardObjectExclusive(BaseObject* obj) override;
 
     bool TryUntagRefField(BaseObject* obj, RefField<>& field, BaseObject*& target) const override;
 
-    BaseObject* TryForwardObject(BaseObject* fromVersion);
+    virtual BaseObject* TryForwardObject(BaseObject* fromVersion);
+    BaseObject* TryForwardObject(BaseObject* fromVersion, RegionInfo* fromRegion);
 
     bool TryUpdateRefField(BaseObject* obj, RefField<>& field, BaseObject*& newRef) const override;
     bool TryForwardRefField(BaseObject* obj, RefField<>& field, BaseObject*& newRef) const override;
@@ -176,6 +182,7 @@ protected:
 
     void CollectPinnedGarbage()
     {
+        MRT_PHASE_TIMER("Collect pinned garbage");
         RegionSpace& space = reinterpret_cast<RegionSpace&>(theAllocator);
         GCStats& stats = GetGCStats();
         stats.pinnedSpaceSize = space.PinnedSpaceSize();
@@ -189,22 +196,23 @@ protected:
     void ProcessFinalizers() override;
     void EnumAndTagRawRoot(ObjectRef& ref, RootSet& rootSet) const override;
 
-private:
-    template<bool forward>
-    bool TryUpdateRefFieldImpl(BaseObject* obj, RefField<>& ref, BaseObject*& oldRef, BaseObject*& newRef) const;
-    void TraceHeap();
+protected:
+    virtual void TraceHeap();
+    virtual void PostTrace();
+    virtual void Preforward();
     void PreforwardConcurrencyModelRoots();
-    void PostTrace();
-    void Preforward();
     void PreforwardAllExportFromRoots();
     void PreforwardFinalizerProcessorRoots();
     void PreforwardDiscoveredExternObjects();
     void PreforwardAllResurrectExportFromObjects();
-    CrossRefHandler GetCrossRefHandler(BaseObject* foreignProxy);
-
-    ForwardTable fwdTable;
     // gc index 0 or 1 is used to distinguish previous gc and current gc.
-    uint16_t currentTagID = 0;
+    static uint16_t currentTagID;
+    RegionForwardTable fwdTable;
+
+private:
+    template<bool forward>
+    bool TryUpdateRefFieldImpl(BaseObject* obj, RefField<>& ref, BaseObject*& oldRef, BaseObject*& newRef) const;
+    CrossRefHandler GetCrossRefHandler(BaseObject* foreignProxy);
 };
 } // namespace MapleRuntime
 #endif // ~MRT_WCOLLECTOR_H

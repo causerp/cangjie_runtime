@@ -617,8 +617,12 @@ void MutatorManager::DumpAllGcInfos()
 extern "C" void MRT_FlushGCInfo()
 {
 #if defined(GCINFO_DEBUG) && GCINFO_DEBUG
-    // MutatorManager::Instance().DumpAllGcInfos();
-    Mutator::GetMutator()->DumpGCInfos();
+    Mutator* mutator = Mutator::GetMutator();
+    if (mutator != nullptr) {
+        mutator->DumpGCInfos();
+    } else {
+        MutatorManager::Instance().DumpAllGcInfos();
+    }
 #endif
 }
 
