@@ -8,6 +8,7 @@
 #include "GcStats.h"
 
 #include "Base/LogFile.h"
+#include "GenerationalGC/GenerationConstants.h"
 #include "Heap/Heap.h"
 
 namespace MapleRuntime {
@@ -46,6 +47,42 @@ void GCStats::Init()
     heapThreshold = std::min(CangjieRuntime::GetGCParam().gcThreshold, 20 * MB);
     // 0.2:set 20% heap size as intial value
     heapThreshold = std::min(static_cast<size_t>(Heap::GetHeap().GetMaxCapacity() * 0.2), heapThreshold);
+}
+
+void GenerationalGCStats::Init()
+{
+    GCStats::Init();
+    youngThreshold = std::min(INITIAL_YOUNG_THRESHOLD, CangjieRuntime::GetGCParam().gcThreshold);
+    const size_t maxCapacity = Heap::GetHeap().GetMaxCapacity();
+    const size_t youngCapacity = std::min(maxCapacity / YOUNG_GEN_CAPACITY_DIVISOR,
+                                          YOUNG_CAPACITY_FOR_MIXED_MAX);
+    const size_t minMixedThreshold = youngCapacity * MIN_MIXED_THRESHOLD_NUM / MIN_MIXED_THRESHOLD_DEN;
+    mixedThreshold = std::max(maxCapacity / MIN_MIXED_THRESHOLD_HEAP_DIVISOR, minMixedThreshold);
+    allocationBytes.store(0, std::memory_order_relaxed);
+    allocationStartTime.store(TimeUtil::NanoSeconds(), std::memory_order_relaxed);
+    allocationSpeed = 0.0;
+}
+
+void GenerationalGCStats::RecordAllocation(size_t bytes)
+{
+    allocationBytes.fetch_add(bytes, std::memory_order_relaxed);
+}
+
+double GenerationalGCStats::RefreshAllocationSpeed(uint64_t timestamp)
+{
+    uint64_t start = allocationStartTime.load(std::memory_order_relaxed);
+    uint64_t elapsed = timestamp - start;
+    size_t bytes = allocationBytes.exchange(0, std::memory_order_relaxed);
+    if (elapsed != 0) {
+        allocationSpeed = static_cast<double>(bytes) / static_cast<double>(elapsed);
+    }
+    allocationStartTime.store(timestamp, std::memory_order_relaxed);
+    return allocationSpeed;
+}
+
+double GenerationalGCStats::GetAllocationSpeed() const
+{
+    return allocationSpeed;
 }
 
 void GCStats::Dump() const

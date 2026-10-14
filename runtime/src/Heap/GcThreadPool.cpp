@@ -20,6 +20,10 @@
 
 // thread pool implementation
 namespace MapleRuntime {
+namespace {
+thread_local bool externalTaskExecuting = false;
+}
+
 GCPoolThread::GCPoolThread(GCThreadPool* threadPool, const char* threadName, size_t threadId, size_t stackSize)
     : id(threadId), tid(-1), name(threadName), pool(threadPool)
 {
@@ -91,7 +95,8 @@ void* GCPoolThread::WorkerFunc(void* param)
             while (pool->workQueue.empty() && pool->IsRunning() && !pool->IsExited()) {
                 // currExecuteThreadNum start at 0, inc before thread wait for task
                 ++(pool->waitingThreadNum);
-                if (pool->waitingThreadNum == pool->maxActiveThreadNum) {
+                if (pool->waitingThreadNum == pool->maxActiveThreadNum &&
+                    pool->externalExecutingTaskNum == 0) {
                     // all task is done, notify wait finish thread
                     pool->allWorkDoneCondVar.notify_all();
                 }
@@ -209,6 +214,41 @@ void GCThreadPool::AddWork(HeapWork* task)
     }
 }
 
+bool GCThreadPool::TryExecuteOneTask(size_t threadId)
+{
+    if (!tryExecuteOneTaskEnabled.load(std::memory_order_acquire)) {
+        return false;
+    }
+    if (externalTaskExecuting) {
+        return false;
+    }
+    HeapWork* task = nullptr;
+    {
+        std::unique_lock<std::mutex> poolLock(poolMutex);
+        if (workQueue.empty() || !IsRunning() || IsExited()) {
+            return false;
+        }
+        task = workQueue.front();
+        workQueue.pop();
+        ++externalExecutingTaskNum;
+    }
+
+    externalTaskExecuting = true;
+    task->Execute(threadId);
+    externalTaskExecuting = false;
+    delete task;
+
+    {
+        std::unique_lock<std::mutex> poolLock(poolMutex);
+        CHECK(externalExecutingTaskNum > 0);
+        --externalExecutingTaskNum;
+        if (externalExecutingTaskNum == 0 && waitingThreadNum == maxActiveThreadNum && workQueue.empty()) {
+            allWorkDoneCondVar.notify_all();
+        }
+    }
+    return true;
+}
+
 void GCThreadPool::Start()
 {
     // notify all sleeping threads get to work
@@ -258,7 +298,8 @@ void GCThreadPool::WaitFinish()
     // no need to wait when pool stopped or exited
     {
         std::unique_lock<std::mutex> poolLock(poolMutex);
-        while ((waitingThreadNum != maxActiveThreadNum) && IsRunning() && !IsExited()) {
+        while ((waitingThreadNum != maxActiveThreadNum || externalExecutingTaskNum != 0) && IsRunning() &&
+               !IsExited()) {
             allWorkDoneCondVar.wait(poolLock);
         }
     }

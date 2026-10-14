@@ -12,7 +12,7 @@
 #include "LiveInfo.h"
 
 namespace MapleRuntime {
-uintptr_t RouteInfo::GetRoute(uint64_t preLiveBytes)
+uintptr_t CopyRouteInfo::GetRoute(uint64_t preLiveBytes)
 {
     if (preLiveBytes < toRegion1UsedBytes) {
         return toRegion1StartAddress + preLiveBytes;

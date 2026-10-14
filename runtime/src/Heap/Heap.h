@@ -24,10 +24,17 @@ class AllocBuffer;
 class FinalizerProcessor;
 class CollectorResources;
 
+enum class GCMode : uint8_t {
+    DISABLED,
+    WGC,
+    GENERATIONAL,
+};
+
 
 class Heap {
 public:
     static Heap& GetHeap();
+    static GCMode GetGCMode();
     static Barrier& GetBarrier() { return **currentBarrierPtr; }
 
     // concurrent gc uses barrier to access heap.

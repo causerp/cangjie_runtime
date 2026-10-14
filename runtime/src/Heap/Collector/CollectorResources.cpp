@@ -161,7 +161,11 @@ void CollectorResources::RequestGCAndWait(GCReason reason)
     std::function<bool()> pred = [this, curThreadSyncIndex] {
         return ((finishedGcIndex >= curThreadSyncIndex) || (finishedGcIndex == GCTask::TASK_INDEX_FOR_EXIT));
     };
+    uint64_t startTime = TimeUtil::MicroSeconds();
     gcFinishedCondVar.wait(lock, pred);
+    uint64_t endTime = TimeUtil::MicroSeconds();
+    uint64_t diffTime = endTime - startTime;
+    VLOG(REPORT, "Wait for sync gc cost %zu us", diffTime);
 }
 
 void CollectorResources::RequestGC(GCReason reason, bool async)

@@ -8,6 +8,7 @@
 #define MRT_REGION_MANAGER_H
 
 #include <list>
+#include <atomic>
 #include <map>
 #include <set>
 #include <thread>
@@ -107,8 +108,8 @@ public:
           fullTraceRegions("full trace regions"), fromRegionList("from regions"),
           ghostFromRegionList("ghost from regions"), unmovableFromRegionList("escaped from regions"),
           garbageRegionList("garbage regions"), recentPinnedRegionList("recent pinned regions"),
-          oldPinnedRegionList("old pinned regions"), rawPointerPinnedRegionList("raw pointer pinned regions"),
-          oldLargeRegionList("old large regions"), recentLargeRegionList("recent large regions"),
+          pinnedRegionList("pinned regions"), rawPointerPinnedRegionList("raw pointer pinned regions"),
+          largeRegionList("large regions"), recentLargeRegionList("recent large regions"),
           largeTraceRegions("large trace regions")
     {}
 
@@ -116,10 +117,14 @@ public:
 
     RegionManager& operator=(const RegionManager&) = delete;
 
-    RegionInfo* AllocateThreadLocalRegion(bool expectPhysicalMem = false);
+    RegionInfo* AllocateThreadLocalRegion(bool expectPhysicalMem = false, bool isLoose = false);
 
     void ForwardFromRegions(GCThreadPool* threadPool);
     void ForwardFromRegions();
+    virtual void ForwardFromSpace(GCThreadPool* threadPool)
+    {
+        ForwardFromRegions(threadPool);
+    }
     void ForwardRegion(RegionInfo* region);
     void CompactRegion(RegionInfo* region);
     void CompactRegion(RegionInfo* region, RegionInfo* toRegion1);
@@ -130,7 +135,7 @@ public:
     void DumpRegionInfo() const;
 #endif
 
-    void DumpRegionStats(const char* msg, bool dumpToError = false) const;
+    virtual void DumpRegionStats(const char* msg, bool dumpToError = false) const;
 
     uintptr_t GetInactiveZone() const { return inactiveZone; }
 
@@ -140,10 +145,10 @@ public:
 
     uintptr_t GetRegionHeapStart() const { return regionHeapStart; }
 
-    ~RegionManager() = default;
+    virtual ~RegionManager() = default;
 
     // take a region with *num* units for allocation
-    RegionInfo* TakeRegion(size_t num, RegionInfo::UnitRole, bool expectPhysicalMem = false);
+    RegionInfo* TakeRegion(size_t num, RegionInfo::UnitRole, bool expectPhysicalMem = false, bool isLoose = false);
 
     uintptr_t AllocPinnedFromFreeList(size_t size);
 
@@ -166,6 +171,7 @@ public:
         if (addr == 0) {
             addr = AllocPinnedFromFreeList(size);
         }
+        regionListMutex.unlock();
         if (addr == 0) {
             size_t needUnitCount = maxUnitCountPerRegion;
 #if defined(__EULER__)
@@ -173,7 +179,6 @@ public:
 #endif
             RegionInfo* region = TakeRegion(needUnitCount, RegionInfo::UnitRole::SMALL_SIZED_UNITS);
             if (region == nullptr) {
-                regionListMutex.unlock();
                 return 0;
             }
             DLOG(REGION, "alloc pinned region @[0x%zx+%zu, 0x%zx) unit idx %zu type %u", region->GetRegionStart(),
@@ -181,16 +186,16 @@ public:
                  region->GetRegionType());
             // If allocate pinned obj during tracing, set region to traced new region.
             GCPhase phase = Heap::GetHeap().GetCollector().GetGCPhase();
-            if (phase == GC_PHASE_TRACE || phase == GC_PHASE_CLEAR_SATB_BUFFER) {
+            if (phase == GC_PHASE_GENERATION_TRACE || phase == GC_PHASE_TRACE || phase == GC_PHASE_CLEAR_SATB_BUFFER) {
                 region->SetTraceRegionFlag(1);
             }
             // To make sure the allocedSize are consistent, it must prepend region first then alloc object.
-            recentPinnedRegionList.PrependRegionLocked(region, RegionInfo::RegionType::RECENT_PINNED_REGION);
             addr = region->Alloc(size);
+            ScopedEnterSaferegion enterSaferegion(true);
+            recentPinnedRegionList.PrependRegion(region, RegionInfo::RegionType::RECENT_PINNED_REGION);
         }
 
         DLOG(ALLOC, "alloc pinned obj 0x%zx(%zu)", addr, size);
-        regionListMutex.unlock();
         return addr;
     }
 
@@ -209,7 +214,8 @@ public:
         uintptr_t addr = region->Alloc(size);
 
         GCPhase phase = Heap::GetHeap().GetCollector().GetGCPhase();
-        bool shouldSetTraceRegion = (phase == GC_PHASE_TRACE || phase == GC_PHASE_CLEAR_SATB_BUFFER);
+        bool shouldSetTraceRegion =
+            (phase == GC_PHASE_GENERATION_TRACE || phase == GC_PHASE_TRACE || phase == GC_PHASE_CLEAR_SATB_BUFFER);
         if (largeTraceRegions.TryPrependRegion(region, RegionInfo::RegionType::RECENT_LARGE_REGION)) {
             if (shouldSetTraceRegion) {
                 region->SetTraceRegionFlag(1);
@@ -252,7 +258,7 @@ public:
 
     void MergeRawPointerPinnedRegions()
     {
-        oldPinnedRegionList.MergeRegionList(rawPointerPinnedRegionList, RegionInfo::RegionType::FULL_PINNED_REGION);
+        pinnedRegionList.MergeRegionList(rawPointerPinnedRegionList, RegionInfo::RegionType::FULL_PINNED_REGION);
     }
 
     void CollectFromSpaceGarbage()
@@ -274,7 +280,22 @@ public:
         return maxUnitCountPerRegion * RegionInfo::UNIT_SIZE;
     }
 
-    size_t CollectRegion(RegionInfo* region)
+    void ResetMutatorAssistRegionBytes()
+    {
+        mutatorAssistRegionBytes.store(0, std::memory_order_relaxed);
+    }
+
+    void RecordMutatorAssistRegionBytes(size_t bytes)
+    {
+        mutatorAssistRegionBytes.fetch_add(bytes, std::memory_order_relaxed);
+    }
+
+    size_t GetMutatorAssistRegionBytes() const
+    {
+        return mutatorAssistRegionBytes.load(std::memory_order_relaxed);
+    }
+
+    virtual size_t CollectRegion(RegionInfo* region)
     {
         DLOG(REGION, "collect region %p@[%#zx+%zu, %#zx) type %u", region, region->GetRegionStart(),
              region->GetLiveByteCount(), region->GetRegionEnd(), region->GetRegionType());
@@ -295,7 +316,7 @@ public:
         }
     }
 
-    void AddRawPointerObject(BaseObject* obj)
+    virtual void AddRawPointerObject(BaseObject* obj)
     {
         RegionInfo* region = RegionInfo::GetRegionInfoAt(reinterpret_cast<MAddress>(obj));
         region->IncRawPointerObjectCount();
@@ -303,7 +324,7 @@ public:
                                            RegionInfo::RegionType::RAW_POINTER_PINNED_REGION)) {
             GCPhase phase = Heap::GetHeap().GetGCPhase();
             CHECK(phase != GCPhase::GC_PHASE_FORWARD && phase != GCPhase::GC_PHASE_PREFORWARD);
-            if (phase == GCPhase::GC_PHASE_POST_TRACE) {
+            if (phase == GCPhase::GC_PHASE_POST_TRACE || phase == GCPhase::GC_PHASE_GENERATION_POST_TRACE) {
                 region->ClearGhostRegionBit();
             }
             rawPointerPinnedRegionList.PrependRegion(region, RegionInfo::RegionType::RAW_POINTER_PINNED_REGION);
@@ -356,16 +377,16 @@ public:
 
     size_t GetSurvivedSize() const
     {
-        return fromRegionList.GetAllocatedSize() + oldPinnedRegionList.GetAllocatedSize() +
-            oldLargeRegionList.GetAllocatedSize();
+        return fromRegionList.GetAllocatedSize() + pinnedRegionList.GetAllocatedSize() +
+            largeRegionList.GetAllocatedSize();
     }
 
-    size_t GetUsedUnitCount() const
+    virtual size_t GetUsedUnitCount() const
     {
         return
             fromRegionList.GetUnitCount() + unmovableFromRegionList.GetUnitCount() +
-            recentFullRegionList.GetUnitCount() + oldLargeRegionList.GetUnitCount() +
-            recentLargeRegionList.GetUnitCount() + oldPinnedRegionList.GetUnitCount() +
+            recentFullRegionList.GetUnitCount() + largeRegionList.GetUnitCount() +
+            recentLargeRegionList.GetUnitCount() + pinnedRegionList.GetUnitCount() +
             recentPinnedRegionList.GetUnitCount() + rawPointerPinnedRegionList.GetUnitCount() +
             largeTraceRegions.GetUnitCount() + fullTraceRegions.GetUnitCount() +
             tlRegionList.GetUnitCount();
@@ -379,10 +400,10 @@ public:
 
     inline size_t GetLargeObjectSize() const
     {
-        return oldLargeRegionList.GetAllocatedSize() + recentLargeRegionList.GetAllocatedSize();
+        return largeRegionList.GetAllocatedSize() + recentLargeRegionList.GetAllocatedSize();
     }
 
-    size_t GetAllocatedSize() const
+    virtual size_t GetAllocatedSize() const
     {
         size_t threadLocalSize = 0;
         AllocBufferVisitor visitor = [&threadLocalSize](AllocBuffer& regionBuffer) {
@@ -395,8 +416,8 @@ public:
         Heap::GetHeap().GetAllocator().VisitAllocBuffers(visitor);
         // exclude garbageRegionList for live object set.
         return fromRegionList.GetAllocatedSize() + unmovableFromRegionList.GetAllocatedSize() +
-            recentFullRegionList.GetAllocatedSize() + oldLargeRegionList.GetAllocatedSize() +
-            recentLargeRegionList.GetAllocatedSize() + oldPinnedRegionList.GetAllocatedSize() +
+            recentFullRegionList.GetAllocatedSize() + largeRegionList.GetAllocatedSize() +
+            recentLargeRegionList.GetAllocatedSize() + pinnedRegionList.GetAllocatedSize() +
             recentPinnedRegionList.GetAllocatedSize() + rawPointerPinnedRegionList.GetAllocatedSize() +
             largeTraceRegions.GetAllocatedSize() + fullTraceRegions.GetAllocatedSize() +
             threadLocalSize;
@@ -406,7 +427,7 @@ public:
 
     inline size_t GetPinnedSpaceSize() const
     {
-        return oldPinnedRegionList.GetAllocatedSize() + recentPinnedRegionList.GetAllocatedSize();
+        return pinnedRegionList.GetAllocatedSize() + recentPinnedRegionList.GetAllocatedSize();
     }
 
     size_t GetLargeObjectThreshold() const { return largeObjectThreshold; }
@@ -414,7 +435,7 @@ public:
     void ClearFreePinnedSlots() { freePinnedSlotLists.Clear(); }
 
     // wait for a period of time to allocate region which will avoid harm to gc
-    void RequestForRegion(size_t size);
+    virtual bool RequestForRegion(size_t size, bool isLoose = false);
 
     void MergeRawPointerRegions(RegionList& smallSizeRegionList, RegionList& largeSizeRegionList)
     {
@@ -437,7 +458,7 @@ public:
 
         tlRegionList.ClearTraceRegionFlag();
         recentPinnedRegionList.ClearTraceRegionFlag();
-        oldPinnedRegionList.ClearTraceRegionFlag();
+        pinnedRegionList.ClearTraceRegionFlag();
     }
 
     void PrepareTrace()
@@ -477,6 +498,7 @@ public:
         CHECK(fromRegionInfo->IsGhostFromRegion());
         do {
             RegionInfo::RouteState oldState = fromRegionInfo->GetRouteState();
+            CHECK(oldState != RegionInfo::RouteState::PROMOTED);
             if (oldState == RegionInfo::RouteState::ROUTED || oldState == RegionInfo::RouteState::FORWARDED) {
                 return true;
             }
@@ -501,16 +523,17 @@ public:
         } while (true);
     }
 
-    void PrepareFromRegionList()
+    virtual void PrepareFromRegionList(bool isFull)
     {
+        (void)isFull;
         ghostFromRegionList.VisitAllGhostRegions([](RegionInfo* region) {
-            DLOG(REGION, "visit ghost from region %p@[%#zx, %#zx)", region, region->GetRegionStart(),
+            DLOG(REGION, "dispel ghost from region %p@[%#zx, %#zx)", region, region->GetRegionStart(),
                  region->GetRegionEnd());
             region->DispelGhostFromRegion();
         });
 
         fromRegionList.VisitAllRegions([](RegionInfo* region) {
-            DLOG(REGION, "visit from region %p@[%#zx+%zu, %#zx)", region, region->GetRegionStart(),
+            DLOG(REGION, "prepare from region %p@[%#zx+%zu, %#zx)", region, region->GetRegionStart(),
                  region->GetLiveByteCount(), region->GetRegionEnd());
             region->PrepareForwardableRegion();
         });
@@ -525,17 +548,17 @@ public:
         ClearLiveInfo(fullTraceRegions);
         ClearLiveInfo(unmovableFromRegionList);
         ClearLiveInfo(recentPinnedRegionList);
-        ClearLiveInfo(oldPinnedRegionList);
+        ClearLiveInfo(pinnedRegionList);
         ClearLiveInfo(rawPointerPinnedRegionList);
-        ClearLiveInfo(oldLargeRegionList);
+        ClearLiveInfo(largeRegionList);
         ClearLiveInfo(recentLargeRegionList);
         ClearLiveInfo(largeTraceRegions);
     }
 
-private:
+protected:
+    virtual void CheckGC();
     static const size_t MAX_UNIT_COUNT_PER_REGION;
     static const size_t HUGE_PAGE;
-    inline void CheckRegionWhetherCreatedInFixPhase(RegionInfo* region);
     inline void TagHugePage(RegionInfo* region, size_t num) const;
     inline void UntagHugePage(RegionInfo* region, size_t num) const;
 
@@ -577,7 +600,7 @@ private:
     // region lists for small-sized pinned objects which are not be moved during concurrent gc, but
     // may be moved during compaction.
     RegionList recentPinnedRegionList;
-    RegionList oldPinnedRegionList;
+    RegionList pinnedRegionList;
 
     // region lists for small-sized raw-pointer objects (i.e. future, monitor)
     // which can not be moved ever (even during compaction).
@@ -585,7 +608,7 @@ private:
 
     // regions for large-sized objects.
     // large region is recorded here after large object is allocated.
-    RegionList oldLargeRegionList;
+    RegionList largeRegionList;
 
     // if large region is allocated when gc is not running, it is recorded here.
     RegionList recentLargeRegionList;
@@ -607,6 +630,7 @@ private:
     size_t maxUnitCountPerRegion = MAX_UNIT_COUNT_PER_REGION;   // max units count for threadLocal buffer.
     size_t maxUnitCountPerPinnedRegion = maxUnitCountPerRegion; // max units count for pinned region.
     size_t largeObjectThreshold;
+    std::atomic<size_t> mutatorAssistRegionBytes { 0 };
     double fromSpaceGarbageThreshold = 0.5; // 0.5: default garbage ratio.
     double exemptedRegionThreshold;
 #if defined(__EULER__)

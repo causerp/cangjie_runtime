@@ -42,7 +42,19 @@ public:
         return ToAllocSize(objSize);
     }
 
-    RegionSpace() = default;
+    static RegionManager* CreateRegionManager()
+    {
+        RegionManager* regionManager = new (std::nothrow) RegionManager();
+        CHECK_DETAIL(regionManager != nullptr, "CANGJIE RUNTIME create region manager failed");
+        return regionManager;
+    }
+    static void DestroyRegionManager(RegionManager* regionManager)
+    {
+        CHECK_DETAIL(regionManager != nullptr, "CANGJIE RUNTIME destroy a null region manager");
+        delete regionManager;
+    }
+    RegionSpace() : regionManager(*CreateRegionManager()) {}
+    RegionSpace(RegionManager* manager) : regionManager(manager != nullptr ? *manager : *CreateRegionManager()) {}
     ATTR_NO_INLINE ~RegionSpace() override
     {
         if (allocBufferManager != nullptr) {
@@ -53,27 +65,28 @@ public:
         Sanitizer::OnHeapDeallocated(map->GetBaseAddr(), map->GetMappedSize());
 #endif
         MemMap::DestroyMemMap(map);
+        DestroyRegionManager(&regionManager);
     }
 
     void Init(const HeapParam&) override;
 
     MAddress Allocate(size_t size, AllocType allocType) override;
 
-    RegionManager& GetRegionManager() noexcept { return regionManager; }
+    RegionManager& GetRegionManager() const noexcept { return regionManager; }
 
     MAddress GetSpaceStartAddress() const override { return reservedStart; }
 
     MAddress GetSpaceEndAddress() const override { return reservedEnd; }
 
-    size_t GetCurrentCapacity() const override { return regionManager.GetInactiveZone() - reservedStart; }
+    size_t GetCurrentCapacity() const override { return GetRegionManager().GetInactiveZone() - reservedStart; }
     size_t GetMaxCapacity() const override { return reservedEnd - reservedStart; }
 
-    inline size_t GetRecentAllocatedSize() const { return regionManager.GetRecentAllocatedSize(); }
+    inline size_t GetRecentAllocatedSize() const { return GetRegionManager().GetRecentAllocatedSize(); }
 
     // size of objects survived in previous gc.
-    inline size_t GetSurvivedSize() const { return regionManager.GetSurvivedSize(); }
+    inline size_t GetSurvivedSize() const { return GetRegionManager().GetSurvivedSize(); }
 
-    size_t GetUsedPageSize() const override { return regionManager.GetUsedRegionSize(); }
+    size_t GetUsedPageSize() const override { return GetRegionManager().GetUsedRegionSize(); }
 
     inline size_t GetTargetSize() const
     {
@@ -81,13 +94,13 @@ public:
         return static_cast<size_t>(GetUsedPageSize() / heapUtilization);
     }
 
-    size_t AllocatedBytes() const override { return regionManager.GetAllocatedSize(); }
+    size_t AllocatedBytes() const override { return GetRegionManager().GetAllocatedSize(); }
 
-    size_t LargeObjectBytes() const override { return regionManager.GetLargeObjectSize(); }
+    size_t LargeObjectBytes() const override { return GetRegionManager().GetLargeObjectSize(); }
 
-    size_t FromSpaceSize() const { return regionManager.GetFromSpaceSize(); }
+    size_t FromSpaceSize() const { return GetRegionManager().GetFromSpaceSize(); }
 
-    size_t PinnedSpaceSize() const { return regionManager.GetPinnedSpaceSize(); }
+    size_t PinnedSpaceSize() const { return GetRegionManager().GetPinnedSpaceSize(); }
 
 #if defined(MRT_DEBUG) && (MRT_DEBUG == 1)
     bool IsHeapObject(MAddress addr) const override;
@@ -99,21 +112,21 @@ public:
 
     size_t ReclaimGarbageMemory(bool releaseAll) override
     {
-        size_t dirtyHeapBefore = regionManager.GetDirtyUnitCount() * RegionInfo::UNIT_SIZE;
+        size_t dirtyHeapBefore = GetRegionManager().GetDirtyUnitCount() * RegionInfo::UNIT_SIZE;
         {
             MRT_PHASE_TIMER("ReclaimGarbageRegions");
-            regionManager.ReclaimGarbageRegions();
+            GetRegionManager().ReclaimGarbageRegions();
         }
 
         MRT_PHASE_TIMER("ReleaseGarbageMemory");
         if (releaseAll) {
-            return regionManager.ReleaseGarbageRegions(0);
+            return GetRegionManager().ReleaseGarbageRegions(0);
         } else {
-            size_t dirtyHeapAfter = regionManager.GetDirtyUnitCount() * RegionInfo::UNIT_SIZE;
+            size_t dirtyHeapAfter = GetRegionManager().GetDirtyUnitCount() * RegionInfo::UNIT_SIZE;
             // estimation of additional heap memory that was used since last GC
             size_t dirtyHeapUsed = dirtyHeapAfter > dirtyHeapBefore ? dirtyHeapAfter - dirtyHeapBefore : 0;
             
-            size_t sizeAfter = regionManager.GetAllocatedSize();
+            size_t sizeAfter = GetRegionManager().GetAllocatedSize();
             double cachedRatio = 1.0 / CangjieRuntime::GetHeapParam().heapUtilization - 1.0;
 
             // Release memory to OS only when it was not used since previous GC and is over heapUtilization threshold.
@@ -121,33 +134,33 @@ public:
             // then GC happens and releases memory, and then we need to request same memory from OS again.
             size_t targetCachedSize =
                 std::max(dirtyHeapUsed, static_cast<size_t>(sizeAfter * cachedRatio));
-            return regionManager.ReleaseGarbageRegions(targetCachedSize);
+            return GetRegionManager().ReleaseGarbageRegions(targetCachedSize);
         }
     }
 #if defined(__EULER__)
     void TryReclaimGarbageMemory() override
     {
-        double cachedRatio = regionManager.GetCacheRatio();
+        double cachedRatio = GetRegionManager().GetCacheRatio();
         if (cachedRatio == 1.0) { // 1.0 is the default value
             return;
         }
         {
             MRT_PHASE_TIMER("TryReclaimGarbageRegions");
-            regionManager.ReclaimGarbageRegions();
+            GetRegionManager().ReclaimGarbageRegions();
         }
         MRT_PHASE_TIMER("TryReleaseGarbageMemory");
-        size_t size = regionManager.GetAllocatedSize();
+        size_t size = GetRegionManager().GetAllocatedSize();
         size_t targetCachedSize = static_cast<size_t>(size * cachedRatio);
-        regionManager.ReleaseGarbageRegions(targetCachedSize);
+        GetRegionManager().ReleaseGarbageRegions(targetCachedSize);
         return;
     }
 #endif
     bool ForEachObj(const std::function<void(BaseObject*)>& visitor, bool safe) const override
     {
         if (UNLIKELY(safe)) {
-            regionManager.ForEachObjSafe(visitor);
+            GetRegionManager().ForEachObjSafe(visitor);
         } else {
-            regionManager.ForEachObjUnsafe(visitor);
+            GetRegionManager().ForEachObjUnsafe(visitor);
         }
         return true;
     }
@@ -156,46 +169,46 @@ public:
     size_t RefineFromSpace()
     {
         MRT_PHASE_TIMER("ExemptFromRegions");
-        return regionManager.ExemptFromRegions();
+        return GetRegionManager().ExemptFromRegions();
     }
 
-    BaseObject* RouteObject(BaseObject* fromObj) { return regionManager.RouteObject(fromObj); }
+    BaseObject* RouteObject(BaseObject* fromObj) { return GetRegionManager().RouteObject(fromObj); }
 
-    void PrepareFromSpace() { regionManager.PrepareFromRegionList(); }
+    void PrepareFromSpace(bool isFull) { GetRegionManager().PrepareFromRegionList(isFull); }
 
-    void ClearAllLiveInfo() { regionManager.ClearAllLiveInfo(); }
+    void ClearAllLiveInfo() { GetRegionManager().ClearAllLiveInfo(); }
 
-    void ForwardFromSpace(GCThreadPool* threadPool)
+    virtual void ForwardFromSpace(GCThreadPool* threadPool)
     {
         MRT_PHASE_TIMER("ForwardFromRegions");
-        regionManager.ForwardFromRegions(threadPool);
+        GetRegionManager().ForwardFromSpace(threadPool);
     }
 
-    size_t CollectLargeGarbage() { return regionManager.CollectLargeGarbage(); }
+    virtual size_t CollectLargeGarbage() { return GetRegionManager().CollectLargeGarbage(); }
 
-    size_t CollectPinnedGarbage() { return regionManager.CollectPinnedGarbage(); }
+    size_t CollectPinnedGarbage() { return GetRegionManager().CollectPinnedGarbage(); }
 
     void CollectFromSpaceGarbage()
     {
-        regionManager.CollectFromSpaceGarbage();
-        regionManager.ReassembleFromSpace();
+        GetRegionManager().CollectFromSpaceGarbage();
+        GetRegionManager().ReassembleFromSpace();
     }
 
     void AssembleGarbageCandidates(bool collectAll = false)
     {
-        regionManager.AssembleSmallGarbageCandidates();
-        regionManager.AssemblePinnedGarbageCandidates(collectAll);
-        regionManager.AssembleLargeGarbageCandidates();
+        GetRegionManager().AssembleSmallGarbageCandidates();
+        GetRegionManager().AssemblePinnedGarbageCandidates(collectAll);
+        GetRegionManager().AssembleLargeGarbageCandidates();
     }
 
     void DumpRegionStats(const char* msg, bool dumpToError = false) const
     {
-        regionManager.DumpRegionStats(msg, dumpToError);
+        GetRegionManager().DumpRegionStats(msg, dumpToError);
     }
 
-    void CountLiveObject(const BaseObject* obj) { regionManager.CountLiveObject(obj); }
+    void CountLiveObject(const BaseObject* obj) { GetRegionManager().CountLiveObject(obj); }
 
-    void PrepareTrace() { regionManager.PrepareTrace(); }
+    void PrepareTrace() { GetRegionManager().PrepareTrace(); }
     void FeedHungryBuffers() override;
 
     static bool MarkObject(const BaseObject* obj)
@@ -229,22 +242,24 @@ public:
         return regionInfo->IsResurrectedObject(obj);
     }
 
-    void AddRawPointerObject(BaseObject* obj) { regionManager.AddRawPointerObject(obj); }
+    void AddRawPointerObject(BaseObject* obj) { GetRegionManager().AddRawPointerObject(obj); }
 
-    void RemoveRawPointerObject(BaseObject* obj) { regionManager.RemoveRawPointerObject(obj); }
+    void RemoveRawPointerObject(BaseObject* obj) { GetRegionManager().RemoveRawPointerObject(obj); }
 
     friend class Allocator;
+
+protected:
+    RegionManager& regionManager;
+    virtual MAddress TryAllocateOnce(size_t allocSize, AllocType allocType);
 
 private:
     enum class TryAllocationThreshold {
         RESCHEDULE = 3,
         TRIGGER_OOM = 5,
     };
-    MAddress TryAllocateOnce(size_t allocSize, AllocType allocType);
     bool ShouldRetryAllocation(size_t& tryTimes, size_t size) const;
     MAddress reservedStart = 0;
     MAddress reservedEnd = 0;
-    RegionManager regionManager;
     MemMap* map{ nullptr };
 };
 } // namespace MapleRuntime

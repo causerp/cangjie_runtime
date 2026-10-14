@@ -33,6 +33,8 @@ const char* LOG_TYPE_NAMES[LOG_TYPE_NUMBER] = {
 #if defined(CANGJIE_SANITIZER_SUPPORT) || defined(CANGJIE_GWPASAN_SUPPORT)
     "sanitizer",
 #endif
+    "promote",
+    "sweep",
 };
 
 RTLogLevel LogFile::logLevel = InitLogLevel();
@@ -93,6 +95,8 @@ void LogFile::SetFlags()
 #if defined(CANGJIE_SANITIZER_SUPPORT) || defined(CANGJIE_GWPASAN_SUPPORT)
     logFile[SANITIZER].enableLog = MRT_ENABLED_LOG(MRT_LOG_SANITIZER);
 #endif
+    logFile[PROMOTE].enableLog = MRT_ENABLED_LOG(MRT_LOG_PROMOTE);
+    logFile[SWEEP].enableLog = MRT_ENABLED_LOG(MRT_LOG_SWEEP);
 #else
     SetFlagWithEnv("MRT_REPORT", REPORT);
     SetFlagWithEnv("MRT_LOG_CJTHREAD", CJTHREAD);
@@ -108,7 +112,7 @@ void LogFile::OpenLogFiles()
 
     for (int i = 0; i < LOG_TYPE_NUMBER; ++i) {
         if (logFile[i].enableLog) {
-            CString fileName = dirName + "/" + dateDigit + "_" + pid + "." + LOG_TYPE_NAMES[i] + ".txt";
+            CString fileName = dirName + "/" + LOG_TYPE_NAMES[i] + "." + dateDigit + "_" + pid + ".txt";
             LOG(RTLOG_INFO, "create log file %s", fileName.Str());
             logFile[i].file = fopen(fileName.Str(), "a+"); // Assignment closes the old file.
             if (logFile[i].file == nullptr) {

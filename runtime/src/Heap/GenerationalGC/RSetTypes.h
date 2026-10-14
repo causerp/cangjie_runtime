@@ -4,17 +4,19 @@
 //
 // See https://cangjie-lang.cn/pages/LICENSE for license information.
 
+#ifndef MRT_RSET_TYPES_H
+#define MRT_RSET_TYPES_H
 
-#ifndef MRT_COLLECTOR_PLATFORM_H
-#define MRT_COLLECTOR_PLATFORM_H
+#include <cstddef>
+#include <cstdint>
+#include <unordered_set>
+
 namespace MapleRuntime {
-class CollectorPlatform {
-public:
-    CollectorPlatform();
-    virtual ~CollectorPlatform() = default;
 
-private:
-    virtual void InitAfterFork() {}
-};
+class RegionInfo;
+
+using RSetRegions = std::unordered_set<RegionInfo*>;
+
 } // namespace MapleRuntime
-#endif // MRT_COLLECTOR_PLATFORM_H
+
+#endif // MRT_RSET_TYPES_H

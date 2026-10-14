@@ -6,6 +6,7 @@
 
 
 #include "Allocator/RegionSpace.h"
+#include "GenerationalGC/GenerationAllocBuffer.h"
 
 #include "Collector/Collector.h"
 #include "Collector/CollectorResources.h"
@@ -19,10 +20,10 @@ namespace MapleRuntime {
 MAddress RegionSpace::TryAllocateOnce(size_t allocSize, AllocType allocType)
 {
     if (UNLIKELY(allocType == AllocType::PINNED_OBJECT)) {
-        return regionManager.AllocPinned(allocSize);
+        return GetRegionManager().AllocPinned(allocSize);
     }
-    if (UNLIKELY(allocSize >= regionManager.GetLargeObjectThreshold())) {
-        return regionManager.AllocLarge(allocSize);
+    if (UNLIKELY(allocSize >= GetRegionManager().GetLargeObjectThreshold())) {
+        return GetRegionManager().AllocLarge(allocSize);
     }
     AllocBuffer* allocBuffer = AllocBuffer::GetOrCreateAllocBuffer();
     return allocBuffer->Allocate(allocSize, allocType);
@@ -54,7 +55,7 @@ bool RegionSpace::ShouldRetryAllocation(size_t& tryTimes, size_t size) const
         }
         return true;
     }
-    regionManager.DumpRegionStats("region statistics when gc ends", true);
+    GetRegionManager().DumpRegionStats("region statistics when gc ends", true);
     VLOG(REPORT, "Cannot allocate memory of %zu(B), throw an OutOfMemory exception", size);
     LOG(RTLOG_ERROR, "Cannot allocate memory of %zu(B), throw an OutOfMemory exception", size);
     ExceptionManager::OutOfMemory();
@@ -109,8 +110,8 @@ void RegionSpace::Init(const HeapParam& vmHeapParam)
 
     Logger::GetLogger().SetMinimumLogLevel(CangjieRuntime::GetLogParam().logLevel);
     MAddress metadata = reinterpret_cast<MAddress>(map->GetBaseAddr());
-    regionManager.Initialize(unitNum, metadata);
-    reservedStart = regionManager.GetRegionHeapStart();
+    GetRegionManager().Initialize(unitNum, metadata);
+    reservedStart = GetRegionManager().GetRegionHeapStart();
     reservedEnd = reinterpret_cast<MAddress>(map->GetMappedEndAddr());
 #if defined(MRT_DUMP_ADDRESS)
     VLOG(REPORT, "region metadata@%zx, heap @[0x%zx+%zu, 0x%zx)", metadata, reservedStart, reservedEnd - reservedStart,
@@ -124,7 +125,11 @@ AllocBuffer* AllocBuffer::GetOrCreateAllocBuffer()
 {
     auto* buffer = AllocBuffer::GetAllocBuffer();
     if (buffer == nullptr) {
-        buffer = new (std::nothrow) AllocBuffer();
+        if (Heap::GetGCMode() == GCMode::GENERATIONAL) {
+            buffer = new (std::nothrow) GenerationAllocBuffer();
+        } else {
+            buffer = new (std::nothrow) AllocBuffer();
+        }
         CHECK_DETAIL(buffer != nullptr, "new region alloc buffer fail");
         buffer->Init();
         ThreadLocal::SetAllocBuffer(buffer);
@@ -290,7 +295,7 @@ void RegionSpace::FeedHungryBuffers()
     for (auto* buffer : hungryBuffers) {
         if (buffer->GetPreparedRegion() != nullptr) { continue; }
         if (region == nullptr) {
-            region = regionManager.AllocateThreadLocalRegion(true);
+            region = GetRegionManager().AllocateThreadLocalRegion(true);
             if (region == nullptr) { return; }
         }
         if (buffer->SetPreparedRegion(region)) {
@@ -299,8 +304,8 @@ void RegionSpace::FeedHungryBuffers()
     }
     if (region != nullptr) {
         // The region is inserted in thread-local region list when allocated, we need to remove it from the list.
-        regionManager.RemoveThreadLocalRegion(region);
-        regionManager.CollectRegion(region);
+        GetRegionManager().RemoveThreadLocalRegion(region);
+        GetRegionManager().CollectRegion(region);
     }
 }
 
