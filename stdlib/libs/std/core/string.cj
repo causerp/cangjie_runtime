@@ -193,6 +193,36 @@ public struct String <: Collection<Byte> & Comparable<String> & Hashable & ToStr
         }
     }
 
+    /**
+     * Create a local String by copying a null-terminated C string via memcpy.
+     * @throws IllegalArgumentException if the C string length exceeds UInt32.Max.
+     */
+    @Frozen
+    public exclave init(this @local!, ptr: CPointer<UInt8>) {
+        let cSize = if (ptr.isNull()) {
+            0
+        } else {
+            unsafe { Int64(strlen(ptr)) }
+        }
+        if (cSize > Int64(UInt32.Max)) {
+            throw IllegalArgumentException("The size of String is too large.")
+        }
+        if (cSize == 0) {
+            myData = rawArrayAllocate2<UInt8>(0)
+            start = 0
+            length = 0
+        } else {
+            myData = rawArrayAllocate2<UInt8>(cSize)
+            unsafe {
+                let itemP: CPointer<UInt8> = acquireRawData2(myData)
+                memcpy_s(itemP, UIntNative(cSize), ptr, UIntNative(cSize))
+                releaseRawData2<UInt8>(myData, itemP)
+            }
+            start = 0
+            length = UInt32(cSize)
+        }
+    }
+
     @Frozen
     init(value: Array<UInt8>) {
         if (value.len > Int64(UInt32.Max)) {
@@ -306,6 +336,8 @@ public struct String <: Collection<Byte> & Comparable<String> & Hashable & ToStr
         intrinsicBuiltInCopyTo3<UInt8>(this.myData, newRawPtr, Int64(start), 0, Int64(length))
         String(newRawPtr, 0, length)
     }
+
+
 
     @Frozen
     public func iterator(): Iterator<Byte> {
