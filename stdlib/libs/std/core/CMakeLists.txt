@@ -40,6 +40,7 @@ set(CANGJIE_CORE_SRCS
     unsupported_exception.cj
     overflow_exception.cj
     out_of_memory_error.cj
+    local_region_out_of_memory_error.cj
     resource.cj
     spawn_exception.cj
     char_extension.cj

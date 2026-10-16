@@ -284,7 +284,6 @@ void Barrier::ReadGenericToLocalObject(const ObjectPtr dstObj, void* fieldPtr, s
     }
 
     Mutator* mutator = nullptr;
-    bool localRootRegistered = false;
     size_t copiedUntil = 0;
     auto copyRange = [dst, src, size](size_t begin, size_t end) {
         if (begin == end) {
@@ -298,7 +297,7 @@ void Barrier::ReadGenericToLocalObject(const ObjectPtr dstObj, void* fieldPtr, s
     };
 
     dstObj->GetGCTib().ForEachBitmapWordInRange(dst,
-        [this, dstObj, dst, src, size, &mutator, &localRootRegistered, &copiedUntil,
+        [this, dstObj, dst, src, size, &mutator, &copiedUntil,
          &copyRange](RefField<>& dstField) {
             size_t offset = reinterpret_cast<MAddress>(&dstField) - dst;
             CHECK_DETAIL(offset >= copiedUntil && offset + sizeof(RefField<>) <= size,
@@ -310,13 +309,12 @@ void Barrier::ReadGenericToLocalObject(const ObjectPtr dstObj, void* fieldPtr, s
             RefField<> srcSnapshot(srcField->GetFieldValue());
             ObjectPtr value = ReadReference(nullptr, srcSnapshot);
             if (Heap::IsHeapAddress(value)) {
-                if (!localRootRegistered) {
+                if (mutator == nullptr) {
                     mutator = Mutator::GetMutator();
                     CHECK_DETAIL(mutator != nullptr, "cannot register local generic destination without mutator: %p",
                                  dstObj);
-                    mutator->AddLocalRoot(dstObj);
-                    localRootRegistered = true;
                 }
+                mutator->AddLocalRoot(dstObj, &dstField);
                 WriteReference(dstObj, dstField, value);
             } else {
                 dstField.SetTargetObject(value);

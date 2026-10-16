@@ -334,6 +334,11 @@ void Mutator::VisitHeapReferences(const RootVisitor& rootVisitor, const DerivedP
     VisitHeapReferencesOnStack(rootVisitor, derivedPtrVisitor);
     VisitExceptionRoots(rootVisitor);
     VisitNativeFrameRoots(rootVisitor);
+    // Local-to-heap slots are enumerated through VisitMutatorRoots(), but they
+    // are not part of the stack-map scan above.  They must also participate in
+    // preforward so a moved target is written back to the local owner before
+    // the old region becomes reclaimable.
+    VisitLocalObjectAllocatorRoots(rootVisitor);
 }
 
 Mutator* Mutator::GetMutator() noexcept
@@ -780,10 +785,10 @@ void Mutator::RemoveLocalFinalizer(BaseObject* obj)
     theAllocator.GetLocalObjectAllocator().RemoveFinalizer(*this, obj);
 }
 
-void Mutator::AddLocalRoot(BaseObject* obj)
+void Mutator::AddLocalRoot(BaseObject* obj, RefField<false>* field)
 {
     RegionSpace& theAllocator = reinterpret_cast<RegionSpace&>(Heap::GetHeap().GetAllocator());
-    theAllocator.GetLocalObjectAllocator().AddLocalRoot(*this, obj);
+    theAllocator.GetLocalObjectAllocator().AddLocalRoot(*this, obj, field);
 }
 
 void Mutator::VisitLocalObjectAllocatorRoots(const RootVisitor& visitor)

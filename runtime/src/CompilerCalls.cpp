@@ -371,7 +371,7 @@ static void MaybeLocalWriteRef(ObjectPtr obj, RefField<false>* field, ObjectPtr 
         mutator = Mutator::GetMutator();
     }
     CHECK_DETAIL(mutator != nullptr, "cannot register local owner without mutator: obj %p", obj);
-    mutator->AddLocalRoot(obj);
+    mutator->AddLocalRoot(obj, field);
     barrier.WriteReference(obj, *field, value);
 }
 
@@ -454,7 +454,7 @@ extern "C" void MCC_DemodeWriteRef(const ObjectPtr value, const ObjectPtr obj, R
     if (IsLocalObject(obj)) {
         Mutator* mutator = Mutator::GetMutator();
         CHECK_DETAIL(mutator != nullptr, "cannot register local owner without mutator: obj %p", obj);
-        mutator->AddLocalRoot(obj);
+        mutator->AddLocalRoot(obj, field);
     }
     Heap::GetBarrier().WriteReference(obj, *field, value);
 }
@@ -532,7 +532,8 @@ extern "C" size_t MCC_GetAllocatedHeapSize() { return Heap::GetHeap().GetAllocat
 extern "C" size_t MCC_GetAllocatedLocalObjectSize()
 {
     // Local objects live outside the tracing heap (native arenas or local mode
-    // regions), so they are not part of MCC_GetAllocatedHeapSize.
+    // regions), so they are not part of MCC_GetAllocatedHeapSize. Native local
+    // mode reports active chunk capacity, including the unused chunk tail.
     ScopedEnterSaferegion enterSaferegion(false);
     ScopedStopTheWorld stw("get allocated local object size");
     RegionSpace& regionSpace = reinterpret_cast<RegionSpace&>(Heap::GetHeap().GetAllocator());

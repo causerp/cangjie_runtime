@@ -10,6 +10,7 @@
 #include "Heap/Allocator/LocalObjectAllocator.h"
 #include "Heap/Allocator/RegionSpace.h"
 #include "Heap/Heap.h"
+#include "ExceptionManager.inline.h"
 #include "Mutator/Mutator.h"
 
 namespace MapleRuntime {
@@ -36,6 +37,9 @@ MAddress HeapManager::AllocateLocal(size_t allocSize)
     size_t size = RegionSpace::ToAllocSize(allocSize);
     MAddress internalAddr = localObjectAllocator->Allocate(*mutator, size);
     if (UNLIKELY(internalAddr == 0)) {
+        if (ExceptionManager::HasPendingException()) {
+            return 0;
+        }
         return regionSpace->Allocate(allocSize, AllocType::LOCAL_OBJECT);
     }
     return internalAddr + RegionSpace::HEADER_SIZE;

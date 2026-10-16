@@ -13,8 +13,10 @@
 #include <map>
 #include <set>
 #include <stack>
+#include <unordered_map>
 #include <sys/time.h>
 #include "Base/CString.h"
+#include "Heap/Allocator/LocalObjectAllocator.h"
 #include "UnwindStack/GcStackInfo.h"
 namespace MapleRuntime {
 class CjHeapData {
@@ -54,10 +56,15 @@ public:
     static constexpr u8 HEAP_SIZE_THRESHOLD_4GB = 4ULL * 1024 * 1024 * 1024;
     static constexpr u8 NULL_OBJECT_ID = 0xFFFFFFFFFFFFFFFFULL;  // Special ID for null object references
 
+    // Local-object dump records use the 1.0.3 protocol and are opt-in until
+    // the perf parser supports that protocol.  Set cjEnableLocalObjectDump to
+    // 1, true or TRUE to enable them.
+    static bool IsLocalObjectDumpEnabled();
+
     // Encapsulates how cjprof dump records serialize object IDs for the current heap layout.
     class SerializedIdWrapper {
     public:
-        void Init(size_t maxCapacity, MAddress startAddr);
+        void Init(size_t maxCapacity, MAddress startAddr, bool force4Byte = false);
         void WriteId(CjHeapData& heapData, u8 value) const;
         bool Use4ByteId() const;
         MAddress GetHeapStartAddr() const;
@@ -80,6 +87,10 @@ public:
         TAG_ROOT_UNKNOWN = 0xFF,
         TAG_ROOT_GLOBAL = 0x01,
         TAG_ROOT_LOCAL = 0x02,
+        // 1.0.3: local allocator scan source and finalizer roots.  TAG_ROOT_LOCAL
+        // remains reserved for managed thread/stack roots.
+        TAG_ROOT_LOCAL_OBJECT = 0x03,
+        TAG_LOCAL_FINALIZER = 0x06,
         TAG_ROOT_THREAD_OBJECT = 0x08,
         TAG_CLASS_DUMP = 0x20,
         TAG_INSTANCE_DUMP = 0x21,
@@ -114,6 +125,7 @@ public:
         u1 tag;
         u4 threadId;
         u4 frameNum;
+        u1 finalizerState = 0;
     };
 
     struct DumpClass {
@@ -180,12 +192,15 @@ public:
     void ProcessRootThreadObject();
     void ProcessRootFinalizer();
     void ProcessHeapObject(BaseObject* roots);
+    void ProcessLocalObject(Mutator& mutator, BaseObject* obj, const LocalObjectInfo& info);
     void ProcessRootClass(TypeInfo* klass);
     void ProcessStructClass(TypeInfo* klass);
 
     void WriteGlobalRoot(BaseObject*& obj, const u1 tag);
     void WriteUnknownRoot(BaseObject*& obj, const u1 tag);
     void WriteLocalRoot(BaseObject*& obj, const u1 tag, const u4 tid, const u4 depth);
+    void WriteLocalObjectRoot(BaseObject*& obj, const u1 tag, const u4 tid, const u4 depth);
+    void WriteLocalFinalizer(BaseObject*& obj, const u1 tag, const u4 tid, const u4 depth, const u1 state);
     void WriteThreadObjectRoot(BaseObject*& obj, const u1 tag, const u4 tid, const u4 stackTraceIdx);
     void WriteObjectArray(BaseObject*& obj, const u1 tag);
     void WriteStructArray(BaseObject*& obj, const u1 tag);
@@ -217,6 +232,11 @@ public:
     u4 threadId = 0;
     CjHeapDataStackTraceSerialNumber traceSerialNum = kCjHeapDataNullStackTrace + 1;
     SerializedIdWrapper serializedIdWrapper;
+    bool enableLocalObjectDump = false;
+    bool hasLocalObjects = false;
+    mutable std::unordered_map<BaseObject*, CjHeapDataID> objectIds;
+    mutable std::set<CjHeapDataID> allocatedObjectIds;
+    mutable uint32_t objectIdSeed = 0;
 };
 } // namespace MapleRuntime
 #endif

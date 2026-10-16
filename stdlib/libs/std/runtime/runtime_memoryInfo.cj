@@ -92,9 +92,10 @@ public func getAllocatedHeapSize(): Int64 {
 }
 
 /**
- * Get the size of live local objects allocated by local region allocation,
- * in bytes. Local objects live outside the Cangjie heap and are therefore not
- * part of getAllocatedHeapSize.
+ * Get memory accounted to active local regions, in bytes. With the native
+ * local allocator this is the capacity of active backing chunks, including
+ * unused chunk tails. Local objects live outside the Cangjie heap and are
+ * therefore not part of getAllocatedHeapSize.
  */
 @When[backend == "cjnative"]
 public func getAllocatedLocalObjectSize(): Int64 {
