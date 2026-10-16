@@ -34,7 +34,7 @@ class ComparableDeriving <: Deriving {
         interfaceName: QualifiedName
     ): DerivingInterfaceInfo {
         if (interfaceName != COMPARABLE_NAME) {
-            throw IllegalArgumentException("Interface ${interfaceName} is not supported")
+            throw IllegalArgumentException("Interface ${interfaceName} is not supported.")
         }
         return COMPARABLE_INFO
     }

@@ -31,7 +31,7 @@ class ArbitraryDeriving <: Deriving {
 
     public override func queryInterfaceInfo(interfaceName: QualifiedName): DerivingInterfaceInfo {
         if (interfaceName != ARBITRARY_NAME) {
-            throw IllegalArgumentException("Interface ${interfaceName} is not supported")
+            throw IllegalArgumentException("Interface ${interfaceName} is not supported.")
         }
         return ARBITRARY_INFO
     }

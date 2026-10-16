@@ -31,7 +31,7 @@ class HashableDeriving <: Deriving {
 
     public override func queryInterfaceInfo(interfaceName: QualifiedName): DerivingInterfaceInfo {
         if (interfaceName != HASHABLE_NAME) {
-            throw IllegalArgumentException("Interface ${interfaceName} is not supported")
+            throw IllegalArgumentException("Interface ${interfaceName} is not supported.")
         }
         return HASHABLE_INFO
     }

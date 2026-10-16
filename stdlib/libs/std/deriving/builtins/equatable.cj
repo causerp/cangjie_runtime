@@ -31,7 +31,7 @@ class EquatableDeriving <: Deriving {
 
     public override func queryInterfaceInfo(interfaceName: QualifiedName): DerivingInterfaceInfo {
         if (interfaceName != EQUATABLE_NAME) {
-            throw IllegalArgumentException("Interface ${interfaceName} is not supported")
+            throw IllegalArgumentException("Interface ${interfaceName} is not supported.")
         }
         return EQUATABLE_INFO
     }
