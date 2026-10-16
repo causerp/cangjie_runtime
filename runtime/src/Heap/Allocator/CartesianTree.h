@@ -122,6 +122,16 @@ public:
         return TakeUnitsImpl(num, idx, refreshRegionInfo);
     }
 
+    // find the lowest-address node with at least 'num' units (for MAIN defragmentation)
+    bool TakeUnitsLowAddr(Count num, Index& idx, bool refreshRegionInfo = true)
+    {
+        if (root == nullptr || num == 0) {
+            return false;
+        }
+
+        return TakeUnitsLowAddrImpl(num, idx, refreshRegionInfo);
+    }
+
     struct Node {
         Node(Index idx, Count num, bool refreshRegionInfo) : l(nullptr), r(nullptr), index(idx), count(num)
         {
@@ -250,6 +260,15 @@ public:
 
     inline bool Empty() const { return root == nullptr; }
     inline const Node* RootNode() const { return root; }
+    size_t GetNodeCount() const
+    {
+        size_t nodeCount = 0;
+        Iterator it(*const_cast<CartesianTree*>(this));
+        while (it.Next() != nullptr) {
+            ++nodeCount;
+        }
+        return nodeCount;
+    }
 
     // root node records the largest block of memory.
     void ReleaseRootNode()
@@ -441,6 +460,64 @@ private:
 
         CTREE_CHECK_PARENT_AND_LCHILD(*nodePtr);
         CTREE_CHECK_PARENT_AND_RCHILD(*nodePtr);
+
+        return true;
+    }
+
+    // Best-fit with lowest-address tiebreaker.
+    // Find the node with the smallest count >= num (minimizes splitting),
+    // and among equal-count nodes, prefer the lowest address.
+    // Leverages max-heap pruning: if node->count < num, entire subtree is skipped.
+    Node** FindBestFitLowAddrPtr(Node** nodePtr, Count num, Node** best) const
+    {
+        if (nodePtr == nullptr || *nodePtr == nullptr || (*nodePtr)->GetCount() < num) {
+            return best;
+        }
+
+        // Current node is a candidate (count >= num).
+        // Prefer: (1) smallest count, (2) lowest index as tiebreaker.
+        if (best == nullptr ||
+            (*nodePtr)->GetCount() < (*best)->GetCount() ||
+            ((*nodePtr)->GetCount() == (*best)->GetCount() &&
+             (*nodePtr)->GetIndex() < (*best)->GetIndex())) {
+            best = nodePtr;
+        }
+
+        // Exact fit found — only left subtree could have same count with lower address.
+        if ((*best)->GetCount() == num) {
+            best = FindBestFitLowAddrPtr(&((*nodePtr)->l), num, best);
+            return best;
+        }
+
+        // Search both subtrees for a tighter fit.
+        best = FindBestFitLowAddrPtr(&((*nodePtr)->l), num, best);
+        best = FindBestFitLowAddrPtr(&((*nodePtr)->r), num, best);
+        return best;
+    }
+
+    // Best-fit allocation with lowest-address tiebreaker.
+    // Picks the node whose count is closest to num to avoid unnecessary splitting,
+    // breaking ties by lowest address to pack live data toward the low end.
+    bool TakeUnitsLowAddrImpl(Count num, Index& idx, bool refreshRegionInfo)
+    {
+        Node** nodePtr = FindBestFitLowAddrPtr(&root, num, nullptr);
+        if (nodePtr == nullptr) {
+            DLOG(REGION, "c-tree %p fail to take %u free units (best-fit-low-addr)", this, num);
+            return false;
+        }
+
+        Node* node = *nodePtr;
+        idx = node->GetIndex();
+        auto count = node->GetCount();
+
+        node->UpdateNode(idx + num, count - num, refreshRegionInfo);
+        DecTotalCount(num);
+
+        if (node->GetCount() == 0) {
+            RemoveZeroNode(*nodePtr);
+        } else {
+            LowerNonZeroNode(*nodePtr);
+        }
 
         return true;
     }
