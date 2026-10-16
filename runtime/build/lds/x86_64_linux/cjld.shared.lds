@@ -39,6 +39,8 @@ SECTIONS
       *(.rela.plt)
       *(.rela.iplt)
     }
+  /* Explicitly place RELR in the read-only segment instead of relying on lld orphan placement. */
+  .relr.dyn       : { *(.relr.dyn) }
   .init           :
   {
     KEEP (*(SORT_NONE(.init)))
