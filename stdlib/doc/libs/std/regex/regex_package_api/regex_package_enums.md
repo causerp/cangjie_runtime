@@ -26,7 +26,7 @@ IgnoreCase
 MultiLine
 ```
 
-功能：指定匹配模式为多行文本模式。
+功能：指定匹配模式为多行文本。
 
 ### Unicode
 
@@ -34,7 +34,7 @@ MultiLine
 Unicode
 ```
 
-功能：指定匹配模式支持 Unicode。
+功能：指定匹配模式为 Unicode。
 
 > **说明：**
 >

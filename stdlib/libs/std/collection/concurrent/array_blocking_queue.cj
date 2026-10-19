@@ -67,14 +67,14 @@ public class ArrayBlockingQueue<E> {
 
     public init(capacity: Int64) {
         if (capacity <= 0) {
-            throw IllegalArgumentException("Invalid size of ArrayBlockingQueue: ${capacity}.")
+            throw IllegalArgumentException("Invalid capacity '${capacity}': expected a positive value.")
         }
 
         this.capacity = capacity
         buffer = Array(capacity, repeat: unsafe { zeroValue<E>() })
         state = unsafe { CjStdSyncStateInit(capacity) }
         if (state.isNull()) {
-            throw IllegalMemoryException("Failed to malloc memory of ${capacity}.")
+            throw IllegalMemoryException("Failed to allocate memory for capacity '${capacity}'.")
         }
 
         unsignedCapacity = UInt64(capacity)
@@ -83,19 +83,18 @@ public class ArrayBlockingQueue<E> {
     @Deprecated[message: "Use the other version of `init` instead."]
     public init(capacity: Int64, elements: Collection<E>) {
         if (capacity < elements.size) {
-            throw IllegalArgumentException(
-                "Size of ArrayBlockingQueue should be equal or greater than ${elements.size}.")
+            throw IllegalArgumentException("Invalid capacity '${capacity}': expected at least '${elements.size}'.")
         }
 
         if (capacity <= 0) {
-            throw IllegalArgumentException("Invalid size of ArrayBlockingQueue: ${capacity}.")
+            throw IllegalArgumentException("Invalid capacity '${capacity}': expected a positive value.")
         }
 
         this.capacity = capacity
         buffer = Array(capacity, repeat: unsafe { zeroValue<E>() })
         state = unsafe { CjStdSyncStateInit(capacity) }
         if (state.isNull()) {
-            throw IllegalMemoryException("Failed to malloc memory of ${capacity}.")
+            throw IllegalMemoryException("Failed to allocate memory for capacity '${capacity}'.")
         }
 
         unsignedCapacity = UInt64(capacity)
@@ -199,7 +198,11 @@ public class ArrayBlockingQueue<E> {
 
     public func remove(): E {
         while (true) {
-            if (let Some(e) <- tryRemove()) {
+            let (found, index, roundState) = tryClaimRemove()
+            if (found) {
+                let e = buffer[index]
+                buffer[index] = unsafe { zeroValue<E>() }
+                releaseRemovedSlot(index, roundState)
                 return e
             }
 
@@ -346,33 +349,48 @@ public class ArrayBlockingQueue<E> {
 
     @OverflowWrapping
     public func tryRemove(): Option<E> {
+        let (found, index, roundState) = tryClaimRemove()
+        if (!found) {
+            return None<E>
+        }
+        let e = buffer[index]
+        buffer[index] = unsafe { zeroValue<E>() }
+        releaseRemovedSlot(index, roundState)
+        return Some(e)
+    }
+
+    // Returns (found, index, roundState). A successful CAS on 'reserved' grants
+    // the caller exclusive ownership of the claimed slot.
+    @OverflowWrapping
+    private func tryClaimRemove(): (Bool, Int64, UInt8) {
         while (true) {
-            let roundIndex = reserved.load() // LP: if returns 'None<E>'
+            let roundIndex = reserved.load() // LP: if the queue is reported empty
             let round = getRound(roundIndex)
             let index = getIndex(roundIndex)
             let roundState = unsafe { CjStdSyncStateLoad(state, index) }
             let roundBit = roundState >> ROUND_BIT
 
             if (matchState(round, roundBit, roundState & STATE_BITS, READABLE)) {
-                if (!reserved.compareAndSwap(roundIndex, roundIndex + 1)) { // LP: if returns 'Some(e)'
+                if (!reserved.compareAndSwap(roundIndex, roundIndex + 1)) { // LP: if a slot is claimed
                     continue
                 }
-
-                let e = buffer[index]
-                buffer[index] = unsafe { zeroValue<E>() }
-                while (!unsafe { CjStdSyncStateCas(state, index, roundState, writeableState(roundBit)) }) {}
-
-                if (sendQSize.load() != 0) {
-                    receiveMonitor.lock()
-                    receiveMonitor.notify()
-                    receiveMonitor.unlock()
-                }
-                return Some(e)
+                return (true, index, roundState)
             } else if (roundIndex >= allocated.load()) {
-                return None<E> // buffer empty
+                return (false, 0, 0) // buffer empty
             }
         }
-        return None<E>
+        return (false, 0, 0)
+    }
+
+    private func releaseRemovedSlot(index: Int64, roundState: UInt8): Unit {
+        let roundBit = roundState >> ROUND_BIT
+        while (!unsafe { CjStdSyncStateCas(state, index, roundState, writeableState(roundBit)) }) {}
+
+        if (sendQSize.load() != 0) {
+            receiveMonitor.lock()
+            receiveMonitor.notify()
+            receiveMonitor.unlock()
+        }
     }
 
     @OverflowWrapping

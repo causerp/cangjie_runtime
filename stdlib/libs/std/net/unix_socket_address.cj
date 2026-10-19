@@ -10,10 +10,9 @@ package std.net
 
 import std.binary.*
 
-@When[os != "macOS" && os!= "iOS"]
+@When[os != "macOS" && os != "iOS"]
 const MAX_UDS_PATH_LENGTH: Int64 = 108
-
-@When[os == "macOS" || os== "iOS"]
+@When[os == "macOS" || os == "iOS"]
 const MAX_UDS_PATH_LENGTH: Int64 = 104
 
 func findLastNoneZeroIdx(path: Array<Byte>): Int64 {
@@ -38,14 +37,14 @@ public class UnixSocketAddress <: SocketAddress & Equatable<UnixSocketAddress> {
         _len = lastIdx
         _isAbstract = lastIdx > 0 && path[0] == 0
         if (_len > MAX_UDS_PATH_LENGTH) {
-            throw IllegalArgumentException("Path size(${_len}) is too long, expect <= ${MAX_UDS_PATH_LENGTH}.")
+            throw IllegalArgumentException("Path size '${_len}' is too long, expected <= '${MAX_UDS_PATH_LENGTH}'.")
         }
 
         if (!_isAbstract && lastIdx > 0) {
             for (i in 0..lastIdx) {
                 if (path[i] == 0) {
                     throw IllegalArgumentException(
-                        "Unix domain socket path must not contain interior null bytes: ${path[..lastIdx]}")
+                        "Unix domain socket path must not contain interior null bytes: '${path[..lastIdx]}'.")
                 }
             }
         }
@@ -65,7 +64,7 @@ public class UnixSocketAddress <: SocketAddress & Equatable<UnixSocketAddress> {
     public init(path: String) {
         _len = path.size
         if (_len > MAX_UDS_PATH_LENGTH) {
-            throw IllegalArgumentException("Path size(${_len}) is too long, expect <= ${MAX_UDS_PATH_LENGTH}.")
+            throw IllegalArgumentException("Path size '${_len}' is too long, expected <= '${MAX_UDS_PATH_LENGTH}'.")
         }
         if (_len == 0) {
             _path = String.empty
@@ -75,7 +74,7 @@ public class UnixSocketAddress <: SocketAddress & Equatable<UnixSocketAddress> {
             let un = path[1..]
             if (let Some(idx) <- un.indexOf(0)) {
                 throw IllegalArgumentException(
-                    "Unix domain socket path must not contain interior null bytes: ${un.toArray()}")
+                    "Unix domain socket path must not contain interior null bytes: '${un.toArray()}'.")
             }
             _path = path
             _rawBytes = path.toArray()
@@ -83,7 +82,7 @@ public class UnixSocketAddress <: SocketAddress & Equatable<UnixSocketAddress> {
         } else {
             if (let Some(idx) <- path.indexOf(0)) {
                 throw IllegalArgumentException(
-                    "Unix domain socket path must not contain interior null bytes: ${path.toArray()}")
+                    "Unix domain socket path must not contain interior null bytes: '${path.toArray()}'.")
             }
             _path = path
             _rawBytes = path.toArray()

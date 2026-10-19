@@ -917,7 +917,7 @@ func processPercentiles(step: BenchStepEntry, directory: Path): JsonObject {
         let hasTwoKdes = stats.bootstrapped.allPoints.isSome()   
         let sample = bootstrapped.resultSample
 
-        let file = "${mName}_${step.arg.stepIndex}_kde_${bootstrapped.separateGc.toString().toSafeFileName()}.svg"
+        let file = "${mName.toSafeFileName()}_${step.arg.stepIndex}_kde_${bootstrapped.separateGc.toString().toSafeFileName()}.svg"
         sample.drawKde(directory.join(file))
 
         let result1 = sample.createPercentilesRow(converter)
@@ -948,7 +948,7 @@ func measurementModel(step: BenchStepEntry, directory: Path, index: Int64): (Flo
     let mName = step.measurementInfo.name
     let stats = step.result
     
-    let linregFile = "${mName}_${step.arg.stepIndex}_linreg.svg"
+    let linregFile = "${mName.toSafeFileName()}_${step.arg.stepIndex}_linreg.svg"
     try {
         stats.draw(directory.join(linregFile), step.measurementInfo.conversionTable[0][1])
     } catch (e: Exception) {
@@ -957,7 +957,7 @@ func measurementModel(step: BenchStepEntry, directory: Path, index: Int64): (Flo
 
     let percentiles = spawn { processPercentiles(step, directory) } 
 
-    let imgDir = directory.join("${mName}_${step.arg.stepIndex}")
+    let imgDir = directory.join("${mName.toSafeFileName()}_${step.arg.stepIndex}")
     Directory.ensureExists(imgDir)
     let name = if (stats.bootstrapped.separateGc.hasSeparation()) {
         "(${stats.bootstrapped.separateGc})"
@@ -1025,7 +1025,7 @@ extend StatisticsSample {
         result
     }
     func createStatsRow(name: String, dir: Path, change!: ?Float64 = None): ?JsonObject {
-        let fileName = name.replace(" ", "") + ".svg"
+        let fileName = name.toSafeFileName() + ".svg"
         Directory.ensureExists(dir)
         try {
             this.drawKde(dir.join(fileName))

@@ -102,7 +102,7 @@ public class LinkedListNode<T> {
 
     private func checkNodeState() {
         if (let None <- _list) {
-            throw IllegalStateException()
+            throw IllegalStateException("Node does not belong to any LinkedList.")
         }
     }
 }
@@ -129,7 +129,7 @@ public class LinkedList<T> <: Collection<T> {
 
     public init(size: Int64, initElement: (Int64) -> T) {
         if (size < 0) {
-            throw IllegalArgumentException("Invalid size of LinkedList: ${size}.")
+            throw IllegalArgumentException("Invalid size '${size}': expected a non-negative value.")
         }
         for (i in 0..size) {
             addLast(initElement(i))
@@ -269,7 +269,7 @@ public class LinkedList<T> <: Collection<T> {
     @When[env != "ohos"]
     public func step(count: Int64): LinkedList<T> {
         if (count <= 0) {
-            throw IllegalArgumentException("Step count must be greater than 0!")
+            throw IllegalArgumentException("Invalid step count '${count}': expected a positive value.")
         }
         var result: LinkedList<T> = LinkedList<T>()
         if (size == 0) {
@@ -301,7 +301,7 @@ public class LinkedList<T> <: Collection<T> {
         }
 
         if (count < 0) {
-            throw IllegalArgumentException("take count must be greater than 0!")
+            throw IllegalArgumentException("Invalid take count '${count}': expected a non-negative value.")
         }
         var result: LinkedList<T> = LinkedList<T>()
         let newSize = min(count, _size)
@@ -323,7 +323,7 @@ public class LinkedList<T> <: Collection<T> {
     @When[env != "ohos"]
     public func skip(count: Int64): LinkedList<T> {
         if (count < 0) {
-            throw IllegalArgumentException("skip count must be greater than 0!")
+            throw IllegalArgumentException("Invalid skip count '${count}': expected a non-negative value.")
         }
         if (size - count <= 0) {
             return LinkedList<T>()
@@ -660,7 +660,7 @@ public class LinkedList<T> <: Collection<T> {
         node._prev = None
         match (this._tail) {
             case Some(v) => v._next = None
-            case None => ()
+            case None => this._head = None
         }
 
         this._size = this._size - subList._size
@@ -671,7 +671,7 @@ public class LinkedList<T> <: Collection<T> {
         if (let Some(_) <- mark._list) {
             return LinkedListIterator<T>(this, mark, false)
         } else {
-            throw IllegalStateException()
+            throw IllegalStateException("Node does not belong to any LinkedList.")
         }
     }
 
@@ -679,7 +679,7 @@ public class LinkedList<T> <: Collection<T> {
         if (let Some(_) <- mark._list) {
             return LinkedListIterator<T>(this, mark, true)
         } else {
-            throw IllegalStateException()
+            throw IllegalStateException("Node does not belong to any LinkedList.")
         }
     }
 

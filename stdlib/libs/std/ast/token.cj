@@ -24,7 +24,7 @@ public struct Token <: ToBytes {
         set(v) {
             if (kind == TokenKind.SINGLE_QUOTED_STRING_LITERAL && v == false) {
                 throw IllegalArgumentException(
-                "TokenKind(" + getTokenKindValue(kind) + ") and isSingleQuote not matched.\n")
+                "TokenKind '${getTokenKindValue(kind)}' does not match 'isSingleQuote'.")
             }
             isSingleQuote_ = v
         }
@@ -55,7 +55,7 @@ public struct Token <: ToBytes {
         // Forbid illegal init such as Token(TokenKind.ADD, "foo")
         if (!checkKindValue(kind, value)) {
             throw IllegalArgumentException(
-                "TokenKind(" + getTokenKindValue(kind) + ") and Value(" + value + ") not matched.\n")
+                "TokenKind '${getTokenKindValue(kind)}' does not match value '${value}'.")
         }
         this.kind = kind
         this.value = value
@@ -77,7 +77,7 @@ public struct Token <: ToBytes {
         return Token(this.kind, this.value, fileID, line, colum, isSingleQuote: this.isSingleQuote_)
     }
 
-    func addPosition(position: NodeFormat_Position) {
+    func addPosition(position: ASTFormat_Position) {
         return Token(this.kind, this.value, position.fileId, position.line, position.column, isSingleQuote: this.isSingleQuote_)
     }
 

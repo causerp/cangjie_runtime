@@ -244,7 +244,7 @@ func getTimeout(timeout: Option<Duration>): Int64 {
     match (timeout) {
         case Some(v) =>
             if (v < Duration.Zero) {
-                throw IllegalArgumentException("Timeout should not be negative.")
+                throw IllegalArgumentException("Timeout cannot be negative.")
             }
             if (v > MAX_TIMEOUT_DURATION) {
                 return MAX_TIMEOUT_NS

@@ -303,11 +303,11 @@ prop columnInfos: Array<ColumnInfo>
 func get<T>(index: Int64): T
 ```
 
-功能：从结果集的当前行检索指定列的值。
+功能：从结果集的当前行检索指定下标的列的值。
 
 参数：
 
-- index: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 指定列。
+- index: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 列下标，从 0 开始计数，取值范围为 [0, columnInfos.size)。
 
 返回值：
 
@@ -319,11 +319,11 @@ func get<T>(index: Int64): T
 func getOrNull<T>(index: Int64): ?T
 ```
 
-功能：从结果集的当前行检索指定列的值，数据库列允许 SQL NULL。
+功能：从结果集的当前行检索指定下标的列的值，数据库列允许 SQL NULL。
 
 参数：
 
-- index: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 指定列。
+- index: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 列下标，从 0 开始计数，取值范围为 [0, columnInfos.size)。
 
 返回值：
 
@@ -496,11 +496,11 @@ func query(params: Array<SqlDbType>): QueryResult
 func set<T>(index: Int64, value: T): Unit
 ```
 
-功能：设置 sql 参数，将仓颉的数据类型转成数据库的数据类型。
+功能：设置预处理语句中指定下标的参数，将仓颉的数据类型转成数据库的数据类型。
 
 参数：
 
-- index: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 参数所在序列。
+- index: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 参数下标，从 0 开始计数，取值范围为 [0, parameterColumnInfos.size)。
 - value: T - 参数值。
 
 ### func setNull(Int64)
@@ -509,11 +509,11 @@ func set<T>(index: Int64, value: T): Unit
 func setNull(index: Int64): Unit
 ```
 
-功能：将指定位置处的语句参数设置为 SQL NULL。
+功能：将预处理语句中指定下标的参数设置为 SQL NULL。
 
 参数：
 
-- index: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 参数所在序列。
+- index: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 参数下标，从 0 开始计数，取值范围为 [0, parameterColumnInfos.size)。
 
 ### func setOption(String, String)
 
@@ -525,8 +525,8 @@ func setOption(key: String, value: String): Unit
 
 参数：
 
-- key: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 连接选项名称。
-- value: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 连接选项的值。
+- key: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 预执行 sql 语句选项名称。
+- value: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 预执行 sql 语句选项的值。
 
 ### func update()
 
@@ -628,7 +628,7 @@ func begin(): Unit
 
 异常：
 
-- [SqlException](database_sql_package_exceptions.md#class-sqlexception) - 当提交事务时服务器端发生错误，以及当事务已提交或回滚或连接已断开时，抛出异常。
+- [SqlException](database_sql_package_exceptions.md#class-sqlexception) - 当开始事务时服务器端发生错误，以及当事务已提交或回滚或连接已断开时，抛出异常。
 
 ### func commit()
 
@@ -656,7 +656,7 @@ func release(savePointName: String): Unit
 
 异常：
 
-- [SqlException](database_sql_package_exceptions.md#class-sqlexception) - 当提交事务时服务器端发生错误，以及当事务已提交或回滚或连接已断开时，抛出异常。
+- [SqlException](database_sql_package_exceptions.md#class-sqlexception) - 当销毁保存点时服务器端发生错误，以及当事务已提交或回滚或连接已断开时，抛出异常。
 
 ### func rollback()
 
@@ -668,7 +668,7 @@ func rollback(): Unit
 
 异常：
 
-- [SqlException](database_sql_package_exceptions.md#class-sqlexception) - 当提交事务时服务器端发生错误，以及当事务已提交或回滚或连接已断开时，抛出异常。
+- [SqlException](database_sql_package_exceptions.md#class-sqlexception) - 当回滚事务时服务器端发生错误，以及当事务已提交或回滚或连接已断开时，抛出异常。
 
 ### func rollback(String)
 
@@ -684,7 +684,7 @@ func rollback(savePointName: String): Unit
 
 异常：
 
-- [SqlException](database_sql_package_exceptions.md#class-sqlexception) - 当提交事务时服务器端发生错误，以及当事务已提交或回滚或连接已断开时，抛出异常。
+- [SqlException](database_sql_package_exceptions.md#class-sqlexception) - 当回滚事务至指定保存点时服务器端发生错误，以及当事务已提交或回滚或连接已断开时，抛出异常。
 
 ### func save(String)
 
@@ -700,7 +700,7 @@ func save(savePointName: String): Unit
 
 异常：
 
-- [SqlException](database_sql_package_exceptions.md#class-sqlexception) - 当提交事务时服务器端发生错误，以及当事务已提交或回滚或连接已断开时，抛出异常。
+- [SqlException](database_sql_package_exceptions.md#class-sqlexception) - 当创建保存点时服务器端发生错误，以及当事务已提交或回滚或连接已断开时，抛出异常。
 
 ## interface UpdateResult
 

@@ -68,10 +68,10 @@ func executeMain(workers: Array<WorkerProcess>, packageName: String, ctx: MainEx
     let nonTestOutputs = ArrayList<NonTestOutputs>()
     for (result in workerResults) {
         match (result) {
-            case OkResult(res, output) => 
+            case OkResult(res, output) =>
                 parsedWorkerResults.add(all: res)
                 nonTestOutputs.add(all: output)
-            case CrashResult(res, crash, output) => 
+            case CrashResult(res, crash, output) =>
                 parsedWorkerResults.add(all: res)
                 nonTestOutputs.add(all: output)
                 crashWorkerResults.add(crash)
@@ -145,9 +145,10 @@ enum TestProcessKind {
             case (Some(id), Some(nWorkers), Some(nSkip), Some(port)) => Worker(id, nWorkers, nSkip, port)
             case (None, None, None, None) => Main
             case _ => throw Exception(
-                "${KeyInternalWorkerId().name}, ${KeyInternalNWorkers().name}," +
-                "${KeyInternalWorkerSkipNTests().name} and ${KeyInternalMainProcessPort().name} " +
-                "should be provided together"
+                "Configuration parameters " +
+                "'${KeyInternalWorkerId().name}', '${KeyInternalNWorkers().name}'," +
+                "'${KeyInternalWorkerSkipNTests().name}' and '${KeyInternalMainProcessPort().name}' " +
+                "should be provided together."
             )
         }
     }
@@ -226,15 +227,15 @@ class WorkerProcess {
         match (transportChannel?.receive(limit: 1u64).next()) {
             case Some(Some(p: TestCasesRegistrationPart)) => progressQueue?.add(TestProgressData(p, workerId: workerId))
             case Some(Some(_)) => throw Exception(
-                "Expected test cases registration message from worker, but got another message")
-            case _ => throw Exception("Expected test cases registration message from worker, but got nothing")
+                "Expected test cases registration message from worker, but got another message.")
+            case _ => throw Exception("Expected test cases registration message from worker, but got nothing.")
         }
     }
 
     func commitCasesRegistrationFailure() {
         progressQueue?.add(TestProgressData(TestCasesRegistrationFailed(), workerId: workerId))
     }
- 
+
     private func waitExecution(): BunchExecutionResult {
         let messages: Array<ExecutionResultPart> = if (let Some(transportChannel) <- transportChannel) {
             transportChannel.receive() |> inspect { part: ExecutionResultPart =>
@@ -264,7 +265,7 @@ class WorkerProcess {
             case ParsedComplete(results) where code == EXIT_CODE_ON_TIMEOUT =>
                 let nonTestOutputs = NonTestOutputs(merge(results, output))
                 BunchExecutionResult(results, InProgressTimeout, nonTestOutputs)
-            case ParsedComplete(results) => 
+            case ParsedComplete(results) =>
                 let nonTestOutputs = NonTestOutputs(merge(results, output))
                 let error = TestProcessError(code)
                 BunchExecutionResult(results, OutOfProgressCrashed(error), nonTestOutputs)
@@ -289,9 +290,10 @@ class WorkerProcess {
             output.captured
         } catch (e: IllegalStateException) {
             printDebugOutput(output)
-            throw Exception("Internal error: output streams have different number of sections (${e.message})")
+            throw Exception(
+                "Internal error: output streams have different number of sections (Cause: ${e.message}).")
         }
-        
+
         if (outputs.size == 1) {
             return (outputs[0], CapturedOutput())
         }
@@ -303,7 +305,7 @@ class WorkerProcess {
         } else {
             printDebugOutput(output)
             throw Exception(
-                "Internal error: expected nOutputs == nResults, but got nOutputs=${outputs.size}, nResults=${bunchResults.size}")
+                "Internal error: expected 'nOutputs' == 'nResults', got 'nOutputs' = '${outputs.size}', 'nResults' = '${bunchResults.size}'.")
         }
         for ((result, out) in bunchResults |> zip(outputs[begin..end])) {
             if (result.hasFailures || outputReporter.showAllOutput) {
@@ -422,8 +424,8 @@ class WorkerProcess {
                 let id = TestCaseId(lHeader.suiteId, lHeader.step.toString(), isBench: false)
                 TestCaseResult.fromSingleStep(id, TestCaseReportInfo.empty(), crash)
             case caseHeader: TestCaseExecutionResultHeader =>
-                TestCaseResult.fromSingleStep(caseHeader.caseId, caseHeader.caseInfo, crash)    
-            case _ => throw Exception("Unreachable")
+                TestCaseResult.fromSingleStep(caseHeader.caseId, caseHeader.caseInfo, crash)
+            case _ => throw Exception("Unreachable.")
         }
         let result = ExecutionResult(header, ExecutionResultBody(caseResult))
         result.add(output)
@@ -434,14 +436,14 @@ class WorkerProcess {
         match (header) {
             case header: LifecycleExecutionResultHeader => Lifecycle(header.step)
             case _: TestCaseExecutionResultHeader => CaseStep(ArgumentDescription(None, 0, 0, None))
-            case _ => throw Exception("Unreachable")
+            case _ => throw Exception("Unreachable.")
         }
     }
 
     private static func reportWorkerInternalCrash(output: WorkerOutput, code: Int64): Nothing {
         printDebugOutput(output)
         throw Exception(
-            "Worker test process unexpectedly failed (code = ${code}). " +
+            "Worker test process unexpectedly failed with code '${code}'. " +
             "Some code crashed outside of the @TestCase or lifecycle methods."
         )
     }
@@ -495,7 +497,7 @@ abstract class ExecutionResultPart <: Serializable<ExecutionResultPart> {
                 DataModelStruct().add(field<Int8>("tag", 4))
             case thiz: TestCasesRegistrationFailed =>
                 DataModelStruct().add(field<Int8>("tag", 5))
-            case _ => throw Exception("Unreachable")
+            case _ => throw Exception("Unreachable.")
         }
     }
 
@@ -524,7 +526,7 @@ abstract class ExecutionResultPart <: Serializable<ExecutionResultPart> {
             )
             case 4 => ExecutionPermitPart()
             case 5 => TestCasesRegistrationFailed()
-            case tag => throw Exception("Unknown result part tag: ${tag}")
+            case tag => throw Exception("Internal error: unknown result part tag: ${tag}.")
         }
     }
 }
@@ -632,14 +634,14 @@ private struct ExecutionResult {
                 case (_, newHeader: ExecutionResultHeader) =>
                     currentHeader = newHeader
                 case (None, _: ExecutionResultBody) =>
-                    throw Exception("Result header is expected before data")
+                    throw Exception("Result header is expected before data.")
                 case (Some(header), body: ExecutionResultBody) =>
                     let result = ExecutionResult(header, body)
                     results.add(result)
                     currentHeader = None
                 case (_, _: TestCasesRegistrationPart) => () // Repetitive registration could happen if worker crashes, just skip it.
                 case (_, _: TestCasesRegistrationFailed) => () // Repetitive process crash could happen if we have --parallel <N>
-                case _ => throw Exception("Required due to bug in compiler")
+                case _ => throw Exception("Unreachable.")
             }
         }
         match (currentHeader) {

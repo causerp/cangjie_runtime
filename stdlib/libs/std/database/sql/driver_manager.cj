@@ -30,7 +30,7 @@ public class DriverManager {
     public static func register(driverName: String, driver: Driver): Unit {
         synchronized(_regMut) {
             if (_drivers.contains(driverName)) {
-                throw SqlException("Duplicate database driver (${driverName}).")
+                throw SqlException("Duplicate database driver '${driverName}'.")
             }
             _drivers.add(driverName, driver)
         }

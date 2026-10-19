@@ -58,10 +58,8 @@ foreign {
     @FastNative
     func CJ_OS_CloseFile(fd: IntNative): Int64 // -1: failed, (>= 0): success
 
-    @FastNative
     func CJ_OS_FileRead(fd: IntNative, buffer: CPointer<Byte>, maxLen: UIntNative): Int64 // -1: failed, 0: end, (>0): the size of buffer be read
 
-    @FastNative
     func CJ_OS_FileWrite(fd: IntNative, buffer: CPointer<Byte>, maxLen: UIntNative): Bool // -1: failed, (>=0): the size of buffer be written
 }
 
@@ -79,10 +77,8 @@ foreign {
     @FastNative
     func CJ_OS_CloseFile(fd: IntNative): Int64 // -1: failed, (>= 0): success
 
-    @FastNative
     func CJ_OS_FileRead(fd: IntNative, buffer: CPointer<Byte>, maxLen: UIntNative): Int64 // -1: failed, 0: end, (>0): the size of buffer be read
 
-    @FastNative
     func CJ_OS_FileWrite(fd: IntNative, buffer: CPointer<Byte>, maxLen: UIntNative): Bool // -1: failed, (>=0): the size of buffer be written
 }
 

@@ -28,8 +28,8 @@ func parseConfigurationMacro(params: Tokens): Array<(Token, Expr)> {
         parseNamedCommaSeparatedExpressions(params)
     } catch (_: Exception) {
         throw MacroException(
-            "Illegal parameters for @Configure: ${params}," +
-            "parameters should use the form @Configure[arg1: value1, arg2: value2, arg3: value3]"
+            "Illegal parameters for @Configure: ${params}, " +
+            "parameters should use the form @Configure[arg1: value1, arg2: value2, arg3: value3]."
         )
     }
 }
@@ -46,10 +46,10 @@ func parseMeasurements(params: ArrayList<Tokens>): Array<Expr> {
         } catch (_: Exception) {
             throw MacroException("Illegal usage of @Measure: ${measureEntry}," +
             "parameters should use the form @Measure[Measurement1, Measurement2, Measurement3]," +
-            "where Measurement<1,2,3> are instances of Measurement such as TimeNow()")
+            "where Measurement<1,2,3> are instances of Measurement such as TimeNow().")
         }
         if (!hasMeasurement) {
-            throw MacroException("Illegal usage of @Measure: expected minimum 1 argument")
+            throw MacroException("Illegal usage of @Measure: expected minimum 1 argument.")
         }
     }
     measurements.toArray()
@@ -87,11 +87,11 @@ func parseDSL(params: Tokens): Array<(String, Tokens)> {
     while (i < params.size) {
         (leftPart, i) = parseExprFragment(params, startFrom: i)
         if (params.get(i).kind != IN) {
-            throw Exception("Expected 'in' keyword.")
+            throw MacroException("Expected 'in' keyword.")
         }
         (rightPart, i) = parseExprFragment(params, startFrom: i + 1)
         if (i < params.size && params[i].kind != COMMA) {
-            throw Exception("Expected comma.")
+            throw MacroException("Expected comma.")
         }
         i = skipNl(params, i + 1)
         match (leftPart) {
@@ -105,7 +105,9 @@ func parseDSL(params: Tokens): Array<(String, Tokens)> {
                         }
                 )))
             case left: RefExpr where left.typeArguments.isEmpty() => result.add((left.identifier.value, rightPart.toTokens()))
-            case _ => throw Exception("Left part of the parameter must consist of a single identifier or expression in a form of `config.<identifier>` ")
+            case _ =>
+                throw MacroException(
+                    "Left part of the parameter must consist of a single identifier or expression in a form of `config.<identifier>`.")
         }
     }
     result.toArray()
@@ -196,13 +198,13 @@ func buildDataStrategyForArgs(
     builder!: TokensBuilder = TokensBuilder()
 ): TokensBuilder {
     if (argNames.size != argTypes.size) {
-        throw MacroException("Argument names and argument types must have the same size")
+        throw MacroException("Argument names and argument types must have the same size.")
     }
     let argMap = HashMap<String, Tokens>(raw)
 
     let strategies = Array(argNames.size) { ix: Int64 =>
         let strat = argMap.get(argNames[ix]) ??
-            throw MacroException("No strategy provided for argument ${argNames[ix]}: ${argTypes[ix].toTokens()}")
+            throw MacroException("No strategy provided for argument ${argNames[ix]}: ${argTypes[ix].toTokens()}.")
         strat
     }
 

@@ -21,7 +21,7 @@ public func parsePattern(input: Tokens): Pattern {
                 }, p, CPointer<Int64>())
             })
         } catch (e: Exception) {
-            throw ParseASTException("\n" + e.message + "parsing pattern error.")
+            throw ParseASTException("Failed to parse pattern.")
         }
     }
     /* Get decl info from flatbuffer */
@@ -44,21 +44,21 @@ public func parsePatternFragment(input: Tokens, startFrom!: Int64 = 0): (Pattern
                 }
             )
         } catch (e: Exception) {
-            throw ParseASTException("\n" + e.message + "parsing pattern fragment error.")
+            throw ParseASTException("Failed to parse pattern fragment.")
         }
     }
     var astNode = generatePatternAST(node.GetRootAsPattern())
     return (astNode, count)
 }
 
-func generatePatternAST(patternNode: Option<NodeFormat_Pattern>): Pattern {
+func generatePatternAST(patternNode: Option<ASTFormat_Pattern>): Pattern {
     var pattern = match (patternNode) {
         case Some(v) => v
-        case None => throw ParseASTException("generatePatternAST: get pattern")
+        case None => throw ParseASTException("Failed to get the pattern node.")
     }
     var nodeBase = match (pattern.GetBase()) {
         case Some(v) => v
-        case None => throw ParseASTException("generatePatternAST: get nodeBase")
+        case None => throw ParseASTException("Pattern node has no base information.")
     }
     var astKind: String = nodeBase.GetAstKind()
     var astNode = match (astKind) {
@@ -71,68 +71,66 @@ func generatePatternAST(patternNode: Option<NodeFormat_Pattern>): Pattern {
         case "except_type_pattern" => createExceptTypePattern(pattern)
         case "effect_type_pattern" => createCommandTypePattern(pattern)
         case "wildcard_pattern" => createWildcardPattern(pattern, nodeBase.GetBegin())
-        case _ => throw ParseASTException("Unsupported parse the pattern node: ${astKind}.\n")
+        case _ => throw ParseASTException("Unsupported pattern node kind: '${astKind}'.")
     }
     addPositionInfo(astNode, nodeBase)
     return astNode
 }
 
-func createVarPattern(pattern: NodeFormat_Pattern): VarPattern {
+func createVarPattern(pattern: ASTFormat_Pattern): VarPattern {
     var varPattern = match (pattern.GetPatternAsVarPattern()) {
         case Some(v) => v
-        case None => throw ParseASTException("In createVarPattern function: get varPattern")
+        case None => throw ParseASTException("Failed to get the var pattern.")
     }
     var varDecl = match (varPattern.GetVarDecl()) {
         case Some(v) => v
-        case None => throw ParseASTException("In createVarPattern function: get varDecl")
+        case None => throw ParseASTException("Failed to get the var declaration.")
     }
     var declBase = match (varDecl.GetBase()) {
         case Some(v) => v
-        case None => throw ParseASTException("In createVarPattern function: get declBase")
+        case None => throw ParseASTException("Failed to get the base of the var declaration.")
     }
     var indentifier = Token(TokenKind.IDENTIFIER, declBase.GetIdentifier()).addPosition(declBase.GetIdentifierPos())
     return VarPattern(indentifier)
 }
 
-func createConstPattern(pattern: NodeFormat_Pattern): ConstPattern {
+func createConstPattern(pattern: ASTFormat_Pattern): ConstPattern {
     var constPattern = match (pattern.GetPatternAsConstPattern()) {
         case Some(v) => v
-        case None => throw ParseASTException("In createConstPattern function: get constPattern")
+        case None => throw ParseASTException("Failed to get the constant pattern.")
     }
     var exprNode = generateExprAST(constPattern.GetLiteral())
     var litConstExpr = match (exprNode as LitConstExpr) {
         case Some(v) => v
-        case None => throw ParseASTException("In createConstPattern function: get litConstExpr")
+        case None => throw ParseASTException("Failed to get the constant literal expression.")
     }
     return ConstPattern(litConstExpr)
 }
 
-func createWildcardPattern(_: NodeFormat_Pattern, pos: NodeFormat_Position): WildcardPattern {
+func createWildcardPattern(_: ASTFormat_Pattern, pos: ASTFormat_Position): WildcardPattern {
     var keyWord = Tokens().append(Token(TokenKind.WILDCARD).addPosition(pos))
     return WildcardPattern(keyWord)
 }
 
-func createVarOrEnumPattern(pattern: NodeFormat_Pattern, pos: NodeFormat_Position): VarOrEnumPattern {
+func createVarOrEnumPattern(pattern: ASTFormat_Pattern, pos: ASTFormat_Position): VarOrEnumPattern {
     var varOrEnumPattern = match (pattern.GetPatternAsVarOrEnumPattern()) {
         case Some(v) => v
-        case None => throw ParseASTException("In createVarOrEnumPattern function: get varOrEnumPattern")
+        case None => throw ParseASTException("Failed to get the var or enum pattern.")
     }
     var identifier = Token(TokenKind.IDENTIFIER, varOrEnumPattern.GetIdentifier()).addPosition(pos)
     /* Need to support? generatePatternAST(varOrEnumPattern.GetPattern()) */
     return VarOrEnumPattern(identifier)
 }
 
-func createExceptTypePattern(pattern: NodeFormat_Pattern): ExceptTypePattern {
+func createExceptTypePattern(pattern: ASTFormat_Pattern): ExceptTypePattern {
     var exceptTypePattern = match (pattern.GetPatternAsExceptTypePattern()) {
         case Some(v) => v
-        case None => throw ParseASTException("In createExceptTypePattern function: get exceptTypePattern")
+        case None => throw ParseASTException("Failed to get the except type pattern.")
     }
     var p = generatePatternAST(exceptTypePattern.GetPattern())
     var colon: Token = Token(TokenKind.COLON).addPosition(exceptTypePattern.GetColonPos())
-    var types: ArrayList<TypeNode> = ArrayList<TypeNode>()
-    for (tp in exceptTypePattern.GetTypes()) {
-        types.add(generateTypeAST(tp))
-    }
+    let typeSrc = exceptTypePattern.GetTypes()
+    var types: ArrayList<TypeNode> = ArrayList<TypeNode>(typeSrc.size, {i => generateTypeAST(typeSrc[i])})
     var bitOr = Tokens()
     for (pos in exceptTypePattern.GetBitOrPosVec()) {
         bitOr.append(Token(TokenKind.BITOR).addPosition(pos))
@@ -140,17 +138,15 @@ func createExceptTypePattern(pattern: NodeFormat_Pattern): ExceptTypePattern {
     return ExceptTypePattern(p, colon, types, bitOr)
 }
 
-func createCommandTypePattern(pattern: NodeFormat_Pattern): CommandTypePattern {
+func createCommandTypePattern(pattern: ASTFormat_Pattern): CommandTypePattern {
     var commandTypePattern = match (pattern.GetPatternAsCommandTypePattern()) {
         case Some(v) => v
-        case None => throw ParseASTException("In createCommandTypePattern function: get commandTypePattern")
+        case None => throw ParseASTException("Failed to get the command type pattern.")
     }
     var p = generatePatternAST(commandTypePattern.GetPattern())
     var colon: Token = Token(TokenKind.COLON).addPosition(commandTypePattern.GetColonPos())
-    var types: ArrayList<TypeNode> = ArrayList<TypeNode>()
-    for (tp in commandTypePattern.GetTypes()) {
-        types.add(generateTypeAST(tp))
-    }
+    let typeSrc = commandTypePattern.GetTypes()
+    var types: ArrayList<TypeNode> = ArrayList<TypeNode>(typeSrc.size, {i => generateTypeAST(typeSrc[i])})
     var bitOr = Tokens()
     for (pos in commandTypePattern.GetBitOrPosVec()) {
         bitOr.append(Token(TokenKind.BITOR).addPosition(pos))
@@ -158,10 +154,10 @@ func createCommandTypePattern(pattern: NodeFormat_Pattern): CommandTypePattern {
     return CommandTypePattern(p, colon, types, bitOr)
 }
 
-func createTypePattern(pattern: NodeFormat_Pattern): TypePattern {
+func createTypePattern(pattern: ASTFormat_Pattern): TypePattern {
     var typePattern = match (pattern.GetPatternAsTypePattern()) {
         case Some(v) => v
-        case None => throw ParseASTException("In createTypePattern function: get typePattern")
+        case None => throw ParseASTException("Failed to get the type pattern.")
     }
     var p = generatePatternAST(typePattern.GetPattern())
     var colon: Token = Token(TokenKind.COLON).addPosition(typePattern.GetColonPos())
@@ -169,20 +165,18 @@ func createTypePattern(pattern: NodeFormat_Pattern): TypePattern {
     return TypePattern(p, colon, ty)
 }
 
-func createEnumPattern(pattern: NodeFormat_Pattern): EnumPattern {
+func createEnumPattern(pattern: ASTFormat_Pattern): EnumPattern {
     var enumPattern = match (pattern.GetPatternAsEnumPattern()) {
         case Some(v) => v
-        case None => throw ParseASTException("In createEnumPattern function: get enumPattern")
+        case None => throw ParseASTException("Failed to get the enum pattern.")
     }
     var exprNode = match (enumPattern.GetRef()) {
         case Some(v) => generateExprAST(v)
-        case None => throw ParseASTException("EnumPattern's constructor is not a RefExpr")
+        case None => throw ParseASTException("Constructor of 'EnumPattern' is not a 'RefExpr'.")
     }
     var lParen: Token = Token(TokenKind.LPAREN).addPosition(enumPattern.GetLeftParenPos())
-    var patterns: ArrayList<Pattern> = ArrayList<Pattern>()
-    for (p in enumPattern.GetPatterns()) {
-        patterns.add(generatePatternAST(p))
-    }
+    let patSrc = enumPattern.GetPatterns()
+    var patterns: ArrayList<Pattern> = ArrayList<Pattern>(patSrc.size, {i => generatePatternAST(patSrc[i])})
     let commas = Tokens()
     for (commaPos in enumPattern.GetCommaPosVec()) {
         commas.append(Token(TokenKind.COMMA).addPosition(commaPos))
@@ -191,16 +185,14 @@ func createEnumPattern(pattern: NodeFormat_Pattern): EnumPattern {
     return EnumPattern(exprNode, lParen, patterns, commas, rParen)
 }
 
-func createTuplePattern(pattern: NodeFormat_Pattern): TuplePattern {
+func createTuplePattern(pattern: ASTFormat_Pattern): TuplePattern {
     var tuplePattern = match (pattern.GetPatternAsTuplePattern()) {
         case Some(v) => v
-        case None => throw ParseASTException("In createTuplePattern function: get tuplePattern")
+        case None => throw ParseASTException("Failed to get the tuple pattern.")
     }
     var lParen: Token = Token(TokenKind.LPAREN).addPosition(tuplePattern.GetLeftParenPos())
-    var patterns: ArrayList<Pattern> = ArrayList<Pattern>()
-    for (p in tuplePattern.GetPatterns()) {
-        patterns.add(generatePatternAST(p))
-    }
+    let patSrc = tuplePattern.GetPatterns()
+    var patterns: ArrayList<Pattern> = ArrayList<Pattern>(patSrc.size, {i => generatePatternAST(patSrc[i])})
     let commas = Tokens()
     for (commaPos in tuplePattern.GetCommaPosVec()) {
         commas.append(Token(TokenKind.COMMA).addPosition(commaPos))

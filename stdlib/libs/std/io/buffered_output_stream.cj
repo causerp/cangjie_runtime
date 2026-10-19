@@ -35,7 +35,7 @@ public class BufferedOutputStream<T> <: OutputStream where T <: OutputStream {
 
     public init(output: T, buffer: Array<Byte>) {
         if (buffer.size == 0) {
-            throw IllegalArgumentException("The buffer cannot be empty.")
+            throw IllegalArgumentException("Invalid argument 'buffer': buffer size is 0.")
         }
 
         outputStream = output
@@ -53,7 +53,7 @@ public class BufferedOutputStream<T> <: OutputStream where T <: OutputStream {
      */
     public init(output: T, capacity: Int64) {
         if (capacity <= 0) {
-            throw IllegalArgumentException("Invalid capacity size: capacity = ${capacity}.")
+            throw IllegalArgumentException("Invalid argument 'capacity': expected a positive value, got '${capacity}'.")
         }
 
         outputStream = output

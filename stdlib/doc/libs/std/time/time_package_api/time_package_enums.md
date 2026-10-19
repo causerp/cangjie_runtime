@@ -129,7 +129,7 @@ main() {
 周一: Monday
 周五: Friday
 周日: Sunday
-异常: The input parameter ranges from 0 to 6
+异常: Invalid day of week: expected 0 to 6, got 7.
 ```
 
 ### func toInteger()
@@ -644,7 +644,7 @@ main() {
 一月: January
 六月: June
 十二月: December
-异常: The input parameter ranges from 1 to 12
+异常: Invalid month: expected 1 to 12, got 13.
 ```
 
 ### func toInteger()

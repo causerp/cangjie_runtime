@@ -143,7 +143,8 @@ func setValuesFromJsonConfiguration(configuration: Configuration, rawJson: Strin
             case int: JsonInt => configuration.setIfAbsentByName(camelKey, int.getValue())
             case float: JsonFloat => configuration.setIfAbsentByName(camelKey, float.getValue())
             case string: JsonString => configuration.setIfAbsentByName(camelKey, string.getValue())
-            case _ => throw UnittestCliOptionsFormatException("Unparsable configuration value ${jsonValue}")
+            case _ => throw UnittestCliOptionsFormatException("Invalid configuration value specified in JSON format: "
+                        + "expected a string, a number or a boolean value, got '${jsonValue}'.")
         }
     }
 }

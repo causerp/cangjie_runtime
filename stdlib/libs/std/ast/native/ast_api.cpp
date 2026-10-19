@@ -20,12 +20,16 @@
 #include "cangjie/Parse/Parser.h"
 
 using namespace Cangjie;
+using StdAst::ParseRes;
 
 namespace {
 // type is not an independent syntax. diagnosis engine does not provide a proper prompt message.
 enum class ParseKind : uint8_t { EXPR, DECL, PROGRAM, PATTERN };
 
 const std::string INVALID_POSITION_MSG = "There is a token with invalid position in the input.\n";
+const uint8_t DIAG_REPORT_RANGE_ERROR = 1;
+const uint8_t DIAG_REPORT_FILEID_ERROR = 2;
+const int FLOAT64_PRECISION = 16;
 
 void InitParseDiagnostic(DiagnosticEngine& diag, SourceManager& sm)
 {
@@ -44,6 +48,16 @@ bool GetCompileCjd(void* fptr)
     }
     auto mc = reinterpret_cast<MacroCall*>(fptr);
     return mc->ci->invocation.globalOptions.compileCjd;
+}
+
+/// get the enableEH compile option from MacroCall* if not null
+bool GetCompileEH(void* fptr)
+{
+    if (!fptr) {
+        return false;
+    }
+    auto mc = reinterpret_cast<MacroCall*>(fptr);
+    return mc->ci->invocation.globalOptions.enableEH;
 }
 
 std::string ParseWithError(
@@ -92,6 +106,9 @@ std::string LexWithError(void* fptr, const std::string code)
 
     diag.SetDisableWarning(true);
     Lexer lex(fileID, code, diag, sm, false);
+    // Keep the EH keyword handling consistent with the main lexing path in
+    // CJ_AST_Lex, so diagnostics do not demote EH keywords to identifiers.
+    lex.SetEHEnabled(GetCompileEH(fptr));
     auto tokens = lex.GetTokens();
 
     std::string outStr;
@@ -173,6 +190,9 @@ ParseRes* CJ_AST_Lex(void* fptr, const char* code, int64_t codeLen)
     diag.SetDisableWarning(true);
     std::string cangjieCode(code, static_cast<size_t>(codeLen));
     Lexer lex(cangjieCode, diag, sm, false, false);
+    // Follow the host compilation's --enable-eh so EH keywords are not demoted
+    // to identifiers when lexing macro input during macro expansion.
+    lex.SetEHEnabled(GetCompileEH(fptr));
     std::vector<Token> tokens{};
 
     MacroCall* macCall = nullptr;
@@ -475,9 +495,6 @@ void CJ_GetMacroPosition(void* fptr, unsigned int* fileID, int* line, int* colum
     return;
 }
 
-const uint8_t DIAG_REPORT_RANGE_ERROR = 1;
-const uint8_t DIAG_REPORT_FILEID_ERROR = 2;
-
 uint8_t CJ_AST_DiagReport(
     void* fptr, const int* level, const uint8_t* tokensBytes, const char* message, const char* hint)
 {
@@ -508,8 +525,6 @@ uint8_t CJ_AST_DiagReport(
     macCall->DiagReport(*level, range, message, hint);
     return 0;
 }
-
-const int FLOAT64_PRECISION = 16;
 
 extern char* CJ_AST_Float64ToCPointer(const double num)
 {

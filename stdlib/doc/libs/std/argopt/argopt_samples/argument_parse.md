@@ -6,22 +6,26 @@
 
 <!-- run -->
 ```cangjie
-import std.env.*
 import std.argopt.*
 
 main(args: Array<String>): Unit {
-    let argSpecs = [
-        Short(r'a', NoValue),
-        Long("test1", RequiredValue),
-        Full("test2", r'c', OptionalValue)
+    // 定义命令行参数规格
+    let argSpecList = [
+        Short(r'a', NoValue), // 短选项 -a，无参数值
+        Long("test1", RequiredValue), // 长选项 --test1，必须有参数值
+        Full("test2", r'c', OptionalValue) // 完整选项 --test2 或 -c，参数值可选
     ]
+
     try {
-        var result = parseArguments(args, argSpecs)
-        println("Got a: ${result.options.contains('a')}")
-        println("Test1: ${result.options.get("test1")}")
-        println("Test2: ${result.options.get("test2")}")
-        println("c: ${result.options.get('c')}")
-        println("NonOptions: ${result.nonOptions}")
+        // 解析命令行参数
+        var parseResult = parseArguments(args, argSpecList)
+
+        // 输出解析结果
+        println("Got a: ${parseResult.options.contains('a')}")
+        println("Test1: ${parseResult.options.get("test1")}")
+        println("Test2: ${parseResult.options.get("test2")}")
+        println("c: ${parseResult.options.get('c')}")
+        println("NonOptions: ${parseResult.nonOptions}")
     } catch (e: ArgumentParseException) {
         println("Usage: error")
         return
@@ -64,7 +68,7 @@ c: Some(t2val)
 NonOptions: []
 ```
 
-### 带回调
+## 带回调
 
 示例：
 
@@ -73,14 +77,17 @@ NonOptions: []
 import std.argopt.*
 
 main(args: Array<String>): Unit {
-    let argSpecs = [
-        Short(r'a', NoValue) {_ => println("Got a")},
-        Long("test1", RequiredValue) {v => println("Got test1: `${v}`")},
-        Full("test2", r'c', OptionalValue) {v => println("Got test2: `${v}`")},
-        NonOptions {v => println("Got NonOptions: ${v}")}
+    // 定义参数规格及回调函数
+    let argSpecList = [
+        Short(r'a', NoValue) {_ => println("Got a")}, // -a 选项回调
+        Long("test1", RequiredValue) {v => println("Got test1: `${v}`")}, // --test1 选项回调
+        Full("test2", r'c', OptionalValue) {v => println("Got test2: `${v}`")}, // --test2 或 -c 选项回调
+        NonOptions {v => println("Got NonOptions: ${v}")} // 非选项参数回调
     ]
+
     try {
-        parseArguments(args, argSpecs)
+        // 解析参数并执行回调
+        parseArguments(args, argSpecList)
     } catch (e: ArgumentParseException) {
         println("Usage: xxxx")
     }

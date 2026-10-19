@@ -97,15 +97,20 @@ const char* RegionInfo::GetTypeName() const
         "thread local region",
         "recent fullregion",
         "from region",
+        "from promote region",
+        "lone from region",
         "unmovable from region",
         "to region",
         "full pinned region",
         "recent pinned region",
         "raw pointer pinned region",
         "tl raw pointer region",
+        "tl large raw pointer region",
         "large region",
         "recent large region",
         "garbage region",
+        "object move region",
+        "sweep region",
     };
     return regionNames[static_cast<uint8_t>(GetRegionType())];
 }
@@ -113,15 +118,28 @@ const char* RegionInfo::GetTypeName() const
 
 void RegionInfo::VisitAllObjects(const std::function<void(BaseObject*)>&& func)
 {
+    VisitAllObjectsFrom(GetRegionStart(), std::move(func));
+}
+
+void RegionInfo::VisitAllObjectsFrom(MAddress start, const std::function<void(BaseObject*)>&& func)
+{
     if (IsLargeRegion()) {
-        func(reinterpret_cast<BaseObject*>(GetRegionStart()));
+        if (start == GetRegionStart()) {
+            func(reinterpret_cast<BaseObject*>(GetRegionStart()));
+        }
     } else if (IsSmallRegion()) {
-        uintptr_t position = GetRegionStart();
+        CHECK(start >= GetRegionStart() && start <= GetRegionAllocPtr());
+        uintptr_t position = start;
         uintptr_t allocPtr = GetRegionAllocPtr();
         while (position < allocPtr) {
+            auto* slot = FreeSlotNode::Cast(position);
+            bool isValidSlot = slot->IsValidSlot();
             // GetAllocSize should before call func, because object maybe destroy in compact gc.
-            size_t size = RegionSpace::GetAllocSize(*reinterpret_cast<BaseObject*>(position));
-            func(reinterpret_cast<BaseObject*>(position));
+            size_t size =
+                isValidSlot ? slot->slotSize : RegionSpace::GetAllocSize(*reinterpret_cast<BaseObject*>(position));
+            if (!isValidSlot) {
+                func(reinterpret_cast<BaseObject*>(position));
+            }
             position += size;
         }
     }
@@ -137,19 +155,114 @@ bool RegionInfo::VisitLiveObjectsUntilFalse(const std::function<bool(BaseObject*
         return func(reinterpret_cast<BaseObject*>(GetRegionStart()));
     }
     if (IsSmallRegion()) {
-        uintptr_t position = GetRegionStart();
-        size_t offset = 0;
+        uintptr_t start = GetRegionStart();
+        uintptr_t position = start;
         uintptr_t allocPtr = GetRegionAllocPtr();
 
         while (position < allocPtr) {
-            BaseObject* obj = reinterpret_cast<BaseObject*>(position);
-            size_t allocSize = RegionSpace::GetAllocSize(*obj);
-            position += allocSize;
-            if (IsSurvivedObject(offset) && !func(obj)) { return false; }
-            offset += allocSize;
+            auto* slot = FreeSlotNode::Cast(position);
+            bool isValidSlot = slot->IsValidSlot();
+            size_t offset = position - GetRegionStart();
+            bool isSurvived = IsSurvivedObject(offset);
+            CHECK_DETAIL(!(isValidSlot && isSurvived),
+                         "free slot overlaps survived object: region=%p type=%u range=[%#zx,%#zx) "
+                         "position=%#zx offset=%zu slotSize=%u liveBytes=%u",
+                         this, static_cast<uint32_t>(GetRegionType()), GetRegionStart(), GetRegionEnd(), position,
+                         offset, isValidSlot ? slot->slotSize : 0, GetLiveByteCount());
+            size_t size = isValidSlot ? slot->slotSize
+                                      : RegionSpace::GetAllocSize(*reinterpret_cast<BaseObject*>(position));
+            if (!isValidSlot) {
+                if (isSurvived && !func(reinterpret_cast<BaseObject*>(position))) {
+                    return false;
+                }
+            } else {
+                DLOG(SWEEP, "visit region %p [%p, %p), skip slot [%p, %p)", this, start, allocPtr, position,
+                    position + size);
+            }
+            position += size;
         }
     }
     return true;
+}
+
+void RegionInfo::SweepRegion()
+{
+    DLOG(SWEEP, "sweep region %p [%p, %p) enter: type %u liveBytes %u", this, GetRegionStart(),
+        GetRegionEnd(), static_cast<uint32_t>(GetRegionType()), static_cast<uint32_t>(GetLiveByteCount()));
+    CHECK(!IsGhostFromRegion());
+    RegionFreeSlotList* freeSlotList = GetFreeSlotList();
+    if (freeSlotList == nullptr) {
+        freeSlotList = new (std::nothrow) RegionFreeSlotList();
+        CHECK_DETAIL(freeSlotList != nullptr, "create free slot list for sweep region failed");
+        SetFreeSlotList(freeSlotList);
+        freeSlotList->Init(GetRegionStart());
+    }
+    size_t regionSize = GetRegionSize();
+    if (IsLargeRegion()) {
+        if (!IsSurvivedObject(0)) {
+            if (IsOldRegion()) {
+                ClearRSetSlots(GetRegionStart(), regionSize);
+            }
+            freeSlotList->AddSlot(0, static_cast<uint32_t>(regionSize));
+            DLOG(SWEEP, "sweep large region %p [%p, %p) add slot [0, %p)", this, GetRegionStart(),
+                GetRegionEnd(), GetRegionStart() + regionSize);
+        }
+        ResetMarkBit();
+        return;
+    }
+    CHECK(IsSmallRegion());
+    size_t freeStartOff = 0;
+    bool inFreeRun = false;
+    size_t off = 0;
+    uintptr_t position = GetRegionStart();
+    uintptr_t freeStart = position;
+    uintptr_t allocPtr = GetRegionAllocPtr();
+    while (position < allocPtr) {
+        auto* slot = FreeSlotNode::Cast(position);
+        bool isValidSlot = slot->IsValidSlot();
+        size_t allocSize = isValidSlot ? slot->slotSize
+                                       : RegionSpace::GetAllocSize(*reinterpret_cast<BaseObject*>(position));
+        if (!isValidSlot && IsSurvivedObject(off)) {
+            if (inFreeRun) {
+                size_t freeSize = off - freeStartOff;
+                if (freeSize >= RegionFreeSlotList::MIN_SLOT_SIZE) {
+                    DLOG(SWEEP, "sweep region %p [%p, %p) add slot [%p, %p)", this, GetRegionStart(),
+                        GetRegionEnd(), GetRegionStart() + freeStartOff,
+                        GetRegionStart() + freeStartOff + freeSize);
+                    freeSlotList->AddSlot(static_cast<uint32_t>(freeStartOff), static_cast<uint32_t>(freeSize));
+                }
+                inFreeRun = false;
+            }
+        } else if (!isValidSlot) {
+            if (IsOldRegion()) {
+                ClearRSetSlots(position, allocSize);
+            }
+            if (!inFreeRun) {
+                freeStartOff = off;
+                freeStart = position;
+                inFreeRun = true;
+            }
+        }
+        position += allocSize;
+        off += allocSize;
+    }
+    if (inFreeRun) {
+        size_t freeSize = regionSize - freeStartOff;
+        CHECK_DETAIL(memset_s(reinterpret_cast<void*>(freeStart), freeSize, 0, freeSize) == EOK, "memset_s failed");
+        if (freeSize >= RegionFreeSlotList::MIN_SLOT_SIZE) {
+            DLOG(SWEEP, "sweep region %p [%p, %p) add slot [%p, %p)", this, GetRegionStart(), GetRegionEnd(),
+                GetRegionStart() + freeStartOff, GetRegionStart() + freeStartOff + freeSize);
+            freeSlotList->AddSlot(static_cast<uint32_t>(freeStartOff), static_cast<uint32_t>(freeSize));
+        }
+    } else if (off < regionSize) {
+        size_t freeSize = regionSize - off;
+        CHECK_DETAIL(memset_s(reinterpret_cast<void*>(position), freeSize, 0, freeSize) == EOK, "memset_s failed");
+        if (freeSize >= RegionFreeSlotList::MIN_SLOT_SIZE) {
+            DLOG(SWEEP, "sweep region %p [%p, %p) add slot [%p, %p)", this, GetRegionStart(), GetRegionEnd(),
+                GetRegionStart() + off, GetRegionStart() + off + freeSize);
+            freeSlotList->AddSlot(static_cast<uint32_t>(off), static_cast<uint32_t>(freeSize));
+        }
+    }
 }
 
 void RegionList::MergeRegionList(RegionList& srcList, RegionInfo::RegionType regionType)
@@ -174,6 +287,67 @@ void RegionList::MergeRegionList(RegionList& srcList, RegionInfo::RegionType reg
     }
 }
 
+void RegionList::SplitList(RegionList& dst1, RegionList& dst2, size_t threshold)
+{
+    RegionList regionList("split cache");
+    MoveTo(regionList);
+    RegionInfo* head = regionList.GetHeadRegion();
+    RegionInfo* tail = regionList.GetTailRegion();
+    if (head == nullptr) {
+        return;
+    }
+    size_t totalUnit = regionList.GetUnitCount();
+    size_t totalRegion = regionList.GetRegionCount();
+    size_t accUnit = 0;
+    size_t accRegion = 0;
+    RegionInfo* node = head;
+    while (node != nullptr) {
+        size_t u = node->GetUnitCount();
+        if (accUnit + u > threshold) {
+            break;
+        }
+        accUnit += u;
+        accRegion++;
+        node = node->GetNextRegion();
+    }
+    RegionInfo* head1 = nullptr;
+    RegionInfo* tail1 = nullptr;
+    if (accRegion > 0) {
+        head1 = head;
+        tail1 = (node != nullptr) ? node->GetPrevRegion() : tail;
+    }
+    RegionInfo* head2 = node;
+    RegionInfo* tail2 = (node != nullptr) ? tail : nullptr;
+    if (head2 != nullptr) {
+        head2->SetPrevRegion(nullptr);
+        if (tail1 != nullptr) {
+            tail1->SetNextRegion(nullptr);
+        }
+    }
+    if (head1 != nullptr) {
+        dst1.IncCounts(accRegion, accUnit);
+        if (dst1.listHead == nullptr) {
+            dst1.listHead = head1;
+            dst1.listTail = tail1;
+        } else {
+            tail1->SetNextRegion(dst1.listHead);
+            dst1.listHead->SetPrevRegion(tail1);
+            dst1.listHead = head1;
+        }
+    }
+    if (head2 != nullptr) {
+        dst2.IncCounts(totalRegion - accRegion, totalUnit - accUnit);
+        if (dst2.listHead == nullptr) {
+            dst2.listHead = head2;
+            dst2.listTail = tail2;
+        } else {
+            tail2->SetNextRegion(dst2.listHead);
+            dst2.listHead->SetPrevRegion(tail2);
+            dst2.listHead = head2;
+        }
+    }
+}
+
 void RegionList::PrependRegion(RegionInfo* region, RegionInfo::RegionType type)
 {
     std::lock_guard<std::mutex> lock(listMutex);
@@ -185,6 +359,10 @@ void RegionList::PrependRegionLocked(RegionInfo* region, RegionInfo::RegionType 
     if (region == nullptr) {
         return;
     }
+
+    CHECK_DETAIL(region->GetPrevRegion() == nullptr && region->GetNextRegion() == nullptr,
+                 "prepend linked region %p to %s: prev %p, next %p", region, listName,
+                 region->GetPrevRegion(), region->GetNextRegion());
 
     DLOG(REGION, "list %p (%zu, %zu)+(%zu, %zu) prepend region %p@[%#zx+%zu, %#zx) type %u->%u", this,
         regionCount, unitCount, 1llu, region->GetUnitCount(), region, region->GetRegionStart(),
@@ -451,25 +629,15 @@ void RegionManager::AssembleSmallGarbageCandidates()
 
 void RegionManager::AssembleLargeGarbageCandidates()
 {
-    oldLargeRegionList.MergeRegionList(recentLargeRegionList, RegionInfo::RegionType::LARGE_REGION);
-    for (RegionInfo* region = oldLargeRegionList.GetHeadRegion(); region != nullptr; region = region->GetNextRegion()) {
+    largeRegionList.MergeRegionList(recentLargeRegionList, RegionInfo::RegionType::LARGE_REGION);
+    for (RegionInfo* region = largeRegionList.GetHeadRegion(); region != nullptr; region = region->GetNextRegion()) {
         region->ClearLiveInfo();
     }
 }
 
 void RegionManager::AssemblePinnedGarbageCandidates(bool collectAll)
 {
-    oldPinnedRegionList.MergeRegionList(recentPinnedRegionList, RegionInfo::RegionType::FULL_PINNED_REGION);
-    RegionInfo* region = oldPinnedRegionList.GetHeadRegion();
-    while (region != nullptr) {
-        RegionInfo* nextRegion = region->GetNextRegion();
-        if (collectAll && (region->GetRawPointerObjectCount() > 0)) {
-            oldPinnedRegionList.DeleteRegion(region);
-            rawPointerPinnedRegionList.PrependRegion(region, RegionInfo::RegionType::RAW_POINTER_PINNED_REGION);
-        }
-        region->ClearLiveInfo();
-        region = nextRegion;
-    }
+    pinnedRegionList.MergeRegionList(recentPinnedRegionList, RegionInfo::RegionType::FULL_PINNED_REGION);
 }
 void RemoveRegionLocked(RegionList* regionList, RegionInfo* region)
 {
@@ -483,7 +651,7 @@ size_t RegionManager::ExemptFromRegions()
     size_t floatingGarbage = 0;
     size_t oldFromBytes = fromRegionList.GetUnitCount() * RegionInfo::UNIT_SIZE;
     double exempt = exemptedRegionThreshold;
-    auto visitor = [this, exempt, &floatingGarbage](RegionInfo* fromRegion) {
+    auto visitor = [this, exempt, &floatingGarbage, &forwardBytes](RegionInfo* fromRegion) {
         size_t threshold = static_cast<size_t>(exempt * fromRegion->GetRegionSize());
         size_t liveBytes = fromRegion->GetLiveByteCount();
         long rawPtrCnt = fromRegion->GetRawPointerObjectCount();
@@ -494,8 +662,10 @@ size_t RegionManager::ExemptFromRegions()
                 del->GetUnitCount(), del->GetLiveByteCount());
 
             CHECK(del->IsFromRegion());
+            del->ClearGhostRegionBit();
             RemoveRegionLocked(&fromRegionList, del);
             ExemptFromRegion(del);
+            del->ClearGhostRegionBit();
             floatingGarbage += (del->GetRegionSize() - del->GetLiveByteCount());
         } else if (rawPtrCnt > 0) {
             RegionInfo* del = fromRegion;
@@ -503,9 +673,13 @@ size_t RegionManager::ExemptFromRegions()
                 del, del->GetRegionStart(), del->GetRegionAllocatedSize(), del->GetRegionEnd(),
                 del->GetUnitCount(), del->GetLiveByteCount(), rawPtrCnt);
             CHECK(del->IsFromRegion());
+            del->ClearGhostRegionBit();
             RemoveRegionLocked(&fromRegionList, del);
             rawPointerPinnedRegionList.PrependRegion(del, RegionInfo::RegionType::RAW_POINTER_PINNED_REGION);
+            del->ClearGhostRegionBit();
             floatingGarbage += (del->GetRegionSize() - del->GetLiveByteCount());
+        } else {
+            forwardBytes += liveBytes;
         }
     };
     fromRegionList.VisitAllRegions(visitor);
@@ -536,7 +710,7 @@ void RegionManager::ForEachObjSafe(const std::function<void(BaseObject*)>& visit
     ForEachObjUnsafe(visitor);
 }
 
-RegionInfo* RegionManager::TakeRegion(size_t num, RegionInfo::UnitRole type, bool expectPhysicalMem)
+void RegionManager::CheckGC()
 {
     // a chance to invoke heuristic gc.
     if (!Heap::GetHeap().IsGcStarted()) {
@@ -548,10 +722,17 @@ RegionInfo* RegionManager::TakeRegion(size_t num, RegionInfo::UnitRole type, boo
             collector.RequestGC(GC_REASON_HEU, true);
         }
     }
+}
+
+RegionInfo* RegionManager::TakeRegion(size_t num, RegionInfo::UnitRole type, bool expectPhysicalMem, bool isLoose)
+{
+    CheckGC();
 
     // check for allocation since we do not want gc threads and mutators do any harm to each other.
     size_t size = num * RegionInfo::UNIT_SIZE;
-    RequestForRegion(size);
+    if (!RequestForRegion(size, isLoose)) {
+        return nullptr;
+    }
 
 #if !defined(__OHOS__)
     RegionInfo* head = garbageRegionList.TakeHeadRegion();
@@ -571,6 +752,9 @@ RegionInfo* RegionManager::TakeRegion(size_t num, RegionInfo::UnitRole type, boo
 
     RegionInfo* region = freeRegionManager.TakeRegion(num, type, expectPhysicalMem);
     if (region != nullptr) {
+        if (!IsGcThread() && Heap::GetHeap().IsGcStarted()) {
+            RecordMutatorAssistRegionBytes(region->GetRegionSize());
+        }
         if (num >= HUGE_PAGE) {
             TagHugePage(region, num);
         }
@@ -595,6 +779,9 @@ RegionInfo* RegionManager::TakeRegion(size_t num, RegionInfo::UnitRole type, boo
             }
             if (expectPhysicalMem) {
                 RegionInfo::ClearUnits(idx, num);
+            }
+            if (!IsGcThread() && Heap::GetHeap().IsGcStarted()) {
+                RecordMutatorAssistRegionBytes(region->GetRegionSize());
             }
             return region;
         } else {
@@ -675,12 +862,12 @@ size_t RegionManager::CollectPinnedGarbage()
         freePinnedSlotLists.Clear();
     }
     size_t garbageSize = 0;
-    RegionInfo* region = oldPinnedRegionList.GetHeadRegion();
+    RegionInfo* region = pinnedRegionList.GetHeadRegion();
     while (region != nullptr) {
         if (region->GetLiveByteCount() == 0) {
             RegionInfo* del = region;
             region = region->GetNextRegion();
-            oldPinnedRegionList.DeleteRegion(del);
+            pinnedRegionList.DeleteRegion(del);
 
             auto fixToObj = [](BaseObject* obj) { ReleaseNativeResource(obj); };
             del->VisitAllObjects(fixToObj);
@@ -698,7 +885,7 @@ size_t RegionManager::CollectPinnedGarbage()
 size_t RegionManager::CollectLargeGarbage()
 {
     size_t garbageSize = 0;
-    RegionInfo* region = oldLargeRegionList.GetHeadRegion();
+    RegionInfo* region = largeRegionList.GetHeadRegion();
     while (region != nullptr) {
         // for large region, the offset of obj is 0
         if (!region->IsSurvivedObject(0)) {
@@ -707,7 +894,7 @@ size_t RegionManager::CollectLargeGarbage()
 
             RegionInfo* del = region;
             region = region->GetNextRegion();
-            oldLargeRegionList.DeleteRegion(del);
+            largeRegionList.DeleteRegion(del);
             if (del->GetRegionSize() > RegionInfo::LARGE_OBJECT_RELEASE_THRESHOLD) {
                 garbageSize += ReleaseRegion(del);
             } else {
@@ -718,7 +905,6 @@ size_t RegionManager::CollectLargeGarbage()
             region = region->GetNextRegion();
         }
     }
-
     region = recentLargeRegionList.GetHeadRegion();
     while (region != nullptr) {
         region->ResetMarkBit();
@@ -771,10 +957,10 @@ void RegionManager::DumpRegionStats(const char* msg, bool dumpToError) const
     size_t garbageSize = garbageUnits * RegionInfo::UNIT_SIZE;
     size_t allocGarbageSize = garbageRegionList.GetAllocatedSize();
 
-    size_t pinnedRegions = oldPinnedRegionList.GetRegionCount();
-    size_t pinnedUnits = oldPinnedRegionList.GetUnitCount();
+    size_t pinnedRegions = pinnedRegionList.GetRegionCount();
+    size_t pinnedUnits = pinnedRegionList.GetUnitCount();
     size_t pinnedSize = pinnedUnits * RegionInfo::UNIT_SIZE;
-    size_t allocPinnedSize = oldPinnedRegionList.GetAllocatedSize();
+    size_t allocPinnedSize = pinnedRegionList.GetAllocatedSize();
 
     size_t recentPinnedRegions = recentPinnedRegionList.GetRegionCount();
     size_t recentPinnedUnits = recentPinnedRegionList.GetUnitCount();
@@ -786,10 +972,10 @@ void RegionManager::DumpRegionStats(const char* msg, bool dumpToError) const
     size_t rawPointerPinnedSize = rawPointerPinnedUnits * RegionInfo::UNIT_SIZE;
     size_t allocRawPointerPinnedSize = rawPointerPinnedRegionList.GetAllocatedSize();
 
-    size_t largeRegions = oldLargeRegionList.GetRegionCount();
-    size_t largeUnits = oldLargeRegionList.GetUnitCount();
+    size_t largeRegions = largeRegionList.GetRegionCount();
+    size_t largeUnits = largeRegionList.GetUnitCount();
     size_t largeSize = largeUnits * RegionInfo::UNIT_SIZE;
-    size_t allocLargeSize = oldLargeRegionList.GetAllocatedSize();
+    size_t allocLargeSize = largeRegionList.GetAllocatedSize();
 
     size_t recentlargeRegions = recentLargeRegionList.GetRegionCount();
     size_t recentlargeUnits = recentLargeRegionList.GetUnitCount();
@@ -927,13 +1113,14 @@ void RegionManager::DumpRegionStats(const char* msg, bool dumpToError) const
     TRACE_COUNT("CJRT_GC_unitCapacity", static_cast<size_t>(unitCapacity * decimalPrecision));
 }
 
-RegionInfo* RegionManager::AllocateThreadLocalRegion(bool expectPhysicalMem)
+RegionInfo* RegionManager::AllocateThreadLocalRegion(bool expectPhysicalMem, bool isLoose)
 {
-    RegionInfo* region = TakeRegion(maxUnitCountPerRegion, RegionInfo::UnitRole::SMALL_SIZED_UNITS, expectPhysicalMem);
+    RegionInfo* region = TakeRegion(maxUnitCountPerRegion, RegionInfo::UnitRole::SMALL_SIZED_UNITS, expectPhysicalMem,
+                                    isLoose);
     if (region != nullptr) {
         {
             GCPhase phase = Heap::GetHeap().GetCollector().GetGCPhase();
-            if (phase == GC_PHASE_TRACE || phase == GC_PHASE_CLEAR_SATB_BUFFER) {
+            if (phase == GC_PHASE_GENERATION_TRACE || phase == GC_PHASE_TRACE || phase == GC_PHASE_CLEAR_SATB_BUFFER) {
                 region->SetTraceRegionFlag(1);
             }
             tlRegionList.PrependRegion(region, RegionInfo::RegionType::THREAD_LOCAL_REGION);
@@ -947,15 +1134,17 @@ RegionInfo* RegionManager::AllocateThreadLocalRegion(bool expectPhysicalMem)
     return region;
 }
 
-void RegionManager::RequestForRegion(size_t size)
+bool RegionManager::RequestForRegion(size_t size, bool isLoose)
 {
+    (void)isLoose;
     if (IsGcThread()) {
         // gc thread is always permitted for allocation.
-        return;
+        return true;
     }
 
     Heap& heap = Heap::GetHeap();
     GCStats& gcstats = heap.GetCollector().GetGCStats();
+    gcstats.RecordAllocation(size);
     size_t allocatedBytes = GetAllocatedSize() - gcstats.liveBytesAfterGC;
     constexpr double pi = 3.14;
     size_t availableBytesAfterGC = heap.GetMaxCapacity() - gcstats.liveBytesAfterGC;
@@ -967,7 +1156,7 @@ void RegionManager::RequestForRegion(size_t size)
     uint64_t now = TimeUtil::NanoSeconds();
     if (prevRegionAllocTime + waitTime <= now) {
         prevRegionAllocTime = TimeUtil::NanoSeconds();
-        return;
+        return true;
     }
 
     uint64_t sleepTime = std::min<uint64_t>(CangjieRuntime::GetHeapParam().allocationWaitTime,
@@ -975,6 +1164,7 @@ void RegionManager::RequestForRegion(size_t size)
     DLOG(ALLOC, "wait %zu ns to alloc %zu(B)", sleepTime, size);
     std::this_thread::sleep_for(std::chrono::nanoseconds{ sleepTime });
     prevRegionAllocTime = TimeUtil::NanoSeconds();
+    return true;
 }
 
 bool RegionManager::RouteOrCompactRegionImpl(RegionInfo* region)
@@ -987,7 +1177,7 @@ bool RegionManager::RouteOrCompactRegionImpl(RegionInfo* region)
     CHECK(region != toRegion1);
     bool result;
     if (toRegion1 == RegionInfo::NullRegion()) {
-        toRegion1 = AllocateThreadLocalRegion();
+        toRegion1 = AllocateThreadLocalRegion(false, true);
         if (toRegion1 == nullptr) {
             CompactRegion(region);
             toRegion1 = region;
@@ -1035,7 +1225,7 @@ bool RegionManager::RouteOrCompactRegionImpl(RegionInfo* region)
         EnlistFullThreadLocalRegion(toRegion1);
     }
 
-    RegionInfo* toRegion2 = AllocateThreadLocalRegion();
+    RegionInfo* toRegion2 = AllocateThreadLocalRegion(false, true);
     CHECK(region != toRegion2);
     if (toRegion2 != nullptr) {
         toRegion1->Alloc(usedBytes1);
@@ -1062,21 +1252,21 @@ void RegionManager::CompactRegion(RegionInfo* region)
     DLOG(REGION, "compact region %p@[%#zx+%zu, %#zx) type %u", region, regionStart,
         region->GetLiveByteCount(), region->GetRegionEnd(), region->GetRegionType());
     MAddress regionLimit = region->GetRegionAllocPtr();
-    region->SetRegionAllocPtr(regionStart);
+    MAddress target = regionStart;
     CopyCollector& collector = reinterpret_cast<CopyCollector&>(Heap::GetHeap().GetCollector());
-    for (MAddress currentPtr = regionStart; currentPtr < regionLimit;) {
-        BaseObject* currentObj = reinterpret_cast<BaseObject*>(currentPtr);
-        size_t size = currentObj->GetSize();
+    region->VisitAllObjects([region, regionStart, &target, &collector](BaseObject* currentObj) {
+        MAddress currentPtr = reinterpret_cast<MAddress>(currentObj);
+        size_t size = RegionSpace::GetAllocSize(*currentObj);
         size_t offset = currentPtr - regionStart;
         if (region->IsSurvivedObject(offset)) {
-            MAddress toAddress = region->Alloc(size);
-            BaseObject* toObj = reinterpret_cast<BaseObject*>(toAddress);
+            BaseObject* toObj = reinterpret_cast<BaseObject*>(target);
             DLOG(FORWARD, "compact obj %p<%p>(%zu) to %p", currentObj, currentObj->GetTypeInfo(), size, toObj);
             collector.CopyObject(*currentObj, *toObj, size);
             toObj->SetStateCode(ObjectState::NORMAL);
+            target += size;
         }
-        currentPtr += size;
-    }
+    });
+    region->SetRegionAllocPtr(target);
     std::atomic_thread_fence(std::memory_order_release);
 
     // clear unused space which is free after compaction.
@@ -1085,6 +1275,7 @@ void RegionManager::CompactRegion(RegionInfo* region)
         size_t reclaimSize = regionLimit - cur;
         CHECK_DETAIL(memset_s(reinterpret_cast<void*>(cur), reclaimSize, 0, reclaimSize) == EOK, "clear buffer failed");
     }
+    region->ClearFreeSlotList();
 
     if (region->IsFromRegion()) {
         fromRegionList.TryDeleteRegion(region, RegionInfo::RegionType::FROM_REGION,
@@ -1099,52 +1290,47 @@ void RegionManager::CompactRegion(RegionInfo* region, RegionInfo* toRegion1)
     DLOG(REGION, "compact region %p@[%#zx+%zu, %#zx) type %u to region %p@%#zx:%#zx",
         region, regionStart, region->GetLiveByteCount(), region->GetRegionEnd(), region->GetRegionType(),
         toRegion1, toRegion1->GetRegionStart(), toRegion1->GetRegionAllocPtr());
-    MAddress currentPtr = regionStart;
-    BaseObject* currentObj = reinterpret_cast<BaseObject*>(currentPtr);
-    CopyCollector& collector = reinterpret_cast<CopyCollector&>(Heap::GetHeap().GetCollector());
-    while (true) {
-        CHECK(currentPtr>=regionStart);
-        size_t offset = currentPtr - regionStart;
-        size_t size = currentObj->GetSize();
-        if (region->IsSurvivedObject(offset)) {
-            MAddress toAddress = toRegion1->Alloc(size);
-            if (toAddress == 0) {
-                break;
-            }
-            BaseObject* toObj = reinterpret_cast<BaseObject*>(toAddress);
-            DLOG(FORWARD, "compact obj %p<%p>(%zu) to %p", currentObj, currentObj->GetTypeInfo(), size, toObj);
-            collector.CopyObject(*currentObj, *toObj, size);
-            toObj->SetStateCode(ObjectState::NORMAL);
-            std::atomic_thread_fence(std::memory_order_release);
-        }
-        currentPtr += size;
-        currentObj = reinterpret_cast<BaseObject*>(currentPtr);
-    };
-
     MAddress regionLimit = region->GetRegionAllocPtr();
-    region->SetRegionAllocPtr(regionStart);
-    while (currentPtr < regionLimit) {
-        CHECK(currentPtr >= regionStart);
-        size_t offset = currentPtr - regionStart;
-        BaseObject* currentObj = reinterpret_cast<BaseObject*>(currentPtr);
-        size_t size = currentObj->GetSize();
+    MAddress remainingStart = regionLimit;
+    CopyCollector& collector = reinterpret_cast<CopyCollector&>(Heap::GetHeap().GetCollector());
+    (void)region->VisitLiveObjectsUntilFalse([&remainingStart, &collector, &toRegion1](BaseObject* currentObj) {
+        size_t size = RegionSpace::GetAllocSize(*currentObj);
+        MAddress toAddress = toRegion1->Alloc(size);
+        if (toAddress == 0) {
+            remainingStart = reinterpret_cast<MAddress>(currentObj);
+            return false;
+        }
+        BaseObject* toObj = reinterpret_cast<BaseObject*>(toAddress);
+        DLOG(FORWARD, "compact obj %p<%p>(%zu) to %p", currentObj, currentObj->GetTypeInfo(), size, toObj);
+        collector.CopyObject(*currentObj, *toObj, size);
+        toObj->SetStateCode(ObjectState::NORMAL);
+        std::atomic_thread_fence(std::memory_order_release);
+        return true;
+    });
+
+    MAddress target = regionStart;
+    region->VisitAllObjectsFrom(remainingStart, [region, regionStart, &target, &collector](BaseObject* currentObj) {
+        MAddress currentAddress = reinterpret_cast<MAddress>(currentObj);
+        size_t offset = currentAddress - regionStart;
         if (region->IsSurvivedObject(offset)) {
-            MAddress toAddress = region->Alloc(size);
-            BaseObject* toObj = reinterpret_cast<BaseObject*>(toAddress);
+            size_t size = RegionSpace::GetAllocSize(*currentObj);
+            BaseObject* toObj = reinterpret_cast<BaseObject*>(target);
             DLOG(FORWARD, "compact obj %p<%p>(%zu) to %p", currentObj, currentObj->GetTypeInfo(), size, toObj);
             collector.CopyObject(*currentObj, *toObj, size);
             toObj->SetStateCode(ObjectState::NORMAL);
-            std::atomic_thread_fence(std::memory_order_release);
+            target += size;
         }
-        currentPtr += size;
-    }
+    });
+    region->SetRegionAllocPtr(target);
+    std::atomic_thread_fence(std::memory_order_release);
 
     // clear unused space which is free after compaction.
-    MAddress cur = region->GetRegionAllocPtr();
+    MAddress cur = target;
     if (regionLimit > cur) {
         size_t reclaimSize = regionLimit - cur;
         CHECK_DETAIL(memset_s(reinterpret_cast<void*>(cur), reclaimSize, 0, reclaimSize) == EOK, "clear buffer failed");
     }
+    region->ClearFreeSlotList();
 
     if (region->IsFromRegion()) {
         fromRegionList.TryDeleteRegion(region, RegionInfo::RegionType::FROM_REGION,
@@ -1155,7 +1341,8 @@ void RegionManager::CompactRegion(RegionInfo* region, RegionInfo* toRegion1)
 
 void RegionManager::ForwardRegion(RegionInfo* region)
 {
-    CHECK_DETAIL(region->IsFromRegion() || region->IsLoneFromRegion() || (region->IsThreadLocalRegion() &&
+    CHECK_DETAIL(region->IsFromRegion() || region->IsLoneFromRegion() || ((region->IsThreadLocalRegion() ||
+        region->GetRegionType() == RegionInfo::RegionType::RECENT_FULL_REGION) &&
         (region->IsRoutingState() || region->IsCompacted())), "region type %u", region->GetRegionType());
 
     DLOG(FORWARD, "try forward region %p @[0x%zx+%zu, 0x%zx) type %u, live bytes %u",
@@ -1189,14 +1376,16 @@ uintptr_t RegionManager::AllocPinnedFromFreeList(size_t size)
     std::lock_guard<std::mutex> lock(freePinnedSlotListMutex);
     GCPhase mutatorPhase = Mutator::GetMutator()->GetMutatorPhase();
     // For preventing missing mark, do not allocate object from slot list when gc phase is post trace.
-    if (mutatorPhase == GCPhase::GC_PHASE_POST_TRACE) {
+    if (mutatorPhase == GCPhase::GC_PHASE_POST_TRACE || mutatorPhase == GCPhase::GC_PHASE_GENERATION_POST_TRACE) {
         return 0;
     }
     uintptr_t allocPtr = freePinnedSlotLists.PopFront(size);
     // For making bitmap comform with live object count, do not mark object repeated.
     if (allocPtr == 0 ||
         (mutatorPhase != GCPhase::GC_PHASE_ENUM &&
+        mutatorPhase != GCPhase::GC_PHASE_GENERATION_ENUM &&
         mutatorPhase != GCPhase::GC_PHASE_TRACE &&
+        mutatorPhase != GCPhase::GC_PHASE_GENERATION_TRACE &&
         mutatorPhase != GCPhase::GC_PHASE_CLEAR_SATB_BUFFER)) {
         return allocPtr;
     }

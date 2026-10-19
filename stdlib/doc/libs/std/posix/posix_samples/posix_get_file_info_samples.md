@@ -5,19 +5,25 @@
 示例：
 
 <!-- verify -->
-
 ```cangjie
 import std.posix.*
 
 main(): Int64 {
-    var result1: Bool = isType("/notdirs", S_IFDIR)
-    println("result ==> ${result1}")
-    var result2: Bool = isDir("/dev")
-    println("result ==> ${result2}")
-    var result3 = access("./oscfg.cfg", F_OK)
-    println("result ==> ${result3}")
-    var result4 = chmod("oscfg.cfg", UInt32(S_IXUSR))
-    println("result ==> ${result4}")
+    // 判断 "/notdirs" 是否为目录（isType 需指定文件类型宏）
+    var isDirResult1: Bool = isType("/notdirs", S_IFDIR)
+    println("isType(\"/notdirs\", S_IFDIR): ${isDirResult1}")
+
+    // 判断 "/dev" 是否为目录
+    var isDirResult2: Bool = isDir("/dev")
+    println("isDir(\"/dev\"): ${isDirResult2}")
+
+    // 检查当前目录下 "oscfg.cfg" 是否存在（不存在返回 -1）
+    var accessResult = access("./oscfg.cfg", F_OK)
+    println("access(\"./oscfg.cfg\", F_OK): ${accessResult}")
+
+    // 修改 "oscfg.cfg" 的权限为用户可执行（文件不存在返回 -1）
+    var chmodResult = chmod("oscfg.cfg", UInt32(S_IXUSR))
+    println("chmod(\"oscfg.cfg\", S_IXUSR): ${chmodResult}")
     return 0
 }
 ```
@@ -25,8 +31,8 @@ main(): Int64 {
 运行结果：
 
 ```text
-result ==> false
-result ==> true
-result ==> -1
-result ==> -1
+isType("/notdirs", S_IFDIR): false
+isDir("/dev"): true
+access("./oscfg.cfg", F_OK): -1
+chmod("oscfg.cfg", S_IXUSR): -1
 ```

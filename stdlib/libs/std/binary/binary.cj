@@ -65,7 +65,7 @@ extend UInt64 <: BigEndianOrder<UInt64> & LittleEndianOrder<UInt64> & SwapEndian
     @OverflowWrapping
     public func writeLittleEndian(buffer: Array<Byte>): Int64 {
         if (buffer.size < 8) {
-            throw IndexOutOfBoundsException("Buffer size(${buffer.size}) is too small.")
+            throw IndexOutOfBoundsException("Buffer size ${buffer.size} is too small, need at least 8 bytes.")
         }
         buffer[0] = UInt8(this)
         buffer[1] = UInt8(this >> 8)
@@ -81,7 +81,7 @@ extend UInt64 <: BigEndianOrder<UInt64> & LittleEndianOrder<UInt64> & SwapEndian
     @OverflowWrapping
     public func writeBigEndian(buffer: Array<Byte>): Int64 {
         if (buffer.size < 8) {
-            throw IndexOutOfBoundsException("Buffer size(${buffer.size}) is too small.")
+            throw IndexOutOfBoundsException("Buffer size ${buffer.size} is too small, need at least 8 bytes.")
         }
         buffer[0] = UInt8(this >> 56)
         buffer[1] = UInt8(this >> 48)
@@ -97,7 +97,7 @@ extend UInt64 <: BigEndianOrder<UInt64> & LittleEndianOrder<UInt64> & SwapEndian
     @OverflowWrapping
     public static func readBigEndian(buffer: Array<Byte>): UInt64 {
         if (buffer.size < 8) {
-            throw IndexOutOfBoundsException("Buffer size(${buffer.size}) is too small.")
+            throw IndexOutOfBoundsException("Buffer size ${buffer.size} is too small, need at least 8 bytes.")
         }
         return UInt64(buffer[7]) | UInt64(buffer[6]) << 8 | UInt64(buffer[5]) << 16 | UInt64(buffer[4]) << 24 |
             UInt64(buffer[3]) << 32 | UInt64(buffer[2]) << 40 | UInt64(buffer[1]) << 48 | UInt64(buffer[0]) << 56
@@ -106,7 +106,7 @@ extend UInt64 <: BigEndianOrder<UInt64> & LittleEndianOrder<UInt64> & SwapEndian
     @OverflowWrapping
     public static func readLittleEndian(buffer: Array<Byte>): UInt64 {
         if (buffer.size < 8) {
-            throw IndexOutOfBoundsException("Buffer size(${buffer.size}) is too small.")
+            throw IndexOutOfBoundsException("Buffer size ${buffer.size} is too small, need at least 8 bytes.")
         }
         return UInt64(buffer[0]) | UInt64(buffer[1]) << 8 | UInt64(buffer[2]) << 16 | UInt64(buffer[3]) << 24 |
             UInt64(buffer[4]) << 32 | UInt64(buffer[5]) << 40 | UInt64(buffer[6]) << 48 | UInt64(buffer[7]) << 56
@@ -131,7 +131,7 @@ extend Int64 <: BigEndianOrder<Int64> & LittleEndianOrder<Int64> & SwapEndianOrd
     @OverflowWrapping
     public static func readBigEndian(buffer: Array<Byte>): Int64 {
         if (buffer.size < 8) {
-            throw IndexOutOfBoundsException("Buffer size(${buffer.size}) is too small.")
+            throw IndexOutOfBoundsException("Buffer size ${buffer.size} is too small, need at least 8 bytes.")
         }
         return Int64(buffer[7]) | Int64(buffer[6]) << 8 | Int64(buffer[5]) << 16 | Int64(buffer[4]) << 24 |
             Int64(buffer[3]) << 32 | Int64(buffer[2]) << 40 | Int64(buffer[1]) << 48 | Int64(buffer[0]) << 56
@@ -140,7 +140,7 @@ extend Int64 <: BigEndianOrder<Int64> & LittleEndianOrder<Int64> & SwapEndianOrd
     @OverflowWrapping
     public static func readLittleEndian(buffer: Array<Byte>): Int64 {
         if (buffer.size < 8) {
-            throw IndexOutOfBoundsException("Buffer size(${buffer.size}) is too small.")
+            throw IndexOutOfBoundsException("Buffer size ${buffer.size} is too small, need at least 8 bytes.")
         }
         return Int64(buffer[0]) | Int64(buffer[1]) << 8 | Int64(buffer[2]) << 16 | Int64(buffer[3]) << 24 |
             Int64(buffer[4]) << 32 | Int64(buffer[5]) << 40 | Int64(buffer[6]) << 48 | Int64(buffer[7]) << 56
@@ -157,7 +157,7 @@ extend UInt32 <: BigEndianOrder<UInt32> & LittleEndianOrder<UInt32> & SwapEndian
     @OverflowWrapping
     public func writeLittleEndian(buffer: Array<Byte>): Int64 {
         if (buffer.size < 4) {
-            throw IndexOutOfBoundsException("Buffer size(${buffer.size}) is too small.")
+            throw IndexOutOfBoundsException("Buffer size ${buffer.size} is too small, need at least 4 bytes.")
         }
         buffer[0] = UInt8(this)
         buffer[1] = UInt8(this >> 8)
@@ -169,7 +169,7 @@ extend UInt32 <: BigEndianOrder<UInt32> & LittleEndianOrder<UInt32> & SwapEndian
     @OverflowWrapping
     public func writeBigEndian(buffer: Array<Byte>): Int64 {
         if (buffer.size < 4) {
-            throw IndexOutOfBoundsException("Buffer size(${buffer.size}) is too small.")
+            throw IndexOutOfBoundsException("Buffer size ${buffer.size} is too small, need at least 4 bytes.")
         }
         buffer[0] = UInt8(this >> 24)
         buffer[1] = UInt8(this >> 16)
@@ -181,7 +181,7 @@ extend UInt32 <: BigEndianOrder<UInt32> & LittleEndianOrder<UInt32> & SwapEndian
     @OverflowWrapping
     public static func readBigEndian(buffer: Array<Byte>): UInt32 {
         if (buffer.size < 4) {
-            throw IndexOutOfBoundsException("Buffer size(${buffer.size}) is too small.")
+            throw IndexOutOfBoundsException("Buffer size ${buffer.size} is too small, need at least 4 bytes.")
         }
         return UInt32(buffer[3]) | UInt32(buffer[2]) << 8 | UInt32(buffer[1]) << 16 | UInt32(buffer[0]) << 24
     }
@@ -189,7 +189,7 @@ extend UInt32 <: BigEndianOrder<UInt32> & LittleEndianOrder<UInt32> & SwapEndian
     @OverflowWrapping
     public static func readLittleEndian(buffer: Array<Byte>): UInt32 {
         if (buffer.size < 4) {
-            throw IndexOutOfBoundsException("Buffer size(${buffer.size}) is too small.")
+            throw IndexOutOfBoundsException("Buffer size ${buffer.size} is too small, need at least 4 bytes.")
         }
         return UInt32(buffer[0]) | UInt32(buffer[1]) << 8 | UInt32(buffer[2]) << 16 | UInt32(buffer[3]) << 24
     }
@@ -212,7 +212,7 @@ extend Int32 <: BigEndianOrder<Int32> & LittleEndianOrder<Int32> & SwapEndianOrd
     @OverflowWrapping
     public static func readBigEndian(buffer: Array<Byte>): Int32 {
         if (buffer.size < 4) {
-            throw IndexOutOfBoundsException("Buffer size(${buffer.size}) is too small.")
+            throw IndexOutOfBoundsException("Buffer size ${buffer.size} is too small, need at least 4 bytes.")
         }
         return Int32(buffer[3]) | Int32(buffer[2]) << 8 | Int32(buffer[1]) << 16 | Int32(buffer[0]) << 24
     }
@@ -220,7 +220,7 @@ extend Int32 <: BigEndianOrder<Int32> & LittleEndianOrder<Int32> & SwapEndianOrd
     @OverflowWrapping
     public static func readLittleEndian(buffer: Array<Byte>): Int32 {
         if (buffer.size < 4) {
-            throw IndexOutOfBoundsException("Buffer size(${buffer.size}) is too small.")
+            throw IndexOutOfBoundsException("Buffer size ${buffer.size} is too small, need at least 4 bytes.")
         }
         return Int32(buffer[0]) | Int32(buffer[1]) << 8 | Int32(buffer[2]) << 16 | Int32(buffer[3]) << 24
     }
@@ -236,7 +236,7 @@ extend UInt16 <: BigEndianOrder<UInt16> & LittleEndianOrder<UInt16> & SwapEndian
     @OverflowWrapping
     public func writeLittleEndian(buffer: Array<Byte>): Int64 {
         if (buffer.size < 2) {
-            throw IndexOutOfBoundsException("Buffer size(${buffer.size}) is too small.")
+            throw IndexOutOfBoundsException("Buffer size ${buffer.size} is too small, need at least 2 bytes.")
         }
         buffer[0] = UInt8(this)
         buffer[1] = UInt8(this >> 8)
@@ -246,7 +246,7 @@ extend UInt16 <: BigEndianOrder<UInt16> & LittleEndianOrder<UInt16> & SwapEndian
     @OverflowWrapping
     public func writeBigEndian(buffer: Array<Byte>): Int64 {
         if (buffer.size < 2) {
-            throw IndexOutOfBoundsException("Buffer size(${buffer.size}) is too small.")
+            throw IndexOutOfBoundsException("Buffer size ${buffer.size} is too small, need at least 2 bytes.")
         }
         buffer[0] = UInt8(this >> 8)
         buffer[1] = UInt8(this)
@@ -256,7 +256,7 @@ extend UInt16 <: BigEndianOrder<UInt16> & LittleEndianOrder<UInt16> & SwapEndian
     @OverflowWrapping
     public static func readBigEndian(buffer: Array<Byte>): UInt16 {
         if (buffer.size < 2) {
-            throw IndexOutOfBoundsException("Buffer size(${buffer.size}) is too small.")
+            throw IndexOutOfBoundsException("Buffer size ${buffer.size} is too small, need at least 2 bytes.")
         }
         return UInt16(buffer[1]) | UInt16(buffer[0]) << 8
     }
@@ -264,7 +264,7 @@ extend UInt16 <: BigEndianOrder<UInt16> & LittleEndianOrder<UInt16> & SwapEndian
     @OverflowWrapping
     public static func readLittleEndian(buffer: Array<Byte>): UInt16 {
         if (buffer.size < 2) {
-            throw IndexOutOfBoundsException("Buffer size(${buffer.size}) is too small.")
+            throw IndexOutOfBoundsException("Buffer size ${buffer.size} is too small, need at least 2 bytes.")
         }
         return UInt16(buffer[0]) | UInt16(buffer[1]) << 8
     }
@@ -287,7 +287,7 @@ extend Int16 <: BigEndianOrder<Int16> & LittleEndianOrder<Int16> & SwapEndianOrd
     @OverflowWrapping
     public static func readBigEndian(buffer: Array<Byte>): Int16 {
         if (buffer.size < 2) {
-            throw IndexOutOfBoundsException("Buffer size(${buffer.size}) is too small.")
+            throw IndexOutOfBoundsException("Buffer size ${buffer.size} is too small, need at least 2 bytes.")
         }
         return Int16(buffer[1]) | Int16(buffer[0]) << 8
     }
@@ -295,7 +295,7 @@ extend Int16 <: BigEndianOrder<Int16> & LittleEndianOrder<Int16> & SwapEndianOrd
     @OverflowWrapping
     public static func readLittleEndian(buffer: Array<Byte>): Int16 {
         if (buffer.size < 2) {
-            throw IndexOutOfBoundsException("Buffer size(${buffer.size}) is too small.")
+            throw IndexOutOfBoundsException("Buffer size ${buffer.size} is too small, need at least 2 bytes.")
         }
         return Int16(buffer[0]) | Int16(buffer[1]) << 8
     }
@@ -313,26 +313,26 @@ extend UInt8 <: BigEndianOrder<UInt8> & LittleEndianOrder<UInt8> & SwapEndianOrd
             buffer[0] = this
             return 1
         }
-        throw IllegalArgumentException("Buffer too small: need at least 1 byte.")
+        throw IllegalArgumentException("Buffer size is 0, need at least 1 byte.")
     }
     public func writeBigEndian(buffer: Array<Byte>): Int64 {
         if (!buffer.isEmpty()) {
             buffer[0] = this
             return 1
         }
-        throw IllegalArgumentException("Buffer too small: need at least 1 byte.")
+        throw IllegalArgumentException("Buffer size is 0, need at least 1 byte.")
     }
     public static func readBigEndian(buffer: Array<Byte>): UInt8 {
         if (!buffer.isEmpty()) {
             return buffer[0]
         }
-        throw IllegalArgumentException("Buffer too small: need at least 1 byte.")
+        throw IllegalArgumentException("Buffer size is 0, need at least 1 byte.")
     }
     public static func readLittleEndian(buffer: Array<Byte>): UInt8 {
         if (!buffer.isEmpty()) {
             return buffer[0]
         }
-        throw IllegalArgumentException("Buffer too small: need at least 1 byte.")
+        throw IllegalArgumentException("Buffer size is 0, need at least 1 byte.")
     }
 
     public func swapBytes(): UInt8 {
@@ -347,7 +347,7 @@ extend Int8 <: BigEndianOrder<Int8> & LittleEndianOrder<Int8> & SwapEndianOrder<
             buffer[0] = UInt8(this)
             return 1
         }
-        throw IllegalArgumentException("Buffer too small: need at least 1 byte.")
+        throw IllegalArgumentException("Buffer size is 0, need at least 1 byte.")
     }
 
     @OverflowWrapping
@@ -356,7 +356,7 @@ extend Int8 <: BigEndianOrder<Int8> & LittleEndianOrder<Int8> & SwapEndianOrder<
             buffer[0] = UInt8(this)
             return 1
         }
-        throw IllegalArgumentException("Buffer too small: need at least 1 byte.")
+        throw IllegalArgumentException("Buffer size is 0, need at least 1 byte.")
     }
 
     @OverflowWrapping
@@ -364,7 +364,7 @@ extend Int8 <: BigEndianOrder<Int8> & LittleEndianOrder<Int8> & SwapEndianOrder<
         if (!buffer.isEmpty()) {
             return Int8(buffer[0])
         }
-        throw IllegalArgumentException("Buffer too small: need at least 1 byte.")
+        throw IllegalArgumentException("Buffer size is 0, need at least 1 byte.")
     }
 
     @OverflowWrapping
@@ -372,7 +372,7 @@ extend Int8 <: BigEndianOrder<Int8> & LittleEndianOrder<Int8> & SwapEndianOrder<
         if (!buffer.isEmpty()) {
             return Int8(buffer[0])
         }
-        throw IllegalArgumentException("Buffer too small: need at least 1 byte.")
+        throw IllegalArgumentException("Buffer size is 0, need at least 1 byte.")
     }
 
     public func swapBytes(): Int8 {
@@ -454,7 +454,7 @@ extend Bool <: BigEndianOrder<Bool> & LittleEndianOrder<Bool> {
             }
             return 1
         }
-        throw IllegalArgumentException("Buffer too small: need at least 1 byte.")
+        throw IllegalArgumentException("Buffer size is 0, need at least 1 byte.")
     }
     public func writeBigEndian(buffer: Array<Byte>): Int64 {
         if (!buffer.isEmpty()) {
@@ -465,24 +465,27 @@ extend Bool <: BigEndianOrder<Bool> & LittleEndianOrder<Bool> {
             }
             return 1
         }
-        throw IllegalArgumentException("Buffer too small: need at least 1 byte.")
+        throw IllegalArgumentException("Buffer size is 0, need at least 1 byte.")
     }
     public static func readBigEndian(buffer: Array<Byte>): Bool {
         if (!buffer.isEmpty()) {
             return buffer[0] != 0
         }
-        throw IllegalArgumentException("Buffer too small: need at least 1 byte.")
+        throw IllegalArgumentException("Buffer size is 0, need at least 1 byte.")
     }
     public static func readLittleEndian(buffer: Array<Byte>): Bool {
         if (!buffer.isEmpty()) {
             return buffer[0] != 0
         }
-        throw IllegalArgumentException("Buffer too small: need at least 1 byte.")
+        throw IllegalArgumentException("Buffer size is 0, need at least 1 byte.")
     }
 }
 
+@FastNative
 foreign func CJ_Bswap64(n: UInt64): UInt64
 
+@FastNative
 foreign func CJ_Bswap32(n: UInt32): UInt32
 
+@FastNative
 foreign func CJ_Bswap16(n: UInt16): UInt16

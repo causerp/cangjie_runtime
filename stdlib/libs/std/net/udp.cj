@@ -203,7 +203,7 @@ public class UdpSocket <: DatagramSocket {
                     "the same address family as local (${localAddress.family})"))
 
         if (payload.size > 65507) {
-            throw SocketException("Unable to send datagram larger than 65507.")
+            throw SocketException("Cannot send datagram larger than 65507 bytes.")
         }
         if (recipient.family != impl.kind) {
             throw IllegalArgumentException(

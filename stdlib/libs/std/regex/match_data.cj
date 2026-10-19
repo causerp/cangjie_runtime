@@ -52,7 +52,7 @@ public struct MatchData {
             throw IllegalArgumentException("Capture group not enabled.")
         }
         if (group < 0 || group >= rc) {
-            throw IllegalArgumentException("Invalid group index.")
+            throw IllegalArgumentException("Invalid group index: ${group}, valid range is 0 to ${rc - 1}.")
         }
         let position = positions[group]
         if (position.start == UNCAPTURED_GROUP_INDEX || position.end == UNCAPTURED_GROUP_INDEX) {
@@ -97,7 +97,7 @@ public struct MatchData {
             throw IllegalArgumentException("Capture group not enabled.")
         }
         if (group < 0 || group >= rc) {
-            throw IllegalArgumentException("Invalid group index.")
+            throw IllegalArgumentException("Invalid group index: ${group}, valid range is 0 to ${rc - 1}.")
         }
         return positions[group]
     }

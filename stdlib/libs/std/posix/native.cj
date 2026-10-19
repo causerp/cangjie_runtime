@@ -21,10 +21,8 @@ package std.posix
  * manual: https://man7.org/linux/man-pages/man2/open.2.html
  * signature: int open(const char *pathname, int flags, ...);
  */
-@FastNative
 foreign func open(pathname: CString, flags: Int32, ...): Int32
 
-@FastNative
 @When[os != "Windows" && os != "macOS" && os != "iOS"]
 foreign func open64(pathname: CString, flags: Int32, ...): Int32
 
@@ -77,7 +75,6 @@ foreign func creat(pathname: CString, flags: UInt32): Int32
  * manual: https://man7.org/linux/man-pages/man2/close.2.html
  * signature: int close(int fd);
  */
-@FastNative
 foreign func CJ_OS_Close(fd: Int32): Int32
 
 /**
@@ -94,7 +91,6 @@ foreign func CJ_OS_Close(fd: Int32): Int32
  * manual: https://man7.org/linux/man-pages/man2/lseek.2.html
  * signature: off_t lseek(int fd, off_t offset, int whence);
  */
-@FastNative
 foreign func CJ_OS_Lseek(fd: Int32, offset: Int64, whence: Int32): Int64
 
 /**

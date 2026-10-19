@@ -15,7 +15,7 @@ endmacro()
 
 function(make_cangjie_lib target_name)
     set(options IS_SHARED IS_STATIC ALLOW_UNDEFINED)
-    set(oneValueArgs)
+    set(oneValueArgs IOS_DEPLOYMENT_VERSION)
     set(multiValueArgs
         DEPENDS
         OBJECTS
@@ -65,10 +65,20 @@ function(make_cangjie_lib target_name)
         endif()
         if(IOS)
             list(APPEND flags_to_compile -syslibroot "${CMAKE_IOS_SDK_ROOT}")
+            # Default minimum iOS deployment target is 11. Libraries that link against C++
+            # (libc++ is only available from iOS 12 onward), e.g. std-ast, override it via
+            # IOS_DEPLOYMENT_VERSION.
+            if(NOT CANGJIE_LIBRARY_IOS_DEPLOYMENT_VERSION)
+                set(CANGJIE_LIBRARY_IOS_DEPLOYMENT_VERSION "11.0.0")
+            endif()
             if(IOS_PLATFORM MATCHES "SIMULATOR")
-                list(APPEND flags_to_compile -platform_version ios-simulator 17.5.0 17.5)
+                set(ios_sim_deployment_version "${CANGJIE_LIBRARY_IOS_DEPLOYMENT_VERSION}")
+                if(ios_sim_deployment_version VERSION_LESS "13.0.0")
+                    set(ios_sim_deployment_version "13.0.0")
+                endif()
+                list(APPEND flags_to_compile -platform_version ios-simulator ${ios_sim_deployment_version} 17.5)
             else()
-                list(APPEND flags_to_compile -platform_version ios 17.5.0 17.5)
+                list(APPEND flags_to_compile -platform_version ios ${CANGJIE_LIBRARY_IOS_DEPLOYMENT_VERSION} 17.5)
             endif()
         else()
             list(APPEND flags_to_compile -syslibroot "${CANGJIE_MACOSX_SDK_PATH}")
@@ -187,8 +197,12 @@ function(make_cangjie_lib target_name)
                 list(APPEND flags_to_compile "-L${CANGJIE_TARGET_TOOLCHAIN}/../lib/arm-linux-ohos")
             endif()
             list(APPEND flags_to_compile "-lc")
-            list(APPEND flags_to_compile "-lunwind")
+            # -l:libunwind.a: use archive form so --exclude-libs can hide its symbols.
+            list(APPEND flags_to_compile "-l:libunwind.a")
             list(APPEND flags_to_compile "--exclude-libs=libunwind.a")
+            # Hide C++ runtime symbols so downstream .so's don't bind to ast.so via DT_NEEDED.
+            # libc++.a is a linker script (INPUT(-lc++_static -lc++abi)); exclude the real archives.
+            list(APPEND flags_to_compile "--exclude-libs=libc++.a,libc++_static.a,libc++abi.a")
         endif()
         if(NOT DARWIN AND NOT CANGJIE_LIBRARY_ALLOW_UNDEFINED AND NOT CANGJIE_ENABLE_HWASAN AND NOT CANGJIE_SANITIZER_SUPPORT_ENABLED)
             # Extra checkes when generating cangjie shared libraries. If symbols are used in Cangjie but not
@@ -347,7 +361,8 @@ function(make_cangjie_lib target_name)
 
     if(CANGJIE_LIBRARY_IS_SHARED)
         install(FILES ${target_lib_full_name} DESTINATION runtime/lib/${output_cj_lib_dir})
-        if(target_name STREQUAL "std-regex")
+        if(target_name STREQUAL "std-regex" AND NOT OHOS)
+            # On OHOS, libpcre2.z.so is provided by the ROM; do not ship libpcre2-8.so.
             file(GLOB PCRE2_DYNAMIC_LIB
                 ${CMAKE_BINARY_DIR}/third_party/pcre2/bin/libpcre2-8.dll
                 ${CMAKE_BINARY_DIR}/third_party/pcre2/lib/libpcre2-8.so*

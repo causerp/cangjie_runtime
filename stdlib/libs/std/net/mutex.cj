@@ -110,7 +110,7 @@ struct NonReentrantReadLock <: Lock {
     }
 
     private static func beforeCheckFailed(): Nothing {
-        throw IllegalStateException("Unbalanced lock-unlock invocations")
+        throw IllegalStateException("Unbalanced lock-unlock invocations.")
     }
 
     private static func hasActiveWriter(counter: Int64) {

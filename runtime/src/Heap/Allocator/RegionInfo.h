@@ -9,6 +9,8 @@
 
 #include <list>
 #include <map>
+#include <new>
+#include <cstdlib>
 #include <set>
 #include <thread>
 #include <vector>
@@ -82,6 +84,8 @@ public:
         ROUTED,
         COMPACTED,
         FORWARDED,
+        PROMOTED,
+        HALF_PROMOTED,
     };
 
     static const size_t UNIT_SIZE; // same as system page size
@@ -214,6 +218,64 @@ public:
         return nullptr;
     }
 
+    AgeBitmap* GetAgeBitmap()
+    {
+        AgeBitmap* bitmap = __atomic_load_n(&metadata.ageBitmap, std::memory_order_acquire);
+        if (reinterpret_cast<MAddress>(bitmap) == LiveInfo::TEMPORARY_PTR) {
+            return nullptr;
+        }
+        return bitmap;
+    }
+
+    AgeBitmap* GetOrAllocAgeBitmap()
+    {
+        do {
+            AgeBitmap* bitmap = __atomic_load_n(&metadata.ageBitmap, std::memory_order_acquire);
+            if (UNLIKELY(reinterpret_cast<uintptr_t>(bitmap) == LiveInfo::TEMPORARY_PTR)) {
+                continue;
+            }
+            if (LIKELY(bitmap != nullptr)) {
+                return bitmap;
+            }
+            AgeBitmap* newValue = reinterpret_cast<AgeBitmap*>(LiveInfo::TEMPORARY_PTR);
+            if (__atomic_compare_exchange_n(&metadata.ageBitmap, &bitmap, newValue, false,
+                                            std::memory_order_seq_cst, std::memory_order_relaxed)) {
+                size_t bitmapSize = AgeBitmap::GetAgeBitmapSize(GetRegionSize());
+                AgeBitmap* allocated = reinterpret_cast<AgeBitmap*>(std::malloc(bitmapSize));
+                CHECK_DETAIL(allocated != nullptr, "allocate age bitmap failed");
+                size_t wordCnt = AgeBitmap::WordCount(GetRegionSize());
+                for (size_t i = 0; i < wordCnt; i++) {
+                    new (&allocated->ageWords[i]) std::atomic<uint64_t>(0);
+                }
+                __atomic_store_n(&metadata.ageBitmap, allocated, std::memory_order_release);
+                return allocated;
+            }
+        } while (true);
+        return nullptr;
+    }
+
+    uint8_t GetObjectAge(const BaseObject* obj)
+    {
+        AgeBitmap* bitmap = GetAgeBitmap();
+        if (bitmap == nullptr) {
+            return 0;
+        }
+        size_t offset = GetAddressOffset(reinterpret_cast<MAddress>(obj));
+        return bitmap->GetAge(offset);
+    }
+
+    uint8_t IncObjectAge(const BaseObject* obj)
+    {
+        size_t offset = GetAddressOffset(reinterpret_cast<MAddress>(obj));
+        return GetOrAllocAgeBitmap()->IncAge(offset);
+    }
+
+    void SetObjectAge(const BaseObject* obj, uint8_t age)
+    {
+        size_t offset = GetAddressOffset(reinterpret_cast<MAddress>(obj));
+        GetOrAllocAgeBitmap()->SetAge(offset, age);
+    }
+
     RegionBitmap* GetResurrectBitmap()
     {
         LiveInfo* liveInfo = GetLiveInfo();
@@ -299,6 +361,103 @@ public:
         SetResurrectedRegionFlag(0);
     }
 
+    // ---- Per-old-region remembered-set card table ----
+    // Each old region owns a bitmap (1 bit per pointer-sized slot) used by RememberSet
+    // to record which slots may hold old-to-young references.
+    static constexpr size_t RSET_SLOT_SIZE = sizeof(uintptr_t); // == sizeof(RefField<>)
+    static constexpr size_t RSET_BITS_PER_BYTE = 8;
+
+    // Sentinel value published in rsetCardTable while a thread is allocating it,
+    // so that racing allocators serialize (mirrors LiveInfo::TEMPORARY_PTR).
+    static constexpr uintptr_t RSET_CARD_TABLE_TEMPORARY = 0x1;
+
+    size_t GetRSetSlotCount() const { return GetRegionSize() / RSET_SLOT_SIZE; }
+
+    // Lazily allocate the card table on the owning region. Concurrency-safe: only
+    // one allocator publishes the real pointer, others spin until it is published.
+    // Returns nullptr if allocation fails (the failure is logged and the slot is
+    // left unrecorded; a later call may retry).
+    uint8_t* EnsureRSetCardTable()
+    {
+        do {
+            uint8_t* table = __atomic_load_n(&metadata.rsetCardTable, std::memory_order_acquire);
+            if (UNLIKELY(reinterpret_cast<uintptr_t>(table) == RSET_CARD_TABLE_TEMPORARY)) {
+                continue;
+            }
+            if (LIKELY(table != nullptr)) {
+                return table;
+            }
+            uint8_t* expected = nullptr;
+            if (__atomic_compare_exchange_n(&metadata.rsetCardTable, &expected,
+                                            reinterpret_cast<uint8_t*>(RSET_CARD_TABLE_TEMPORARY), false,
+                                            std::memory_order_seq_cst, std::memory_order_relaxed)) {
+                size_t bytes = (GetRSetSlotCount() + RSET_BITS_PER_BYTE - 1) / RSET_BITS_PER_BYTE;
+                uint8_t* allocated = new (std::nothrow) uint8_t[bytes];
+                if (allocated == nullptr) {
+                    // Give up the claim so a later call can retry.
+                    __atomic_store_n(&metadata.rsetCardTable, nullptr, std::memory_order_release);
+                    LOG(RTLOG_ERROR, "alloc rset card table failed for region %p (%zu bytes)", this, bytes);
+                    return nullptr;
+                }
+                if (memset_s(allocated, bytes, 0, bytes) != EOK) {
+                    delete[] allocated;
+                    __atomic_store_n(&metadata.rsetCardTable, nullptr, std::memory_order_release);
+                    return nullptr;
+                }
+                __atomic_store_n(&metadata.rsetCardTable, allocated, std::memory_order_release);
+                DLOG(REGION, "region %p@%#zx rset card table %p (%zu bytes)", this, GetRegionStart(), allocated, bytes);
+                return allocated;
+            }
+        } while (true);
+        return nullptr;
+    }
+
+    void MarkRSetSlot(size_t slotIdx)
+    {
+        uint8_t* table = EnsureRSetCardTable();
+        if (table == nullptr) {
+            return;
+        }
+        __atomic_fetch_or(&table[slotIdx / RSET_BITS_PER_BYTE],
+                          static_cast<uint8_t>(1u << (slotIdx % RSET_BITS_PER_BYTE)), __ATOMIC_SEQ_CST);
+    }
+
+    bool IsRSetSlotMarked(size_t slotIdx)
+    {
+        uint8_t* table = __atomic_load_n(&metadata.rsetCardTable, std::memory_order_acquire);
+        if (table == nullptr || reinterpret_cast<uintptr_t>(table) == RSET_CARD_TABLE_TEMPORARY) {
+            return false;
+        }
+        uint8_t byte = __atomic_load_n(&table[slotIdx / RSET_BITS_PER_BYTE], __ATOMIC_ACQUIRE);
+        return (byte >> (slotIdx % RSET_BITS_PER_BYTE)) & 1u;
+    }
+
+    void ClearRSetSlots(uintptr_t startAddr, size_t size)
+    {
+        uint8_t* table = __atomic_load_n(&metadata.rsetCardTable, std::memory_order_acquire);
+        if (table == nullptr || reinterpret_cast<uintptr_t>(table) == RSET_CARD_TABLE_TEMPORARY || size == 0) {
+            return;
+        }
+        CHECK_DETAIL(startAddr >= GetRegionStart() && startAddr + size <= GetRegionEnd(),
+                     "clear rset slots [%#zx, %#zx) outside region [%#zx, %#zx)", startAddr, startAddr + size,
+                     GetRegionStart(), GetRegionEnd());
+        size_t firstSlot = (startAddr - GetRegionStart()) / RSET_SLOT_SIZE;
+        size_t lastSlot = (startAddr + size - 1 - GetRegionStart()) / RSET_SLOT_SIZE;
+        for (size_t slotIdx = firstSlot; slotIdx <= lastSlot; ++slotIdx) {
+            __atomic_fetch_and(&table[slotIdx / RSET_BITS_PER_BYTE],
+                               static_cast<uint8_t>(~(1u << (slotIdx % RSET_BITS_PER_BYTE))),
+                               __ATOMIC_SEQ_CST);
+        }
+    }
+
+    void ResetRSetCardTable()
+    {
+        uint8_t* table = __atomic_exchange_n(&metadata.rsetCardTable, nullptr, __ATOMIC_SEQ_CST);
+        if (table != nullptr && reinterpret_cast<uintptr_t>(table) != RSET_CARD_TABLE_TEMPORARY) {
+            delete[] table;
+        }
+    }
+
     bool MarkObject(const BaseObject* obj)
     {
         if (IsLargeRegion()) {
@@ -308,10 +467,12 @@ public:
             }
             return true;
         }
+
         U32 objSize = obj->GetSize();
         size_t offset = GetAddressOffset(reinterpret_cast<MAddress>(obj));
         size_t regionSize = offset + GetRegionEnd() - reinterpret_cast<MAddress>(obj);
-        bool marked = GetOrAllocMarkBitmap()->MarkBits(offset, objSize, regionSize);
+        bool marked = GetOrAllocMarkBitmap()->MarkBits(offset, objSize, regionSize,
+                !IsFromRegion());
         CHECK(IsMarkedObject(offset));
         return marked;
     }
@@ -327,7 +488,8 @@ public:
         }
         size_t offset = GetAddressOffset(reinterpret_cast<MAddress>(obj));
         size_t regionSize = offset + GetRegionEnd() - reinterpret_cast<MAddress>(obj);
-        bool marked = GetOrAllocMarkBitmap()->MarkBits(offset, objSize, regionSize);
+        bool marked = GetOrAllocMarkBitmap()->MarkBits(offset, objSize, regionSize,
+            !IsFromRegion());
         CHECK(IsMarkedObject(offset));
         return marked;
     }
@@ -343,7 +505,8 @@ public:
         }
         U32 objSize = obj->GetSize();
         size_t regionSize = offset + GetRegionEnd() - reinterpret_cast<MAddress>(obj);
-        bool marked = GetOrAllocResurrectBitmap()->MarkBits(offset, objSize, regionSize);
+        bool marked = GetOrAllocResurrectBitmap()->MarkBits(offset, objSize, regionSize,
+            !IsFromRegion());
         CHECK(IsResurrectedObject(offset));
         return marked;
     }
@@ -360,7 +523,7 @@ public:
         U32 objSize = obj->GetSize();
         size_t regionSize = offset + GetRegionEnd() - reinterpret_cast<MAddress>(obj);
         CHECK(regionSize > 0);
-        bool marked = GetOrAllocEnqueueBitmap()->MarkBits(offset, objSize, regionSize);
+        bool marked = GetOrAllocEnqueueBitmap()->MarkBits(offset, objSize, regionSize, true);
         CHECK(IsEnqueuedObject(offset));
         return marked;
     }
@@ -466,6 +629,7 @@ public:
         THREAD_LOCAL_REGION,
         RECENT_FULL_REGION,
         FROM_REGION,
+        FROM_PROMOTE_REGION,
         LONE_FROM_REGION,
         UNMOVABLE_FROM_REGION,
         TO_REGION,
@@ -487,6 +651,9 @@ public:
         RECENT_LARGE_REGION,
 
         GARBAGE_REGION,
+
+        OBJECT_MOVE_REGION,
+        SWEEP_REGION,
     };
 
     static void Initialize(size_t nUnit, uintptr_t heapAddress)
@@ -513,6 +680,11 @@ public:
         return reinterpret_cast<RegionInfo*>(unit);
     }
 
+    static RegionInfo* GetRegionInfoAt(BaseObject* obj)
+    {
+        return GetRegionInfoAt(reinterpret_cast<uintptr_t>(obj));
+    }
+
     static bool InGhostFromRegion(BaseObject* obj)
     {
         UnitInfo* unit = RegionInfo::UnitInfo::GetUnitInfoAt(reinterpret_cast<uintptr_t>(obj));
@@ -529,6 +701,11 @@ public:
             return unit->GetMetadata().ownerRegion0;
         }
         return reinterpret_cast<RegionInfo*>(unit);
+    }
+
+    static RegionInfo* GetGhostFromRegionAt(BaseObject* obj)
+    {
+        return GetGhostFromRegionAt(reinterpret_cast<uintptr_t>(obj));
     }
 
     static void InitFreeRegion(size_t unitIdx, size_t nUnit)
@@ -627,6 +804,7 @@ public:
 #endif
 
     void VisitAllObjects(const std::function<void(BaseObject*)>&& func);
+    void VisitAllObjectsFrom(MAddress start, const std::function<void(BaseObject*)>&& func);
     bool VisitLiveObjectsUntilFalse(const std::function<bool(BaseObject*)>&& func);
 
     // reset so that this region can be reused for allocation
@@ -653,9 +831,61 @@ public:
         return reinterpret_cast<BaseObject*>(toAddr);
     }
 
+    void SetForwardingTable(ObjectForwardingTable* table)
+    {
+        metadata.routeInfo.SetForwardingTable(table);
+    }
+
+    ObjectForwardingTable* GetForwardingTable() const { return metadata.routeInfo.GetForwardingTable(); }
+
+    void SetFreeSlotList(RegionFreeSlotList* list) { metadata.routeInfo.SetFreeSlotList(list); }
+
+    RegionFreeSlotList* GetFreeSlotList() const { return metadata.routeInfo.GetFreeSlotList(); }
+
+    void ClearFreeSlotList()
+    {
+        if (metadata.routeInfo.kind == RouteInfo::RouteKind::FREE_SLOT_LIST) {
+            delete metadata.routeInfo.freeSlotList;
+            metadata.routeInfo.SetRouteInfo(0);
+        }
+    }
+
+    size_t GetMaxSlotSize() const
+    {
+        RegionFreeSlotList* freeSlotList = GetFreeSlotList();
+        return freeSlotList == nullptr ? 0 : freeSlotList->GetMaxAvailableSize();
+    }
+
+    size_t GetTotalSlotSize() const
+    {
+        RegionFreeSlotList* freeSlotList = GetFreeSlotList();
+        return freeSlotList == nullptr ? 0 : freeSlotList->GetTotalSlotSize();
+    }
+
+    MAddress AllocateFromSlot(size_t totalSize)
+    {
+        RegionFreeSlotList* freeSlotList = GetFreeSlotList();
+        if (freeSlotList == nullptr || freeSlotList->GetMaxAvailableSize() < totalSize) {
+            return 0;
+        }
+        uintptr_t addr = freeSlotList->AllocateSlot(totalSize, GetRegionStart());
+        if (addr == 0) {
+            return 0;
+        }
+        CHECK_DETAIL(memset_s(reinterpret_cast<void*>(addr), totalSize, 0, totalSize) == EOK,
+                     "zero free slot failed");
+        uintptr_t slotEnd = addr + totalSize;
+        if (slotEnd > metadata.allocPtr) {
+            metadata.allocPtr = slotEnd;
+        }
+        return static_cast<MAddress>(addr);
+    }
+
+    void SweepRegion();
+
     void PrepareForwardableRegion()
     {
-        CHECK(IsFromRegion());
+        CHECK(IsMovableRegion());
         CHECK(static_cast<UnitRole>(metadata.unitRole) == UnitRole::SMALL_SIZED_UNITS);
         CHECK(metadata.inGhostFromRegion == 0);
         metadata.routeState = FORWARDABLE;
@@ -665,6 +895,8 @@ public:
         metadata.routeInfo.SetRouteInfo(0);
         if (GetLiveByteCount() > 0) {
             SetInGhostRegion(1);
+            SetPromotedFlag0(IsPromoted() ? 1 : 0);
+            SetOldRegionFlag0(IsOldRegion() ? 1 : 0);
         }
 
         metadata.nextRegionIdx0 = metadata.nextRegionIdx;
@@ -696,6 +928,8 @@ public:
             for (size_t i = 0; i < nUnit; i++) {
                 array[i].SetInGhostRegion(0);
             }
+            SetPromotedFlag0(0);
+            SetOldRegionFlag0(0);
         }
     }
 
@@ -708,9 +942,15 @@ public:
         size_t nUnit = GetGhostRegionUnitCount();
         UnitInfo* unit = reinterpret_cast<UnitInfo*>(this);
         UnitInfo::UnitInfoArray array = UnitInfo::UnitInfoArray(unit, nUnit);
+        SetPromotedFlag0(0);
+        SetOldRegionFlag0(0);
         for (size_t i = 0; i < nUnit; i++) {
             array[i].SetInGhostRegion(0);
         }
+        if (metadata.routeInfo.kind == RouteInfo::RouteKind::FORWARDING_TABLE) {
+            delete metadata.routeInfo.forwardingTable;
+        }
+        metadata.routeInfo.SetRouteInfo(0);
     }
 
     bool IsGhostFromRegion() const { return metadata.inGhostFromRegion == 1; }
@@ -741,7 +981,7 @@ public:
     bool TryLockReadFromRegion()
     {
         if (metadata.rwLock.TryLockRead()) {
-            if (IsFromRegion() || IsLoneFromRegion()) {
+            if (IsFromRegion() || IsLoneFromRegion() || IsFromPromoteRegion()) {
                 return true;
             } else {
                 metadata.rwLock.UnlockRead();
@@ -792,6 +1032,26 @@ public:
     {
         metadata.regionStateBitField.SetAtomicValue(RegionStateBitPos::RESURRECTED_REGION_FLAG, 1, flag);
     }
+    void SetPromotedFlag(uint8_t flag)
+    {
+        metadata.unitRoleBitField.SetAtomicValue(PROMOTED_FLAG_POS, 1, flag);
+    }
+    bool IsPromoted() const { return metadata.isPromoted == 1; }
+    void SetPromotedFlag0(uint8_t flag)
+    {
+        metadata.unitRoleBitField.SetAtomicValue(PROMOTED0_FLAG_POS, 1, flag);
+    }
+    bool IsPromoted0() const { return metadata.isPromoted0 == 1; }
+    void SetOldRegionFlag(uint8_t flag)
+    {
+        metadata.unitRoleBitField.SetAtomicValue(OLD_FLAG_POS, 1, flag);
+    }
+    bool IsOldRegion() const { return metadata.isOld == 1; }
+    void SetOldRegionFlag0(uint8_t flag)
+    {
+        metadata.unitRoleBitField.SetAtomicValue(OLD0_FLAG_POS, 1, flag);
+    }
+    bool IsOld0() const { return metadata.isOld0 == 1; }
 
     RegionType GetRegionType() const { return static_cast<RegionType>(metadata.regionType); }
     UnitRole GetUnitRole() const { return static_cast<UnitRole>(metadata.unitRole); }
@@ -932,6 +1192,15 @@ public:
     }
 
     bool IsFromRegion() const { return static_cast<RegionType>(metadata.regionType) == RegionType::FROM_REGION; }
+    bool IsFromPromoteRegion() const
+    {
+        return static_cast<RegionType>(metadata.regionType) == RegionType::FROM_PROMOTE_REGION;
+    }
+    bool IsMovableRegion() const
+    {
+        auto type = static_cast<RegionType>(metadata.regionType);
+        return type == RegionType::FROM_REGION || type == RegionType::FROM_PROMOTE_REGION;
+    }
     bool IsLoneFromRegion() const
     {
         return static_cast<RegionType>(metadata.regionType) == RegionType::LONE_FROM_REGION;
@@ -939,12 +1208,21 @@ public:
     bool IsUnmovableFromRegion() const
     {
         return static_cast<RegionType>(metadata.regionType) == RegionType::UNMOVABLE_FROM_REGION ||
-            static_cast<RegionType>(metadata.regionType) == RegionType::RAW_POINTER_PINNED_REGION;
+            static_cast<RegionType>(metadata.regionType) == RegionType::RAW_POINTER_PINNED_REGION ||
+            static_cast<RegionType>(metadata.regionType) == RegionType::SWEEP_REGION;
     }
 
     bool IsToRegion() const { return static_cast<RegionType>(metadata.regionType) == RegionType::TO_REGION; }
 
     bool IsGarbageRegion() const { return static_cast<RegionType>(metadata.regionType) == RegionType::GARBAGE_REGION; }
+    bool IsObjectMoveRegion() const
+    {
+        return static_cast<RegionType>(metadata.regionType) == RegionType::OBJECT_MOVE_REGION;
+    }
+    bool IsSweepRegion() const
+    {
+        return static_cast<RegionType>(metadata.regionType) == RegionType::SWEEP_REGION;
+    }
     bool IsFreeRegion() const { return static_cast<UnitRole>(metadata.unitRole) == UnitRole::FREE_UNITS; }
 
     bool IsValidRegion() const
@@ -978,7 +1256,7 @@ public:
 
 private:
     static constexpr int32_t MAX_RAW_POINTER_COUNT = std::numeric_limits<int32_t>::max();
-    static constexpr int32_t BIT_LENGTH = 4;
+    static constexpr int32_t BIT_LENGTH = 5;
     enum RegionStateBitPos : uint8_t {
         REGION_TYPE_FLAG = 0,
         TRACE_REGION_FLAG = BIT_LENGTH,
@@ -987,6 +1265,11 @@ private:
         ENQUEUED_REGION_FLAG,
         RESURRECTED_REGION_FLAG
     };
+
+    static constexpr int32_t PROMOTED_FLAG_POS = 2 * BIT_LENGTH;
+    static constexpr int32_t PROMOTED0_FLAG_POS = 2 * BIT_LENGTH + 1;
+    static constexpr int32_t OLD_FLAG_POS = 2 * BIT_LENGTH + 2;
+    static constexpr int32_t OLD0_FLAG_POS = 2 * BIT_LENGTH + 3;
 
     struct UnitMetadata {
         struct { // basic data for RegionInfo
@@ -1021,10 +1304,14 @@ private:
         // change the value, we must use specific interface implenmented by BitField.
         union {
             struct {
-                uint8_t unitRole : BIT_LENGTH;
-                uint8_t unitRole0 : BIT_LENGTH; // unit class before forwarded and reclaimed.
+                uint16_t unitRole : BIT_LENGTH;
+                uint16_t unitRole0 : BIT_LENGTH; // unit class before forwarded and reclaimed.
+                uint16_t isPromoted : 1;
+                uint16_t isPromoted0 : 1;
+                uint16_t isOld : 1;
+                uint16_t isOld0 : 1;
             };
-            BitField<uint8_t> unitRoleBitField;
+            BitField<uint16_t> unitRoleBitField;
         };
 
         // the writing operation in C++ Bit-Field feature is not atomic, if we wants to
@@ -1051,6 +1338,10 @@ private:
         };
         RouteState routeState; // todo: put in RouteInfo
         RwLock rwLock;
+
+        // Per-old-region remembered-set slot bitmap (1 bit per pointer-sized slot).
+        uint8_t* rsetCardTable = nullptr;
+        AgeBitmap* ageBitmap = nullptr;
     };
 
     class UnitInfo {
@@ -1179,18 +1470,32 @@ private:
 
     void InitRegionInfo(size_t nUnit, UnitRole uClass)
     {
+        ClearFreeSlotList();
+
+        AgeBitmap* ageBitmap = __atomic_exchange_n(&metadata.ageBitmap, nullptr, std::memory_order_acq_rel);
+        if (ageBitmap != nullptr && reinterpret_cast<uintptr_t>(ageBitmap) != LiveInfo::TEMPORARY_PTR) {
+            std::free(ageBitmap);
+        }
+
+        // Reset (free) the remembered-set card table atomically. RememberSet entries
+        // still referencing this region will be skipped lazily via IsRSetSlotMarked==false.
+        ResetRSetCardTable();
+
         metadata.allocPtr = GetRegionStart();
         metadata.regionEnd = metadata.allocPtr + nUnit * RegionInfo::UNIT_SIZE;
         metadata.prevRegionIdx = NULLPTR_IDX;
         metadata.nextRegionIdx = NULLPTR_IDX;
         metadata.liveByteCount = 0;
         metadata.liveInfo = nullptr;
+        metadata.ageBitmap = nullptr;
         SetRegionType(RegionType::FREE_REGION);
         SetUnitRole(uClass);
         SetTraceRegionFlag(0);
         SetMarkedRegionFlag(0);
         SetEnqueuedRegionFlag(0);
         SetResurrectedRegionFlag(0);
+        SetPromotedFlag(0);
+        SetOldRegionFlag(0);
         __atomic_store_n(&metadata.rawPointerObjectCount, 0, __ATOMIC_SEQ_CST);
     }
 

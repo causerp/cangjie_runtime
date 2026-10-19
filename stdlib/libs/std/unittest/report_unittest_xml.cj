@@ -144,6 +144,16 @@ class XmlElementBuilder <: ToString {
     }
 }
 
+func swapOrgName(name: String): String {
+    if (!name.contains("::")) {
+        return name
+    }
+    let nameArr = name.split("::")
+    let index = nameArr.size
+    nameArr.swap(0, index - 1)
+    return nameArr[0] + "@" + nameArr[index - 1]
+}
+
 extend String {
     func toXmlEscapedString() {
         this.replace("&", "&amp;")
@@ -154,10 +164,17 @@ extend String {
     }
 
     func toSafeFileName() {
-        this.replace("<", ".")
+        swapOrgName(this)
+            .replace("<", ".")
             .replace(",", ".")
             .replace(">", "")
             .replace("/", "_")
+            .replace("\\", "_")
+            .replace(":", "_")
+            .replace("*", "_")
+            .replace("?", "_")
+            .replace("\"", "_")
+            .replace("|", "_")
             .replace(" ", "")
     }
 }
@@ -189,7 +206,7 @@ interface ReportFormat {
         let reportDir = getReportDirectory(KeyReportPath.reportPath)
         if (let Some(explicitFormat) <- defaultConfiguration().get(KeyReportFormat.reportFormat)) {
             let dir = reportDir ?? throw UnittestCliOptionsFormatException(
-                "--report-path directory should be specified since --report-format is specified")
+                "'--report-path' directory should be specified since '--report-format' is specified.")
             return ReportFormat.fromString(explicitFormat, dir)
         }
 
@@ -216,7 +233,8 @@ enum UTestReportFormat <: ReportFormat {
         match (format.toAsciiUpper()) {
             case "XML" => XML(path)
             case "XML-PER-PACKAGE" => XMLPerPackage(path)
-            case _ => throw UnittestCliOptionsFormatException("Unsupported test report format: ${format}")
+            case _ => throw UnittestCliOptionsFormatException(
+                "Unsupported test report format: expected \"XML\" or \"XML-PER-PACKAGE\", got '${format}'.")
         }
     }
 
@@ -291,7 +309,7 @@ private class SuiteXmlReport {
             buildTestEntry(subResult, tcr.caseId, tcr.caseInfo, testSuiteXml)
         }
     }
-    
+
 
     private func buildTestEntry(
         result: RunStepResult, caseId: TestCaseId,

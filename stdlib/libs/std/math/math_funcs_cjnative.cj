@@ -86,7 +86,7 @@ public func abs(x: Float16): Float16 {
 @Frozen
 public func abs(x: Int64): Int64 {
     if (x == Int64.Min) {
-        throw OverflowException("The absolute value of the minimum Int64 value is out of range.")
+        throw OverflowException("The absolute value of Int64.Min overflows.")
     }
     intrinsicAbs<Int64>(x)
 }
@@ -108,7 +108,7 @@ public func abs(x: Int64): Int64 {
 @Frozen
 public func abs(x: Int32): Int32 {
     if (x == Int32.Min) {
-        throw OverflowException("The absolute value of the minimum Int32 value is out of range.")
+        throw OverflowException("The absolute value of Int32.Min overflows.")
     }
     intrinsicAbs<Int32>(x)
 }
@@ -130,7 +130,7 @@ public func abs(x: Int32): Int32 {
 @Frozen
 public func abs(x: Int16): Int16 {
     if (x == Int16.Min) {
-        throw OverflowException("The absolute value of the minimum Int16 value is out of range.")
+        throw OverflowException("The absolute value of Int16.Min overflows.")
     }
     intrinsicAbs<Int16>(x)
 }
@@ -152,7 +152,7 @@ public func abs(x: Int16): Int16 {
 @Frozen
 public func abs(x: Int8): Int8 {
     if (x == Int8.Min) {
-        throw OverflowException("The absolute value of the minimum Int8 value is out of range.")
+        throw OverflowException("The absolute value of Int8.Min overflows.")
     }
     intrinsicAbs<Int8>(x)
 }
@@ -176,8 +176,7 @@ public func abs(x: Int8): Int8 {
 @Frozen
 public func sqrt(x: Float16): Float16 {
     if (x < 0.0) {
-        throw IllegalArgumentException(
-            "The input parameter must be greater than or equal to 0.0. Please enter a correct parameter.")
+        throw IllegalArgumentException("The input parameter must be greater than or equal to 0.0.")
     }
     return intrinsicSqrt<Float16>(x)
 }
@@ -201,8 +200,7 @@ public func sqrt(x: Float16): Float16 {
 @Frozen
 public func sqrt(x: Float32): Float32 {
     if (x < 0.0) {
-        throw IllegalArgumentException(
-            "The input parameter must be greater than or equal to 0.0. Please enter a correct parameter.")
+        throw IllegalArgumentException("The input parameter must be greater than or equal to 0.0.")
     }
     return intrinsicSqrt<Float32>(x)
 }
@@ -226,8 +224,7 @@ public func sqrt(x: Float32): Float32 {
 @Frozen
 public func sqrt(x: Float64): Float64 {
     if (x < 0.0) {
-        throw IllegalArgumentException(
-            "The input parameter must be greater than or equal to 0.0. Please enter a correct parameter.")
+        throw IllegalArgumentException("The input parameter must be greater than or equal to 0.0.")
     }
     return intrinsicSqrt<Float64>(x)
 }

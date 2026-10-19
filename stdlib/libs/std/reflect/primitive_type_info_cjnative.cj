@@ -33,21 +33,21 @@ public class PrimitiveTypeInfo <: TypeInfo {
     public static redef func get(qualifiedName: String): PrimitiveTypeInfo {
         match (TypeInfo.get(qualifiedName)) {
             case typ: PrimitiveTypeInfo => return typ
-            case _ => throw IllegalTypeException("The type of '${qualifiedName}' is not a Primitive Type.")
+            case _ => throw IllegalTypeException("Type '${qualifiedName}' is not a primitive type.")
         }
     }
 
     public static redef func of(a: Any): PrimitiveTypeInfo {
         match (TypeInfo.of(a)) {
             case typ: PrimitiveTypeInfo => return typ
-            case _ => throw IllegalTypeException("The type of parameter 'a' is not a Primitive Type.")
+            case _ => throw IllegalTypeException("Parameter 'a' is not a primitive type.")
         }
     }
 
     public static redef func of<T>(): PrimitiveTypeInfo {
         match (TypeInfo.of<T>()) {
             case typ: PrimitiveTypeInfo => return typ
-            case _ => throw IllegalTypeException("The type of generic type 'T' is not a Primitive Type.")
+            case _ => throw IllegalTypeException("Generic type 'T' is not a primitive type.")
         }
     }
 }

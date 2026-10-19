@@ -41,7 +41,7 @@ abstract class CheckResult <: Serializable<CheckResult> {
             ExceptionThrownCheckResult.tryToDeserialize(dms) ?? MockFrameworkCheckResult.tryToDeserialize(dms) ??
             NoParametersProvidedResult.tryToDeserialize(dms) ?? CrashedCheckResult.tryToDeserialize(dms) ??
             TimeoutCheckResult.tryToDeserialize(dms) ?? PlainDeltaCompareCheckResult.tryToDeserialize(dms) ??
-            throw Exception("Can not deserialize Invalid check result")
+            throw Exception("Expected valid CheckResult value.")
     }
 }
 

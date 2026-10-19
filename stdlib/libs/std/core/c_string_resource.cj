@@ -125,7 +125,7 @@ extend CString <: ToString {
         var len = UIntNative(size())
         if (beginIndex > len) {
             throw IndexOutOfBoundsException(
-                "The begin index is ${beginIndex}, which is greater than the CString length of ${len}.")
+                "Index out of bounds: begin index '${beginIndex}' is greater than CString size '${len}'.")
         }
         return subCString(beginIndex, len - beginIndex)
     }
@@ -139,7 +139,7 @@ extend CString <: ToString {
         var len = UIntNative(size())
         if (beginIndex > len) {
             throw IndexOutOfBoundsException(
-                "The begin index is ${beginIndex}, which is greater than the CString length of ${len}.")
+                "Index out of bounds: begin index '${beginIndex}' is greater than CString size '${len}'.")
         } else if (beginIndex == len || subLen == 0) {
             return CString(buffer)
         }
@@ -150,7 +150,7 @@ extend CString <: ToString {
         unsafe {
             buffer = LibC.malloc(count: Int64(actualLen + 1))
             if (buffer.isNull()) {
-                throw IllegalMemoryException("Malloc in CString::subCString failed.")
+                throw IllegalMemoryException("Failed to allocate memory in CString::subCString.")
             }
             var rc = memcpy_s(buffer, actualLen + 1, getChars() + Int64(beginIndex), actualLen)
 
@@ -158,7 +158,7 @@ extend CString <: ToString {
             // guaranteed by copying 'actualLen + 1'. Therefore, the end needs to be added.
             if (rc != 0) {
                 LibC.free(buffer)
-                throw IllegalMemoryException("The memcpy_s in subCString failed with error code: ${rc}.")
+                throw IllegalMemoryException("Failed to copy memory in subCString: error code '${rc}'.")
             }
             buffer.write(Int64(actualLen), UInt8(0))
         }
@@ -171,7 +171,7 @@ extend CString <: ToString {
     public func compare(str: CString): Int32 {
         let chars = getChars()
         if (chars.isNull() || str.isNull()) {
-            throw IllegalMemoryException("The two CString values to be compared cannot be null.")
+            throw IllegalMemoryException("CString values to compare cannot be null.")
         }
         let ret = unsafe { strcmp(chars, str.getChars()) }
         if (ret > 0) {
@@ -214,7 +214,7 @@ extend CString <: ToString {
                         UIntNative(SECUREC_MEM_MAX_LEN))
                     if (rc != 0) {
                         releaseArrayRawData(rawData)
-                        throw IllegalMemoryException("The memcpy_s in toString failed with error code: ${rc}.")
+                        throw IllegalMemoryException("Failed to copy memory in toString: error code '${rc}'.")
                     }
                     offset += SECUREC_MEM_MAX_LEN
                     remain -= SECUREC_MEM_MAX_LEN
@@ -223,7 +223,7 @@ extend CString <: ToString {
                     var rc = memcpy_s(rawData.pointer + offset, UIntNative(remain), chars + offset, UIntNative(remain))
                     if (rc != 0) {
                         releaseArrayRawData(rawData)
-                        throw IllegalMemoryException("The memcpy_s in toString failed with error code: ${rc}.")
+                        throw IllegalMemoryException("Failed to copy memory in toString: error code '${rc}'.")
                     }
                 }
                 releaseArrayRawData(rawData)

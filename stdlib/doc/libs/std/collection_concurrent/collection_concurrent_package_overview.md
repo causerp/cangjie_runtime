@@ -10,7 +10,7 @@ collection.concurrent 包提供了并发安全的集合类型实现。
 
 - [ConcurrentHashMap](./collection_concurrent_package_api/collection_concurrent_class.md#class-concurrenthashmapk-v-where-k--hashable--equatablek)：线程安全的哈希表实现，支持高并发的读写操作。
 
-- [ConcurrentLinkedQueue](./collection_concurrent_package_api/collection_concurrent_class.md#class-concurrentlinkedqueuee)：一种线程安全的队列数据结构，特点是在添加元素时，如果当前的尾部 Block 已满，那么会创建一个新的 Block，而不是阻塞等待。这样可以保证在多线程环境下，队列的操作不会因为阻塞而导致线程的阻塞，从而提高了程序的性能。
+- [ConcurrentLinkedQueue](./collection_concurrent_package_api/collection_concurrent_class.md#class-concurrentlinkedqueuee)：一种线程安全的队列数据结构，特点是在添加元素时，如果当前的尾部存储块已满，那么会创建一个新的存储块，而不是阻塞等待。这样可以保证在多线程环境下，队列的操作不会因为阻塞而导致线程的阻塞，从而提高了程序的性能。
 
 - [LinkedBlockingQueue](./collection_concurrent_package_api/collection_concurrent_class.md#class-linkedblockingqueuee)：一种阻塞队列，它支持在队列为空时阻塞获取元素的操作，以及在队列已满时阻塞添加元素的操作。
 

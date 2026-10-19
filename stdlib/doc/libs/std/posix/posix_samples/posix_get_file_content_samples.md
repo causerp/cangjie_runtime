@@ -5,44 +5,48 @@
 示例：
 
 <!-- run -->
-
 ```cangjie
 import std.posix.*
 
 main(): Int64 {
-    var fd = `open`("textcase.txt", O_RDWR | O_APPEND | O_CREAT, S_IRWXU)
-    println("fd ==> ${fd}")
+    // 打开（不存在则创建）文件，返回文件描述符
+    var fd = `open`("testfile.txt", O_RDWR | O_CREAT | O_APPEND, S_IRWXU)
+    println("文件描述符: ${fd}")
     close(fd)
-    var fd2 = `open`("textcase.txt", O_RDWR)
-    var len = lseek(fd2, 0, SEEK_END)
-    println("len ==> ${len}")
-    close(fd2)
-    var str1 = unsafe { LibC.mallocCString(" ") }
-    var buf = str1.getChars()
-    var fd3 = `open`("textcase.txt", O_RDWR)
-    var readNum = unsafe { read(fd3, buf, 2) }
-    unsafe { LibC.free(str1) }
-    println("readNum ==> ${readNum}")
-    close(fd3)
-    var str2 = unsafe { LibC.mallocCString("123456") }
-    var buf2 = str2.getChars()
 
-    var fd4 = `open`("textcase.txt", O_RDWR)
-    var fd5 = dup(fd4)
-    var writeNum = unsafe { write(fd5, buf2, UIntNative(str2.size())) }
-    unsafe { LibC.free(str2) }
-    println("writeNum ==> ${writeNum}")
-    close(fd4)
-    unlink("textcase.txt")
+    // 通过 dup 复制的文件描述符写入数据
+    var writeFd = `open`("testfile.txt", O_RDWR)
+    var dupFd = dup(writeFd)
+    var writeBuffer = unsafe { LibC.mallocCString("123456") }
+    var writtenBytes = unsafe { write(dupFd, writeBuffer.getChars(), UIntNative(writeBuffer.size())) }
+    unsafe { LibC.free(writeBuffer) }
+    println("写入的字节数: ${writtenBytes}")
+    close(writeFd)
+
+    // 通过 lseek 将偏移量移到文件尾，获取文件大小
+    var readFd = `open`("testfile.txt", O_RDWR)
+    var fileSize = lseek(readFd, 0, SEEK_END)
+    println("文件大小: ${fileSize}")
+
+    // 将偏移量移回文件头，读取 2 个字节
+    lseek(readFd, 0, SEEK_SET)
+    var readBuffer = unsafe { LibC.mallocCString(" ") }
+    var readBytes = unsafe { read(readFd, readBuffer.getChars(), 2) }
+    unsafe { LibC.free(readBuffer) }
+    println("读取的字节数: ${readBytes}")
+    close(readFd)
+
+    // 删除文件
+    unlink("testfile.txt")
     return 0
 }
 ```
 
-可能出现的运行结果：
+可能出现的运行结果（文件描述符的值与系统有关）：
 
 ```text
-fd ==> 3
-len ==> 6
-readNum ==> 2
-writeNum ==> 6
+文件描述符: 3
+写入的字节数: 6
+文件大小: 6
+读取的字节数: 2
 ```

@@ -1,6 +1,6 @@
 # TypeInfo 的使用
-<!-- verify -->
 
+<!-- verify -->
 ```cangjie
 package Demo
 
@@ -13,18 +13,19 @@ public class Foo {
 }
 
 main() {
-    let a = Foo()
-    let ty: TypeInfo = TypeInfo.of(a)
-    println(ty.name)
-    println(ty.qualifiedName)
-    println(ty.instanceFunctions.size)
+    // 获取实例的类型信息
+    let foo = Foo()
+    let typeInfo: TypeInfo = TypeInfo.of(foo)
+    println("类名: ${typeInfo.name}")
+    println("全限定名: ${typeInfo.qualifiedName}")
+    println("实例函数数量: ${typeInfo.instanceFunctions.size}")
 }
 ```
 
 运行结果：
 
 ```text
-Foo
-Demo.Foo
-1
+类名: Foo
+全限定名: Demo.Foo
+实例函数数量: 1
 ```

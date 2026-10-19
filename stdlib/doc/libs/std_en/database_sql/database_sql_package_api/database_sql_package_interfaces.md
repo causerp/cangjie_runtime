@@ -303,11 +303,11 @@ Type: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)
 func get<T>(index: Int64): T
 ```
 
-Function: Retrieves the value of the specified column from the current row of the result set.
+Function: Retrieves the value of the column at the specified index from the current row of the result set.
 
 Parameters:
 
-- index: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Specified column.
+- index: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The 0-based column index, in range [0, columnInfos.size).
 
 Returns:
 
@@ -319,11 +319,11 @@ Returns:
 func getOrNull<T>(index: Int64): ?T
 ```
 
-Function: Retrieves the value of the specified column from the current row of the result set, allowing SQL NULL for database columns.
+Function: Retrieves the value of the column at the specified index from the current row of the result set, allowing SQL NULL for database columns.
 
 Parameters:
 
-- index: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Specified column.
+- index: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The 0-based column index, in range [0, columnInfos.size).
 
 Returns:
 
@@ -496,11 +496,11 @@ Exceptions:
 func set<T>(index: Int64, value: T): Unit
 ```
 
-Function: Sets SQL parameters by converting Cangjie data types to database data types.
+Function: Sets the parameter at the specified index of the prepared statement, converting the Cangjie data type to the database data type.
 
 Parameters:
 
-- index: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The parameter sequence position.
+- index: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The 0-based parameter index, in range [0, parameterColumnInfos.size).
 - value: T - The parameter value.
 
 ### func setNull(Int64)
@@ -509,11 +509,11 @@ Parameters:
 func setNull(index: Int64): Unit
 ```
 
-Function: Sets the statement parameter at the specified position to SQL NULL.
+Function: Sets the parameter at the specified index of the prepared statement to SQL NULL.
 
 Parameters:
 
-- index: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The parameter sequence position.
+- index: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The 0-based parameter index, in range [0, parameterColumnInfos.size).
 
 ### func setOption(String, String)
 

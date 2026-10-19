@@ -57,8 +57,8 @@ posix 包封装 POSIX 系统调用，提供跨平台的系统操作接口。
 | [linkat(Int32, String, Int32, String, Int32) <sup>(deprecated)</sup>](./posix_package_api/posix_package_funcs.md#func-linkatint32-string-int32-string-int32-deprecated) | 创建相对于目录文件描述符的文件链接。 |
 | [lseek(Int32, Int64, Int32) <sup>(deprecated)</sup>](./posix_package_api/posix_package_funcs.md#func-lseekint32-int64-int32-deprecated) | 当文件进行读或写时，读或写位置相应增加。 |
 | [nice(Int32) <sup>(deprecated)</sup>](./posix_package_api/posix_package_funcs.md#func-niceint32-deprecated) | 更改当前线程的优先级。 |
-| [open64(String, Int32) <sup>(deprecated)</sup>](./posix_package_api/posix_package_funcs.md#func-openstring-int32-deprecated) | 打开文件并为其返回新的文件描述符，或在失败时返回 `-1`。 |
-| [open64(String, Int32, UInt32) <sup>(deprecated)</sup>](./posix_package_api/posix_package_funcs.md#func-openstring-int32-uint32-deprecated) | 打开文件并为其返回新的文件描述符，或在失败时返回 `-1`。 |
+| [open64(String, Int32) <sup>(deprecated)</sup>](./posix_package_api/posix_package_funcs.md#func-open64string-int32-deprecated) | 打开文件并为其返回新的文件描述符，或在失败时返回 `-1`。 |
+| [open64(String, Int32, UInt32) <sup>(deprecated)</sup>](./posix_package_api/posix_package_funcs.md#func-open64string-int32-uint32-deprecated) | 打开文件并为其返回新的文件描述符，或在失败时返回 `-1`。 |
 | [openat(Int32, String, Int32) <sup>(deprecated)</sup>](./posix_package_api/posix_package_funcs.md#func-openatint32-string-int32-deprecated) | 打开文件并为其返回新的文件描述符，或在失败时返回 `-1`。 |
 | [openat(Int32, String, Int32, UInt32) <sup>(deprecated)</sup>](./posix_package_api/posix_package_funcs.md#func-openatint32-string-int32-uint32-deprecated) | 打开文件并为其返回新的文件描述符，或在失败时返回 `-1`。 |
 | [openat64(Int32, String, Int32) <sup>(deprecated)</sup>](./posix_package_api/posix_package_funcs.md#func-openat64int32-string-int32-deprecated) | 打开文件并为其返回新的文件描述符，或在失败时返回 `-1`。 |

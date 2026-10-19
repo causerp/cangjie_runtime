@@ -40,7 +40,7 @@ public enum DayOfWeek <: ToString & Equatable<DayOfWeek> {
             case 4 => Thursday
             case 5 => Friday
             case 6 => Saturday
-            case _ => throw IllegalArgumentException("The input parameter ranges from 0 to 6")
+            case _ => throw IllegalArgumentException("Invalid day of week: expected 0 to 6, got ${dayOfWeek}.")
         }
     }
 
@@ -145,7 +145,7 @@ public enum Month <: ToString & Equatable<Month> {
             case 10 => October
             case 11 => November
             case 12 => December
-            case _ => throw IllegalArgumentException("The input parameter ranges from 1 to 12")
+            case _ => throw IllegalArgumentException("Invalid month: expected 1 to 12, got ${mon}.")
         }
     }
 

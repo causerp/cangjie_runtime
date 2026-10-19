@@ -20,7 +20,7 @@ let isNative64 = if (UInt64(!UIntNative(0)) == UInt64.Max) {
 } else if (UInt64(!UIntNative(0)) == UInt64(UInt32.Max)) {
     false
 } else {
-    throw Exception("Unrecognized IntNative")
+    throw Exception("Internal error: unrecognized IntNative bit width.")
 }
 
 func nativeBitWidth(): UInt64 {

@@ -56,7 +56,7 @@ public interface OutputStream {
 func flush(): Unit
 ```
 
-功能：清空缓存区。该函数的默认实现为空。
+功能：清空缓冲区。该函数的默认实现为空。
 
 ### func write(Array\<Byte>)
 

@@ -14,7 +14,8 @@ public struct Identifier <: ToString & Equatable<Identifier> & Hashable & ToToke
         public let token: Token
     ) {
         if (token.kind != TokenKind.IDENTIFIER) {
-            throw IllegalArgumentException("Expected identifier")
+            throw IllegalArgumentException(
+                "Expected identifier, got '${token.value}' of kind '${token.kind}'.")
         }
     }
 

@@ -50,7 +50,7 @@ public class RandomDataProvider<T> <: DataProvider<T> where T <: Arbitrary<T> {
      */
     public RandomDataProvider(private let configuration: Configuration) {
         this.random = configuration.get<RandomSource>(KeyRandom.random) ??
-                throw IllegalArgumentException("RandomDataProvider initialized without configured random generator instance")
+                throw IllegalArgumentException("RandomDataProvider initialized without configured random generator instance.")
     }
     /**
      * Provide the randomly generated data
@@ -124,7 +124,7 @@ public func random<T>(): RandomDataStrategy<T> where T <: Arbitrary<T> {
 public class RandomDataProviderRange<T> <: DataProvider<T> where T <: ArbitraryRange<T> {
     public RandomDataProviderRange(private let configuration: Configuration, private let min: T, private let max: T) {
         this.random = configuration.get<RandomSource>(KeyRandom.random) ??
-                throw IllegalArgumentException("RandomDataProvider initialized without configured random generator instance")
+                throw IllegalArgumentException("RandomDataProvider initialized without configured random generator instance.")
     }
 
     public override func provide(): Iterable<T> {
@@ -163,7 +163,8 @@ public class RandomDataStrategyRange<T> <: DataStrategy<T> where T <: ArbitraryR
 
 public func randomInRange<T>(min!: Option<T> = None, max!: Option<T> = None): RandomDataStrategyRange<T> where T <: ArbitraryRange<T> {
     if ((min ?? T.min()) > (max ?? T.max())) {
-        throw IllegalArgumentException("the interval you provided is empty")
+        // we cannot print min or max here because they are not guaranteed ToString
+        throw IllegalArgumentException("Invalid interval: 'min' must be less or equal to 'max'.")
     }
     RandomDataStrategyRange<T>(min ?? T.min(), max ?? T.max())
 }

@@ -27,10 +27,11 @@ public enum Endian {
             match (code) {
                 case 1 => Big
                 case 2 => Little
-                case _ => throw Exception("Platform endian detection failed")
+                case _ => throw Exception("Platform endian detection failed.")
             }
         }
     }
 }
 
+@FastNative
 foreign func CJ_PlatformEndian(): UInt8

@@ -117,8 +117,8 @@ private func alreadyRegistered(
     alreadyExisting: Registration
 ): Nothing {
     throw IllegalArgumentException(
-        "Deriving for type ${name} is already registered: " +
-        "${alreadyExisting.deriving.name}, failed to register ${candidate.name}")
+        "Deriving for type '${name}' is already registered: " +
+        "'${alreadyExisting.deriving.name}', failed to register '${candidate.name}'.")
 }
 
 private func groupBy<K, V>(

@@ -41,7 +41,9 @@ if(CANGJIE_CODEGEN_CJNATIVE_BACKEND AND NOT TRIPLE STREQUAL "arm-linux-ohos" AND
         PRIVATE ${CMAKE_BINARY_DIR}/lib/${TARGET_TRIPLE_DIRECTORY_PREFIX}_${CJNATIVE_BACKEND}
         PRIVATE ${CMAKE_BINARY_DIR}/runtime/lib/${TARGET_TRIPLE_DIRECTORY_PREFIX}_${CJNATIVE_BACKEND})
     set(pcre2_lib "pcre2-8")
-    if(DARWIN)
+    if(OHOS)
+        set(pcre2_lib -L${CMAKE_BINARY_DIR}/third_party/pcre2/lib -l:libpcre2.z.so)
+    elseif(DARWIN)
         set(pcre2_lib -L${CMAKE_BINARY_DIR}/third_party/pcre2/lib -l${pcre2_lib})
     elseif(MINGW)
         set(pcre2_lib -L${CMAKE_BINARY_DIR}/third_party/pcre2/lib -l:lib${pcre2_lib}${CMAKE_SHARED_LIBRARY_SUFFIX}.a)

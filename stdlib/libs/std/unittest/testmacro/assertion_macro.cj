@@ -44,16 +44,16 @@ private func assertionCallExpr(input: Tokens, isExpect: Bool, insideCustom: Bool
 
     func throwException() {
         throw MacroException("Invalid syntax for ${macroName}: use ${macroName}(a, b), ${macroName}(b), " +
-            "${macroName}(a 'compare_operator' b), ${macroName}(a 'compare_operator' b, delta: d) or ${macroName}(a, b, delta: d)")
+            "${macroName}(a 'compare_operator' b), ${macroName}(a 'compare_operator' b, delta: d) or ${macroName}(a, b, delta: d).")
     }
 
     match (parseCommaSeparatedExpressions(input)) {
         case args where args.size == 1 =>
             let left = expressionToToken(args[0])
-            return quote($callId($left,"true",$input,true,isDelta:false,$optParentCtx))  
+            return quote($callId($left,"true",$input,true,isDelta:false,$optParentCtx))
         case args where args.size == 2 =>
             if (DeltaMacroExpander.areTwoArgsSuitable(args, input)) {
-                let (deltaExpansion, _) = DeltaMacroExpander.expandCompareExpr(args, macroName) 
+                let (deltaExpansion, _) = DeltaMacroExpander.expandCompareExpr(args, macroName)
                 let inputTokens = Tokens([Token(TokenKind.STRING_LITERAL, input.toString())]).toString()
                 quote($callId($inputTokens,"true",$deltaExpansion,true,isDelta:true,$optParentCtx))
             } else {
@@ -63,7 +63,7 @@ private func assertionCallExpr(input: Tokens, isExpect: Bool, insideCustom: Bool
             }
         case args where args.size == 3 =>
             if (DeltaMacroExpander.areThreeArgsSuitable(args, input)) {
-                let (deltaExpansion, _) = DeltaMacroExpander.expandTwoArgsIntoEq(args) 
+                let (deltaExpansion, _) = DeltaMacroExpander.expandTwoArgsIntoEq(args)
                 let inputTokens = Tokens([Token(TokenKind.STRING_LITERAL, input.toString())]).toString()
                 quote($callId($inputTokens,"true",$deltaExpansion,true,isDelta:true,$optParentCtx))
             } else {
@@ -110,7 +110,7 @@ private func customAssertionCallExpr(assertion: Tokens, body: Tokens, isExpect: 
     let _ = try {
         RefType(assertion)
     } catch (e: ASTException) {
-        throw MacroException("${macroName} macro only accepts 'RefType' as an argument")
+        throw MacroException("${macroName} macro only accepts 'RefType' as an argument.")
     }
 
     let callId = Token(IDENTIFIER, name)
@@ -129,9 +129,9 @@ private func customAssertionCallExpr(assertion: Tokens, body: Tokens, isExpect: 
 
 private func verifyCustomAssertionDecl(decl: Decl): FuncDecl {
     let funcDecl = (decl as FuncDecl) ??
-        throw MacroException("@CustomAssertion macro must be put onto the top-level functions")
+        throw MacroException("@CustomAssertion macro must be put on top-level functions.")
 
-    let argmesg: String = "@CustomAssertion function ${funcDecl.identifier.value} should have ${CTX_CLASS_NAME.value} class as it's first argument"
+    let argmesg: String = "@CustomAssertion function ${funcDecl.identifier.value} should have ${CTX_CLASS_NAME.value} class as its first argument."
     if (funcDecl.funcParams.size == 0) {
         throw MacroException(argmesg)
     }

@@ -120,13 +120,24 @@ void WinModuleManager::ReadModuleInfo(HMODULE* moduleHandlers, int moduleHandler
 {
     for (int i = 0; i < moduleHandlersCapacity; i++) {
         // Get image name
-        TCHAR moduleFullName[MAX_PATH];
-        GetModuleFileNameA(moduleHandlers[i], moduleFullName, MAX_PATH);
-        char drive[_MAX_DRIVE];
-        char dir[_MAX_DIR];
-        char fname[_MAX_FNAME];
-        char ext[_MAX_EXT];
-        _splitpath_s(moduleFullName, drive, _MAX_DRIVE, dir, _MAX_DIR, fname, _MAX_FNAME, ext, _MAX_EXT);
+        TCHAR moduleFullName[MAX_PATH] = { 0 };
+        DWORD nameLen = GetModuleFileNameA(moduleHandlers[i], moduleFullName, MAX_PATH);
+        if (nameLen == 0 || nameLen == MAX_PATH) {
+            // The module name is unavailable or truncated (a path of exactly MAX_PATH
+            // characters cannot be stored): skip this module.
+            continue;
+        }
+        char drive[_MAX_DRIVE] = { 0 };
+        char dir[_MAX_DIR] = { 0 };
+        char fname[_MAX_FNAME] = { 0 };
+        char ext[_MAX_EXT] = { 0 };
+        errno_t splitRet =
+            _splitpath_s(moduleFullName, drive, _MAX_DRIVE, dir, _MAX_DIR, fname, _MAX_FNAME, ext, _MAX_EXT);
+        if (splitRet != 0) {
+            // The path could not be split: skip this module instead of reading
+            // uninitialized buffers.
+            continue;
+        }
         std::string moduleFName = std::string(drive) + std::string(dir) + std::string(fname) + std::string(ext);
         std::string moduleName = std::string(fname) + std::string(ext);
         if (nativeLibNames.count(moduleName) != 0) {

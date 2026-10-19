@@ -54,7 +54,7 @@ public open class SqlException <: Exception {
             if (_sqlState != "") {
                 msg += "SqlState: ${_sqlState}, "
             }
-            msg += "errorCode: ${_errorCode}"
+            msg += "errorCode: ${_errorCode}."
             msg
         }
     }

@@ -58,7 +58,7 @@ func isDomainValid(domainStr: String): Bool {
  */
 func resolveDomain(family: AddressFamily, domain: String): Array<IPAddress> {
     if (domain.contains(NULL_BYTE)) {
-        throw IllegalFormatException("Domain cannot contain null character!")
+        throw IllegalFormatException("Domain cannot contain null character.")
     }
     var node = unsafe { LibC.mallocCString(domain) }
     var res = PAddrinfo()

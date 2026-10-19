@@ -180,7 +180,7 @@ public class ConsoleReader <: InputStream {
         releaseArrayRawData(data)
         if (rc != 0) {
             // never reaches here
-            throw IllegalMemoryException("The memcpy_s failed with error code: ${rc}.")
+            throw IllegalMemoryException("Failed to copy memory in console reader: error code '${rc}'.")
         }
         this.endIndex += itemLen
     }

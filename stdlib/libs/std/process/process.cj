@@ -85,13 +85,13 @@ public open class Process {
 
     public prop name: String {
         get() {
-            this._name ?? throw ProcessException("Can not get process name.")
+            this._name ?? throw ProcessException("Process name is unavailable.")
         }
     }
 
     public prop command: String {
         get() {
-            this._command ?? throw ProcessException("Can not get process command.")
+            this._command ?? throw ProcessException("Process command is unavailable.")
         }
     }
 
@@ -126,28 +126,28 @@ public open class Process {
     @Deprecated
     public open prop arguments: Array<String> {
         get() {
-            this._arguments ?? throw ProcessException("Can not get process arguments.")
+            this._arguments ?? throw ProcessException("Process arguments are unavailable.")
         }
     }
 
     @Deprecated[message: "Use global function `public func getCommandLine(): Array<String>` in std.env instead."]
     public prop commandLine: Array<String> {
         get() {
-            this._commandLine ?? throw ProcessException("Can not get process commandLine.")
+            this._commandLine ?? throw ProcessException("Process command line is unavailable.")
         }
     }
 
     @Deprecated[message: "Use global function `public func getHomeDirectory(): Path` in std.env instead."]
     public prop workingDirectory: Path {
         get() {
-            this._workingDirectory ?? throw ProcessException("Can not get process workingDirectory.")
+            this._workingDirectory ?? throw ProcessException("Process working directory is unavailable.")
         }
     }
 
     @Deprecated[message: "Use global function `public func getVariables(): Array<(String, String)>` in std.env instead."]
     public prop environment: Map<String, String> {
         get() {
-            this.getEnvironments() ?? throw ProcessException("Can not get process environment.")
+            this.getEnvironments() ?? throw ProcessException("Process environment is unavailable.")
         }
     }
 
@@ -159,7 +159,7 @@ public open class Process {
     @Deprecated[message: "Use global function `public func findProcess(pid: Int64): Process` instead."]
     public static func of(pid: Int64): Process {
         if (pid > Int64(Int32.Max) || pid < 0) {
-            throw IllegalArgumentException("Invaild pid: \"${pid}\", can not get process.")
+            throw IllegalArgumentException("Invalid pid '${pid}'.")
         }
 
         return buildProcess(Int32(pid))
@@ -239,7 +239,7 @@ public open class Process {
         let current_pid: Int32 = unsafe { CJ_OS_GetCurrentPid() }
         let processInfo_cp: CPointer<ProcessInfo> = unsafe { CJ_OS_GetProcessInfoByPid(current_pid) }
         if (processInfo_cp.isNull()) {
-            throw ProcessException("Initialize current process failed.")
+            throw ProcessException("Failed to initialize current process.")
         }
 
         let processInfo: ProcessInfo = unsafe { processInfo_cp.read() }
@@ -264,7 +264,7 @@ public open class Process {
     static func buildProcess(pid: Int32): Process {
         let processInfo_cp: CPointer<ProcessInfo> = unsafe { CJ_OS_GetProcessInfoByPid(pid) }
         if (processInfo_cp.isNull()) {
-            throw ProcessException("Process \"${pid}\" not alive, can not get process.")
+            throw ProcessException("Process '${pid}' is not alive.")
         }
         let processInfo: ProcessInfo = unsafe { processInfo_cp.read() }
         try {
@@ -309,7 +309,7 @@ public open class Process {
      */
     public func terminate(force!: Bool = false): Unit {
         if (this._pid > Int64(Int32.Max) || this._pid < 0) {
-            throw IllegalArgumentException("Invaild pid, \"${this._pid}\".")
+            throw IllegalArgumentException("Invalid pid '${this._pid}'.")
         }
 
         terminateAliveProcess(Int32(this._pid), force)
@@ -334,10 +334,10 @@ public open class Process {
         }
 
         if (processStatus == PROCESS_STATUS_PID_REUSED) {
-            throw ProcessException("Process pid \"${pid}\" has been reused, not allow kill the new process.")
+            throw ProcessException("Process '${pid}' has been reused: cannot kill the new process.")
         }
 
-        throw ProcessException("Process pid \"${pid}\" not exist, not allow kill process.")
+        throw ProcessException("Process '${pid}' does not exist.")
     }
 
     static func hasDiscardMode(std_redirects: Array<ProcessRedirect>): Bool {
@@ -487,7 +487,7 @@ func searchExecutableInWindowsDirectory(command: String): ?Path {
 @When[os == "Windows"]
 func resolveExecutable(command: String, environment: ?Map<String, String>, workingDir: CString): ?Path {
     if (command.size == 0) {
-        throw ProcessException("Created process failed, errMessage: \"The parameter is incorrect.\".")
+        throw ProcessException("Failed to create process: the parameter is incorrect.")
     }
 
     let has_exe_extention = command.toAsciiLower().endsWith(".exe")
@@ -544,13 +544,13 @@ func checkCommandLineLength(command: String, arguments: Array<String>) {
     var length: Int64 = command.size
     let maxLength = Int64(Int16.Max - 1)
     if (length >= maxLength) {
-        throw ProcessException("Created process failed, errMessage: \"The filename or extension is too long.\".")
+        throw ProcessException("Failed to create process: filename or extension is too long.")
     }
 
     for (arg in arguments) {
         length += arg.size
         if (length >= maxLength) {
-            throw ProcessException("Created process failed, errMessage: \"The filename or extension is too long.\".")
+            throw ProcessException("Failed to create process: filename or extension is too long.")
         }
     }
 }
@@ -563,8 +563,7 @@ func buildSubProcess(command: String, arguments: Array<String>, workingDir_c: CS
     // that would be returned by CreateProcessW when it fails to find the specified file.
     let program = match (resolveExecutable(command, environment, workingDir_c)) {
         case Some(programe) => programe.toString()
-        case _ => throw ProcessException(
-            "Created process failed, errMessage: \"The system cannot find the file specified.\".")
+        case _ => throw ProcessException("Failed to create process: the system cannot find the file specified.")
     }
 
     // convert attribute from String to CString
@@ -593,17 +592,17 @@ func buildSubProcess(command: String, arguments: Array<String>, workingDir_c: CS
         // processRtnData errcode not 0 means not success, and it's should not go on.
         // should deal with the errcode give detail message.
         if (processRtnData_cp.isNull()) {
-            throw ProcessException("Created process failed.")
+            throw ProcessException("Failed to create process.")
         }
 
         let processRtnData = unsafe { processRtnData_cp.read() }
         if (processRtnData.errCode != 0) {
-            throw ProcessException("Created process failed, errMessage: \"${processRtnData.errMessage}\".")
+            throw ProcessException("Failed to create process: ${processRtnData.errMessage}.")
         }
 
         processInfo_cp = unsafe { CJ_OS_GetProcessInfoByPid(processRtnData.pid) }
         if (processInfo_cp.isNull()) {
-            throw ProcessException("Created process failed.")
+            throw ProcessException("Failed to create process.")
         }
         let processInfo = unsafe { processInfo_cp.read() }
         let pid: Int32 = processRtnData.pid
@@ -811,17 +810,17 @@ func buildSubProcess(command: String, arguments: Array<String>, workingDir_c: CS
         // processRtnData errcode not 0 means not success, and it's should not go on.
         // should deal with the errcode give detail message.
         if (processRtnData_cp.isNull()) {
-            throw ProcessException("Created process failed.")
+            throw ProcessException("Failed to create process.")
         }
 
         let processRtnData: ProcessRtnData = unsafe { processRtnData_cp.read() }
         if (processRtnData.errCode != 0) {
-            throw ProcessException("Created process failed, errMessage: \"${processRtnData.errMessage}\".")
+            throw ProcessException("Failed to create process: ${processRtnData.errMessage}.")
         }
 
         processInfo_cp = unsafe { CJ_OS_GetProcessInfoByPid(processRtnData.pid) }
         if (processInfo_cp.isNull()) {
-            throw ProcessException("Created process failed.")
+            throw ProcessException("Failed to create process.")
         }
 
         let processInfo = unsafe { processInfo_cp.read() }
@@ -880,11 +879,11 @@ func matchRedirectFileHandle(redirect: ProcessRedirect, stdio: StdIO): IntNative
             if (let Some(fileHandle) <- getNulFileHandle()) {
                 fileHandle
             } else {
-                throw ProcessException("Failed to open null file, can not redirect stdio to discard mode.")
+                throw ProcessException("Failed to open null file: cannot redirect stdio to discard mode.")
             }
         case ProcessRedirect.FromFile(file: File) =>
             if (!exists(file.info.path) || file.isClosed()) {
-                throw ProcessException("Redirect file closed or not existed, not allow redirect.")
+                throw ProcessException("Redirect file is closed or does not exist.")
             }
             file.fileDescriptor.fileHandle
     }
@@ -892,7 +891,7 @@ func matchRedirectFileHandle(redirect: ProcessRedirect, stdio: StdIO): IntNative
 
 public func findProcess(pid: Int64): Process {
     if (pid > Int64(Int32.Max) || pid < 0) {
-        throw IllegalArgumentException("Invaild pid: \"${pid}\", can not get process.")
+        throw IllegalArgumentException("Invalid pid '${pid}'.")
     }
     return Process.buildProcess(Int32(pid))
 }
@@ -910,20 +909,19 @@ private func launchImpl(
     // check command, arguments and environment, can not be empty or Null.
     // workingDirectory must be directory.
     if (command.contains("\0")) {
-        throw IllegalArgumentException("Command \"${command}\" cannot contains null character.")
+        throw IllegalArgumentException("Command '${command}' contains null character.")
     }
 
     for (arg in arguments) {
         if (arg.contains("\0")) {
-            throw IllegalArgumentException("Argument \"${arg}\" cannot contains null character.")
+            throw IllegalArgumentException("Argument '${arg}' contains null character.")
         }
     }
 
     if (let Some(envMap) <- environment) {
         for (envEntry in envMap) {
             if (envEntry[0].contains("\0") || envEntry[0].contains("=") || envEntry[1].contains("\0")) {
-                throw IllegalArgumentException(
-                    "Environment \"${envEntry[0]}\" entry cannot contains invalid character.")
+                throw IllegalArgumentException("Environment entry '${envEntry[0]}' contains invalid character.")
             }
         }
     }
@@ -931,15 +929,15 @@ private func launchImpl(
     if (let Some(dir) <- workingDirectory) {
         try {
             if (!FileInfo(dir).isDirectory()) {
-                throw IllegalArgumentException("WorkingDirectory \"${dir}\" must be directory.")
+                throw IllegalArgumentException("Working directory '${dir}' must be a directory.")
             }
         } catch (_: FSException) {
-            throw IllegalArgumentException("WorkingDirectory \"${dir}\" not exist in the file system.")
+            throw IllegalArgumentException("Working directory '${dir}' does not exist.")
         }
     }
 
     if (getNulFileHandle().isNone() && Process.hasDiscardMode(std_redirects)) {
-        throw IllegalArgumentException("Failed to open null file, can not redirect stdio to discard mode.")
+        throw IllegalArgumentException("Failed to open null file: cannot redirect stdio to discard mode.")
     }
 
     // convert attribute from String to CString

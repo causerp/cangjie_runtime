@@ -11,18 +11,25 @@ import std.collection.*
 
 main() {
     var map: HashMap<String, Int64> = HashMap<String, Int64>()
-    var arr: Array<(String, Int64)> = [("d", 11), ("e", 12)]
-    map.add("a", 13)
-    print("a=${map.get("a").getOrThrow()} ")
-    map.add(all: arr) // map : [("a", 13), ("d", 11), ("e", 12)]
-    var d = map.get("d")
-    print("d=${d.getOrThrow()} ")
-    map.remove("d") // map : [("a", 13), ("e", 12)]
-    var bool = map.contains("d")
-    print("bool=${bool} ")
-    map.clear() // map: []
-    var bool1 = map.contains("e")
-    print("bool1=${bool1}")
+
+    // 添加单个键值对
+    map.add("apple", 10)
+    map.add("banana", 20)
+    println("添加两个键值对后: ${map}")
+
+    // 批量添加键值对
+    var arr: Array<(String, Int64)> = [("orange", 30), ("grape", 40)]
+    map.add(all: arr)
+    println("批量添加后: ${map}")
+
+    // 删除键
+    map.remove("banana")
+    println("删除banana后: ${map}")
+
+    // 清空映射
+    map.clear()
+    println("清空后: ${map}")
+
     return 0
 }
 ```
@@ -30,5 +37,8 @@ main() {
 运行结果：
 
 ```text
-a=13 d=11 bool=false bool1=false
+添加两个键值对后: [(apple, 10), (banana, 20)]
+批量添加后: [(apple, 10), (banana, 20), (orange, 30), (grape, 40)]
+删除banana后: [(apple, 10), (orange, 30), (grape, 40)]
+清空后: []
 ```

@@ -62,10 +62,13 @@ void Loader::GetBinaryFilePath(const void* address, BinaryInfo* binInfo)
         return;
     }
 
-    char fileName[MAX_PATH];
+    char fileName[MAX_PATH] = { 0 };
     DWORD retNameSize = 0;
     retNameSize = GetModuleFileNameA(moduleHandler, reinterpret_cast<LPSTR>(fileName), sizeof(fileName));
-    if (retNameSize == 0 || ((retNameSize == sizeof(fileName)) && GetLastError() == ERROR_SUCCESS)) {
+    // A return value equal to the buffer size means the path was truncated and the
+    // buffer is not guaranteed to be null-terminated (last error is
+    // ERROR_INSUFFICIENT_BUFFER or may be stale). Treat both cases as failure.
+    if (retNameSize == 0 || retNameSize == sizeof(fileName)) {
         LOG(RTLOG_ERROR, "getModuleFileName failed.");
         return;
     }

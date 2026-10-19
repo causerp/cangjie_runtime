@@ -315,8 +315,10 @@ TypeInfoManager::GenericTiDesc* TypeInfoManager::GenericTiDescHashMap::GetGeneri
     if (it != bucket.maps.end()) {
         for (auto descIt = it->second.begin(); descIt != it->second.end(); ++descIt) {
             if (**descIt == desc) {
+                // Copy under the lock: the vector may be reallocated after unlock (UAF).
+                GenericTiDesc* result = *descIt;
                 bucket.rwLock.UnlockRead();
-                return *descIt;
+                return result;
             }
         }
     }
@@ -334,8 +336,10 @@ TypeInfoManager::GenericTiDesc* TypeInfoManager::GenericTiDescHashMap::InsertGen
     if (it != bucket.maps.end()) {
         for (auto descIt = it->second.begin(); descIt != it->second.end(); ++descIt) {
             if (**descIt == desc) {
+                // Same as GetGenericTiDesc: copy under the lock to avoid UAF.
+                GenericTiDesc* result = *descIt;
                 bucket.rwLock.UnlockWrite();
-                return *descIt;
+                return result;
             }
         }
     }
@@ -729,7 +733,7 @@ void TypeInfoManager::CalculateGCTib(TypeInfo* typeInfo)
         // create StdGCTib
         // NOTE: If length is not divided by alignSize, special processing
         // is required for the assignment of num and bitmapWords.
-        U16 num = gcTibStr.Length() / alignSize;
+        U16 num = MRT_ALIGN(gcTibStr.Length(), alignSize) / alignSize;
         U16 needSpace = sizeof(U32) + sizeof(U8) * num;
         StdGCTib* stdGCTib = reinterpret_cast<StdGCTib*>(Allocate(needSpace));
         stdGCTib->nBitmapWords = num;
@@ -743,6 +747,9 @@ void TypeInfoManager::CalculateGCTib(TypeInfo* typeInfo)
                 stdGCTib->bitmapWords[curIdx++] = value;
                 value = 0;
             }
+        }
+        if (len % alignSize != 0) {
+            stdGCTib->bitmapWords[curIdx] = value;
         }
         gcTib.gctib = stdGCTib;
         typeInfo->SetGCTib(gcTib);

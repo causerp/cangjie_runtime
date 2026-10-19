@@ -117,7 +117,7 @@ public class ArrayList<T> <: List<T> {
         let cap: Int64 = if (capacity >= 0) {
             capacity
         } else {
-            throw IllegalArgumentException("Invalid capacity of ArrayList: ${capacity}.")
+            throw IllegalArgumentException("Invalid capacity '${capacity}': expected a non-negative value.")
         }
         myData = Array<T>(cap, repeat: unsafe { zeroValue<T>() })
     }
@@ -135,7 +135,7 @@ public class ArrayList<T> <: List<T> {
     @Frozen
     public init(size: Int64, initElement: (Int64) -> T) {
         if (size < 0) {
-            throw IllegalArgumentException("Invalid size of ArrayList: ${size}.")
+            throw IllegalArgumentException("Invalid size '${size}': expected a non-negative value.")
         }
         myData = Array<T>(size, initElement)
         mySize = size
@@ -372,7 +372,7 @@ public class ArrayList<T> <: List<T> {
     @Frozen
     public func remove(range: Range<Int64>): Unit {
         if (range.step != 1) {
-            throw IllegalArgumentException("the value of the step should be r'1'")
+            throw IllegalArgumentException("Invalid step value '${range.step}': step must be 1.")
         }
 
         var start: Int64 = range.start
@@ -394,8 +394,7 @@ public class ArrayList<T> <: List<T> {
             return
         }
         if (start < 0 || end < 0 || end > this.mySize) {
-            throw IndexOutOfBoundsException(
-                "The size of ArrayList is ${this.size}, but the start is ${start} and the end is ${end}.")
+            throw IndexOutOfBoundsException("Invalid range: start '${start}', end '${end}', size '${this.size}'.")
         }
 
         let moveLen = this.mySize - end
@@ -472,7 +471,7 @@ public class ArrayList<T> <: List<T> {
     @When[env != "ohos"]
     public func step(count: Int64): ArrayList<T> {
         if (count <= 0) {
-            throw IllegalArgumentException("Step count must be greater than 0!")
+            throw IllegalArgumentException("Invalid step count '${count}': expected a positive value.")
         }
 
         if (mySize <= 0) {
@@ -504,7 +503,7 @@ public class ArrayList<T> <: List<T> {
         }
 
         if (count < 0) {
-            throw IllegalArgumentException("take count must be greater than 0!")
+            throw IllegalArgumentException("Invalid take count '${count}': expected a non-negative value.")
         }
         let newSize = min(count, mySize)
 
@@ -523,7 +522,7 @@ public class ArrayList<T> <: List<T> {
     @When[env != "ohos"]
     public func skip(count: Int64): ArrayList<T> {
         if (count < 0) {
-            throw IllegalArgumentException("skip count must be greater than 0!")
+            throw IllegalArgumentException("Invalid skip count '${count}': expected a non-negative value.")
         }
         if (count == 0) {
             var newData: Array<T> = myData.clone()
@@ -841,7 +840,7 @@ public class ArrayList<T> <: List<T> {
     @Frozen
     private func rangeSlice(arr: Array<T>, range: Range<Int64>, size: Int64): Array<T> {
         if (range.step != 1) {
-            throw IllegalArgumentException("Illegal step ${range.step}, step should be 1.")
+            throw IllegalArgumentException("Invalid step '${range.step}': step must be 1.")
         }
 
         let start = if (range.hasStart) {
@@ -851,9 +850,9 @@ public class ArrayList<T> <: List<T> {
         }
 
         if (start > size) {
-            throw IndexOutOfBoundsException("Range start ${start} is greater than the size ${size}.")
+            throw IndexOutOfBoundsException("Range start '${start}' is greater than size '${size}'.")
         } else if (range.start < 0) {
-            throw IndexOutOfBoundsException("Range start ${start} is less than 0.")
+            throw IndexOutOfBoundsException("Range start '${start}' is less than 0.")
         }
 
         let end: Int64
@@ -861,14 +860,12 @@ public class ArrayList<T> <: List<T> {
         if (range.hasEnd) {
             if (range.isClosed) {
                 if (range.end > size) {
-                    throw IndexOutOfBoundsException(
-                        "The closed end of the range ${range.end} is greater than or equal to the size ${size}.")
+                    throw IndexOutOfBoundsException("Closed range end '${range.end}' is greater than size '${size}'.")
                 }
                 end = range.end + 1
             } else {
                 if (range.end > size) {
-                    throw IndexOutOfBoundsException(
-                        "The opened end of the range ${range.end} is greater than the size ${size}.")
+                    throw IndexOutOfBoundsException("Open range end '${range.end}' is greater than size '${size}'.")
                 }
                 end = range.end
             }
@@ -877,7 +874,7 @@ public class ArrayList<T> <: List<T> {
         }
 
         if (start > end) {
-            throw IndexOutOfBoundsException("The start ${start} is greater than the end ${end}.")
+            throw IndexOutOfBoundsException("Range start '${start}' is greater than end '${end}'.")
         }
 
         return arr[start..end]
@@ -922,8 +919,7 @@ public class ArrayList<T> <: List<T> {
     @Frozen
     public operator func [](index: Int64, value!: T): Unit {
         if (index >= mySize || index < 0) {
-            throw IndexOutOfBoundsException(
-                "index: ${index} cannot be less than 0 or greater than the arraylist size: ${mySize}.")
+            throw IndexOutOfBoundsException("Invalid index '${index}': expected 0 to '${mySize}'.")
         }
         unsafe { myData.setUnchecked(index, value) }
     }
@@ -978,7 +974,7 @@ public class ArrayList<T> <: List<T> {
     @Frozen
     private func checkRange(index: Int64): Unit {
         if (index >= mySize || index < 0) {
-            throw IndexOutOfBoundsException("index: ${index}, size: ${mySize}")
+            throw IndexOutOfBoundsException("Invalid index '${index}': size is '${mySize}'.")
         }
     }
 
@@ -994,7 +990,7 @@ public class ArrayList<T> <: List<T> {
     @Frozen
     private func checkRangeInsert(index: Int64): Unit {
         if (index > mySize || index < 0) {
-            throw IndexOutOfBoundsException("index: ${index}, size: ${mySize}")
+            throw IndexOutOfBoundsException("Invalid index '${index}': expected 0 to '${mySize}'.")
         }
     }
 
@@ -1236,7 +1232,8 @@ extend<T> Array<T> {
 
             let selected = runStarts[runLength - 1]
             let leftBound = runLengths[runLength - 1]
-            if (leftBound <= currentLength + nextLength) {
+            if (leftBound <= currentLength + nextLength || (runLength > 1 && runLengths[runLength - 2] <=
+                runLengths[runLength - 1] + currentLength)) {
                 if (leftBound < nextLength) {
                     this.merge(selected, leftBound, currentStart, currentLength, scratch, compare)
                     runLengths[runLength - 1] = leftBound + currentLength
@@ -1617,7 +1614,15 @@ extend<T> Array<T> {
         // init temp data
         let mrl = this.getMinRunLength()
         var scratch = TempArray(this.size, this[0])
-        let stackLen = Int64(log2(Float64(this.size) / Float64(mrl) + 2.0)) + 1
+        // Run stack capacity: maybeMerge maintains the invariant that each run
+        // is strictly longer than the two runs above it combined (lengths
+        // decrease Fibonacci-style from bottom to top), so a stack that never
+        // triggers a merge is at most ~1.44 * log2(size) deep (1.44 is
+        // 1/log2(golden ratio)). The 1.5 factor is deliberate headroom over
+        // 1.44 and the +8 covers constant terms for small sizes, so the
+        // formula is a strict upper bound on the stack depth; do not tighten
+        // it into a lower-bound estimate.
+        let stackLen = Int64(log2(Float64(this.size)) * 3.0 / 2.0) + 8
         let runStarts = Array<Int64>(stackLen, repeat: 0)
         let runLengths = Array<Int64>(stackLen, repeat: 0)
         var runTop = -1

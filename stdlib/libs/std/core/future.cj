@@ -68,7 +68,7 @@ public class Future<T> {
             case v: FutureOk<T> => return v.value
             case e: FutureExcept => throw e.except
             case e: FutureErr => throw e.err
-            case _ => throw IllegalStateException("Future result is in an unexpected state.")
+            case _ => throw IllegalStateException("Internal error: Future result is in an unexpected state!")
         }
     }
 

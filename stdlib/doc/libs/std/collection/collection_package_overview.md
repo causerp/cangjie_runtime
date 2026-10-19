@@ -41,7 +41,7 @@ collection 包提供的集合类型都不支持并发安全，并发安全的集
 | [collectHashSet\<T>(Iterable\<T>) where T <: Hashable & Equatable\<T>](./collection_package_api/collection_package_function.md#func-collecthashsettiterablet-where-t--hashable--equatablet) | 将一个迭代器转换成 HashSet 类型。 |
 | [collectString\<T>(String) where T <: ToString](./collection_package_api/collection_package_function.md#func-collectstringtstring-where-t--tostring) | 将一个对应元素实现了 ToString 接口的迭代器转换成 String 类型。 |
 | [concat\<T>(Iterable\<T>)](./collection_package_api/collection_package_function.md#func-concattiterablet) | 串联两个迭代器。 |
-| [contains\<T>(T) where T <: Equatable\<T>](./collection_package_api/collection_package_function.md#func-containstt-where-t--equatablet) | 遍历所有元素，判断是否包含指定元素并返回该元素。 |
+| [contains\<T>(T) where T <: Equatable\<T>](./collection_package_api/collection_package_function.md#func-containstt-where-t--equatablet) | 获得一个针对特定元素的查找函数。 |
 | [count\<T>(Iterable\<T>)](./collection_package_api/collection_package_function.md#func-counttiterablet) | 统计迭代器包含元素数量。 |
 | [enumerate\<T>(Iterable\<T>)](./collection_package_api/collection_package_function.md#func-enumeratetiterablet) | 用于获取带索引的迭代器。 |
 | [filter\<T>((T) -> Bool)](./collection_package_api/collection_package_function.md#func-filtertt---bool) | 筛选出满足条件的元素。 |
@@ -55,8 +55,8 @@ collection 包提供的集合类型都不支持并发安全，并发安全的集
 | [isEmpty\<T>(Iterable\<T>)](./collection_package_api/collection_package_function.md#func-isemptytiterablet) | 判断迭代器是否为空。 |
 | [last\<T>(Iterable\<T>)](./collection_package_api/collection_package_function.md#func-lasttiterablet) | 获取尾部元素。 |
 | [map\<T, R>((T) -> R)](./collection_package_api/collection_package_function.md#func-mapt-rt---r) | 创建一个映射。 |
-| [max\<T>(Iterable\<T>) where T <: Comparable\<T>](./collection_package_api/collection_package_function.md#func-maxtiterablet-where-t--comparablet) | 筛选最大的元素。 |
-| [min\<T>(Iterable\<T>) where T <: Comparable\<T>](./collection_package_api/collection_package_function.md#func-mintiterablet-where-t--comparablet) | 筛选最小的元素。 |
+| [max\<T>(Iterable\<T>) where T <: Comparable\<T>](./collection_package_api/collection_package_function.md#func-maxtiterablet-where-t--comparablet) | 获取最大的元素。 |
+| [min\<T>(Iterable\<T>) where T <: Comparable\<T>](./collection_package_api/collection_package_function.md#func-mintiterablet-where-t--comparablet) | 获取最小的元素。 |
 | [none\<T>((T) -> Bool)](./collection_package_api/collection_package_function.md#func-nonett---bool) | 判断迭代器是否都不满足条件。 |
 | [reduce\<T>((T, T) -> T)](./collection_package_api/collection_package_function.md#func-reducett-t---t) | 使用第一个元素作为初始值，从左向右计算。 |
 | [skip\<T>(Int64)](./collection_package_api/collection_package_function.md#func-skiptint64) | 从迭代器跳过特定个数。 |
@@ -72,13 +72,13 @@ collection 包提供的集合类型都不支持并发安全，并发安全的集
 | [EquatableCollection\<T>](./collection_package_api/collection_package_interface.md#interface-equatablecollectiont) |定义了可以进行比较的集合类型。|
 | [List\<T>](./collection_package_api/collection_package_interface.md#interface-listt)  |  提供了对索引友好的列表操作。 |
 | [Map\<K, V>](./collection_package_api/collection_package_interface.md#interface-mapk-v)  |  提供了一种将键映射到值的方式。 |
-| [MapEntryView\<K, V>](./collection_package_api/collection_package_interface.md#interface-mapentryviewk-v) | 键值对集合中的某个 Key 的视图 |
-| [OrderedMap\<K, V>](./collection_package_api/collection_package_interface.md#interface-orderedmapk-v) | 有序映射 |
-| [OrderedSet\<T>](./collection_package_api/collection_package_interface.md#interface-orderedsett) | 有序集合 |
+| [MapEntryView\<K, V>](./collection_package_api/collection_package_interface.md#interface-mapentryviewk-v) | 提供映射中的某个 key 对应的视图。 |
+| [OrderedMap\<K, V>](./collection_package_api/collection_package_interface.md#interface-orderedmapk-v) | 提供了一种将键映射到值的方式，其内部的元素是有序的。 |
+| [OrderedSet\<T>](./collection_package_api/collection_package_interface.md#interface-orderedsett) | 提供了一组集合的相关操作，其内部的元素是有序的。 |
 | [Queue\<T>](./collection_package_api/collection_package_interface.md#interface-queuet)| 队列数据结构，它遵循先进先出（First In First Out, FIFO）原则。 |
 | [ReadOnlyList\<T>](./collection_package_api/collection_package_interface.md#interface-readonlylistt)  |  定义了对列表的只读操作。 |
-| [ReadOnlyMap\<K, V>](./collection_package_api/collection_package_interface.md#interface-readonlymapk-v) | 只读映射 |
-| [ReadOnlySet\<K, V>](./collection_package_api/collection_package_interface.md#interface-readonlysett) | 只读集合 |
+| [ReadOnlyMap\<K, V>](./collection_package_api/collection_package_interface.md#interface-readonlymapk-v) | 定义了对映射的只读操作。 |
+| [ReadOnlySet\<T>](./collection_package_api/collection_package_interface.md#interface-readonlysett) | 定义了对集合的只读操作。 |
 | [Set\<T>](./collection_package_api/collection_package_interface.md#interface-sett)   | 不包含重复元素的集合。 |
 | [Stack\<T>](./collection_package_api/collection_package_interface.md#interface-stackt) | 栈数据结构接口，具有后进先出（Last In First Out，LIFO）的特点。 |
 

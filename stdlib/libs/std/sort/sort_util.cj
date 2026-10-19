@@ -126,6 +126,30 @@ extend<T> Array<T> where T <: Comparable<T> {
         }
     }
 
+    // Check whether the elements in [begin, end] are in non-descending order.
+    func isAscending(begin: Int64, end: Int64): Bool {
+        var i = begin
+        while (i < end) {
+            if (this[i] > this[i + 1]) {
+                return false
+            }
+            i++
+        }
+        return true
+    }
+
+    // Check whether the elements in [begin, end] are in non-ascending order.
+    func isDescending(begin: Int64, end: Int64): Bool {
+        var i = begin
+        while (i < end) {
+            if (this[i] < this[i + 1]) {
+                return false
+            }
+            i++
+        }
+        return true
+    }
+
     func insertionSort(begin: Int64, end: Int64): Unit {
         var i: Int64 = begin + 1
         while (i <= end) {
@@ -437,6 +461,30 @@ extend<T> Array<T> where T <: Comparable<T> {
 }
 
 extend<T> Array<T> {
+    // Check whether the elements in [begin, end] are in non-descending order.
+    func isAscending(begin: Int64, end: Int64, comparator: (T, T) -> Ordering): Bool {
+        var i = begin
+        while (i < end) {
+            if (comparator(this[i], this[i + 1]) == GT) {
+                return false
+            }
+            i++
+        }
+        return true
+    }
+
+    // Check whether the elements in [begin, end] are in non-ascending order.
+    func isDescending(begin: Int64, end: Int64, comparator: (T, T) -> Ordering): Bool {
+        var i = begin
+        while (i < end) {
+            if (comparator(this[i], this[i + 1]) == LT) {
+                return false
+            }
+            i++
+        }
+        return true
+    }
+
     // the value range of the parameter: 0 <= i1 < i2 <= array.size - 1
     func compareSwap2(i1: Int64, i2: Int64, comparator: (T, T) -> Ordering) {
         let a: T = this[i1]

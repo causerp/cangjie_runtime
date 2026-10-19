@@ -106,16 +106,16 @@ public func parseProgram(input: Tokens): Program {
                 }, p)
             })
         } catch (e: Exception) {
-            throw ParseASTException("\n" + e.message + "parsing program error.")
+            throw ParseASTException("Failed to parse program.")
         }
     }
     return match (createProgram(node.GetRootAsFile()) as Program) {
         case Some(v) => v
-        case None => throw ParseASTException("Illegal argument was encountered while obtaining the Program node.")
+        case None => throw ParseASTException("Failed to obtain the 'Program' node.")
     }
 }
 
-func addPositionInfo(node: Node, nodeBase: NodeFormat_NodeBase) {
+func addPositionInfo(node: Node, nodeBase: ASTFormat_NodeBase) {
     var begin = nodeBase.GetBegin()
     var end = nodeBase.GetEnd()
     var astKind: String = nodeBase.GetAstKind()
@@ -124,7 +124,7 @@ func addPositionInfo(node: Node, nodeBase: NodeFormat_NodeBase) {
     node.astKind = astKind
 }
 
-func generateNode(n: Option<NodeFormat_Node>): Node {
+func generateNode(n: Option<ASTFormat_Node>): Node {
     var node = match (n) {
         case Some(v) => v
         case None => throw ParseASTException()
@@ -145,16 +145,16 @@ func generateNode(n: Option<NodeFormat_Node>): Node {
     }
     var astNode = match (astKind) {
         case "file" => createProgram(node.GetRootAsFile())
-        case "features_directive" => createFeatureHeader(node.GetRootAsFeaturesDirective()) ?? throw ParseASTException("Failed to parse the node: ${astKind}")
+        case "features_directive" => createFeatureHeader(node.GetRootAsFeaturesDirective()) ?? throw ParseASTException("Failed to parse the '${astKind}' node.")
         case "package_spec" => createPackageHeader(node.GetRootAsPackageSpec())
         case "import_spec" => createImportList(node.GetRootAsImportSpec())
-        case _ => throw ParseASTException("Unsupported parse the node: ${astKind}.\n")
+        case _ => throw ParseASTException("Unsupported node kind: '${astKind}'.")
     }
     addPositionInfo(astNode, nodeBase)
     return astNode
 }
 
-func createAnnotation(anno: Option<NodeFormat_Annotation>): Annotation {
+func createAnnotation(anno: Option<ASTFormat_Annotation>): Annotation {
     var annotation = match (anno) {
         case Some(v) => v
         case None => throw ParseASTException()
@@ -183,7 +183,7 @@ func createAnnotation(anno: Option<NodeFormat_Annotation>): Annotation {
     return Annotation(at, identifier, lSquare, args, rSquare, attrs, cond)
 }
 
-func createModifier(modifier: Option<NodeFormat_Modifier>): Modifier {
+func createModifier(modifier: Option<ASTFormat_Modifier>): Modifier {
     var mod = match (modifier) {
         case Some(v) => v
         case None => throw ParseASTException()
@@ -192,7 +192,7 @@ func createModifier(modifier: Option<NodeFormat_Modifier>): Modifier {
     return Modifier(kind)
 }
 
-func createArgument(arg: Option<NodeFormat_FuncArg>): Argument {
+func createArgument(arg: Option<ASTFormat_FuncArg>): Argument {
     var argument = match (arg) {
         case Some(v) => v
         case None => throw ParseASTException()
@@ -220,7 +220,7 @@ func createArgument(arg: Option<NodeFormat_FuncArg>): Argument {
     return argumentObj
 }
 
-func generateGenericParamTk(gp: Option<NodeFormat_GenericParamDecl>): (Token, Token) {
+func generateGenericParamTk(gp: Option<ASTFormat_GenericParamDecl>): (Token, Token) {
     var genericParam = match (gp) {
         case Some(v) => v
         case None => throw ParseASTException()
@@ -236,7 +236,7 @@ func generateGenericParamTk(gp: Option<NodeFormat_GenericParamDecl>): (Token, To
     return (ident, comma)
 }
 
-func createGenericParam(gic: Option<NodeFormat_Generic>): Option<GenericParam> {
+func createGenericParam(gic: Option<ASTFormat_Generic>): Option<GenericParam> {
     var generic = match (gic) {
         case Some(v) => v
         case None => return None
@@ -264,7 +264,7 @@ func createGenericParam(gic: Option<NodeFormat_Generic>): Option<GenericParam> {
     return Some(GenericParam(lAngle, idents, rAngle, commas))
 }
 
-func createGenericConstraint(flag: Bool, cons: Option<NodeFormat_GenericConstraint>): GenericConstraint {
+func createGenericConstraint(flag: Bool, cons: Option<ASTFormat_GenericConstraint>): GenericConstraint {
     var constraint = match (cons) {
         case Some(v) => v
         case None => throw ParseASTException()
@@ -273,7 +273,7 @@ func createGenericConstraint(flag: Bool, cons: Option<NodeFormat_GenericConstrai
     if (flag) {
         keyword = Token(TokenKind.WHERE).addPosition(constraint.GetWherePos())
     }
-    var ty: TypeNode = createRefType(constraint.GetType(), NodeFormat_NodeBase(Array<UInt8>(0, repeat: 0), 0))
+    var ty: TypeNode = createRefType(constraint.GetType(), ASTFormat_NodeBase(Array<UInt8>(0, repeat: 0), 0))
     var upbound: Token = Token(TokenKind.UPPERBOUND).addPosition(constraint.GetOperatorPos())
     var upperBounds: ArrayList<TypeNode> = ArrayList<TypeNode>()
     for (ups in constraint.GetUpperBound()) {
@@ -289,7 +289,7 @@ func createGenericConstraint(flag: Bool, cons: Option<NodeFormat_GenericConstrai
     return GenericConstraint(keyword, ty, upbound, upperBounds, bitAnds)
 }
 
-func createMacroExpand(nodeInvocation: Option<NodeFormat_MacroInvocation>, isDecl!: Bool = false,
+func createMacroExpand(nodeInvocation: Option<ASTFormat_MacroInvocation>, isDecl!: Bool = false,
     isFuncParam!: Bool = false): Node {
     var invocation = match (nodeInvocation) {
         case Some(v) => v
@@ -361,7 +361,7 @@ func processCustomAnnotationLikeMacro(macroInputDecl: Option<Decl>, macroNode: D
         case Some(v) =>
             v.annotations.add(createCustomAnnotation(macroNode), at: 0)
             return v
-        case None => throw ParseASTException("can't create macro extend declaration")
+        case None => throw ParseASTException("Cannot create the macro extend declaration.")
     }
 }
 
@@ -374,8 +374,8 @@ func getPackageIdentToken(s: String): Token {
     }, s)
 }
 
-func getPackagePrefixes(prefixPaths: Array<Option<String>>, prefixPoses: Array<NodeFormat_Position>,
-    prefixDotPoses: Array<NodeFormat_Position>): (Tokens, Tokens) {
+func getPackagePrefixes(prefixPaths: Array<Option<String>>, prefixPoses: Array<ASTFormat_Position>,
+    prefixDotPoses: Array<ASTFormat_Position>): (Tokens, Tokens) {
     if (prefixPaths.size != prefixPoses.size || prefixPaths.size != prefixDotPoses.size) {
         throw ParseASTException()
     }
@@ -394,17 +394,14 @@ func getPackagePrefixes(prefixPaths: Array<Option<String>>, prefixPoses: Array<N
     (paths, dots)
 }
 
-func isSamePos(pos1: NodeFormat_Position, pos2: NodeFormat_Position) {
+func isSamePos(pos1: ASTFormat_Position, pos2: ASTFormat_Position) {
     return pos1.fileId == pos2.fileId && pos1.line == pos2.line && pos1.column == pos2.column
 }
-func createFeatureHeader(ftrHeader: Option<NodeFormat_FeaturesDirective>): Option<FeaturesDirective> {
+func createFeatureHeader(ftrHeader: Option<ASTFormat_FeaturesDirective>): Option<FeaturesDirective> {
     return match (ftrHeader) {
         case Some(v) =>
             let annos = v.GetAnnotations()
-            let annotations = ArrayList<Annotation>()
-            for (item in annos) {
-                annotations.add(createAnnotation(item))
-            }
+            let annotations = ArrayList<Annotation>(annos.size, {i => createAnnotation(annos[i])})
             let keyword = Token(TokenKind.FEATURES, "features").addPosition(v.GetFeaturesPos())
             let featuresSet = createFeaturesSet(v.GetFeaturesSet())
             FeaturesDirective(annotations, keyword, featuresSet)
@@ -412,7 +409,7 @@ func createFeatureHeader(ftrHeader: Option<NodeFormat_FeaturesDirective>): Optio
     }
 }
 
-func createFeaturesSet(ftrSet: Option<NodeFormat_FeaturesSet>): FeaturesSet {
+func createFeaturesSet(ftrSet: Option<ASTFormat_FeaturesSet>): FeaturesSet {
     return match (ftrSet) {
         case Some(v) => 
             let lCurl = Token(TokenKind.LCURL).addPosition(v.GetLCurlPos())
@@ -428,8 +425,8 @@ func createFeaturesSet(ftrSet: Option<NodeFormat_FeaturesSet>): FeaturesSet {
     }
 }
  
-func createFeatureContent(ftrContent: Array<Option<NodeFormat_FeatureId>>): ArrayList<FeatureId> {
-    let ret = ArrayList<FeatureId>()
+func createFeatureContent(ftrContent: Array<Option<ASTFormat_FeatureId>>): ArrayList<FeatureId> {
+    let ret = ArrayList<FeatureId>(ftrContent.size)
     for (item in ftrContent) {
         match (item) {
             case Some(v) =>
@@ -452,16 +449,16 @@ func createFeatureContent(ftrContent: Array<Option<NodeFormat_FeatureId>>): Arra
     return ret
 }
  
-func nodePositionToPosition(node: NodeFormat_Position): Position {
+func nodePositionToPosition(node: ASTFormat_Position): Position {
     return Position(node.fileId, node.line, node.column)
 }
 
-func createPackageHeader(pkgHeader: Option<NodeFormat_PackageSpec>): PackageHeader {
+func createPackageHeader(pkgHeader: Option<ASTFormat_PackageSpec>): PackageHeader {
     return match (pkgHeader) {
         case Some(v) =>
             let kind = match (v.GetAccessible()) {
-                case NodeFormat_AccessibleKind.AccessibleKind_ACCESSIBLE_PUBLIC => TokenKind.PUBLIC
-                case NodeFormat_AccessibleKind.AccessibleKind_ACCESSIBLE_PROTECTED => TokenKind.PROTECTED
+                case ASTFormat_AccessibleKind.AccessibleKind_ACCESSIBLE_PUBLIC => TokenKind.PUBLIC
+                case ASTFormat_AccessibleKind.AccessibleKind_ACCESSIBLE_PROTECTED => TokenKind.PROTECTED
                 case _ => TokenKind.INTERNAL
             }
             let beginPos = getNodeBeginPos(v.GetBase())
@@ -493,7 +490,7 @@ func createPackageHeader(pkgHeader: Option<NodeFormat_PackageSpec>): PackageHead
     }
 }
 
-func createImportContent(content: Option<NodeFormat_ImportContent>): ImportContent {
+func createImportContent(content: Option<ASTFormat_ImportContent>): ImportContent {
     match (content) {
         case Some(v) =>
             let kind = match (v.GetKind()) {
@@ -519,15 +516,13 @@ func createImportContent(content: Option<NodeFormat_ImportContent>): ImportConte
                     Token(TokenKind.IDENTIFIER, v.GetAsIdentifier(), asIdentPos.fileId, asIdentPos.line,
                         asIdentPos.column))
             }
-            var items = ArrayList<ImportContent>()
+            var items: ArrayList<ImportContent> = ArrayList<ImportContent>()
             var commas = Tokens()
             var lCurl = Token()
             var rCurl = Token()
             if (let ImportKind.Multi <- kind) {
                 let vItems = v.GetItems()
-                for (item in vItems) {
-                    items.add(createImportContent(item))
-                }
+                items = ArrayList<ImportContent>(vItems.size, {i => createImportContent(vItems[i])})
                 for (pos in v.GetCommaPoses()) {
                     commas.append(Token(TokenKind.COMMA, ",", pos.fileId, pos.line, pos.column))
                 }
@@ -550,7 +545,7 @@ func createImportContent(content: Option<NodeFormat_ImportContent>): ImportConte
     }
 }
 
-func createImportList(imports: Option<NodeFormat_ImportSpec>): ImportList {
+func createImportList(imports: Option<ASTFormat_ImportSpec>): ImportList {
     var imp = match (imports) {
         case Some(v) => v
         case None => throw ParseASTException()
@@ -576,25 +571,21 @@ func createImportList(imports: Option<NodeFormat_ImportSpec>): ImportList {
     ImportList(reExportToken, import_, content)
 }
 
-func createProgram(file: Option<NodeFormat_File>): Program {
+func createProgram(file: Option<ASTFormat_File>): Program {
     var f = match (file) {
         case Some(v) => v
         case None => throw ParseASTException()
     }
     var ftrDirective: Option<FeaturesDirective> = createFeatureHeader(f.GetFeature())
     var pkgHeader: PackageHeader = createPackageHeader(f.GetPackage())
-    var imports: ArrayList<ImportList> = ArrayList<ImportList>()
-    for (im in f.GetImports()) {
-        imports.add(createImportList(im))
-    }
-    var decls: ArrayList<Decl> = ArrayList<Decl>()
-    for (d in f.GetDecls()) {
-        decls.add(generateDeclAST(d))
-    }
+    let importSrc = f.GetImports()
+    var imports: ArrayList<ImportList> = ArrayList<ImportList>(importSrc.size, {i => createImportList(importSrc[i])})
+    let declSrc = f.GetDecls()
+    var decls: ArrayList<Decl> = ArrayList<Decl>(declSrc.size, {i => generateDeclAST(declSrc[i])})
     return Program(pkgHeader, imports, decls, ftrDirective)
 }
 
-func createConstructor(decl: Option<NodeFormat_Decl>): Constructor {
+func createConstructor(decl: Option<ASTFormat_Decl>): Constructor {
     var d = match (decl) {
         case Some(v) => v
         case None => throw ParseASTException()
@@ -635,7 +626,7 @@ func createConstructor(decl: Option<NodeFormat_Decl>): Constructor {
         let param = params[i].getOrThrow()
         var ty = match (param.GetBase()) {
             case Some(v) => generateTypeAST(v.GetType())
-            case None => throw ParseASTException("Cannot get param from enum decl constructor")
+            case None => throw ParseASTException("Cannot get the parameter from the enum constructor.")
         }
         params_.add(ty)
 
@@ -681,13 +672,13 @@ func createCustomAnnotation(m: Decl): Annotation {
         try {
             parse(argTokens, {p: CPointer<UInt8> => return CJ_AST_ParseAnnotationArguments(p)})
         } catch (e: Exception) {
-            throw ParseASTException("\n" + e.message + "parsing custom annotation error.")
+            throw ParseASTException("Failed to parse the custom annotation.")
         }
     }
     createAnnotation(node.GetRootAsAnnotation())
 }
 
-func createConstructorLikeMacroExpand(decl: NodeFormat_Decl): Constructor {
+func createConstructorLikeMacroExpand(decl: ASTFormat_Decl): Constructor {
     var md = createMacroExpandDecl(decl)
     if (md is MacroExpandDecl) {
         // annotation(@Anno) and MacroExpandDecl(@Macro) are syntactically similar, need convert to Constructor.

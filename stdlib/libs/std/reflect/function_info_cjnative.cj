@@ -31,7 +31,7 @@ func getGenericParameters(info: CPointer<Unit>): ArrayList<GenericTypeInfo> {
             index =>
                 let pointer = getGenericParameterInfo(info, UInt32(index))
                 if (pointer.isNull()) {
-                    throw InfoNotFoundException("Get parameters failed!")
+                    throw InfoNotFoundException("Failed to get generic parameter info at index ${index}.")
                 }
                 GenericTypeInfo(pointer)
         }
@@ -107,7 +107,7 @@ func constructorToString(parameters: ReadOnlyList<ParameterInfo>): String {
 
 func checkApplyWithGenericTypeArgs(genericParams: Collection<GenericTypeInfo>): Unit {
     if (genericParams.size == 0) {
-        throw InvocationTargetException("The function cannot be applied with `genericTypeArgs`.")
+        throw InvocationTargetException("The function cannot be applied with 'genericTypeArgs'.")
     }
 }
 
@@ -117,15 +117,14 @@ func getGenericTypeArgInfos(genericTypeArgs: Array<TypeInfo>): Array<CPointer<Un
 
 func checkMethodGenericArgs(info: CPointer<Unit>, genericArgInfos: Array<CPointer<Unit>>, args: Array<Any>): Unit {
     if (!checkMethodActualArgs(info, genericArgInfos, args)) {
-        throw IllegalTypeException(
-            "The input parameter does not match the type of the input parameter required by the function.")
+        throw IllegalTypeException("Parameter type mismatch for generic function invocation.")
     }
 }
 
 func checkStaticDeclaringType(thisType: TypeInfo, declaringTypeInfo: CPointer<Unit>): Unit {
     let name = TypeInfo.getOrCreate(declaringTypeInfo).qualifiedName
     if (thisType.qualifiedName != name) {
-        throw IllegalArgumentException("Wrong typeInfo, excepted ${thisType.qualifiedName} but ${name} got.")
+        throw IllegalArgumentException("Invalid type info: expected '${thisType.qualifiedName}', got '${name}'.")
     }
 }
 
@@ -302,15 +301,15 @@ public class InstanceFunctionInfo <: Equatable<InstanceFunctionInfo> & Hashable 
     public func apply(instance: Any, args: Array<Any>): Any {
         let nullEntryPointer = methodEntryPointIsNull(_info)
         if (isAbstract() && nullEntryPointer) {
-            throw InvocationTargetException("The abstract function cannot be applied.")
+            throw InvocationTargetException("Cannot invoke abstract function '${name}'.")
         }
 
         try {
             if (genericParams.size > 0) {
-                throw InvocationTargetException("The generic function cannot be applied without `genericTypeArgs`.")
+                throw InvocationTargetException("Generic function '${name}' requires 'genericTypeArgs' to invoke.")
             }
         } catch (_: InfoNotFoundException) {
-            throw InvocationTargetException("The generic function cannot be applied without `genericTypeArgs`.")
+            throw InvocationTargetException("Generic function '${name}' requires 'genericTypeArgs' to invoke.")
         }
         checkArgsSizeAndType(parameters, args)
         checkMethodDeclaringClassType(instance, _declaringTypeInfo)
@@ -323,7 +322,7 @@ public class InstanceFunctionInfo <: Equatable<InstanceFunctionInfo> & Hashable 
 
         let nullEntryPointer = methodEntryPointIsNull(_info)
         if (isAbstract() && nullEntryPointer) {
-            throw InvocationTargetException("The abstract function cannot be applied.")
+            throw InvocationTargetException("Cannot invoke abstract function '${name}'.")
         }
 
         checkParamaterSize(genericParams, parameters.size, genericTypeArgs, args)
@@ -457,14 +456,14 @@ public class StaticFunctionInfo <: Equatable<StaticFunctionInfo> & Hashable & To
     public func apply(thisType: TypeInfo, args: Array<Any>): Any {
         try {
             if (genericParams.size > 0) {
-                throw InvocationTargetException("The generic function cannot be applied without `genericTypeArgs`.")
+                throw InvocationTargetException("Generic function '${name}' requires 'genericTypeArgs' to invoke.")
             }
         } catch (_: InfoNotFoundException) {
-            throw InvocationTargetException("The generic function cannot be applied without `genericTypeArgs`.")
+            throw InvocationTargetException("Generic function '${name}' requires 'genericTypeArgs' to invoke.")
         }
 
         if (methodEntryPointIsNull(_info)) {
-            throw InfoNotFoundException("Failed to find the method entry.")
+            throw InfoNotFoundException("Failed to find method entry for static function '${_name.getOrThrow()}'.")
         }
 
         checkStaticDeclaringType(thisType, _declaringTypeInfo)
@@ -476,7 +475,7 @@ public class StaticFunctionInfo <: Equatable<StaticFunctionInfo> & Hashable & To
         checkApplyWithGenericTypeArgs(genericParams)
 
         if (methodEntryPointIsNull(_info)) {
-            throw InfoNotFoundException("Failed to find the method entry.")
+            throw InfoNotFoundException("Failed to find method entry for static function '${_name.getOrThrow()}'.")
         }
 
         checkStaticDeclaringType(thisType, _declaringTypeInfo)
@@ -608,7 +607,7 @@ public class InstancePropertyInfo <: Equatable<InstancePropertyInfo> & Hashable 
      */
     public func getValue(instance: Any): Any {
         if (isAbstract()) {
-            throw UnsupportedException("Abstract prop cannot get value.")
+            throw UnsupportedException("Cannot get value from abstract property '${name}'.")
         }
         // instance type is checked in apply
         if (let Some(v) <- _getterInfo) { // Getter must be implemented, no need to consider `None`
@@ -621,16 +620,16 @@ public class InstancePropertyInfo <: Equatable<InstancePropertyInfo> & Hashable 
      */
     public func setValue(instance: Any, newValue: Any): Unit {
         if (isAbstract()) {
-            throw IllegalSetException("Attempt to modify abstract variable '${name}'")
+            throw IllegalSetException("Cannot modify abstract property '${name}'.")
         }
         if (!isMutable()) {
-            throw IllegalSetException("Attempt to modify immutable property '${name}'")
+            throw IllegalSetException("Cannot modify immutable property '${name}'.")
         }
 
         // instance type is checked in apply
         match (_setterInfo) {
             case Some(v) => v.apply(instance, Array<Any>(1, repeat: newValue))
-            case None => throw IllegalSetException("Attempt to modify immutable property '${name}'")
+            case None => throw IllegalSetException("Cannot modify immutable property '${name}'.")
         }
     }
 
@@ -755,11 +754,11 @@ public class StaticPropertyInfo <: Equatable<StaticPropertyInfo> & Hashable & To
      */
     public func setValue(newValue: Any): Unit {
         if (!isMutable()) {
-            throw IllegalSetException("Attempt to modify immutable property '${name}'")
+            throw IllegalSetException("Cannot modify immutable property '${name}'.")
         }
         match (_setterInfo) {
             case Some(v) => v.apply(TypeInfo.getOrCreate(_declaringTypeInfo), Array<Any>(1, repeat: newValue))
-            case None => throw IllegalSetException("Attempt to modify immutable property '${name}'")
+            case None => throw IllegalSetException("Cannot modify immutable property '${name}'.")
         }
     }
 
@@ -868,7 +867,7 @@ public class ConstructorInfo <: Equatable<ConstructorInfo> & Hashable & ToString
     public func apply(args: Array<Any>): Any {
         let nullEntryPointer = methodEntryPointIsNull(_info)
         if (isAbstract || nullEntryPointer) {
-            throw InvocationTargetException("Abstract constructor cannot apply.")
+            throw InvocationTargetException("Cannot invoke abstract constructor.")
         }
 
         checkArgsSizeAndType(parameters, args)
@@ -981,10 +980,10 @@ public class GlobalFunctionInfo <: Equatable<GlobalFunctionInfo> & Hashable & To
     public func apply(args: Array<Any>): Any {
         try {
             if (genericParams.size > 0) {
-                throw InvocationTargetException("The generic function cannot be applied without `genericTypeArgs`.")
+                throw InvocationTargetException("Generic function '${name}' requires 'genericTypeArgs' to invoke.")
             }
         } catch (_: InfoNotFoundException) {
-            throw InvocationTargetException("The generic function cannot be applied without `genericTypeArgs`.")
+            throw InvocationTargetException("Generic function '${name}' requires 'genericTypeArgs' to invoke.")
         }
         checkArgsSizeAndType(parameters, args)
         applyCJStaticMethod(_info, args, CPointer<Unit>())
@@ -1035,7 +1034,7 @@ public class GlobalFunctionInfo <: Equatable<GlobalFunctionInfo> & Hashable & To
 func getFuncName(parentPointer: CPointer<Unit>): String {
     let pointer = getMethodName(parentPointer)
     if (pointer.isNull()) {
-        throw InfoNotFoundException("Get function name failed!")
+        throw InfoNotFoundException("Failed to get function name.")
     }
     CString(pointer).toString()
 }
@@ -1048,7 +1047,7 @@ func getParameters(cp: CPointer<Unit>): ArrayList<ParameterInfo> {
             index =>
                 let pointer = getActualParameterInfo(cp, UInt32(index))
                 if (pointer.isNull()) {
-                    throw InfoNotFoundException("Get parameters failed!")
+                    throw InfoNotFoundException("Failed to get parameter info at index ${index}.")
                 }
                 ParameterInfo(pointer)
         }
@@ -1060,17 +1059,17 @@ func checkMethodDeclaringClassType(instance: Any, declaringTypeInfo: CPointer<Un
     let instanceTypeInfo = TypeInfo.of(instance)
     if (declaringClassTypeInfo != instanceTypeInfo) {
         throw IllegalTypeException(
-            "The input instance should be \"${declaringClassTypeInfo}\", but now it`s \"${instanceTypeInfo}\"")
+            "Invalid instance type: expected '${declaringClassTypeInfo}', got '${instanceTypeInfo}'.")
     }
 }
 
 func checkParamaterSize(genericParams: Collection<GenericTypeInfo>, actualParamSize: Int64,
     genericTypeParameters: Collection<TypeInfo>, args: Array<Any>): Unit {
     if (genericTypeParameters.size != genericParams.size) {
-        throw IllegalArgumentException("The input generic parameter item does not comply with the required quantity.")
+        throw IllegalArgumentException("Invalid generic type argument count: expected ${genericParams.size}, got ${genericTypeParameters.size}.")
     }
 
     if (args.size != actualParamSize) {
-        throw IllegalArgumentException("The input parameter item does not comply with the required quantity.")
+        throw IllegalArgumentException("Invalid argument count: expected ${actualParamSize}, got ${args.size}.")
     }
 }

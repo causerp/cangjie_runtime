@@ -113,7 +113,7 @@ public interface EquatableCollection<T> <: Collection<T> {
 func contains(all!: Collection<T>): Bool
 ```
 
-功能：判断 Keys 是否包含指定集合的所有元素。
+功能：判断当前集合中是否包含指定集合中的所有元素。
 
 参数：
 
@@ -129,11 +129,11 @@ func contains(all!: Collection<T>): Bool
 func contains(element: T): Bool
 ```
 
-功能：判断 Keys 是否包含指定元素。
+功能：判断当前集合中是否包含指定元素。
 
 参数：
 
-- element: T - 指定元素，待判断 Keys 是否包含该元素。
+- element: T - 待判断的指定元素。
 
 返回值：
 
@@ -431,12 +431,12 @@ func replace(key: K, value: V): ?V
 operator func [](key: K, value!: V): Unit
 ```
 
-功能：运算符重载集合，如果键存在，新 value 覆盖旧 value，如果键不存在，添加此键值对。
+功能：运算符重载 add 方法，如果键存在，新 value 覆盖旧 value，如果键不存在，添加此键值对。
 
 参数：
 
 - key: K - 需要进行设置的键。
-- value!: V - 传递要设置的值。
+- value!: V - 要设置的值。
 
 ## interface MapEntryView\<K, V>
 
@@ -518,12 +518,12 @@ prop last: ?(K, V)
 func backward(mark: K, inclusive!: Bool): Iterator<(K, V)>
 ```
 
-功能：获取从第一个键小于等于 mark 的节点按降序遍历到 [first](./collection_package_interface.md#prop-first) 的迭代器。如果该节点的键等于 mark ，那么根据 `inclusive!` 确定是否包含该键对应的节点。
+功能：获取一个迭代器，按键从大到小的顺序遍历键小于等于 `mark` 的所有键值对；若 `inclusive!` 为 `false`，则不包含键等于 `mark` 的键值对。
 
 参数：
 
-- mark: K - 用于确定从哪里开始的键。
-- inclusive!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 当 mark 是迭代器的首个元素的 key 时，指定是否包含 mark 作为起始点。
+- mark: K - 用于确定遍历范围的边界键。
+- inclusive!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 指定是否包含键等于 `mark` 的键值对。当不存在键等于 `mark` 的键值对时，该参数不影响遍历结果。
 
 返回值：
 
@@ -535,12 +535,12 @@ func backward(mark: K, inclusive!: Bool): Iterator<(K, V)>
 func forward(mark: K, inclusive!: Bool): Iterator<(K, V)>
 ```
 
-功能：获取从第一个键大于等于 mark 的节点按升序遍历到 [last](./collection_package_interface.md#prop-last) 结束的一个迭代器。如果该节点的键等于 mark ，那么根据 `inclusive!` 确定是否包含该键对应的节点。
+功能：获取一个迭代器，按键从小到大的顺序遍历键大于等于 `mark` 的所有键值对；若 `inclusive!` 为 `false`，则不包含键等于 `mark` 的键值对。
 
 参数：
 
-- mark: K - 用于确定从哪里开始的键。
-- inclusive!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 当 mark 是迭代器的首个元素的 key 时，指定是否包含 mark 作为起始点。
+- mark: K - 用于确定遍历范围的边界键。
+- inclusive!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 指定是否包含键等于 `mark` 的键值对。当不存在键等于 `mark` 的键值对时，该参数不影响遍历结果。
 
 返回值：
 
@@ -617,12 +617,12 @@ prop last: ?T
 func backward(mark: T, inclusive!: Bool): Iterator<T>
 ```
 
-功能：获取从第一个元素小于等于 mark 的节点按降序遍历到 [first](./collection_package_interface.md#prop-first) 的迭代器。如果该节点的元素等于 mark ，那么根据 `inclusive!` 确定是否包含该元素对应的节点。
+功能：获取一个迭代器，按元素从大到小的顺序遍历所有小于等于 `mark` 的元素；若 `inclusive!` 为 `false`，则不包含等于 `mark` 的元素。
 
 参数：
 
-- mark: T - 用于确定从哪里开始的元素。
-- inclusive!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 当 mark 是迭代器的首个元素时，指定是否包含 mark 作为起始点。
+- mark: T - 用于确定遍历范围的边界元素。
+- inclusive!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 指定是否包含等于 `mark` 的元素。当不存在等于 `mark` 的元素时，该参数不影响遍历结果。
 
 返回值：
 
@@ -634,12 +634,12 @@ func backward(mark: T, inclusive!: Bool): Iterator<T>
 func forward(mark: T, inclusive!: Bool): Iterator<T>
 ```
 
-功能：获取从第一个元素大于等于 mark 的节点按升序遍历到 [last](./collection_package_interface.md#prop-last) 结束的一个迭代器。如果该节点的元素等于 mark ，那么根据 `inclusive!` 确定是否包含该元素对应的节点。
+功能：获取一个迭代器，按元素从小到大的顺序遍历所有大于等于 `mark` 的元素；若 `inclusive!` 为 `false`，则不包含等于 `mark` 的元素。
 
 参数：
 
-- mark: T - 用于确定从哪里开始的元素。
-- inclusive!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 当 mark 是迭代器的首个元素时，指定是否包含 mark 作为起始点。
+- mark: T - 用于确定遍历范围的边界元素。
+- inclusive!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 指定是否包含等于 `mark` 的元素。当不存在等于 `mark` 的元素时，该参数不影响遍历结果。
 
 返回值：
 
@@ -708,11 +708,11 @@ func add(element: T): Unit
 func peek(): ?T
 ```
 
-功能：访问双端队列头部元素，该操作不会删除头部元素。
+功能：访问队列头部元素，该操作不会删除头部元素。
 
 返回值：
 
-- ?T - Option 封装的头部元素的值，如果双端队列为空，返回 `None`。
+- ?T - Option 封装的头部元素的值，如果队列为空，返回 `None`。
 
 ### func remove()
 
@@ -895,7 +895,7 @@ func values(): Collection<V>
 operator func [](key: K): V
 ```
 
-功能：运算符重载集合，如果键存在，返回键对应的值，如果不存在，抛出异常。
+功能：运算符重载 get 方法，如果键存在，返回键对应的值，如果不存在，抛出异常。
 
 参数：
 
@@ -1025,7 +1025,7 @@ func add(element: T): Bool
 func clear(): Unit
 ```
 
-功能：清除所有键值对。
+功能：从此集合中删除所有元素。
 
 ### func remove(Collection\<T>)
 

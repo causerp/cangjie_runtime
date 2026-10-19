@@ -71,8 +71,8 @@ interface AssertPrintableOrderedCollection<C, E> <: AssertPrintableCollection<C>
                     "...further ${computeFurtherDiffElements(leftIt, rightIt)} different elements are omitted")
                 break
             }
-            let leftEl = leftIt.next() ?? throw Exception()
-            let rightEl = rightIt.next() ?? throw Exception()
+            let leftEl = leftIt.next() ?? throw Exception("Left collection iterator returned None before the size is exceeded.")
+            let rightEl = rightIt.next() ?? throw Exception("Right collection iterator returned None before the size is exceeded.")
 
             if (!(leftEl != rightEl)) {
                 continue

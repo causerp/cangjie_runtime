@@ -409,6 +409,9 @@ extern FsError* CJ_FS_NormalizePath(const char* path, char* realPath)
         return GetLastErrorResult();
     }
     FsError* result = GetDefaultResult();
+    if (result == NULL) {
+        return NULL;
+    }
     char* tempRealPath = Wchar2Char(temp);
     if (tempRealPath == NULL) {
         free(result);

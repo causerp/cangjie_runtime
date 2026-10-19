@@ -54,7 +54,7 @@ Error code: 12345
 public override prop message: String
 ```
 
-功能：获取异常信息字符串。
+功能：获取异常信息字符串。若构造时传入了 sqlState 或 errorCode，返回的信息中会附带相应内容，格式为：`${message}, SqlState: ${sqlState}, errorCode: ${errorCode}.`。
 
 类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
@@ -77,7 +77,7 @@ main() {
 运行结果：
 
 ```text
-Error message: Error message, SqlState: SQLST, errorCode: 12345
+Error message: Error message, SqlState: SQLST, errorCode: 12345.
 ```
 
 ### prop sqlState
@@ -140,7 +140,7 @@ main() {
 运行结果：
 
 ```text
-Exception message: errorCode: 0
+Exception message: errorCode: 0.
 SQL state: 
 Error code: 0
 ```
@@ -177,7 +177,7 @@ main() {
 运行结果：
 
 ```text
-Exception message: Database connection failed, errorCode: 0
+Exception message: Database connection failed, errorCode: 0.
 SQL state: 
 Error code: 0
 ```
@@ -216,7 +216,7 @@ main() {
 运行结果：
 
 ```text
-Exception message: Database connection failed, SqlState: SQLST, errorCode: 12345
+Exception message: Database connection failed, SqlState: SQLST, errorCode: 12345.
 SQL state: SQLST
 Error code: 12345
 ```

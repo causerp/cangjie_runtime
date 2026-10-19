@@ -232,7 +232,7 @@ class TestCaseExecutor<T> <: Executor {
                     result.add(strategyErrorAsResult(e, argDescription(lastInput.value)))
                     return
                 case _ =>
-                    throw Exception("Unexpected shrinking result")
+                    throw Exception("Internal error. Shrinking procedure returned successful result.")
             }
 
             // It was decided that we should print full number of reduction steps

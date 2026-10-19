@@ -10,20 +10,20 @@ package std.unittest
 /**
 * Represents entities that are inaccurate in it's nature.
 *
-* We consider such objects to be equal with some delta. 
+* We consider such objects to be equal with some delta.
 * For example float type is inaccurate in it's nature and the best practice to equality comparison is to use delta.
 */
 public interface NearEquatable<CT, D> {
     /**
     * Determines wether objects are equal with some delta or not.
-    * 
+    *
     * @param obj another object for comparison
     * @param delta represents the maximum possible difference between two objects when we consider objects to be equal
-    * 
+    *
     * @returns true if the difference between objects is less than delta
     */
     func isNear(obj: CT, delta!: D): Bool
-} 
+}
 
 /**
 * Represents relative delta for numeric (float) types
@@ -42,7 +42,9 @@ public func isNearExpansion<CT, D>(l: CT, r: CT, delta!: D, cmpType!: String): B
         case "GE" => l.isNear(r, delta: delta) || l >= r
         case "NOT_EQ" => !l.isNear(r, delta: delta)
         case "EQ" => l.isNear(r, delta: delta)
-        case notSupportedCmpType => throw IllegalArgumentException("Given '${notSupportedCmpType}' is not supported.")
+        case notSupportedCmpType =>
+            throw IllegalArgumentException(
+                "Invalid 'cmpType': supported values are 'LT', 'GT', 'LE', 'GE', 'EQ' and 'NOT_EQ', got '${notSupportedCmpType}'.")
     }
 }
 
@@ -51,6 +53,7 @@ public func isNearExpansion<CT, D>(l: CT, r: CT, delta!: D, cmpType!: String, ov
     match (cmpType) {
         case "NOT_EQ" => !l.isNear(r, delta: delta)
         case "EQ" => l.isNear(r, delta: delta)
-        case _ => throw IllegalArgumentException("Trying to compare incomparable objects.")
+        case _ => throw IllegalArgumentException(
+            "Ordered near-comparison with delta can not be used with types that do not implement Comparable.")
     }
 }

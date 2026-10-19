@@ -39,7 +39,7 @@ env 包提供当前进程的相关信息与功能、包括环境变量、命令�
 | [getStdOut()](./env_package_api/env_package_funcs.md#func-getstdout) | 获取当前进程标准输出流。 |
 | [getTempDirectory()](./env_package_api/env_package_funcs.md#func-gettempdirectory) | 获取当前进程临时目录的路径。 |
 | [getVariable()](./env_package_api/env_package_funcs.md#func-getvariablestring) | 获取当前进程指定名称的环境变量值。 |
-| [getVariables()](./env_package_api/env_package_funcs.md#func-getvariables) | 获取当前进程进程环境变量。 |
+| [getVariables()](./env_package_api/env_package_funcs.md#func-getvariables) | 获取当前进程环境变量。 |
 | [getWorkingDirectory()](./env_package_api/env_package_funcs.md#func-getworkingdirectory) | 获取当前进程工作路径。 |
 | [removeVariable()](./env_package_api/env_package_funcs.md#func-removevariablestring) | 通过指定环境变量名称移除环境变量。 |
 | [setVariable()](./env_package_api/env_package_funcs.md#func-setvariablestring-string) | 设置当前进程一对环境变量。 |

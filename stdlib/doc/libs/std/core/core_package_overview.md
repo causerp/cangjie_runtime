@@ -91,7 +91,7 @@ core 包是标准库的核心包，提供了适用仓颉语言编程最基本的
 | [Float32](./core_package_api/core_package_intrinsics.md#float32) | 表示 32 位浮点数，符合 `IEEE 754` 中的单精度格式（`binary32`）。 |
 | [Float64](./core_package_api/core_package_intrinsics.md#float64) | 表示 64 位浮点数，符合 `IEEE 754` 中的双精度格式（`binary64`）。 |
 | [Bool](./core_package_api/core_package_intrinsics.md#bool) | 表示布尔类型，有 `true` 和 `false` 两种取值。 |
-| [Rune](./core_package_api/core_package_intrinsics.md#rune) | 表示 unicode 字符集中的字符。 |
+| [Rune](./core_package_api/core_package_intrinsics.md#rune) | 表示 Unicode 字符集中的字符。 |
 | [Unit](./core_package_api/core_package_intrinsics.md#unit) | 表示仓颉语言中只关心副作用而不关心值的表达式的类型。 |
 | [CPointer\<T>](./core_package_api/core_package_intrinsics.md#cpointert) | 表示 `T` 类型实例的指针，在与 C 语言互操作的场景下使用，对应 C 语言的 `T*`。 |
 | [CString](./core_package_api/core_package_intrinsics.md#cstring) | 表示 C 风格字符串，在与 C 语言互操作的场景下使用。 |
@@ -109,7 +109,7 @@ core 包是标准库的核心包，提供了适用仓颉语言编程最基本的
 | [Greater\<T>](./core_package_api/core_package_interfaces.md#interface-greatert) | 该接口表示大于计算。 |
 | [LessOrEqual\<T>](./core_package_api/core_package_interfaces.md#interface-lessorequalt) | 该接口表示小于等于计算。 |
 | [GreaterOrEqual\<T>](./core_package_api/core_package_interfaces.md#interface-greaterorequalt) | 该接口表示大于等于计算。 |
-| [Comparable\<T>](./core_package_api/core_package_interfaces.md#interface-comparablet) | 该接口表示比较运算，是等于、小于、大于、小于等于、大于等于接口的集合体。 |
+| [Comparable\<T>](./core_package_api/core_package_interfaces.md#interface-comparablet) | 该接口表示比较运算，是等于、不等于、小于、大于、小于等于、大于等于接口的集合体。 |
 | [Equal\<T>](./core_package_api/core_package_interfaces.md#interface-equalt) | 该接口用于支持判等操作。 |
 | [NotEqual\<T>](./core_package_api/core_package_interfaces.md#interface-notequalt) | 该接口用于支持判不等操作。 |
 | [Equatable\<T>](./core_package_api/core_package_interfaces.md#interface-equatablet) | 该接口是判等和判不等两个接口的集合体。 |
@@ -127,11 +127,11 @@ core 包是标准库的核心包，提供了适用仓颉语言编程最基本的
 | [Box\<T>](./core_package_api/core_package_classes.md#class-boxt) | `Box` 类型提供了为其他类型添加一层 `class` 封装的能力。 |
 | [Future\<T>](./core_package_api/core_package_classes.md#class-futuret) | Future\<T> 实例代表一个仓颉线程任务，可用于获取仓颉线程的计算结果，向仓颉线程发送取消信号。 |
 | [Iterator\<T>](./core_package_api/core_package_classes.md#class-iteratort) | 该类表示迭代器，提供 `next` 方法支持对容器内的成员进行迭代遍历。 |
-| [Object](./core_package_api/core_package_classes.md#class-object) | 构造一个 `object` 实例。 |
+| [Object](./core_package_api/core_package_classes.md#class-object) | 是所有 `class` 的父类，所有 `class` 都默认继承它。 |
 | [RangeIterator\<T> <: Iterator\<T> where T <: Countable\<T> & Comparable\<T> & Equatable\<T>](./core_package_api/core_package_classes.md#class-rangeiteratort--iteratort-where-t--countablet--comparablet--equatablet) | `Range` 类型的迭代器，迭代功能详述见 `Iterable` 和 `Iterator` 接口说明。 |
 | [StackTraceElement](./core_package_api/core_package_classes.md#class-stacktraceelement) | 表示一个异常堆栈的具体信息，包括异常发生的类名、函数名、文件名、行号。 |
 | [StringBuilder](./core_package_api/core_package_classes.md#class-stringbuilder) | 该类主要用于字符串的构建。 |
-| [Thread](./core_package_api/core_package_classes.md#class-thread) | `Thread` 类代表一个仓颉类，可用于获取线程 ID 及名字、查询线程是否存在取消请求、注册线程未处理异常的处理函数等。 |
+| [Thread](./core_package_api/core_package_classes.md#class-thread) | `Thread` 类代表一个仓颉线程，可用于获取线程 ID 及名字、查询线程是否存在取消请求、注册线程未处理异常的处理函数等。 |
 | [ThreadLocal\<T>](./core_package_api/core_package_classes.md#class-threadlocalt) | 该类表示仓颉线程局部变量。 |
 | [ThreadSnapshot](./core_package_api/core_package_classes.md#class-threadsnapshot) | 该类用于获取当前线程或者所有线程的信息，包含名称、id、状态、调用栈。 |
 
@@ -156,7 +156,7 @@ core 包是标准库的核心包，提供了适用仓颉语言编程最基本的
 | [DefaultHasher](./core_package_api/core_package_structs.md#struct-defaulthasher) | 该结构体提供了默认哈希算法实现。 |
 | [Duration](./core_package_api/core_package_structs.md#struct-duration) | 表示时间间隔，是一个描述一段时间的时间类型，提供了常用的静态实例，以及计算、比较等功能。 |
 | [LibC](./core_package_api/core_package_structs.md#struct-libc) | 提供了仓颉中较为高频使用的 C 接口，如申请、释放堆上 CType 实例。 |
-| [Range\<T> where T <: Countable\<T> & Comparable\<T> & Equatable\<T>](./core_package_api/core_package_structs.md#struct-ranget-where-t--countablet--comparablet--equatablet) | 该类是区间类型，用于表示一个拥有固定范围和步长的 `T` 的序列，要求 `T` 是可数的，有序的。 |
+| [Range\<T> where T <: Countable\<T> & Comparable\<T> & Equatable\<T>](./core_package_api/core_package_structs.md#struct-ranget-where-t--countablet--comparablet--equatablet) | 该结构体是区间类型，用于表示一个拥有固定范围和步长的 `T` 的序列，要求 `T` 是可数的，有序的。 |
 | [String](./core_package_api/core_package_structs.md#struct-string) | 该结构体表示仓颉字符串，提供了构造、查找、拼接等一系列字符串操作。 |
 
 ### 异常类

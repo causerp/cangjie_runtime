@@ -29,14 +29,14 @@ public class ClassTypeInfo <: TypeInfo {
     public redef static func get(qualifiedName: String): ClassTypeInfo {
         match (TypeInfo.get(qualifiedName)) {
             case typ: ClassTypeInfo => return typ
-            case _ => throw IllegalTypeException("The type of '${qualifiedName}' is not a Class Type.")
+            case _ => throw IllegalTypeException("Type '${qualifiedName}' is not a class type.")
         }
     }
 
     public redef static func of(a: Any): ClassTypeInfo {
         match (TypeInfo.of(a)) {
             case typ: ClassTypeInfo => return typ
-            case _ => throw IllegalTypeException("The type of parameter 'a' is not a Class Type.")
+            case _ => throw IllegalTypeException("Parameter 'a' is not a class type.")
         }
     }
 
@@ -47,7 +47,7 @@ public class ClassTypeInfo <: TypeInfo {
     public redef static func of<T>(): ClassTypeInfo {
         match (TypeInfo.of<T>()) {
             case typ: ClassTypeInfo => return typ
-            case _ => throw IllegalTypeException("The type of generic type 'T' is not a Class Type.")
+            case _ => throw IllegalTypeException("Generic type 'T' is not a class type.")
         }
     }
 
@@ -109,10 +109,10 @@ public class ClassTypeInfo <: TypeInfo {
                     } else {
                         let pointer = getSuperTypeInfo(_info)
                         if (pointer.isNull()) {
-                            throw InfoNotFoundException("ClassTypeInfo find superClass failed!")
+                            throw InfoNotFoundException("Failed to get super class info for type '${qualifiedName}'.")
                         }
                         (getOrCreate(pointer) as ClassTypeInfo) ?? throw MisMatchException(
-                            "Super class info of '${qualifiedName}' can not cast to ClassTypeInfo.")
+                            "Super class info of '${qualifiedName}' is not a ClassTypeInfo.")
                     }
                     _superClass = info
                     info
@@ -144,23 +144,20 @@ public class ClassTypeInfo <: TypeInfo {
      *
      * @param args parameter list.
      *
-     * @throw IllegalTypeException, if this class ia abstract.
-     * @throw MisMatchException, if no public constructor is found to construct new instance.
+     * @throw InvocationTargetException, if this class is abstract.
+     * @throw InfoNotFoundException, if no public constructor is found to construct new instance.
      * @throw InvocationTargetException, if an exception is thrown when the constructor is called to construct the instance.
      */
     public func construct(args: Array<Any>): Any {
         if (this.isAbstract()) {
-            throw InvocationTargetException("Constructing abstract classes is not allowed.")
+            throw InvocationTargetException("Cannot construct abstract class '${qualifiedName}'.")
         }
-        let parameterTypes = ArrayList<TypeInfo>()
-        for (i in 0..args.size) {
-            parameterTypes.add(TypeInfo.of(args[i]))
-        }
-        getConstructor(parameterTypes.toArray()).apply(args)
+        let parameterTypes = Array<TypeInfo>(args.size) {i => TypeInfo.of(args[i])}
+        getConstructor(parameterTypes).apply(args)
     }
 
     /**
-     * Returns true if type info is 'public', false otherwise.
+     * Returns true if type info is 'open', false otherwise.
      */
     public func isOpen(): Bool {
         containsModifier(modifiers, ModifierInfo.Open)

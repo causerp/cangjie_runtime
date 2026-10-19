@@ -496,8 +496,8 @@ public func construct(args: Array<Any>): Any
 
 异常：
 
-- [MisMatchException](reflect_package_exceptions.md#class-mismatchexception) - 如果入参未能成功匹配任何该 `class` 类型的可见性为 `public` 的构造函数，则抛出异常。
-- [InvocationTargetException](reflect_package_exceptions.md#class-invocationtargetexception) - 在被调用的构造函数内部抛出的任何异常均将被封装为 [InvocationTargetException](reflect_package_exceptions.md#class-invocationtargetexception) 异常并抛出。
+- [InfoNotFoundException](reflect_package_exceptions.md#class-infonotfoundexception) - 如果入参未能成功匹配任何该 `class` 类型的可见性为 `public` 的构造函数，则抛出异常。
+- [InvocationTargetException](reflect_package_exceptions.md#class-invocationtargetexception) - 如果该 `class` 类型拥有 `abstract` 语义，则抛出异常，因为抽象类无法被实例化。
 
 示例：
 
@@ -972,7 +972,7 @@ public prop parameters: ReadOnlyList<ParameterInfo>
 > **注意：**
 >
 > - 不支持平台：macOS、iOS。
-> - 不保证参数顺序，可根据 `ParameterInfo`的 `index` 属性确定参数实际位置。
+> - 不保证参数顺序，可根据 `ParameterInfo` 的 `index` 属性确定参数实际位置。
 
 类型：[ReadOnlyList](../../collection/collection_package_api/collection_package_interface.md#interface-readonlylistt)\<[ParameterInfo](reflect_package_classes.md#class-parameterinfo)>
 
@@ -1047,7 +1047,6 @@ public func apply(args: Array<Any>): Any
 - [InvocationTargetException](reflect_package_exceptions.md#class-invocationtargetexception) - 如果该构造函数信息所对应的构造函数所属的类型是抽象类，则会抛出异常。
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果实参列表中的实参的数目与该构造函数信息所对应的构造函数的形参列表中的形参的数目不等，则抛出异常。
 - [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果实参列表中的任何一个实参的运行时类型不是该构造函数信息所对应的构造函数的对应形参的声明类型的子类型，则抛出异常。
-- [Exception](../../core/core_package_api/core_package_exceptions.md#class-exception) - 如果被调用的构造函数信息所对应的构造函数内部抛出异常，则该异常将被封装为 [Exception](../../core/core_package_api/core_package_exceptions.md#class-exception) 异常并抛出。
 
 示例：
 
@@ -1836,7 +1835,7 @@ main(): Unit {
 运行结果：
 
 ```text
-test.E.M2<Int64>
+test.E.M2(Int64)
 ```
 
 ### static func get(String)
@@ -1853,7 +1852,7 @@ public static func get(qualifiedName: String): EnumConstructorInfo
 
 参数：
 
-- qualifiedName: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 枚举构造器的限定名称，例如 `default.E.M2<Int64>`。
+- qualifiedName: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 枚举构造器的限定名称，例如 `default.E.M2(Int64)`。
 
 返回值：
 
@@ -1876,7 +1875,7 @@ public enum E {
 }
 
 main(): Unit {
-    let ctor = EnumConstructorInfo.get("test.E.M2<Int64>")
+    let ctor = EnumConstructorInfo.get("test.E.M2(Int64)")
     println(ctor.qualifiedName)
     return
 }
@@ -1885,7 +1884,7 @@ main(): Unit {
 运行结果：
 
 ```text
-test.E.M2<Int64>
+test.E.M2(Int64)
 ```
 
 ### static func of(Any)
@@ -1941,7 +1940,7 @@ main(): Unit {
 运行结果：
 
 ```text
-test.E.M3<Int64, String>
+test.E.M3(Int64, String)
 2
 Some(7)
 Some(hi)
@@ -2323,6 +2322,7 @@ false
 ```
 
 <!--DelEnd-->
+<!--Del-->
 ## class EnumTypeInfo
 
 ```cangjie
@@ -2440,7 +2440,8 @@ public static redef func of(instance: Any): EnumTypeInfo
 
 > **注意：**
 >
-> 不支持平台：macOS、iOS。
+> - 当实参的运行时类型为 `class` 时，本次调用会匹配到 [TypeInfo](#class-typeinfo) 的 `static func of(Object)` 重载（该重载即将废弃），返回实参对应的 [ClassTypeInfo](#class-classtypeinfo)，并且不抛出异常；需要严格校验类型种类时，请使用 `of<T>()`。
+> - 不支持平台：macOS、iOS。
 
 参数：
 
@@ -2538,7 +2539,7 @@ public func construct(constructor: String, args: Array<Any>): Any
 
 参数：
 
-- constructor: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 构造器签名。
+- constructor: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 构造器签名，形如 `M3(Int64, String)`；没有关联值的构造器只写构造器名称，如 `M1`。
 - args: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Any](../../core/core_package_api/core_package_interfaces.md#interface-any)> - 构造器实参列表。
 
 返回值：
@@ -2547,7 +2548,8 @@ public func construct(constructor: String, args: Array<Any>): Any
 
 异常：
 
-- [InvocationTargetException](reflect_package_exceptions.md#class-invocationtargetexception) - 如果构造器实参列表的数量或类型与构造器参数不匹配或者指定的构造器不存在，则抛出异常。
+- [InfoNotFoundException](reflect_package_exceptions.md#class-infonotfoundexception) - 如果 `constructor` 指定的构造器签名在该枚举类型中不存在，则抛出异常。
+- [InvocationTargetException](reflect_package_exceptions.md#class-invocationtargetexception) - 如果实参列表的数量或类型与 `constructor` 指定的构造器参数不匹配，则抛出异常。
 
 示例：
 
@@ -2564,7 +2566,7 @@ public enum E {
 
 main(): Unit {
     let e = EnumTypeInfo.get("test.E")
-    let inst = (e.construct("M3<Int64, String>", [42, "abc"]) as E).getOrThrow()
+    let inst = (e.construct("M3(Int64, String)", [42, "abc"]) as E).getOrThrow()
     match (inst) {
         case E.M3(v1, v2) => println("${v1}, ${v2}")
         case _ => println("unexpected")
@@ -2629,7 +2631,7 @@ main(): Unit {
 运行结果：
 
 ```text
-test.E.M2<Int64>
+test.E.M2(Int64)
 1
 Some(7)
 ```
@@ -2649,7 +2651,7 @@ public func getConstructor(constructor: String, argsCount!: Int64 = 0): EnumCons
 参数：
 
 - constructor: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 构造器名（不含参数签名），例如 `M2`。
-- argsCount!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 参数个数；为 `0` 时不限制参数个数。
+- argsCount!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 参数个数；按该值精确匹配参数个数相同的构造器。默认 `0` 表示匹配无参构造器（即不带关联值的构造器）。若需按名称匹配任意参数个数的构造器，可遍历 `constructors` 属性并按构造器名过滤。
 
 返回值：
 
@@ -2686,10 +2688,12 @@ main(): Unit {
 
 ```text
 test.E.M1
-test.E.M2<Int64>
-test.E.M2<Int64, Int64>
+test.E.M2(Int64)
+test.E.M2(Int64, Int64)
 ```
 
+<!--DelEnd-->
+<!--Del-->
 ## class FunctionTypeInfo
 
 ```cangjie
@@ -2794,7 +2798,8 @@ public static redef func of(instance: Any): FunctionTypeInfo
 
 > **注意：**
 >
-> 不支持平台：macOS、iOS。
+> - 当实参的运行时类型为 `class` 时，本次调用会匹配到 [TypeInfo](#class-typeinfo) 的 `static func of(Object)` 重载（该重载即将废弃），返回实参对应的 [ClassTypeInfo](#class-classtypeinfo)，并且不抛出异常；需要严格校验类型种类时，请使用 `of<T>()`。
+> - 不支持平台：macOS、iOS。
 
 参数：
 
@@ -2933,6 +2938,8 @@ main(): Unit {
 ```text
 3
 ```
+
+<!--DelEnd-->
 
 ## class GenericTypeInfo
 
@@ -3098,13 +3105,10 @@ public prop genericParams: Collection<GenericTypeInfo>
 
 > **注意：**
 >
-> 不支持平台：macOS、iOS。
+> - 该函数没有泛型参数时，本属性返回空集合，不抛出异常。
+> - 不支持平台：macOS、iOS。
 
 类型：[Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<[GenericTypeInfo](reflect_package_classes.md#class-generictypeinfo)>
-
-异常：
-
-- [InfoNotFoundException](./reflect_package_exceptions.md#class-infonotfoundexception) - [GlobalFunctionInfo](reflect_package_classes.md#class-globalfunctioninfo) 没有泛型参数时抛出异常。
 
 示例：
 
@@ -3206,7 +3210,7 @@ public prop parameters: ReadOnlyList<ParameterInfo>
 > **注意：**
 >
 > - 不支持平台：macOS、iOS。
-> - 不保证参数顺序，可根据 `ParameterInfo`的 `index` 属性确定参数实际位置。
+> - 不保证参数顺序，可根据 `ParameterInfo` 的 `index` 属性确定参数实际位置。
 
 类型：[ReadOnlyList](../../collection/collection_package_api/collection_package_interface.md#interface-readonlylistt)\<[ParameterInfo](reflect_package_classes.md#class-parameterinfo)>
 
@@ -3325,7 +3329,6 @@ public func apply(args: Array<Any>): Any
 - [InvocationTargetException](../reflect_package_api/reflect_package_exceptions.md#class-invocationtargetexception) - 如果存在泛型参数的函数调用了该方法，则抛出异常。
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果实参列表中的实参的数目与该全局函数信息 `GlobalFunctionInfo` 所对应的全局函数的形参列表中的形参的数目不等，则抛出异常。
 - [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果实参列表中的任何一个实参的运行时类型不是该全局函数信息所对应的全局函数的对应形参的声明类型的子类型，则抛出异常。
-- [Exception](../../core/core_package_api/core_package_exceptions.md#class-exception) - 如果被调用的全局函数信息所对应全局函数内部抛出异常，则该异常将被封装为 [Exception](../../core/core_package_api/core_package_exceptions.md#class-exception) 异常并抛出。
 
 示例：
 
@@ -3396,7 +3399,6 @@ public func apply(genericTypeArgs: Array<TypeInfo>, args: Array<Any>): Any
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果函数泛型参数列表 `genericTypeArgs` 中的参数数目与该全局函数信息所对应的全局函数的泛型参数列表 `genericParams` 中的参数数目不等，则抛出异常。
 - [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果实参列表中的任何一个实参的运行时类型不是该全局函数信息所对应的全局函数的对应形参的声明类型的子类型，则抛出异常。
 - [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果传入的实参列表和泛型参数类型列表 `genericTypeArgs` 不满足该全局函数信息所对应的全局函数的参数的类型约束，则抛出异常。
-- [Exception](../../core/core_package_api/core_package_exceptions.md#class-exception) - 如果被调用的全局函数信息所对应全局函数内部抛出异常，则该异常将被封装为 [Exception](../../core/core_package_api/core_package_exceptions.md#class-exception) 异常并抛出。
 
 示例：
 
@@ -4317,7 +4319,7 @@ public func isMutable(): Bool
 
 返回值：
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该全局变量可被修改则返回 `true` ，否则返回 `false`。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该全局变量可被修改则返回 `true`，否则返回 `false`。
 
 示例：
 
@@ -4692,13 +4694,10 @@ public prop genericParams: Collection<GenericTypeInfo>
 
 > **注意：**
 >
-> 不支持平台：macOS、iOS。
+> - 该函数没有泛型参数时，本属性返回空集合，不抛出异常。
+> - 不支持平台：macOS、iOS。
 
 类型：[Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<[GenericTypeInfo](reflect_package_classes.md#class-generictypeinfo)>
-
-异常：
-
-- [InfoNotFoundException](./reflect_package_exceptions.md#class-infonotfoundexception) - [GlobalFunctionInfo](reflect_package_classes.md#class-globalfunctioninfo) 没有泛型参数时抛出异常。
 
 示例：
 
@@ -4869,7 +4868,7 @@ public prop parameters: ReadOnlyList<ParameterInfo>
 
 > **说明：**
 >
-> 不保证参数顺序，可根据 `ParameterInfo`的 `index` 属性确定参数实际位置。
+> 不保证参数顺序，可根据 `ParameterInfo` 的 `index` 属性确定参数实际位置。
 
 类型：[ReadOnlyList](../../collection/collection_package_api/collection_package_interface.md#interface-readonlylistt)\<[ParameterInfo](reflect_package_classes.md#class-parameterinfo)>
 
@@ -5009,7 +5008,6 @@ public func apply(instance: Any, args: Array<Any>): Any
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果实参列表中的实参的数目与该实例成员函数信息所对应的实例成员函数的形参列表中的形参的数目不等，则抛出异常。
 - [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果入参实例运行时类型与该实例成员函数信息所对应的实例成员函数所属的类型不相同，则抛出异常。
 - [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果实参列表中的任何一个实参的运行时类型不是该实例成员函数信息所对应的实例成员函数的对应形参的声明类型的子类型，则抛出异常。
-- [Exception](../../core/core_package_api/core_package_exceptions.md#class-exception) - 如果被调用的实例成员函数信息所对应的实例成员函数内部抛出异常，则该异常将被封装为 [Exception](../../core/core_package_api/core_package_exceptions.md#class-exception) 异常并抛出。
 
 示例：
 
@@ -5099,7 +5097,6 @@ public func apply(instance: Any, genericTypeArgs: Array<TypeInfo>, args: Array<A
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果函数泛型参数列表 `genericTypeArgs` 中的参数数目与该成员函数信息所对应的成员函数的泛型参数列表 `genericParams` 中的参数数目不等，则抛出异常。
 - [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果参数列表中的任何一个参数的运行时类型不是该实例成员函数信息所对应的实例成员函数的对应形参的声明类型的子类型，则抛出异常。
 - [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果传入的参数列表和泛型参数类型列表 `genericTypeArgs` 不满足该成员函数信息所对应的成员函数的参数的类型约束，则抛出异常。
-- [Exception](../../core/core_package_api/core_package_exceptions.md#class-exception) - 如果被调用的实例成员函数信息所对应的实例成员函数内部抛出异常，则该异常将被封装为 [Exception](../../core/core_package_api/core_package_exceptions.md#class-exception) 异常并抛出。
 
 示例：
 
@@ -6346,7 +6343,7 @@ public func isMutable(): Bool
 
 返回值：
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该实例成员属性信息所对应的实例成员属性可被修改则返回 `true` ，否则返回 `false`。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该实例成员属性信息所对应的实例成员属性可被修改则返回 `true`，否则返回 `false`。
 
 示例：
 
@@ -7239,7 +7236,7 @@ public func isMutable(): Bool
 
 返回值：
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该实例成员变量信息所对应的实例成员变量可被修改则返回 `true` ，否则返回 `false`。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该实例成员变量信息所对应的实例成员变量可被修改则返回 `true`，否则返回 `false`。
 
 示例：
 
@@ -7635,7 +7632,8 @@ public redef static func of(a: Any): InterfaceTypeInfo
 
 > **注意：**
 >
-> 不支持平台：macOS、iOS。
+> - 当实参的运行时类型为 `class` 时，本次调用会匹配到 [TypeInfo](#class-typeinfo) 的 `static func of(Object)` 重载（该重载即将废弃），返回实参对应的 [ClassTypeInfo](#class-classtypeinfo)，并且不抛出异常；需要严格校验类型种类时，请使用 `of<T>()`。
+> - 不支持平台：macOS、iOS。
 
 参数：
 
@@ -8313,7 +8311,7 @@ main(): Unit {
 运行结果：
 
 ```text
-加载失败: Failed to load `/path/to/library` because of illegal path.
+加载失败: Failed to load '/path/to/library': illegal path.
 这里仅展示使用方法
 ```
 
@@ -8450,8 +8448,7 @@ public func getSubPackage(qualifiedName: String): PackageInfo
 
 异常：
 
-- [InfoNotFoundException](reflect_package_exceptions.md#class-infonotfoundexception) - 如果该子包不存在或者未加载，则会抛出异常。
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果 `qualifiedName` 不符合规范，则抛出异常。
+- [InfoNotFoundException](reflect_package_exceptions.md#class-infonotfoundexception) - 如果 `qualifiedName` 不符合规范，或该子包不存在、未加载，则会抛出异常。
 
 示例：
 
@@ -9500,7 +9497,8 @@ public static redef func of(a: Any): PrimitiveTypeInfo
 
 > **注意：**
 >
-> 不支持平台：macOS、iOS。
+> - 当实参的运行时类型为 `class` 时，本次调用会匹配到 [TypeInfo](#class-typeinfo) 的 `static func of(Object)` 重载（该重载即将废弃），返回实参对应的 [ClassTypeInfo](#class-classtypeinfo)，并且不抛出异常；需要严格校验类型种类时，请使用 `of<T>()`。
+> - 不支持平台：macOS、iOS。
 
 参数：
 
@@ -9662,13 +9660,10 @@ public prop genericParams: Collection<GenericTypeInfo>
 
 > **注意：**
 >
-> 不支持平台：macOS、iOS。
+> - 该函数没有泛型参数时，本属性返回空集合，不抛出异常。
+> - 不支持平台：macOS、iOS。
 
 类型：[Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<[GenericTypeInfo](reflect_package_classes.md#class-generictypeinfo)>
-
-异常：
-
-- [InfoNotFoundException](./reflect_package_exceptions.md#class-infonotfoundexception) - [GlobalFunctionInfo](reflect_package_classes.md#class-globalfunctioninfo) 没有泛型参数时抛出异常。
 
 示例：
 
@@ -9830,7 +9825,7 @@ public prop parameters: ReadOnlyList<ParameterInfo>
 > **注意：**
 >
 > - 不支持平台：macOS、iOS。
-> - 不保证参数顺序，可根据 `ParameterInfo`的 `index` 属性确定参数实际位置。
+> - 不保证参数顺序，可根据 `ParameterInfo` 的 `index` 属性确定参数实际位置。
 
 类型：[ReadOnlyList](../../collection/collection_package_api/collection_package_interface.md#interface-readonlylistt)\<[ParameterInfo](reflect_package_classes.md#class-parameterinfo)>
 
@@ -9961,7 +9956,6 @@ public func apply(thisType: TypeInfo, args: Array<Any>): Any
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果实参列表中的实参的数目与该静态成员函数信息所对应的静态成员函数的形参列表中的形参的数目不等，则抛出异常。
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果 `thisType` 和该静态函数的函数签名不一致，则抛出异常。
 - [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果实参列表中的任何一个实参的运行时类型不是该静态成员函数信息所对应的静态成员函数的对应形参的声明类型的子类型，则抛出异常。
-- [Exception](../../core/core_package_api/core_package_exceptions.md#class-exception) - 如果被调用的静态成员函数信息所对应的静态成员函数内部抛出异常，则该异常将被封装为 [Exception](../../core/core_package_api/core_package_exceptions.md#class-exception) 异常并抛出。
 
 示例：
 
@@ -10028,7 +10022,6 @@ public func apply(thisType: TypeInfo, genericTypeArgs: Array<TypeInfo>, args: Ar
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果 `thisType` 和该静态函数的函数签名不一致，则抛出异常。
 - [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果实参列表中的任何一个实参的运行时类型不是该静态成员函数信息所对应的静态成员函数的对应形参的声明类型的子类型，则抛出异常。
 - [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果传入的实参列表和泛型参数类型列表 `genericTypeArgs` 不满足该静态成员函数信息所对应的静态成员函数的参数的类型约束，则抛出异常。
-- [Exception](../../core/core_package_api/core_package_exceptions.md#class-exception) - 如果被调用的静态成员函数信息所对应的静态成员函数内部抛出异常，则该异常将被封装为 [Exception](../../core/core_package_api/core_package_exceptions.md#class-exception) 异常并抛出。
 
 示例：
 
@@ -11081,7 +11074,7 @@ public func isMutable(): Bool
 
 返回值：
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该静态成员属性信息所对应的静态成员属性可被修改则返回 `true` ，否则返回 `false`。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该静态成员属性信息所对应的静态成员属性可被修改则返回 `true`，否则返回 `false`。
 
 > **注意：**
 >
@@ -11899,7 +11892,7 @@ public func isMutable(): Bool
 
 返回值：
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该静态成员变量信息所对应的静态成员变量可被修改则返回 `true` ，否则返回 `false`。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该静态成员变量信息所对应的静态成员变量可被修改则返回 `true`，否则返回 `false`。
 
 示例：
 
@@ -12411,7 +12404,8 @@ public static redef func of(a: Any): StructTypeInfo
 
 > **注意：**
 >
-> 不支持平台：macOS、iOS。
+> - 当实参的运行时类型为 `class` 时，本次调用会匹配到 [TypeInfo](#class-typeinfo) 的 `static func of(Object)` 重载（该重载即将废弃），返回实参对应的 [ClassTypeInfo](#class-classtypeinfo)，并且不抛出异常；需要严格校验类型种类时，请使用 `of<T>()`。
+> - 不支持平台：macOS、iOS。
 
 运行时类型是指在程序运行时，通过动态绑定确定的类型，运行时类型与实例对象相绑定。在继承等场景下运行时类型和静态类型可能不一致。
 
@@ -12516,8 +12510,7 @@ public func construct(args: Array<Any>): Any
 
 异常：
 
-- [MisMatchException](reflect_package_exceptions.md#class-mismatchexception) - 如果实参列表未能成功匹配任何该 `struct` 类型的 `public` 构造函数，则抛出异常
-- [InvocationTargetException](reflect_package_exceptions.md#class-invocationtargetexception) - 在被调用的构造函数内部抛出的任何异常均将被封装为 [InvocationTargetException](reflect_package_exceptions.md#class-invocationtargetexception) 异常并抛出。
+- [InfoNotFoundException](reflect_package_exceptions.md#class-infonotfoundexception) - 如果实参列表未能成功匹配任何该 `struct` 类型的 `public` 构造函数，则抛出异常。
 
 示例：
 
@@ -12789,7 +12782,8 @@ public static redef func of(instance: Any): TupleTypeInfo
 
 > **注意：**
 >
-> 不支持平台：macOS、iOS。
+> - 当实参的运行时类型为 `class` 时，本次调用会匹配到 [TypeInfo](#class-typeinfo) 的 `static func of(Object)` 重载（该重载即将废弃），返回实参对应的 [ClassTypeInfo](#class-classtypeinfo)，并且不抛出异常；需要严格校验类型种类时，请使用 `of<T>()`。
+> - 不支持平台：macOS、iOS。
 
 参数：
 
@@ -13015,7 +13009,7 @@ sealed abstract class TypeInfo <: Equatable<TypeInfo> & Hashable & ToString
 
 > **说明：**
 >
-> 类型的限定名称为`(module_name/)?(default|package_name)(.package_name)*.(type_name)`。
+> 类型的限定名称为 `(module_name/)?(default|package_name)(.package_name)*.(type_name)`。
 
 父类型：
 
@@ -13243,6 +13237,7 @@ public prop name: String
 > - 不支持平台：macOS、iOS。
 > - 该名称不包含任何模块名和包名前缀。
 > - 类型别名的类型信息就是实际类型其本身的类型信息，所以该函数并不会返回类型别名本身的名称而是实际类型的名称，如类型别名 [Byte](../../core/core_package_api/core_package_types.md#type-byte) 的类型信息的名称是 [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) 而不是 [Byte](../../core/core_package_api/core_package_types.md#type-byte)。
+> - 可见性低于 `public` 的类型参与反射时，其名称为编译器生成的内部名称，不保证可读性与稳定性。
 
 类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
@@ -13290,6 +13285,7 @@ public prop qualifiedName: String
 > - 限定名称包含模块名和包名前缀。
 > - 特别的，仓颉内置数据类型，以及位于 `std` 模块 `core` 包下的所有类型的限定名称都是不带有任何模块名和包名前缀的。
 > - 在缺省模块名和包名的上下文中定义的所有类型，均无模块名前缀，但拥有包名前缀"`default`"，如："`default.MyType`"。
+> - 可见性低于 `public` 的类型参与反射时，其限定名称为编译器生成的内部名称（形如 `default._CN7defaultU00000003a6imS13MyTypeE`），与上述格式不同；此类类型只能通过其实例或该内部名称获取，使用 `包名.类型名` 形式调用 `get(String)` 会抛出 [InfoNotFoundException](reflect_package_exceptions.md#class-infonotfoundexception)。
 
 类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 

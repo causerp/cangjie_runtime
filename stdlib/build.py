@@ -48,7 +48,8 @@ TARGET_DICTIONARY = {
     "ios-simulator-aarch64": "arm64-apple-ios11-simulator",
     "ios-simulator-x86_64": "x86_64-apple-ios11-simulator",
     "ios-aarch64": "arm64-apple-ios11",
-    "android-aarch64": "aarch64-linux-android",
+    "android-aarch64": "aarch64-linux-android23",
+    "android23-aarch64": "aarch64-linux-android23",
     "android31-aarch64": "aarch64-linux-android31",
     "android26-aarch64": "aarch64-linux-android26",
     "android23-arm": "arm-linux-android23",
@@ -312,6 +313,9 @@ def clean(args):
     # Remove entire build directory by default
     output_dirs.append("build")
     output_dirs.append("output")
+    # Remove flatc-generated AST format sources
+    output_dirs.append("libs/std/ast/StdAstFormat_generated.cj")
+    output_dirs.append("libs/std/ast/astformat_generated.cj")
     for file_path in output_dirs:
         abs_file_path = os.path.join(HOME_DIR, file_path)
         if os.path.isdir(abs_file_path):

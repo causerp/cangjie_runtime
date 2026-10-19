@@ -23,7 +23,7 @@ public class IPSocketAddress <: SocketAddress & Equatable<IPSocketAddress> {
         } else if (address.size == 16) {
             this._addr = IPv6Address(address)
         } else {
-            throw IllegalArgumentException("IPSocketAddress only support IPv4 and IPv6 address.")
+            throw IllegalArgumentException("IPSocketAddress only supports IPv4 and IPv6 address.")
         }
     }
     public init(address: String, port: UInt16) {
@@ -59,12 +59,12 @@ public class IPSocketAddress <: SocketAddress & Equatable<IPSocketAddress> {
      */
     public static func parse(s: String): IPSocketAddress {
         let (ipstr, portstr, isV6) = innerParse(s).unwrap()
-        let port = UInt16.tryParse(portstr) ?? throw IllegalFormatException("Parse (${s}): invalid port.")
+        let port = UInt16.tryParse(portstr) ?? throw IllegalFormatException("Failed to parse '${s}': invalid port.")
         let ipaddr = IPAddress.parse(ipstr)
         if (isV6 && ipaddr.isIPv4()) {
-            throw IllegalFormatException("Parse (${s}): invalid IP socket address, only IPv6 can be around [].")
+            throw IllegalFormatException("Failed to parse '${s}': only IPv6 address can be enclosed in [].")
         } else if (!isV6 && ipaddr.isIPv6()) {
-            throw IllegalFormatException("Parse (${s}): invalid IP socket address, IPv6 must around [].")
+            throw IllegalFormatException("Failed to parse '${s}': IPv6 address must be enclosed in [].")
         }
         return IPSocketAddress(ipaddr, port)
     }
@@ -119,7 +119,7 @@ public class IPSocketAddress <: SocketAddress & Equatable<IPSocketAddress> {
                 // 4bytes scopeId
                 let scopeId = v6.scopeId ?? 0
                 scopeId.writeLittleEndian(buf[24..])
-            case _ => throw Exception()
+            case _ => throw Exception("Internal error: unexpected IPAddress type.")
         }
 
         return buf
@@ -157,18 +157,18 @@ func innerParse(s: String): Result<(String, String, Bool)> {
         case Some(i) =>
             let (ip, port) = (s[..i], s[i + 1..])
             if (ip.size == 0) {
-                return Err(IllegalFormatException("Expect IP in ${s}"))
+                return Err(IllegalFormatException("Expect IP in '${s}'."))
             }
             if (port.size == 0) {
-                return Err(IllegalFormatException("Expect port in ${s}"))
+                return Err(IllegalFormatException("Expect port in '${s}'."))
             }
             if (ip[0] == b'[') {
                 if (ip.size < 2 || ip[ip.size - 1] != b']') {
-                    return Err(IllegalFormatException("IPv6 must around [] in ${s}"))
+                    return Err(IllegalFormatException("IPv6 must be around [] in '${s}'."))
                 }
                 return Ok((ip[1..ip.size - 1], port, true))
             }
             return Ok((ip, port, false))
-        case _ => return Err(IllegalFormatException("${s} is not a IP socket address"))
+        case _ => return Err(IllegalFormatException("'${s}' is not an IP socket address."))
     }
 }

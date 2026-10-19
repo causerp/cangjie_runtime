@@ -73,15 +73,15 @@ func checkOptionValueByNameAndGetConfigurationKey<T>(name: String, value: T): Co
         }
 
         // no one fit
-        throw UnittestOptionValidationException("${option} type is not valid.")
+        throw UnittestOptionValidationException("${option} has invalid type.")
     }
 
-    throw UnittestOptionValidationException("Option '${name}' has no validators. Use @${VALIDATOR_NAME} macro.")
+    throw UnittestOptionValidationException("Option '${name}' has no validators. Use '@${VALIDATOR_NAME}' macro.")
 }
 
 public func registerOptionValidator(name: String, validator: (Any) -> OptionValidity): Unit {
     if (unittestOptionsRegistryClosed) {
-        throw UnittestOptionValidationException("Validator registry closed. Move your validator on top level.")
+        throw UnittestOptionValidationException("Validator registry is closed. Move your validator on top level.")
     }
 
     synchronized(MUTEX) {
