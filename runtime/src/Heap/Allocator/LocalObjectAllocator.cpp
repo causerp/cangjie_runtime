@@ -44,7 +44,6 @@ private:
     enum class FinalizerState : uint8_t {
         PENDING,
         RUNNING,
-        DONE,
     };
 
     struct FinalizerEntry {
@@ -60,8 +59,8 @@ private:
     void VisitOneLocalObject(BaseObject* obj, const RootVisitor& visitor) const;
     bool RunFinalizerAt(Mutator& mutator, size_t idx);
 
-    // DONE entries retain the object identity to reject accidental re-registration,
-    // but are not visited as roots and can be compacted if churn becomes measurable.
+    // Compiler lowering registers each local-finalizer allocation exactly once.
+    // Completed entries are removed; the order of entries is not significant.
     std::vector<FinalizerEntry> finalizers;
     std::vector<LocalRootEntry> localRoots;
 };
@@ -242,11 +241,6 @@ void LocalObjectRootRegistry::AddFinalizer(BaseObject* obj)
     if (obj == nullptr) {
         return;
     }
-    for (const FinalizerEntry& entry : finalizers) {
-        if (entry.obj == obj) {
-            return;
-        }
-    }
     finalizers.push_back({ obj, FinalizerState::PENDING });
 }
 
@@ -296,7 +290,7 @@ void LocalObjectRootRegistry::VisitRegisteredObjects(
         }
     }
     for (const FinalizerEntry& entry : finalizers) {
-        if (entry.obj != nullptr && entry.state != FinalizerState::DONE) {
+        if (entry.obj != nullptr) {
             visitor(entry.obj, LocalObjectInfo::RootKind::FINALIZER,
                     static_cast<uint8_t>(entry.state));
         }
@@ -313,11 +307,9 @@ void LocalObjectRootRegistry::VisitLocalObjectRefFields(const RootVisitor& visit
         visitor(reinterpret_cast<ObjectRef&>(*field));
     }
     for (const FinalizerEntry& entry : finalizers) {
-        if (entry.state != FinalizerState::DONE) {
-            // RUNNING finalizers remain scan sources while user code executes,
-            // so a re-entrant GC can still trace and update their heap fields.
-            VisitOneLocalObject(entry.obj, visitor);
-        }
+        // RUNNING finalizers remain scan sources while user code executes,
+        // so a re-entrant GC can still trace and update their heap fields.
+        VisitOneLocalObject(entry.obj, visitor);
     }
 }
 
@@ -338,11 +330,18 @@ void LocalObjectRootRegistry::VisitOneLocalObject(BaseObject* obj, const RootVis
 bool LocalObjectRootRegistry::RunPendingFinalizers(Mutator& mutator)
 {
     bool ranFinalizer = false;
-    for (size_t idx = 0; idx < finalizers.size(); ++idx) {
+    size_t idx = 0;
+    while (idx < finalizers.size()) {
         if (finalizers[idx].state != FinalizerState::PENDING) {
+            ++idx;
             continue;
         }
-        ranFinalizer = RunFinalizerAt(mutator, idx) || ranFinalizer;
+        if (RunFinalizerAt(mutator, idx)) {
+            ranFinalizer = true;
+            // The last entry was moved to idx. Process it before advancing.
+            continue;
+        }
+        ++idx;
     }
     return ranFinalizer;
 }
@@ -358,11 +357,26 @@ bool LocalObjectRootRegistry::RunFinalizerAt(Mutator& mutator, size_t idx)
     finalizers[idx].state = FinalizerState::RUNNING;
     RunLocalObjectFinalizer(mutator, finalizerObj);
 
-    // User code may register more finalizers and reallocate the vector, so use
-    // the stable index instead of retaining a reference across the call.
-    CHECK_DETAIL(idx < finalizers.size() && finalizers[idx].obj == finalizerObj,
-                 "local finalizer registry changed running entry %p", finalizerObj);
-    finalizers[idx].state = FinalizerState::DONE;
+    // User code may register or finish other finalizers and thereby reallocate
+    // or reorder the vector. Locate this RUNNING entry again before removing it.
+    size_t completedIdx = idx;
+    if (completedIdx >= finalizers.size() || finalizers[completedIdx].obj != finalizerObj) {
+        completedIdx = finalizers.size();
+        for (size_t currentIdx = 0; currentIdx < finalizers.size(); ++currentIdx) {
+            if (finalizers[currentIdx].obj == finalizerObj &&
+                finalizers[currentIdx].state == FinalizerState::RUNNING) {
+                completedIdx = currentIdx;
+                break;
+            }
+        }
+    }
+    CHECK_DETAIL(completedIdx < finalizers.size() &&
+                     finalizers[completedIdx].state == FinalizerState::RUNNING,
+                 "local finalizer registry lost running entry %p", finalizerObj);
+    if (completedIdx != finalizers.size() - 1) {
+        finalizers[completedIdx] = finalizers.back();
+    }
+    finalizers.pop_back();
     return true;
 }
 
