@@ -74,6 +74,7 @@ public:
         observerCnt = 0;
         mutatorPhase.store(GCPhase::GC_PHASE_IDLE);
         inManagedContext.store(true);
+        localObjectAllocatorData = nullptr;
 
 #ifdef INTERPRETER_ENABLED
         InitInterpreterPart();
@@ -519,7 +520,7 @@ public:
 
     void RemoveLocalFinalizer(BaseObject* obj);
 
-    void AddLocalRoot(BaseObject* obj);
+    void AddLocalRoot(BaseObject* obj, RefField<false>* field);
 
     void VisitLocalObjectAllocatorRoots(const RootVisitor& visitor);
 

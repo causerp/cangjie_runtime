@@ -8,15 +8,40 @@
 #define MRT_LOCAL_OBJECT_ALLOCATOR_H
 
 #include <cstddef>
+#include <functional>
 
 #include "Common/BaseObject.h"
 #include "Common/TypeDef.h"
+#include "ObjectModel/RefField.h"
 
 namespace MapleRuntime {
 struct FrameAddress;
 class Mutator;
 class RegionInfo;
 class RegionManager;
+
+// Metadata exposed to inspection/debugging clients while a local region is
+// stopped-the-world.  The dump layer must not depend on a concrete allocator
+// region type, so only stable ownership and layout information is exported.
+struct LocalObjectInfo {
+    Mutator* ownerMutator = nullptr;
+    FrameAddress* ownerFrame = nullptr;
+    MAddress regionBase = 0;
+    size_t regionSize = 0;
+    bool isLargeRegion = false;
+    // Used only by VisitLocalRoots.  VisitLocalObjects leaves this at
+    // LOCAL_OBJECT.  Keeping the root source kind in the allocator metadata
+    // prevents the dump layer from confusing stack roots with registry roots.
+    enum class RootKind : uint8_t {
+        LOCAL_OBJECT,
+        FINALIZER,
+    } rootKind = RootKind::LOCAL_OBJECT;
+    // Finalizer state is meaningful only when rootKind == FINALIZER.
+    // Values are PENDING=0, RUNNING=1, DONE=2.
+    uint8_t finalizerState = 0;
+};
+
+using LocalObjectVisitor = std::function<void(Mutator&, BaseObject*, const LocalObjectInfo&)>;
 
 // Abstracts local object allocation from the backing storage.
 // A local region is a lifetime boundary. A backend may allocate one or more
@@ -48,8 +73,10 @@ public:
     // heap-capacity/GC allocation decisions and is not part of tracing-heap live bytes.
     virtual size_t GetHeapAllocatedBytes() const = 0;
 
-    // Returns bytes handed out to live local objects across all mutators,
-    // regardless of the backing storage. This is the value reported by the
+    // Returns the memory accounted to active local regions across all mutators.
+    // Native-backed regions report the full capacity of their active chunks,
+    // including unused tails; the heap-backed compatibility allocator reports
+    // bytes handed out to local objects. This is the value reported by the
     // memory info API (getAllocatedLocalObjectSize) and is not part of
     // getAllocatedHeapSize.
     virtual size_t GetAllocatedObjectBytes() const = 0;
@@ -62,10 +89,11 @@ public:
     // that its local live range has ended.
     virtual void RemoveFinalizer(Mutator& mutator, BaseObject* obj) = 0;
 
-    // Registers a local object that contains references to heap objects.
-    virtual void AddLocalRoot(Mutator& mutator, BaseObject* obj) = 0;
+    // Registers one local-to-heap reference slot. The root visitor updates the
+    // slot in place when its heap target moves.
+    virtual void AddLocalRoot(Mutator& mutator, BaseObject* obj, RefField<false>* field) = 0;
 
-    // Visits heap reference fields reachable from local allocator owned local objects.
+    // Visits registered local-to-heap reference fields directly.
     virtual void VisitLocalObjectRefFields(Mutator& mutator, const RootVisitor& visitor) = 0;
 
     // Releases all per-mutator resources (regions, caches, metadata) when the
@@ -73,6 +101,23 @@ public:
     // abnormal thread exit) are reclaimed without running finalizers, because
     // running user code during teardown can re-enter the runtime.
     virtual void OnMutatorExit(Mutator& mutator) = 0;
+    // Visits every object currently allocated in native local regions.  The
+    // default implementation deliberately does nothing for the heap-backed
+    // compatibility allocator; its concrete enumeration is reserved for a
+    // future implementation.
+    virtual void VisitLocalObjects(const LocalObjectVisitor& visitor) const
+    {
+        (void)visitor;
+    }
+
+    // Visits objects registered as local roots/finalizers.  This is separate
+    // from VisitLocalObjects because the registry is not an object inventory.
+    virtual void VisitLocalRoots(const LocalObjectVisitor& visitor) const
+    {
+        (void)visitor;
+    }
+
+    virtual bool HasLocalObjects() const { return false; }
 };
 } // namespace MapleRuntime
 

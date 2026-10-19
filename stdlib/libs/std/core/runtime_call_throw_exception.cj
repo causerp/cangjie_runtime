@@ -22,6 +22,7 @@ func throwImplicitException(id: Int64, args: CPointer<Unit>): Unit {
         case 3 =>
             var msg = (args as CPointer<UInt8>).getOrThrow()
             throw IncompatiblePackageException(createStrFromCPointer(msg))
+        case 4 => throw LocalRegionOutOfMemoryError()
         case _ => ()
     }
 }

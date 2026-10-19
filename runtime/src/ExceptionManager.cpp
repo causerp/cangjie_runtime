@@ -108,6 +108,15 @@ void ExceptionManager::OutOfMemory()
     }
     eWrapper.SetThrowingOOME(false);
 }
+
+void ExceptionManager::LocalRegionOutOfMemory()
+{
+    ExceptionWrapper& eWrapper = Mutator::GetMutator()->GetExceptionWrapper();
+    eWrapper.SetFatalException(false);
+    eWrapper.SetExceptionType(ExceptionWrapper::ExceptionType::LOCAL_REGION_OUT_OF_MEMORY);
+    ThrowImplicitException(LOCAL_REGION_OOM);
+}
+
 MRT_OPTIONAL_DISABLE_TAIL_CALL
 void ExceptionManager::StackOverflow(uint32_t adjustedSize __attribute__((unused)), void* ip)
 {
