@@ -108,14 +108,16 @@ def do_build(args):
     if target_platform in ('linux'):
         shared_linker_flags = "-Wl,--disable-new-dtags,-rpath=\\$ORIGIN"
         exe_linker_flags = "-Wl,--disable-new-dtags,-rpath=\\$ORIGIN/../../runtime/lib/linux_${CMAKE_SYSTEM_PROCESSOR}_cjnative"
-    elif target_platform in ('android', 'android23', 'android26', 'android31') and target_arch != 'arm':
-        # android devices may have 16 KB pages; make sure the shared
-        # object is laid out accordingly.  linker default is 4 KB.
+    elif target_platform in ('android', 'android23', 'android26', 'android31'):
+        # android 64-bit devices may have 16 KB pages, 32-bit ARM uses 4 KB;
+        # make sure the shared object is laid out accordingly.  linker default
+        # is 4 KB on x86_64 and 64 KB on aarch64/arm.
+        android_max_page_size = 4096 if target_arch == 'arm' else 16384
         shared_linker_flags = ("-Wl,--disable-new-dtags,-rpath=\\$ORIGIN "
-                               "-Wl,-z,max-page-size=16384")
+                               "-Wl,-z,max-page-size={}".format(android_max_page_size))
         exe_linker_flags = ("-Wl,--disable-new-dtags,-rpath=\\$ORIGIN/../../runtime/lib/"
                             "linux_${CMAKE_SYSTEM_PROCESSOR}_cjnative "
-                            "-Wl,-z,max-page-size=16384")
+                            "-Wl,-z,max-page-size={}".format(android_max_page_size))
     elif target_platform in ('darwin'):
         shared_linker_flags = "-Wl,-rpath,@loader_path"
         exe_linker_flags = "-Wl,-rpath,@loader_path/../../runtime/lib/darwin_${CMAKE_SYSTEM_PROCESSOR}_cjnative"
