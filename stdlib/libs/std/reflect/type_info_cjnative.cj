@@ -117,20 +117,24 @@ sealed abstract class TypeInfo <: Equatable<TypeInfo> & Hashable & ToString {
     // the type-metadata address so a steady-state hit avoids the per-call uuid.toString()
     // allocation and String hashing of the string cache.
     //
-    // ASSUMPTION: the type-metadata address is globally unique and stable for the process
-    // lifetime. This holds for standard Cangjie applications (there is no module unload;
-    // PackageInfo.load has no unload counterpart).
+    // COMPATIBILITY-SAFE: every loaded TypeInfo carries a monotonically allocated UUID at
+    // UUID_OFFSET (see runtime/src/TypeInfoManager.cpp, tiMaxUUID). On a PTR_MEMO hit we
+    // re-read that UUID and compare it with the value captured when the entry was inserted; a
+    // mismatch means the metadata address was reused after an UnloadCJLibrary(dlclose)+reload,
+    // so the cached wrapper is stale and is discarded (removed from both maps) and rebuilt via
+    // the normal path. This keeps the published UnloadCJLibrary/unload-reload flow correct and
+    // preserves the performance win: the common steady-state hit only pays a 4-byte aligned
+    // native read + Int32 compare instead of uuid.toString() + String hashing.
     //
-    // KNOWN LIMITATION (future constraint): the only path that can violate the assumption is an
-    // embedded host calling UnloadCJLibrary (runtime CangjieRuntimeApi -> dlclose) and then
-    // dlopen-ing so the loader reuses the same address range; the unload chain currently has NO
-    // std.reflect-side cache-invalidation hook. Note the difference vs the uuid path: on address
-    // reuse the uuid-based CACHE self-heals because a fresh monotonic tiMaxUUID is assigned
-    // (-> miss -> correct new TypeInfo), whereas PTR_MEMO would keep hitting the stale wrapper
-    // whose _info now aliases the reused metadata, i.e. silent type confusion. If module unload
-    // is ever supported, add a PTR_MEMO/CACHE invalidation hook on the unload notification chain,
-    // or switch this memo to a (module, offset) composite key.
+    // Background: the metadata address is otherwise stable for the process lifetime for standard
+    // Cangjie applications (no module unload; PackageInfo.load has no unload counterpart), so the
+    // recheck almost always passes and the cache behaves exactly as before. If module unload is
+    // ever made first-class, a PTR_MEMO/CACHE invalidation hook on the unload notification chain
+    // is the alternative (stronger) fix; the recheck below already neutralizes the correctness
+    // risk that an address reuse would otherwise introduce.
     private static let PTR_MEMO = HashMap<UIntNative, TypeInfo>()
+    // UUID captured alongside each PTR_MEMO entry, used to validate hits after address reuse.
+    private static let PTR_MEMO_UUID = HashMap<UIntNative, Int32>()
 
     // this is a pointer to type metadata
     protected let _info: CPointer<Unit>
@@ -351,17 +355,28 @@ sealed abstract class TypeInfo <: Equatable<TypeInfo> & Hashable & ToString {
         }
         let ptrKey = typeInfoPointer.toUIntNative()
         synchronized(TYPE_INFO_CREATE_LOCK) {
-            // Fast hit: the pointer-keyed memo short-circuits before any native
-            // isGeneric call, qualified-name build, or uuid.toString() allocation.
+            // Snapshot the metadata UUID (monotonic, assigned per load via tiMaxUUID) so a
+            // reused address after UnloadCJLibrary+reload is detected on the fast path.
+            let metaUUID = unsafe { CPointer<Int32>(CPointer<Byte>(typeInfoPointer) + UUID_OFFSET).read() }
+            // Fast hit: the pointer-keyed memo short-circuits before any native isGeneric call,
+            // qualified-name build, or uuid.toString() allocation. Validate the cached entry by
+            // its captured UUID; on mismatch (address reused for a different type) drop it and
+            // rebuild, so we never return a stale wrapper for a reused metadata address.
             if (let Some(ti) <- PTR_MEMO.get(ptrKey)) {
-                return ti
+                if (let Some(cachedUUID) <- PTR_MEMO_UUID.get(ptrKey)) {
+                    if (cachedUUID == metaUUID) {
+                        return ti
+                    }
+                }
+                PTR_MEMO.remove(ptrKey)
+                PTR_MEMO_UUID.remove(ptrKey)
             }
             let isGenericTypeInfo: Bool = isGeneric(typeInfoPointer)
             let typeInfo = if (isGenericTypeInfo) {
                 let qualifiedName = getQualifiedName(typeInfoPointer)
                 CACHE.get(qualifiedName) ?? createGenericTypeInfo(typeInfoPointer, qualifiedName)
             } else {
-                let uuid = unsafe { CPointer<Int32>(CPointer<Byte>(typeInfoPointer) + UUID_OFFSET).read().toString() }
+                let uuid = metaUUID.toString()
                 if (let Some(ti) <- CACHE.get(uuid)) {
                     ti
                 } else {
@@ -370,6 +385,7 @@ sealed abstract class TypeInfo <: Equatable<TypeInfo> & Hashable & ToString {
                 }
             }
             PTR_MEMO.add(ptrKey, typeInfo)
+            PTR_MEMO_UUID.add(ptrKey, metaUUID)
             return typeInfo
         }
     }
