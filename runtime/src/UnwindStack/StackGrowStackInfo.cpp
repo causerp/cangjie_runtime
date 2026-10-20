@@ -99,11 +99,12 @@ void StackGrowStackInfo::RecordStackPtrs(const StackPtrVisitor& traceAndFixPtrVi
     }
 
 #ifdef INTERPRETER_ENABLED
-    auto expansionStackVisitor = [this, &fixPtrVisitor, &derivedPtrVisitor](DYN_VisitingState state) {
+    auto expansionStackVisitor = [&](DYN_VisitingState state) {
         for (const auto& frame : stack) {
             switch (frame.GetFrameType()) {
                 case FrameType::INTERPRETER:
-                    VisitInterpreterFrameRootsExpansion(state, frame, &fixPtrVisitor, &derivedPtrVisitor);
+                    VisitInterpreterFrameRootsExpansion(state, frame,
+                        &traceAndFixPtrVisitor, &fixPtrVisitor, &derivedPtrVisitor);
                     break;
                 default: {
                     break;

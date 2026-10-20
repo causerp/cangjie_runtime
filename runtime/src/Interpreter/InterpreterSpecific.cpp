@@ -146,12 +146,13 @@ INT_FrameDesc toFrameDesc(FrameInfo frameInfo)
     };
 }
 
-void VisitInterpreterFrameRootsExpansion(DYN_VisitingState state, FrameInfo frameDesc, DYN_RootVisitor stackPtrVisitor,
-    DYN_DerivedPtrVisitor derivedPtrVisitor)
+void VisitInterpreterFrameRootsExpansion(DYN_VisitingState state, FrameInfo frameDesc,
+    DYN_RootVisitor traceAndFixPtrVisitor, DYN_RootVisitor stackPtrVisitor, DYN_DerivedPtrVisitor derivedPtrVisitor)
 {
     if (g_interpreterInterface) {
         INT_FrameDesc fd = toFrameDesc(frameDesc);
-        g_interpreterInterface->visitFrameRootsExpansion(state, fd, stackPtrVisitor, derivedPtrVisitor);
+        g_interpreterInterface->visitFrameRootsExpansion(state, fd,
+            stackPtrVisitor, derivedPtrVisitor, traceAndFixPtrVisitor);
     }
 }
 
