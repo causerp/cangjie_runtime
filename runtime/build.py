@@ -113,11 +113,12 @@ def do_build(args):
         # make sure the shared object is laid out accordingly.  linker default
         # is 4 KB on x86_64 and 64 KB on aarch64/arm.
         android_max_page_size = 4096 if target_arch == 'arm' else 16384
-        shared_linker_flags = ("-Wl,--disable-new-dtags,-rpath=\\$ORIGIN "
-                               "-Wl,-z,max-page-size={}".format(android_max_page_size))
+        # %-formatting is used on purpose: the rpath below contains a literal
+        # ${CMAKE_SYSTEM_PROCESSOR} that str.format() would try to substitute.
+        max_page_size_flag = "-Wl,-z,max-page-size=%d" % android_max_page_size
+        shared_linker_flags = "-Wl,--disable-new-dtags,-rpath=\\$ORIGIN " + max_page_size_flag
         exe_linker_flags = ("-Wl,--disable-new-dtags,-rpath=\\$ORIGIN/../../runtime/lib/"
-                            "linux_${CMAKE_SYSTEM_PROCESSOR}_cjnative "
-                            "-Wl,-z,max-page-size={}".format(android_max_page_size))
+                            "linux_${CMAKE_SYSTEM_PROCESSOR}_cjnative " + max_page_size_flag)
     elif target_platform in ('darwin'):
         shared_linker_flags = "-Wl,-rpath,@loader_path"
         exe_linker_flags = "-Wl,-rpath,@loader_path/../../runtime/lib/darwin_${CMAKE_SYSTEM_PROCESSOR}_cjnative"
