@@ -284,11 +284,6 @@ message(STATUS "CMAKE_ARCHIVE_OUTPUT_DIRECTORY: ${CMAKE_ARCHIVE_OUTPUT_DIRECTORY
 message(STATUS "CMAKE_RUNTIME_OUTPUT_DIRECTORY: ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
 
 if (OHOS_FLAG IN_LIST OHOS_FLAG_LIST)
-    # OHOS currently uses 4 KB pages; bump this if OHOS adopts a larger page size,
-    # otherwise the produced .so cannot be mapped.
-    set(OHOS_MAX_PAGE_SIZE 4096)
-    set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -Wl,-z,max-page-size=${OHOS_MAX_PAGE_SIZE}")
-
     set(OHOS_INCLUDE
         "-I${CMAKE_CURRENT_SOURCE_DIR}/third_party/third_party_bounds_checking_function/include"
     )
