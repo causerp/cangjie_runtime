@@ -35,6 +35,11 @@ function(make_cangjie_lib target_name)
     set(clang_compiler "${CMAKE_C_COMPILER}")
     if(OHOS)
         list(APPEND flags_to_compile -z relro -z now -z noexecstack)
+        # Standard system images pack relative relocations for all native components by default
+        # (build/config/compiler/BUILD.gn) and musl ldso handles DT_RELR, so pack them here too.
+        # Std shared libraries are linked by ld.lld directly here, bypassing the cjc driver, hence
+        # the toolchain-level default does not reach this link and the flag is passed explicitly.
+        list(APPEND flags_to_compile -z pack-relative-relocs)
         # Unfortunately, a bug in library `winpthread` our ld.lld depends causes deadlock occasionally
         # while linking. We disable multi-threading for now until we have a work-around.
         list(APPEND flags_to_compile --threads=1)
