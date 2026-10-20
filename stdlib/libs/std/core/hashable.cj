@@ -771,28 +771,23 @@ func wyrand(seed: Int64) {
     return Int64(mix(v, v ^ SECRET1))
 }
 
-/* Byte-swap a 64-bit word (native LE load -> historical big-endian r8 packing). */
-@OverflowWrapping
-func bswap64(x: UInt64): UInt64 {
-    ((x & 0x00000000000000ffu64) << 56) |
-    ((x & 0x000000000000ff00u64) << 40) |
-    ((x & 0x0000000000ff0000u64) << 24) |
-    ((x & 0x00000000ff000000u64) << 8) |
-    ((x & 0x000000ff00000000u64) >> 8) |
-    ((x & 0x0000ff0000000000u64) >> 24) |
-    ((x & 0x00ff000000000000u64) >> 40) |
-    ((x & 0xff00000000000000u64) >> 56)
-}
-
-/* Load 8 bytes at base+pos with the same value as r8 (endian-aware). */
+/*
+ * Load 8 bytes at base+pos with the same packing as r8.
+ * Must not use typed UInt64 pointer loads: String slices may start at
+ * unaligned offsets, and CPointer<UInt64>.read() becomes an aligned LLVM load.
+ */
 @OverflowWrapping
 func r8Wide(base: CPointer<UInt8>, pos: Int64): UInt64 {
     unsafe {
-        let native = CPointer<UInt64>(base + pos).read()
-        match (Endian.Platform) {
-            case Little => bswap64(native)
-            case Big => native
-        }
+        let p = base + pos
+        (UInt64(p.read()) << 56) |
+        (UInt64((p + 1).read()) << 48) |
+        (UInt64((p + 2).read()) << 40) |
+        (UInt64((p + 3).read()) << 32) |
+        (UInt64((p + 4).read()) << 24) |
+        (UInt64((p + 5).read()) << 16) |
+        (UInt64((p + 6).read()) << 8) |
+        UInt64((p + 7).read())
     }
 }
 
@@ -820,7 +815,7 @@ func wyhash(arr: RawArray<UInt8>, start: Int64, size: Int64, see: UInt64) {
             a = r8(arr, start)
             b = r8(arr, start + size - 8)
         case _ =>
-            // Long path: pin once; wide loads keep hash identical to byte-wise r8.
+            // Long path: pin once; r8Wide matches r8 packing via unaligned-safe byte reads.
             unsafe {
                 let base = acquireRawData(arr)
                 var pos = start
