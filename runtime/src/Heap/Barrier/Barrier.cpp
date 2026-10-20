@@ -307,7 +307,11 @@ void Barrier::ReadGenericToLocalObject(const ObjectPtr dstObj, void* fieldPtr, s
 
             auto* srcField = reinterpret_cast<RefField<>*>(src + offset);
             RefField<> srcSnapshot(srcField->GetFieldValue());
-            ObjectPtr value = ReadReference(nullptr, srcSnapshot);
+            // Only tagged heap refs need the read barrier.
+            ObjectPtr value = srcSnapshot.GetTargetObject();
+            if (value != nullptr && Heap::IsHeapAddress(value) && srcSnapshot.IsTagged()) {
+                value = ReadReference(nullptr, *srcField);
+            }
             if (Heap::IsHeapAddress(value)) {
                 if (mutator == nullptr) {
                     mutator = Mutator::GetMutator();

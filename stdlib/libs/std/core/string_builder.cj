@@ -92,6 +92,14 @@ public class StringBuilder <: ToString {
         this.endIndex = 0
     }
 
+    public exclave init(this @local!, capacity: Int64) {
+        if (capacity <= 0) {
+            throw IllegalArgumentException("The capacity should be positive.")
+        }
+        this.data = Array<UInt8>(capacity, repeat: 0)
+        this.endIndex = 0
+    }
+
     /**
      * Get UTF-8 code unit size.
      */
