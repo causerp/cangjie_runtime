@@ -7,34 +7,15 @@
 
 #include "WinModuleManager.h"
 
+#include <array>
+#include <cstddef>
 #include <dbghelp.h>
 #include <string>
 #include <unordered_set>
+#include <vector>
 #include <windows.h>
-#include <winternl.h>
 
 namespace MapleRuntime {
-struct LdrDataTableEntry {
-    LIST_ENTRY inLoadOrderLinks;
-    LIST_ENTRY inMemoryOrderLinks;
-    LIST_ENTRY inInitializationOrderLinks;
-    PVOID dllBase;
-    PVOID entryPoint;
-    DWORD sizeOfImage;
-    UNICODE_STRING fullDllName;
-    UNICODE_STRING baseDllName;
-    DWORD flags;
-    WORD loadCount;
-    WORD tlsIndex;
-    LIST_ENTRY hashLinks;
-    PVOID sectionPointer;
-    DWORD checkSum;
-    DWORD timeDateStamp;
-    PVOID loadedImports;
-    PVOID entryPointActivationContext;
-    PVOID patchInformation;
-};
-
 RuntimeFunction* WinModule::GetRuntimeFunction(Uptr pc) const
 {
     uint32_t start = 0;
@@ -77,62 +58,44 @@ void WinModuleManager::Init() { ReadWinModuleAtInit(); }
 
 void WinModuleManager::ReadWinModuleAtInit()
 {
-    // get windows PEB(Process Environment Block)
-    PPEB ppeb = (PPEB)__readgsqword(0x60); // 60: gs:0x60 is the address of PEB
-    PLIST_ENTRY head = ppeb->Ldr->InMemoryOrderModuleList.Flink;
-    PLIST_ENTRY iterator = head;
-    do {
-        LdrDataTableEntry* ldrDataEntry =
-            (LdrDataTableEntry*)CONTAINING_RECORD(iterator, LdrDataTableEntry, inMemoryOrderLinks);
-        // get moduleName
-        if (ldrDataEntry->baseDllName.Buffer == nullptr) {
-            iterator = iterator->Flink;
-            continue;
-        }
-        std::wstring wstr(ldrDataEntry->baseDllName.Buffer);
-        std::string moduleName(wstr.begin(), wstr.end());
-
-        // exclude nativeLibNames
-        if (!moduleName.empty() && nativeLibNames.count(moduleName) == 0) {
-            ULONG funcTableSize = 0;
-            RuntimeFunction* funcTable = reinterpret_cast<RuntimeFunction*>(ImageDirectoryEntryToData(
-                ldrDataEntry->dllBase, true, IMAGE_DIRECTORY_ENTRY_EXCEPTION, &funcTableSize));
-            uint32_t funcTableCount = funcTableSize / sizeof(RuntimeFunction);
-
-            Uptr imageBaseStart = reinterpret_cast<Uptr>(ldrDataEntry->dllBase);
-            Uptr imageBaseEnd = imageBaseStart + ldrDataEntry->sizeOfImage;
-            WinModule* winModule = new (std::nothrow)
-                WinModule(imageBaseStart, imageBaseEnd, funcTable, funcTableCount, moduleName.c_str());
-            if (UNLIKELY(winModule == nullptr)) {
-                LOG(RTLOG_FATAL, "new WinModule failed.");
-            }
-            winModules.emplace(winModule);
-        }
-
-        iterator = iterator->Flink;
-    } while (iterator != head);
+    // Use documented module enumeration APIs instead of depending on the
+    // private PEB loader-list layout.
+    ReadWinModuleAtRunning();
 }
 
 void WinModuleManager::ReadModuleInfo(HMODULE* moduleHandlers, int moduleHandlersCapacity)
 {
     for (int i = 0; i < moduleHandlersCapacity; i++) {
         // Get image name
-        TCHAR moduleFullName[MAX_PATH];
-        GetModuleFileNameA(moduleHandlers[i], moduleFullName, MAX_PATH);
-        char drive[_MAX_DRIVE];
-        char dir[_MAX_DIR];
-        char fname[_MAX_FNAME];
-        char ext[_MAX_EXT];
-        _splitpath_s(moduleFullName, drive, _MAX_DRIVE, dir, _MAX_DIR, fname, _MAX_FNAME, ext, _MAX_EXT);
-        std::string moduleFName = std::string(drive) + std::string(dir) + std::string(fname) + std::string(ext);
+        char moduleFullName[MAX_PATH] = { 0 };
+        DWORD nameLen = GetModuleFileNameA(moduleHandlers[i], moduleFullName, MAX_PATH);
+        if (nameLen == 0 || nameLen == MAX_PATH) {
+            // The module name is unavailable or truncated (a path of exactly MAX_PATH
+            // characters cannot be stored): skip this module.
+            continue;
+        }
+        char drive[_MAX_DRIVE] = { 0 };
+        char dir[_MAX_DIR] = { 0 };
+        char fname[_MAX_FNAME] = { 0 };
+        char ext[_MAX_EXT] = { 0 };
+        errno_t splitRet =
+            _splitpath_s(moduleFullName, drive, _MAX_DRIVE, dir, _MAX_DIR, fname, _MAX_FNAME, ext, _MAX_EXT);
+        if (splitRet != 0) {
+            // The path could not be split: skip this module instead of reading
+            // uninitialized buffers.
+            continue;
+        }
         std::string moduleName = std::string(fname) + std::string(ext);
         if (nativeLibNames.count(moduleName) != 0) {
             continue;
         }
 
-        MODULEINFO module;
+        MODULEINFO module = {};
         // Get image address
-        GetModuleInformation(GetCurrentProcess(), moduleHandlers[i], &module, sizeof(module));
+        if (GetModuleInformation(GetCurrentProcess(), moduleHandlers[i], &module, sizeof(module)) == FALSE ||
+            module.lpBaseOfDll == nullptr || module.SizeOfImage == 0) {
+            continue;
+        }
         Uptr imageBaseStart = reinterpret_cast<Uptr>(module.lpBaseOfDll);
         Uptr imageBaseEnd = reinterpret_cast<Uptr>(module.lpBaseOfDll) + module.SizeOfImage;
 
@@ -142,31 +105,48 @@ void WinModuleManager::ReadModuleInfo(HMODULE* moduleHandlers, int moduleHandler
         uint32_t funcTableCount = funcTableSize / sizeof(RuntimeFunction);
 
         WinModule* winModule =
-            new (std::nothrow) WinModule(imageBaseStart, imageBaseEnd, funcTable, funcTableCount, moduleFName.c_str());
+            new (std::nothrow) WinModule(imageBaseStart, imageBaseEnd, funcTable, funcTableCount, moduleName.c_str());
         if (UNLIKELY(winModule == nullptr)) {
             LOG(RTLOG_FATAL, "new WinModule failed.");
         }
-        winModules.emplace(winModule);
+        auto result = winModules.emplace(winModule);
+        if (!result.second) {
+            delete winModule;
+        }
     }
 }
 
 void WinModuleManager::ReadWinModuleAtRunning()
 {
     // It is hard to predict how many modules there will be in loading, here we assume 50 modules at the beginning.
-    int moduleHandlerCapacity = 50;
-    HMODULE moduleHandlers[moduleHandlerCapacity];
-    DWORD neededModulesLength;
+    constexpr int moduleHandlerCapacity = 50;
+    std::array<HMODULE, moduleHandlerCapacity> moduleHandlers;
+    DWORD neededModulesLength = 0;
     HANDLE curProcess = GetCurrentProcess();
-    EnumProcessModules(curProcess, moduleHandlers, sizeof(moduleHandlers), &neededModulesLength);
+    if (EnumProcessModules(curProcess, moduleHandlers.data(),
+                           static_cast<DWORD>(moduleHandlers.size() * sizeof(HMODULE)), &neededModulesLength) == FALSE ||
+        neededModulesLength == 0) {
+        return;
+    }
     int moduleNum = neededModulesLength / sizeof(HMODULE);
     if (moduleNum <= moduleHandlerCapacity) {
-        ReadModuleInfo(moduleHandlers, moduleNum);
+        ReadModuleInfo(moduleHandlers.data(), moduleNum);
         return;
     }
     // require capacity expansion.
-    HMODULE expandedModuleHandlers[moduleNum];
-    EnumProcessModules(curProcess, expandedModuleHandlers, sizeof(expandedModuleHandlers), &neededModulesLength);
-    ReadModuleInfo(expandedModuleHandlers, moduleNum);
+    std::vector<HMODULE> expandedModuleHandlers(static_cast<size_t>(moduleNum));
+    DWORD expandedModulesLength = 0;
+    if (EnumProcessModules(curProcess, expandedModuleHandlers.data(),
+                           static_cast<DWORD>(expandedModuleHandlers.size() * sizeof(HMODULE)),
+                           &expandedModulesLength) == FALSE ||
+        expandedModulesLength == 0) {
+        return;
+    }
+    int expandedModuleNum = expandedModulesLength / sizeof(HMODULE);
+    if (expandedModuleNum > moduleNum) {
+        expandedModuleNum = moduleNum;
+    }
+    ReadModuleInfo(expandedModuleHandlers.data(), expandedModuleNum);
 }
 
 void WinModuleManager::Fini() const
