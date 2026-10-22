@@ -144,7 +144,8 @@ void WCollector::EnumRefFieldRoot(RefField<>& field, RootSet& rootSet) const
         BaseObject* targetObj = oldField.GetTargetObject();
         latest = FindLatestVersion(targetObj);
     } else {
-        latest = field.GetTargetObject();
+        // Decode the same snapshot whose tag was checked above.
+        latest = oldField.GetTargetObject();
     }
 
     // target object could be null or non-heap for some static variable.
@@ -210,7 +211,8 @@ void WCollector::TraceRefField(BaseObject* obj, RefField<>& field, WorkStack& wo
         BaseObject* targetObj = oldField.GetTargetObject();
         latest = FindLatestVersion(targetObj);
     } else {
-        latest = field.GetTargetObject();
+        // Decode the same snapshot whose tag was checked above.
+        latest = oldField.GetTargetObject();
     }
 
     // target object could be null or non-heap for some static variable.
@@ -250,7 +252,8 @@ BaseObject* WCollector::GetAndTryTagObj(BaseObject* obj, RefField<>& field)
         BaseObject* targetObj = oldField.GetTargetObject();
         latest = FindLatestVersion(targetObj);
     } else {
-        latest = field.GetTargetObject();
+        // Decode the same snapshot whose tag was checked above.
+        latest = oldField.GetTargetObject();
     }
     // target object could be null or non-heap for some static variable.
     if (!Heap::IsHeapAddress(latest)) {
