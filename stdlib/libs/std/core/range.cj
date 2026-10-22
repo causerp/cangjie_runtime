@@ -83,6 +83,13 @@ public struct Range<T> <: Iterable<T> where T <: Countable<T> & Comparable<T> & 
     }
 }
 
+// Compiler cannot express the doc §3.4.1 commitment
+//   extend<T> Range<T> <: Copyable where T <: Copyable {}
+// for this struct: declaring Range a copy type requires its T-typed fields to be
+// unconditionally Copyable, which the struct's `where T <: Countable<T> & Comparable<T>
+// & Equatable<T>` does not provide (error: cannot declare field 'start' of non copy type
+// 'Generics-T' in copy type 'Range'). Same failure with the unconditional form.
+
 public class RangeIterator<T> <: Iterator<T> where T <: Countable<T> & Comparable<T> & Equatable<T> {
     private let _last: T
     private let _step: Int64

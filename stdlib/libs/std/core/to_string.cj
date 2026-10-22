@@ -24,7 +24,7 @@ public interface ToString {
      * this to return a real `local!` String.
      */
     func toString(this @local?): String @local! {
-        throw Exception("ToString.toString(this @local?) not implemented")
+        throw UnimplementedException("Current Type does not implement 'toString' method for its @local? instance")
     }
 }
 
@@ -44,6 +44,7 @@ extend Int64 <: ToString {
         numberToString(unum, numLen, buffer)
         return String(buffer)
     }
+    @OverflowWrapping
     public exclave func toString(this @local?): String @local! {
         let (numLen, unum, buffer) = if (this < 0) {
             let unum = UInt64(-this)

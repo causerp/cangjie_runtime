@@ -156,10 +156,22 @@ extend<T> Option<T> <: ToString where T <: ToString {
             case None => "None"
         }
     }
+    // toString(this @local?) is not implemented (open defect, localized 2026-10-16): a generic
+    // `Option<T> @local!` match-unpack yields a corrupted payload reference; GC scanning reports
+    // "heap object must not reference local object" -> SIGABRT. Construction and predicates
+    // (isSome/getOrThrow) are fine; only generic match-unpack triggers it; non-generic
+    // (Option<String>) is fine. Repro: exclave func f<T>(o: Option<T> @local!) { match (o) { case Some(v) => 1; case _ => 0 } }
 }
 
 extend<T> Option<T> <: Hashable where T <: Hashable {
     public func hashCode(): Int64 {
+        return match (this) {
+            case Some(v) => v.hashCode()
+            case None => 0
+        }
+    }
+
+    public func hashCode(this @local?): Int64 {
         return match (this) {
             case Some(v) => v.hashCode()
             case None => 0

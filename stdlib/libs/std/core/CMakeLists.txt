@@ -38,6 +38,7 @@ set(CANGJIE_CORE_SRCS
     stack_trace_element.cj
     none_value_exception.cj
     unsupported_exception.cj
+    unimplemented_exception.cj
     overflow_exception.cj
     out_of_memory_error.cj
     local_region_out_of_memory_error.cj

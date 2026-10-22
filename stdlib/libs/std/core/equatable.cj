@@ -11,20 +11,20 @@ package std.core
 public interface Equal<T> {
     operator func ==(other: T): Bool
     operator func ==(this @local!, other: T @local!): Bool {
-        throw UnImplementedException("Current Type does not implement '==' method for its @local! instance")
+        throw UnimplementedException("Current Type does not implement '==' method for its @local! instance")
     }
     operator func ==(this @local?, other: T @local?): Bool {
-        throw UnImplementedException("Current Type does not implement '==' method for its @local? instance")
+        throw UnimplementedException("Current Type does not implement '==' method for its @local? instance")
     }
 }
 
 public interface NotEqual<T> {
     operator func !=(other: T): Bool
     operator func !=(this @local!, other: T @local!): Bool {
-        throw UnImplementedException("Current Type does not implement '!=' method for its @local! instance")
+        throw UnimplementedException("Current Type does not implement '!=' method for its @local! instance")
     }
     operator func !=(this @local?, other: T @local?): Bool {
-        throw UnImplementedException("Current Type does not implement '!=' method for its @local? instance")
+        throw UnimplementedException("Current Type does not implement '!=' method for its @local? instance")
     }
 }
 
@@ -34,10 +34,10 @@ public interface Equatable<T> <: Equal<T> & NotEqual<T> {
     }
     operator func !=(this @local!, other: T @local!): Bool {
         // exclave { !(this == other) }
-        throw UnImplementedException("Current Type does not implement '!=' method for its @local! instance")
+        throw UnimplementedException("Current Type does not implement '!=' method for its @local! instance")
     }
     operator func !=(this @local?, other: T @local?): Bool {
-        throw UnImplementedException("Current Type does not implement '!=' method for its @local? instance")
+        !(this == other)
     }
 }
 

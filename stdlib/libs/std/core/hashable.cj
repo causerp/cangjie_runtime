@@ -11,10 +11,10 @@ package std.core
 public interface Hashable {
     func hashCode(): Int64
     func hashCode(this @local?): Int64 {
-        throw UnImplementedException("Current Type does not implement 'hashCode' method for its @local? instance")
+        throw UnimplementedException("Current Type does not implement 'hashCode' method for its @local? instance")
     }
     func hashCode(this @local!): Int64 {
-        throw UnImplementedException("Current Type does not implement 'hashCode' method for its @local! instance")
+        throw UnimplementedException("Current Type does not implement 'hashCode' method for its @local! instance")
     }
 }
 
@@ -36,6 +36,13 @@ extend Ordering <: Hashable {
             case _ => return 2
         }
     }
+    public func hashCode(this @local!): Int64 {
+        match (this) {
+            case Ordering.GT => return 3
+            case Ordering.LT => return 1
+            case _ => return 2
+        }
+    }
 }
 
 extend Unit <: Hashable {
@@ -43,6 +50,9 @@ extend Unit <: Hashable {
         return 0
     }
     public func hashCode(this @local?): Int64 {
+        return 0
+    }
+    public func hashCode(this @local!): Int64 {
         return 0
     }
 }
@@ -60,6 +70,12 @@ extend Bool <: Hashable {
         }
         return 0
     }
+    public func hashCode(this @local!): Int64 {
+        if (this) {
+            return 1
+        }
+        return 0
+    }
 }
 
 extend Rune <: Hashable {
@@ -67,6 +83,9 @@ extend Rune <: Hashable {
         return Int64(UInt32(this))
     }
     public func hashCode(this @local?): Int64 {
+        return Int64(UInt32(this))
+    }
+    public func hashCode(this @local!): Int64 {
         return Int64(UInt32(this))
     }
 }
@@ -100,6 +119,10 @@ extend IntNative <: Hashable {
     public func hashCode(this @local?): Int64 {
         return Int64(this)
     }
+    @OverflowWrapping
+    public func hashCode(this @local!): Int64 {
+        return Int64(this)
+    }
 
     public static prop Max: IntNative {
         get() {
@@ -118,6 +141,9 @@ extend Int64 <: Hashable {
         return this
     }
     public func hashCode(this @local?): Int64 {
+        return Int64(this)
+    }
+    public func hashCode(this @local!): Int64 {
         return Int64(this)
     }
 
@@ -142,6 +168,10 @@ extend Int32 <: Hashable {
     public func hashCode(this @local?): Int64 {
         return Int64(this)
     }
+    @OverflowWrapping
+    public func hashCode(this @local!): Int64 {
+        return Int64(this)
+    }
 
     public static prop Max: Int32 {
         get() {
@@ -164,6 +194,10 @@ extend Int16 <: Hashable {
     public func hashCode(this @local?): Int64 {
         return Int64(this)
     }
+    @OverflowWrapping
+    public func hashCode(this @local!): Int64 {
+        return Int64(this)
+    }
 
     public static prop Max: Int16 {
         get() {
@@ -184,6 +218,10 @@ extend Int8 <: Hashable {
     }
     @OverflowWrapping
     public func hashCode(this @local?): Int64 {
+        return Int64(this)
+    }
+    @OverflowWrapping
+    public func hashCode(this @local!): Int64 {
         return Int64(this)
     }
 
@@ -209,6 +247,10 @@ extend UIntNative <: Hashable {
     public func hashCode(this @local?): Int64 {
         return Int64(this)
     }
+    @OverflowWrapping
+    public func hashCode(this @local!): Int64 {
+        return Int64(this)
+    }
 
     public static prop Max: UIntNative {
         get() {
@@ -232,6 +274,10 @@ extend UInt64 <: Hashable {
     public func hashCode(this @local?): Int64 {
         return Int64(this)
     }
+    @OverflowWrapping
+    public func hashCode(this @local!): Int64 {
+        return Int64(this)
+    }
 
     public static prop Max: UInt64 {
         get() {
@@ -251,6 +297,9 @@ extend UInt32 <: Hashable {
         return Int64(this)
     }
     public func hashCode(this @local?): Int64 {
+        return Int64(this)
+    }
+    public func hashCode(this @local!): Int64 {
         return Int64(this)
     }
 
@@ -274,6 +323,9 @@ extend UInt16 <: Hashable {
     public func hashCode(this @local?): Int64 {
         return Int64(this)
     }
+    public func hashCode(this @local!): Int64 {
+        return Int64(this)
+    }
 
     public static prop Max: UInt16 {
         get() {
@@ -293,6 +345,9 @@ extend UInt8 <: Hashable {
         return Int64(this)
     }
     public func hashCode(this @local?): Int64 {
+        return Int64(this)
+    }
+    public func hashCode(this @local!): Int64 {
         return Int64(this)
     }
 
@@ -319,6 +374,14 @@ extend Float64 <: Hashable {
         return wyrand(i)
     }
     public func hashCode(this @local?): Int64 {
+        let i = if (this == 0.0f64) {
+            0
+        } else {
+            unsafe { CJ_CORE_Float64ToHash(this) }
+        }
+        return wyrand(i)
+    }
+    public func hashCode(this @local!): Int64 {
         let i = if (this == 0.0f64) {
             0
         } else {
@@ -455,6 +518,14 @@ extend Float32 <: Hashable {
         return wyrand(i)
     }
     public func hashCode(this @local?): Int64 {
+        let i = if (this == 0.0f32) {
+            0
+        } else {
+            unsafe { CJ_CORE_Float32ToHash(this) }
+        }
+        return wyrand(i)
+    }
+    public func hashCode(this @local!): Int64 {
         let i = if (this == 0.0f32) {
             0
         } else {
@@ -599,6 +670,14 @@ extend Float16 <: Hashable {
         }
         return wyrand(i)
     }
+    public func hashCode(this @local!): Int64 {
+        let i = if (this == 0.0f16) {
+            0
+        } else {
+            unsafe { CJ_CORE_Float32ToHash(Float32(this)) }
+        }
+        return wyrand(i)
+    }
 
     public static prop NaN: Float16 {
         get() {
@@ -732,6 +811,25 @@ extend<T> Range<T> <: Hashable where T <: Hashable & Countable<T> & Comparable<T
         var dfh: DefaultHasher = DefaultHasher()
         dfh.write(start.hashCode())
         dfh.write(end.hashCode())
+        dfh.write(step.hashCode())
+        dfh.write(isClosed.hashCode())
+        return dfh.finish()
+    }
+
+    public func hashCode(this @local?): Int64 {
+        var dfh: DefaultHasher = DefaultHasher()
+        dfh.write(start.hashCode())
+        dfh.write(end.hashCode())
+        dfh.write(step.hashCode())
+        dfh.write(isClosed.hashCode())
+        return dfh.finish()
+    }
+    public func hashCode(this @local!): Int64 {
+        let startQ: T @local? = start
+        let endQ: T @local? = end
+        var dfh: DefaultHasher = DefaultHasher()
+        dfh.write(startQ.hashCode())
+        dfh.write(endQ.hashCode())
         dfh.write(step.hashCode())
         dfh.write(isClosed.hashCode())
         return dfh.finish()

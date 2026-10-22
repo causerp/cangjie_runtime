@@ -160,7 +160,7 @@ extend Rune {
      */
     @OverflowWrapping
     public static func fromUtf8(arr: Array<UInt8>, index: Int64): (Rune, Int64) {
-        if (index >= arr.size) {
+        if (index < 0 || index >= arr.size) {
             throw IllegalArgumentException("Invalid utf8 byte sequence.")
         }
         return fromUtf8(arr.rawptr, arr.start + index, arr.start + arr.len)
@@ -168,7 +168,7 @@ extend Rune {
 
     @OverflowWrapping
     public static func fromUtf8(arr: Array<UInt8> @local?, index: Int64): (Rune, Int64) {
-        if (index >= arr.size) {
+        if (index < 0 || index >= arr.size) {
             throw IllegalArgumentException("Invalid utf8 byte sequence.")
         }
         return fromUtf8(arr.rawptr, arr.start + index, arr.start + arr.len)
@@ -288,7 +288,7 @@ extend Rune {
         } else {
             throw IllegalArgumentException("Invalid Unicode scalar value: code point exceeds U+10FFFF.")
         }
-        if (lengthOfCharBytes + index > arrSize) {
+        if (index > arrSize || lengthOfCharBytes > arrSize - index) {
             throw IllegalArgumentException(
                 "The bytecode position occupied by this character is outside the range of the array.")
         }
@@ -311,4 +311,5 @@ extend Rune <: Comparable<Rune> {
             case _ => Ordering.EQ
         }
     }
+
 }

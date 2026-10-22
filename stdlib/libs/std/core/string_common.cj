@@ -305,6 +305,14 @@ class StringIteratorData {
 class StringRuneIterator <: Iterator<Rune> {
     @Frozen
     StringRuneIterator(let iteratorData: StringIteratorData) {}
+    @Frozen
+    exclave init(this @local!, iteratorData: StringIteratorData @local!) {
+        this.iteratorData = iteratorData
+    }
+    @Frozen
+    exclave init(this @local?, iteratorData: StringIteratorData @local?) {
+        this.iteratorData = iteratorData
+    }
     /**
      * @return the next element in the iteration.
      * @throws IllegalArgumentException if there is an invalid utf8 leading code
@@ -313,6 +321,26 @@ class StringRuneIterator <: Iterator<Rune> {
     @OverflowWrapping
     @Frozen
     public func next(): Option<Rune> {
+        if (iteratorData.nextPos >= iteratorData.end) {
+            return None
+        }
+        var (rune, num): (Rune, Int64) = Rune.fromUtf8(iteratorData.myData, iteratorData.nextPos)
+        iteratorData.nextPos += num
+        return Some<Rune>(rune)
+    }
+    @OverflowWrapping
+    @Frozen
+    public exclave func next(this @local!): Option<Rune> @local! {
+        if (iteratorData.nextPos >= iteratorData.end) {
+            return None
+        }
+        var (rune, num): (Rune, Int64) = Rune.fromUtf8(iteratorData.myData, iteratorData.nextPos)
+        iteratorData.nextPos += num
+        return Some<Rune>(rune)
+    }
+    @OverflowWrapping
+    @Frozen
+    public exclave func next(this @local?): Option<Rune> @local? {
         if (iteratorData.nextPos >= iteratorData.end) {
             return None
         }
@@ -376,6 +404,14 @@ class StringByteIterator <: Iterator<Byte> {
 class StringLineIterator <: Iterator<String> {
     @Frozen
     StringLineIterator(let iteratorData: StringIteratorData) {}
+    @Frozen
+    exclave init(this @local!, iteratorData: StringIteratorData @local!) {
+        this.iteratorData = iteratorData
+    }
+    @Frozen
+    exclave init(this @local?, iteratorData: StringIteratorData @local?) {
+        this.iteratorData = iteratorData
+    }
 
     @Frozen
     @OverflowWrapping
@@ -411,9 +447,90 @@ class StringLineIterator <: Iterator<String> {
             }
             pos++
         }
-        let str = String(iteratorData.myData[iteratorData.nextPos..])
+        let end = if (haveCR) { iteratorData.end - 1 } else { iteratorData.end }
+        let str = String(iteratorData.myData[iteratorData.nextPos..end])
         iteratorData.nextPos = iteratorData.end
         return Some(str)
+    }
+
+    @Frozen
+    @OverflowWrapping
+    public exclave func next(this @local!): Option<String> @local! {
+        if (iteratorData.nextPos >= iteratorData.end) {
+            return None
+        }
+        var pos = iteratorData.nextPos
+        var haveCR = false
+        while (pos < iteratorData.end) {
+            match (iteratorData.myData[pos]) {
+                case '\r' =>
+                    if (haveCR) {
+                        let str = String(iteratorData.myData[iteratorData.nextPos..pos - 1])
+                        iteratorData.nextPos = pos
+                        return Some<String>(str)
+                    }
+                    haveCR = true
+                case '\n' =>
+                    let str = if (haveCR) {
+                        String(iteratorData.myData[iteratorData.nextPos..pos - 1])
+                    } else {
+                        String(iteratorData.myData[iteratorData.nextPos..pos])
+                    }
+                    iteratorData.nextPos = pos + 1
+                    return Some<String>(str)
+                case _ =>
+                    if (haveCR) {
+                        let str = String(iteratorData.myData[iteratorData.nextPos..pos - 1])
+                        iteratorData.nextPos = pos
+                        return Some<String>(str)
+                    }
+            }
+            pos++
+        }
+        let end = if (haveCR) { iteratorData.end - 1 } else { iteratorData.end }
+        let str = String(iteratorData.myData[iteratorData.nextPos..end])
+        iteratorData.nextPos = iteratorData.end
+        Some<String>(str)
+    }
+
+    @Frozen
+    @OverflowWrapping
+    public exclave func next(this @local?): Option<String> @local? {
+        if (iteratorData.nextPos >= iteratorData.end) {
+            return None
+        }
+        var pos = iteratorData.nextPos
+        var haveCR = false
+        while (pos < iteratorData.end) {
+            match (iteratorData.myData[pos]) {
+                case '\r' =>
+                    if (haveCR) {
+                        let str = String(iteratorData.myData[iteratorData.nextPos..pos - 1])
+                        iteratorData.nextPos = pos
+                        return Some<String>(str)
+                    }
+                    haveCR = true
+                case '\n' =>
+                    let str = if (haveCR) {
+                        String(iteratorData.myData[iteratorData.nextPos..pos - 1])
+                    } else {
+                        String(iteratorData.myData[iteratorData.nextPos..pos])
+                    }
+                    iteratorData.nextPos = pos + 1
+                    return Some<String>(str)
+                case _ =>
+                    if (haveCR) {
+                        let str = String(iteratorData.myData[iteratorData.nextPos..pos - 1])
+                        iteratorData.nextPos = pos
+                        return Some<String>(str)
+                    }
+            }
+            pos++
+        }
+        let end = if (haveCR) { iteratorData.end - 1 } else { iteratorData.end }
+        let str = String(iteratorData.myData[iteratorData.nextPos..end])
+        iteratorData.nextPos = iteratorData.end
+        Some<String>(str)
     }
 }
 
