@@ -401,7 +401,14 @@ func getWaitExitCode(process: SubProcess, timeout: Duration): Int64 {
     // status instead of -1 (ECHILD).
     let waitDuration: Duration = if (timeout >= MAX_TIMEOUT_DURATION) { MAX_TIMEOUT_DURATION } else { timeout }
     let deadline: MonoTime = MonoTime.now() + waitDuration
+    var firstPoll = true
     while (true) {
+        // Probe once for a child that has already exited, even with a tiny
+        // timeout. Later probes must not accept an exit after the deadline.
+        if (!firstPoll && MonoTime.now() >= deadline) {
+            throw TimeoutException("Wait subProcess(${pid}) timeout.")
+        }
+        firstPoll = false
         var exitCode: Int64 = -1
         let ret: Int32 = unsafe { CJ_OS_WaitSubProcessExitNonBlocking(pid, inout exitCode) }
         if (ret == 1) {
