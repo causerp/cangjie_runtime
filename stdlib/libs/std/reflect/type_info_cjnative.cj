@@ -126,11 +126,12 @@ sealed abstract class TypeInfo <: Equatable<TypeInfo> & Hashable & ToString {
     // preserves the performance win: a steady-state hit only pays a 4-byte aligned native read +
     // Int32 compare instead of uuid.toString() + String hashing.
     //
-    // UUID 0 is never trusted. CreatedTypeInfoImpl returns from its IsCFunc branch before
-    // AddTypeInfo assigns a UUID, so generic CFunc instantiations keep UUID 0; if a reused
-    // address held another generic CFunc, comparing 0 == 0 would wrongly accept the stale
-    // wrapper. UUID 0 therefore always takes the isGeneric/qualifiedName path, exactly as such
-    // types were resolved before this memo existed.
+    // A zero UUID can never prove identity and is never trusted. Runtime creation now assigns a
+    // monotonic UUID to every instantiation (including generic CFuncs, which are registered by
+    // CreatedTypeInfoImpl's IsCFunc branch), but metadata produced outside that path, or by an
+    // older runtime, can still carry 0. Trusting it would let a reused address whose previous
+    // occupant also had UUID 0 accept the stale wrapper (0 == 0). UUID 0 therefore always takes
+    // the isGeneric/qualifiedName path, exactly as such types were resolved before this memo.
     //
     // Background: the metadata address is otherwise stable for the process lifetime for standard
     // Cangjie applications (no module unload; PackageInfo.load has no unload counterpart), so the

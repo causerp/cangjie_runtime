@@ -395,14 +395,9 @@ TypeInfo* TypeInfoManager::GetOrCreateTypeInfo(TypeTemplate* tt, U32 argSize, Ty
         }
         // Another thread owns the creation of this descriptor. Yield instead of
         // busy-spinning, so the creator can make progress and we avoid burning
-        // CPU while waiting for the TYPEINFO_INITED state.
-        //
-        // Caveat (pre-existing, unrelated to this change): a generic CFunc instantiation never
-        // reaches TYPEINFO_INITED (CreatedTypeInfoImpl's IsCFunc branch returns while still
-        // INITING and FillRemainingField early-returns for CFunc). The creator still returns via
-        // the `IsIniting() && tid == currentTid` branch above, but a cross-thread query of the
-        // same instantiation would spin/yield here forever. Tracked separately
-        // (Cangjie/cangjie_runtime issue #865).
+        // CPU while waiting for the TYPEINFO_INITED state. Every creation path now terminates
+        // in TYPEINFO_INITED (CreatedTypeInfoImpl marks array/CPointer and CFunc instantiations
+        // initialized before returning), so this branch only waits for a live creator.
         sched_yield();
     } while (true);
 }
@@ -455,14 +450,15 @@ void TypeInfoManager::CreatedTypeInfoImpl(GenericTiDesc* &tiDesc, TypeTemplate* 
     } else if (tt->IsCFunc()) {
         newTypeInfo->SetInstanceSize(ptrSize);
         newTypeInfo->SetAlign(ptrSize);
-        // NOTE: this branch returns while the descriptor is still TYPEINFO_INITING. Unlike
-        // the array/CPointer branch, it neither registers the new instance nor marks it
-        // initialized. The creator thread still gets the result via the tid-owned branch in
-        // GetOrCreateTypeInfo, but a cross-thread query of the same generic-CFunc instantiation
-        // would never be satisfied. This is a pre-existing, historical condition, not introduced
-        // by this change (tracked in Cangjie/cangjie_runtime issue #865). If such cross-thread
-        // instantiation must be supported, register the instance and mark it initialized here,
-        // mirroring the array/CPointer branch above.
+        // Register the instantiation and mark the descriptor initialized, mirroring the
+        // array/CPointer branch above. Historically this branch returned while the descriptor
+        // was still TYPEINFO_INITING: the creator thread could return via the tid-owned branch
+        // in GetOrCreateTypeInfo, but any other thread querying the same generic-CFunc
+        // instantiation would spin/yield in that loop forever (Cangjie/cangjie_runtime issue
+        // #865). AddTypeInfo also assigns the monotonic UUID, so the stdlib pointer-keyed memo
+        // can validate address reuse for generic CFuncs exactly like any other instantiation.
+        AddTypeInfo(newTypeInfo);
+        tiDesc->SetTypeInfoStatus(TypeInfoStatus::TYPEINFO_INITED);
         return;
     }
     U32* offsets = reinterpret_cast<U32*>(Allocate(fieldNum * sizeof(U32)));
