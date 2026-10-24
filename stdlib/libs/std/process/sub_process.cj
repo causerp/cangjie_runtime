@@ -316,24 +316,7 @@ func getWaitExitCode(process: SubProcess, timeout: Duration): Int64 {
     let pid: Int32 = Int32(process.pid)
     var exitCode: Int64 = -1
     if (timeout > Duration.Zero) {
-        // Bounded wait executed in the calling thread via
-        // WaitForSingleObject(handle, timeoutMs). No background reaper thread is
-        // spawned and no ExitInfo is allocated, so a timed-out wait leaves no
-        // residual thread behind and leaks nothing; a later wait() still reads
-        // the real exit code because the process handle stays open.
-        let timeoutMs: UInt32 = timeoutToMilliseconds(timeout)
-        let ret: Int32 = unsafe { CJ_OS_WaitSubProcessExitTimeout(process._handle, timeoutMs, inout exitCode) }
-        if (ret == 0) {
-            throw TimeoutException("Wait subProcess(${pid}) timeout.")
-        }
-        if (ret == -1) {
-            // A native wait failure (NULL handle / GetExitCodeProcess failure) is
-            // reported exactly like the blocking path below, instead of being
-            // folded into the -1 return value where a caller could mistake it for
-            // a real exit code (Windows exit codes are non-negative once widened
-            // to Int64). This keeps both timeout branches semantically identical.
-            throw ProcessException("Wait subProcess exception, pid: ${pid} not exist.")
-        }
+        exitCode = waitSubProcessExitTimeout(process, pid, timeout)
     } else {
         var waitExitInfo_cp: CPointer<ExitInfo> = CPointer<ExitInfo>()
         try {
@@ -351,16 +334,51 @@ func getWaitExitCode(process: SubProcess, timeout: Duration): Int64 {
 }
 
 @When[os == "Windows"]
-func timeoutToMilliseconds(timeout: Duration): UInt32 {
-    // UInt32.Max is INFINITE for WaitForSingleObject; clamp huge timeouts to it
-    // so the millisecond conversion can never overflow.
-    let duration: Duration = if (timeout >= MAX_TIMEOUT_DURATION) { MAX_TIMEOUT_DURATION } else { timeout }
-    let millis: Int64 = duration.toMilliseconds()
-    if (millis >= Int64(UInt32.Max)) {
-        return UInt32.Max
+func waitSubProcessExitTimeout(process: SubProcess, pid: Int32, timeout: Duration): Int64 {
+    // A timed-out wait leaves the process handle open for a later wait().
+    let waitDuration: Duration = if (timeout >= MAX_TIMEOUT_DURATION) {
+        MAX_TIMEOUT_DURATION
+    } else {
+        timeout
     }
-    if (millis <= 0) {
-        return 0
+    let start: MonoTime = MonoTime.now()
+    var exitCode: Int64 = -1
+    while (true) {
+        let remaining: Duration = waitDuration - (MonoTime.now() - start)
+        // Probe once at the deadline to observe an already exited child.
+        let timeoutMs: UInt32 = if (remaining <= Duration.Zero) {
+            0
+        } else {
+            timeoutToMilliseconds(remaining)
+        }
+        let ret: Int32 = unsafe { CJ_OS_WaitSubProcessExitTimeout(process._handle, timeoutMs, inout exitCode) }
+        if (ret == 1) {
+            return exitCode
+        }
+        if (ret == -1) {
+            throw ProcessException("Process '${pid}' does not exist.")
+        }
+        if (remaining <= Duration.Zero) {
+            throw TimeoutException()
+        }
+        // WaitForSingleObject accepts whole milliseconds; sleep the remainder.
+        if (timeoutMs == 0) {
+            let fraction: Duration = waitDuration - (MonoTime.now() - start)
+            if (fraction > Duration.Zero) {
+                sleep(fraction)
+            }
+        }
+    }
+    return -1
+}
+
+@When[os == "Windows"]
+func timeoutToMilliseconds(timeout: Duration): UInt32 {
+    // Keep the fractional remainder for a separate short sleep. Reserve
+    // UInt32.Max for INFINITE; a long finite wait is handled in chunks above.
+    let millis: Int64 = timeout.toMilliseconds()
+    if (millis >= Int64(UInt32.Max) - 1) {
+        return UInt32.Max - 1
     }
     return UInt32(millis)
 }
@@ -368,11 +386,11 @@ func timeoutToMilliseconds(timeout: Duration): UInt32 {
 @When[os == "Windows"]
 func parseExitInfoPointer(waitExitInfo_cp: CPointer<ExitInfo>, pid: Int32): Int64 {
     if (waitExitInfo_cp.isNull()) {
-        throw ProcessException("Wait subProcess exception, pid: ${pid} not exist.")
+        throw ProcessException("Process '${pid}' does not exist.")
     }
     let waitExitInfo: ExitInfo = unsafe { waitExitInfo_cp.read() }
     if (waitExitInfo.error) {
-        throw ProcessException("Wait subProcess exception, pid: ${pid} not exist.")
+        throw ProcessException("Process '${pid}' does not exist.")
     }
     return waitExitInfo.exitCode
 }
@@ -399,16 +417,15 @@ func getWaitExitCode(process: SubProcess, timeout: Duration): Int64 {
     // cleanly. A timed-out wait leaves no residual thread behind, so a later
     // wait() still finds the (possibly zombie) child and returns its real exit
     // status instead of -1 (ECHILD).
-    let waitDuration: Duration = if (timeout >= MAX_TIMEOUT_DURATION) { MAX_TIMEOUT_DURATION } else { timeout }
-    let deadline: MonoTime = MonoTime.now() + waitDuration
-    var firstPoll = true
+    let waitDuration: Duration = if (timeout >= MAX_TIMEOUT_DURATION) {
+        MAX_TIMEOUT_DURATION
+    } else {
+        timeout
+    }
+    let start: MonoTime = MonoTime.now()
     while (true) {
-        // Probe once for a child that has already exited, even with a tiny
-        // timeout. Later probes must not accept an exit after the deadline.
-        if (!firstPoll && MonoTime.now() >= deadline) {
-            throw TimeoutException("Wait subProcess(${pid}) timeout.")
-        }
-        firstPoll = false
+        // Probe before checking the deadline: the child may have exited while
+        // the polling sleep was in progress.
         var exitCode: Int64 = -1
         let ret: Int32 = unsafe { CJ_OS_WaitSubProcessExitNonBlocking(pid, inout exitCode) }
         if (ret == 1) {
@@ -417,10 +434,15 @@ func getWaitExitCode(process: SubProcess, timeout: Duration): Int64 {
             return exitCode
         }
         if (ret == 0) {
-            if (MonoTime.now() >= deadline) {
-                throw TimeoutException("Wait subProcess(${pid}) timeout.")
+            let remaining: Duration = waitDuration - (MonoTime.now() - start)
+            if (remaining <= Duration.Zero) {
+                throw TimeoutException()
             }
-            sleep(WAIT_POLL_INTERVAL)
+            sleep(if (remaining < WAIT_POLL_INTERVAL) {
+                remaining
+            } else {
+                WAIT_POLL_INTERVAL
+            })
             continue
         }
         // ret == -1: the child is not waitable (ECHILD or other error).
