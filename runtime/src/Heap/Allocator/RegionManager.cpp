@@ -195,8 +195,9 @@ void RegionInfo::SweepRegion()
         freeSlotList = new (std::nothrow) RegionFreeSlotList();
         CHECK_DETAIL(freeSlotList != nullptr, "create free slot list for sweep region failed");
         SetFreeSlotList(freeSlotList);
-        freeSlotList->Init(GetRegionStart());
     }
+    // Rebuild the index on every sweep: old slots may coalesce with newly dead objects.
+    freeSlotList->Init(GetRegionStart());
     size_t regionSize = GetRegionSize();
     if (IsLargeRegion()) {
         if (!IsSurvivedObject(0)) {
@@ -233,8 +234,8 @@ void RegionInfo::SweepRegion()
                 }
                 inFreeRun = false;
             }
-        } else if (!isValidSlot) {
-            if (IsOldRegion()) {
+        } else {
+            if (!isValidSlot && IsOldRegion()) {
                 ClearRSetSlots(position, allocSize);
             }
             if (!inFreeRun) {
