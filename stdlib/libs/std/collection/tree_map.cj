@@ -854,123 +854,145 @@ public class TreeMap<K, V> <: OrderedMap<K, V> where K <: Comparable<K> {
     }
 
     func deleteEntry(found: SearchResult<K, V>): Option<V> {
-        var sr = found
-        let v = sr.replaceNode.getOrThrow()
-        let oldValue: V
-        //If the node is not a leaf node, search for the previous node.
-        if (!v.isLeaf()) {
-            //Find the previous element of the deleted element
-            var psr = predecessor(sr)
-            //Swap the position of the predecessor element and the deleted element
-            if (let Some(rNode) <- psr.replaceNode) {
-                let entry = v.getEntry(sr.index).getOrThrow()
-                let rEntry = rNode.getEntry(psr.index).getOrThrow()
-                let key = entry.key
-                let value = entry.value
-                entry.reset(rEntry.key, rEntry.value)
-                rEntry.reset(key, value)
-                sr = psr
-            }
-        }
-
-        //Deletes an element.
-        var curNode = sr.replaceNode.getOrThrow()
-        oldValue = curNode.getEntry(sr.index).getOrThrow().value
+        let sr = findDeletionEntry(found)
+        let curNode = sr.replaceNode.getOrThrow()
+        let oldValue = curNode.getEntry(sr.index).getOrThrow().value
         curNode.deleteEntry(sr.index)
         this._size--
         this.modCount++
-        //If the number of node elements after deletion is less than the minimum number of elements
-        while (curNode.entrySize < MIN_ENTRY_SIZE) {
-            //If the current node is the root node, the loop ends.
-            if (curNode._parent.isNone()) {
-                break
-            }
-            //Find the parent node of the current node.
-            let psr: SearchResult<K, V> = parentOf(curNode)
-            let parent: Node<K, V> = psr.replaceNode.getOrThrow()
-            var broNode: ?Node<K, V> = Node<K, V>.nullNode()
-            //If there is a left brother, and the left brother has an extra element, borrow an element from him.
-            if (psr.index > 0 && parent.getChild(psr.index - 1).getOrThrow().entrySize > MIN_ENTRY_SIZE) {
-                broNode = parent.getChild(psr.index - 1).getOrThrow()
-                curNode.insertEntry(0, parent.getEntry(psr.index - 1).getOrThrow())
-                parent.deleteEntry(psr.index - 1)
-                parent.insertEntry(psr.index - 1,
-                    broNode.getOrThrow().getEntry(broNode.getOrThrow().entrySize - 1).getOrThrow())
-                if (broNode?.isLeaf() == false) {
-                    let child = broNode.getOrThrow().getChild(broNode.getOrThrow().entrySize).getOrThrow()
-                    curNode.insertChild(0, child)
-                    child._parent = curNode
-                    broNode?.deleteChild(broNode.getOrThrow().entrySize)
-                }
-                broNode?.deleteEntry(broNode.getOrThrow().entrySize - 1)
-                continue
-            }
-            //If there is a right brother, and the right brother has an extra element, borrow an element from him.
-            if (psr.index < parent.childrenSize - 1 && parent.getChild(psr.index + 1).getOrThrow().entrySize >
-                MIN_ENTRY_SIZE) {
-                broNode = parent.getChild(psr.index + 1).getOrThrow()
-                curNode.insertEntry(curNode.entrySize, parent.getEntry(psr.index).getOrThrow())
-                parent.deleteEntry(psr.index)
-                parent.insertEntry(psr.index, broNode.getOrThrow().getEntry(0).getOrThrow())
-                if (broNode?.isLeaf() == false) {
-                    let child = broNode.getOrThrow().getChild(0).getOrThrow()
-                    curNode.insertChild(curNode.entrySize, child)
-                    child._parent = curNode
-                    broNode?.deleteChild(0)
-                }
-                broNode?.deleteEntry(0)
-                continue
-            }
-            //Left and right brothers do not have redundant elements. Merge left and right brothers and parent nodes.
-            if (psr.index > 0) {
-                //There's left brother
-                broNode = parent.getChild(psr.index - 1).getOrThrow()
-                broNode?.insertEntry(parent.getEntry(psr.index - 1).getOrThrow())
-                for (i in 0..curNode.entrySize) {
-                    broNode?.insertEntry(broNode.getOrThrow().entrySize, curNode.getEntry(i).getOrThrow())
-                }
-                if (!curNode.isLeaf()) {
-                    for (i in 0..curNode.childrenSize) {
-                        let child = curNode.getChild(i).getOrThrow()
-                        broNode?.insertChild(broNode.getOrThrow().childrenSize, child)
-                        child._parent = broNode
-                    }
-                }
-                parent.deleteEntry(psr.index - 1)
-                parent.deleteChild(psr.index)
-            } else {
-                //There's a right brother
-                broNode = parent.getChild(psr.index + 1).getOrThrow()
-                curNode.insertEntry(parent.getEntry(psr.index).getOrThrow())
-                for (i in 0..broNode.getOrThrow().entrySize) {
-                    curNode.insertEntry(curNode.entrySize, broNode.getOrThrow().getEntry(i).getOrThrow())
-                }
-                for (i in broNode.getOrThrow().entrySize - 1..-1 : -1) {
-                    broNode?.deleteEntry(i)
-                }
-                if (broNode?.isLeaf() == false) {
-                    for (i in 0..broNode.getOrThrow().childrenSize) {
-                        let child = broNode.getOrThrow().getChild(i).getOrThrow()
-                        curNode.insertChild(curNode.childrenSize, child)
-                        child._parent = curNode
-                    }
-                }
-                parent.deleteEntry(psr.index)
-                parent.deleteChild(psr.index + 1)
-            }
-            //If the parent node of the current node is the root node and there is no element left, the current node is the new root node.
-            if (parent._parent.isNone() && parent.isEmpty()) {
-                this.root = if (broNode.getOrThrow().isEmpty()) {
-                    curNode
-                } else {
-                    broNode.getOrThrow()
-                }
-                this.root._parent = Node<K, V>.nullNode()
-                break
-            }
-            curNode = parent
-        }
+        rebalanceAfterDelete(curNode)
         return oldValue
+    }
+
+    func findDeletionEntry(sr: SearchResult<K, V>): SearchResult<K, V> {
+        let node = sr.replaceNode.getOrThrow()
+        if (node.isLeaf()) {
+            return sr
+        }
+        let predecessorResult = predecessor(sr)
+        if (let Some(predecessorNode) <- predecessorResult.replaceNode) {
+            let entry = node.getEntry(sr.index).getOrThrow()
+            let predecessorEntry = predecessorNode.getEntry(predecessorResult.index).getOrThrow()
+            let key = entry.key
+            let value = entry.value
+            entry.reset(predecessorEntry.key, predecessorEntry.value)
+            predecessorEntry.reset(key, value)
+            return predecessorResult
+        }
+        return sr
+    }
+
+    func rebalanceAfterDelete(node: Node<K, V>): Unit {
+        var curNode = node
+        while (curNode.entrySize < MIN_ENTRY_SIZE && curNode._parent.isSome()) {
+            curNode = rebalanceAfterDeleteStep(curNode)
+        }
+    }
+
+    func rebalanceAfterDeleteStep(curNode: Node<K, V>): Node<K, V> {
+        let parentResult = parentOf(curNode)
+        let parent = parentResult.replaceNode.getOrThrow()
+        if (borrowFromLeftSibling(curNode, parent, parentResult.index)) {
+            return curNode
+        }
+        if (borrowFromRightSibling(curNode, parent, parentResult.index)) {
+            return curNode
+        }
+        let mergedNode = mergeUnderflowNode(curNode, parent, parentResult.index)
+        if (parent._parent.isNone() && parent.isEmpty()) {
+            this.root = mergedNode
+            this.root._parent = Node<K, V>.nullNode()
+            return this.root
+        }
+        return parent
+    }
+
+    func borrowFromLeftSibling(curNode: Node<K, V>, parent: Node<K, V>, index: Int64): Bool {
+        if (index == 0) {
+            return false
+        }
+        let leftSibling = parent.getChild(index - 1).getOrThrow()
+        if (leftSibling.entrySize <= MIN_ENTRY_SIZE) {
+            return false
+        }
+        curNode.insertEntry(0, parent.getEntry(index - 1).getOrThrow())
+        parent.deleteEntry(index - 1)
+        parent.insertEntry(index - 1, leftSibling.getEntry(leftSibling.entrySize - 1).getOrThrow())
+        if (!leftSibling.isLeaf()) {
+            let child = leftSibling.getChild(leftSibling.entrySize).getOrThrow()
+            curNode.insertChild(0, child)
+            child._parent = curNode
+            leftSibling.deleteChild(leftSibling.entrySize)
+        }
+        leftSibling.deleteEntry(leftSibling.entrySize - 1)
+        return true
+    }
+
+    func borrowFromRightSibling(curNode: Node<K, V>, parent: Node<K, V>, index: Int64): Bool {
+        if (index >= parent.childrenSize - 1) {
+            return false
+        }
+        let rightSibling = parent.getChild(index + 1).getOrThrow()
+        if (rightSibling.entrySize <= MIN_ENTRY_SIZE) {
+            return false
+        }
+        curNode.insertEntry(curNode.entrySize, parent.getEntry(index).getOrThrow())
+        parent.deleteEntry(index)
+        parent.insertEntry(index, rightSibling.getEntry(0).getOrThrow())
+        if (!rightSibling.isLeaf()) {
+            let child = rightSibling.getChild(0).getOrThrow()
+            curNode.insertChild(curNode.entrySize, child)
+            child._parent = curNode
+            rightSibling.deleteChild(0)
+        }
+        rightSibling.deleteEntry(0)
+        return true
+    }
+
+    func mergeUnderflowNode(curNode: Node<K, V>, parent: Node<K, V>, index: Int64): Node<K, V> {
+        if (index > 0) {
+            return mergeWithLeftSibling(curNode, parent, index)
+        }
+        return mergeWithRightSibling(curNode, parent, index)
+    }
+
+    func mergeWithLeftSibling(curNode: Node<K, V>, parent: Node<K, V>, index: Int64): Node<K, V> {
+        let leftSibling = parent.getChild(index - 1).getOrThrow()
+        leftSibling.insertEntry(parent.getEntry(index - 1).getOrThrow())
+        for (i in 0..curNode.entrySize) {
+            leftSibling.insertEntry(leftSibling.entrySize, curNode.getEntry(i).getOrThrow())
+        }
+        if (!curNode.isLeaf()) {
+            for (i in 0..curNode.childrenSize) {
+                let child = curNode.getChild(i).getOrThrow()
+                leftSibling.insertChild(leftSibling.childrenSize, child)
+                child._parent = leftSibling
+            }
+        }
+        parent.deleteEntry(index - 1)
+        parent.deleteChild(index)
+        return leftSibling
+    }
+
+    func mergeWithRightSibling(curNode: Node<K, V>, parent: Node<K, V>, index: Int64): Node<K, V> {
+        let rightSibling = parent.getChild(index + 1).getOrThrow()
+        curNode.insertEntry(parent.getEntry(index).getOrThrow())
+        for (i in 0..rightSibling.entrySize) {
+            curNode.insertEntry(curNode.entrySize, rightSibling.getEntry(i).getOrThrow())
+        }
+        for (i in rightSibling.entrySize - 1..-1 : -1) {
+            rightSibling.deleteEntry(i)
+        }
+        if (!rightSibling.isLeaf()) {
+            for (i in 0..rightSibling.childrenSize) {
+                let child = rightSibling.getChild(i).getOrThrow()
+                curNode.insertChild(curNode.childrenSize, child)
+                child._parent = curNode
+            }
+        }
+        parent.deleteEntry(index)
+        parent.deleteChild(index + 1)
+        return curNode
     }
 
     /* Search for the predecessor node. */
