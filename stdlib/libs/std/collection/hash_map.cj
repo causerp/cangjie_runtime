@@ -487,6 +487,40 @@ public class HashMap<K, V> <: Map<K, V> where K <: Hashable & Equatable<K> {
             putWithoutResize(i[0], i[1])
         }
     }
+    @Frozen
+    public exclave init(this @local!, elements: Collection<(K, V)> @local!) {
+        // The Collection size member is not dispatchable on an @local! receiver, so no size-based
+        // preallocation is done; start from the default capacity and grow on demand via add.
+        buckets = Array<Int64>(DEFAULT_CAPACITY, repeat: -1)
+        entries = Array<HashMapEntry<K, V>>(DEFAULT_CAPACITY, repeat: HashMapEntry<K, V>() @local!)
+        // Do not use `for ((k, v) in elements)`: a type without an adapted iterator(this @local!) falls to
+        // the Iterable interface default body, which throws IllegalStateException; use toArray(this @local!) instead.
+        let src: Array<(K, V)> @local! = elements.toArray()
+        var i: Int64 = 0
+        while (i < src.size) {
+            let pair: (K, V) @local! = src[i]
+            add(pair[0], pair[1])
+            i++
+        }
+    }
+
+    @Frozen
+    public exclave init(this @local?, elements: Collection<(K, V)> @local?) {
+        // Copy the table storage together with its counters so changes through the
+        // source map cannot invalidate this map's size, bucket chains or free list.
+        match (elements) {
+            case map: HashMap<K, V> =>
+                buckets = map.buckets.clone()
+                entries = map.entries.clone()
+                appendIndex = map.appendIndex
+                freeIndex = map.freeIndex
+                freeSize = map.freeSize
+                modCount = map.modCount
+            case _ =>
+                throw IllegalArgumentException("Unsupported collection type for @local? HashMap init.")
+        }
+    }
+
 
     /**
      * Initializes a hashmap with an incoming list for initialization.
@@ -504,25 +538,21 @@ public class HashMap<K, V> <: Map<K, V> where K <: Hashable & Equatable<K> {
             putWithoutResize(i[0], i[1])
         }
     }
-
-    /**
-     * Initializes a hashmap with an incoming list for initialization (local!).
-     *
-     * @param elements an incoming list is initialized.
-     *
-     * @since 0.18.4
-     */
     @Frozen
     public exclave init(this @local!, elements: Array<(K, V)> @local!) {
         let bucketSize: Int64 = elements.size + (elements.size >> 1)
         buckets = Array<Int64>(tableSizeFor(bucketSize), repeat: -1)
         entries = Array<HashMapEntry<K, V>>(elements.size, repeat: HashMapEntry<K, V>() @local!)
-        var i: Int64 = 0
-        while (i < elements.size) {
-            let pair = elements[i]
-            putWithoutResize(pair[0], pair[1])
-            i++
+        for ((k, v) in elements) {
+            add(k, v)
         }
+    }
+
+    @Frozen
+    public exclave init(this @local?, elements: Array<(K, V)> @local?) {
+        // The @local? source elements are (K, V) @local? and cannot be written into a local hash table (Array's
+        // `[]=(this @local?, ...)` is in the Copyable extension, K/V have no such constraint); explicitly rejected.
+        throw IllegalArgumentException("Unsupported element source for @local? HashMap init: use the @local! overload.")
     }
 
     /**
@@ -576,6 +606,27 @@ public class HashMap<K, V> <: Map<K, V> where K <: Hashable & Equatable<K> {
             }
         }
     }
+    @Frozen
+    public exclave init(this @local!, size: Int64, initElement: (Int64) -> (K, V) @local!) {
+        if (size < 0) {
+            throw IllegalArgumentException("Invalid size of HashMap: ${size}.")
+        } else {
+            buckets = Array<Int64>(tableSizeFor(size), repeat: -1)
+            entries = Array<HashMapEntry<K, V>>(size, repeat: HashMapEntry<K, V>() @local!)
+            for (i in 0..size) {
+                let element: (K, V) @local! = initElement(i)
+                add(element[0], element[1])
+            }
+        }
+    }
+
+    @Frozen
+    public exclave init(this @local?, size: Int64, initElement: (Int64) -> (K, V) @local?) {
+        // The closure produces (K, V) @local? pairs, which cannot be written into a local hash table (Array's
+        // @local? writer is in the Copyable extension, K/V have no such constraint); explicitly rejected.
+        throw IllegalArgumentException("Unsupported element source for @local? HashMap init: use the @local! overload.")
+    }
+
 
     @Frozen
     private init(other: HashMap<K, V>) {
@@ -608,13 +659,26 @@ public class HashMap<K, V> <: Map<K, V> where K <: Hashable & Equatable<K> {
         return None
     }
     @Frozen
-    public exclave func get(this @local!, key: K @local!): ?V @local! {
+    public exclave func get(this @local!, key: K @local?): ?V @local! {
         let hash: Int64 = getHash(key.hashCode())
         let index: Int64 = getIndex(hash, buckets.size)
         var bucket: Int64 = buckets[index]
         while (bucket >= 0) {
             if (hash == entries[bucket].hash && key == entries[bucket].key) {
                 return entries[bucket].value
+            }
+            bucket = entries[bucket].next
+        }
+        return None
+    }
+    @Frozen
+    public exclave func get(this @local?, key: K @local?): Option<V> @local? {
+        let hash: Int64 = getHash(key.hashCode())
+        let index: Int64 = getIndex(hash, buckets.size)
+        var bucket: Int64 = buckets[index]
+        while (bucket >= 0) {
+            if (hash == entries[bucket].hash && key == entries[bucket].key) {
+                return Some(entries[bucket].value)
             }
             bucket = entries[bucket].next
         }
@@ -667,11 +731,12 @@ public class HashMap<K, V> <: Map<K, V> where K <: Hashable & Equatable<K> {
     @Frozen
     @OverflowWrapping
     public exclave func add(this @local!, key: K @local!, value: V @local!): Option<V> @local! {
-        let hash: Int64 = getHash(key.hashCode())
+        let lookupKey: K @local? = key
+        let hash: Int64 = getHash(lookupKey.hashCode())
         var bucketIndex: Int64 = getIndex(hash, buckets.size)
         var entryIndex: Int64 = buckets[bucketIndex]
         while (entryIndex >= 0) {
-            if (hash == entries[entryIndex].hash && key == entries[entryIndex].key) {
+            if (hash == entries[entryIndex].hash && lookupKey == entries[entryIndex].key) {
                 let oldValue: Option<V> @local! = Option<V>.Some(entries[entryIndex].value) @local!
                 entries[entryIndex] = HashMapEntry<K, V>(entries[entryIndex].hash, entries[entryIndex].next,
                     entries[entryIndex].key, value) @local!
@@ -723,11 +788,12 @@ public class HashMap<K, V> <: Map<K, V> where K <: Hashable & Equatable<K> {
     @Frozen
     @OverflowWrapping
     protected exclave func putWithoutResize(this @local!, key: K @local!, value: V @local!): Unit {
-        let hash: Int64 = getHash(key.hashCode())
+        let lookupKey: K @local? = key
+        let hash: Int64 = getHash(lookupKey.hashCode())
         var bucketIndex: Int64 = getIndex(hash, buckets.size)
         var entryIndex: Int64 = buckets[bucketIndex]
         while (entryIndex >= 0) {
-            if (hash == entries[entryIndex].hash && key == entries[entryIndex].key) {
+            if (hash == entries[entryIndex].hash && lookupKey == entries[entryIndex].key) {
                 entries[entryIndex] = HashMapEntry<K, V>(entries[entryIndex].hash, entries[entryIndex].next,
                     entries[entryIndex].key, value) @local!
                 return
@@ -764,6 +830,19 @@ public class HashMap<K, V> <: Map<K, V> where K <: Hashable & Equatable<K> {
         }
         return HashMapEntryView<K, V>(true, key, hash, entryIndex, this)
     }
+    @Frozen
+    public exclave func entryView(this @local!, key: K @local!): MapEntryView<K, V> @local! {
+        // Compiler limitation: MapEntryView requires plain key/value properties, while a local view must hold
+        // an `@local!` map reference (a local reference cannot be stored in a plain field); hence explicitly rejected.
+        throw UnimplementedException("HashMap.entryView() is unavailable in local mode: " +
+            "MapEntryView requires plain key/value properties, which cannot hold a local map reference.")
+    }
+
+    @Frozen
+    public exclave func entryView(this @local?, key: K @local!): MapEntryView<K, V> @local? {
+        throw UnimplementedException("HashMap.entryView() is unavailable in local mode: " +
+            "MapEntryView requires plain key/value properties, which cannot hold a local map reference.")
+    }
 
     /**
      * Transfer specified elements for traversal and assign values in sequence.
@@ -781,6 +860,74 @@ public class HashMap<K, V> <: Map<K, V> where K <: Hashable & Equatable<K> {
         for ((k, v) in all) {
             add(k, v)
         }
+    }
+    @Frozen
+    public exclave func add(this @local!, all!: Collection<(K, V)> @local!) {
+        for ((k, v) in all) {
+            add(k, v)
+        }
+    }
+
+    /**
+     * Adds the key-value pair if the key is absent, otherwise returns the existing value.
+     *
+     * @param key the key.
+     * @param value the value to add when the key is absent.
+     * @return None if added; Some(v) with the existing value if the key is present.
+     */
+    @Frozen
+    public exclave func addIfAbsent(this @local!, key: K @local!, value: V @local!): ?V @local! {
+        let lookupKey: K @local? = key
+        let hash: Int64 = getHash(lookupKey.hashCode())
+        var bucketIndex: Int64 = getIndex(hash, buckets.size)
+        var entryIndex: Int64 = buckets[bucketIndex]
+        while (entryIndex >= 0) {
+            if (hash == entries[entryIndex].hash && lookupKey == entries[entryIndex].key) {
+                let existing: Option<V> @local! = Option<V>.Some(entries[entryIndex].value) @local!
+                return existing
+            }
+            entryIndex = entries[entryIndex].next
+        }
+        if (freeSize > 0) {
+            entryIndex = freeIndex
+            freeIndex = entries[entryIndex].next
+            freeSize--
+        } else {
+            if (resize(size + 1)) {
+                bucketIndex = getIndex(hash, buckets.size)
+            }
+            entryIndex = appendIndex
+            appendIndex++
+        }
+        entries[entryIndex] = HashMapEntry<K, V>(hash, buckets[bucketIndex], key, value) @local!
+        modCount++
+        buckets[bucketIndex] = entryIndex
+        return Option<V>.None
+    }
+
+    /**
+     * Replaces the value for the key if the key is present, otherwise does nothing.
+     *
+     * @param key the key.
+     * @param value the new value.
+     * @return Some(old) if the key was present; None otherwise.
+     */
+    @Frozen
+    public exclave func replace(this @local!, key: K @local!, value: V @local!): ?V @local! {
+        let lookupKey: K @local? = key
+        let hash: Int64 = getHash(lookupKey.hashCode())
+        var bucketIndex: Int64 = getIndex(hash, buckets.size)
+        var entryIndex: Int64 = buckets[bucketIndex]
+        while (entryIndex >= 0) {
+            if (hash == entries[entryIndex].hash && lookupKey == entries[entryIndex].key) {
+                let oldValue: Option<V> @local! = Option<V>.Some(entries[entryIndex].value) @local!
+                entries[entryIndex] = HashMapEntry<K, V>(entries[entryIndex].hash, entries[entryIndex].next,
+                    entries[entryIndex].key, value) @local!
+                return oldValue
+            }
+            entryIndex = entries[entryIndex].next
+        }
+        return Option<V>.None
     }
 
     /**
@@ -820,6 +967,35 @@ public class HashMap<K, V> <: Map<K, V> where K <: Hashable & Equatable<K> {
         }
         return None
     }
+    @Frozen
+    @OverflowWrapping
+    public exclave func remove(this @local!, key: K @local?): Option<V> @local! {
+        let NULL_KEY: K @local! = unsafe { zeroValue2<K>() }
+        let NULL_VALUE: V @local! = unsafe { zeroValue2<V>() }
+        let hash: Int64 = getHash(key.hashCode())
+        let index: Int64 = getIndex(hash, buckets.size)
+        var bucket: Int64 = buckets[index]
+        var pre: Int64 = -1
+        while (bucket >= 0) {
+            if (hash == entries[bucket].hash && key == entries[bucket].key) {
+                if (pre < 0) {
+                    buckets[index] = entries[bucket].next
+                } else {
+                    let temp = entries[pre]
+                    entries[pre] = HashMapEntry<K, V>(temp.hash, entries[bucket].next, temp.key, temp.value) @local!
+                }
+                let removeEnt: V @local! = entries[bucket].value
+                entries[bucket] = HashMapEntry<K, V>(-1, freeIndex, NULL_KEY, NULL_VALUE) @local!
+                freeIndex = bucket
+                freeSize++
+                modCount++
+                return Option<V>.Some(removeEnt) @local!
+            }
+            pre = bucket
+            bucket = entries[bucket].next
+        }
+        return Option<V>.None
+    }
 
     /**
      * Traverse the set of transferred keys and delete them based on the traversal result.
@@ -830,6 +1006,12 @@ public class HashMap<K, V> <: Map<K, V> where K <: Hashable & Equatable<K> {
      */
     @Frozen
     public func remove(all!: Collection<K>): Unit {
+        for (key in all) {
+            remove(key)
+        }
+    }
+    @Frozen
+    public exclave func remove(this @local!, all!: Collection<K> @local?) {
         for (key in all) {
             remove(key)
         }
@@ -878,6 +1060,42 @@ public class HashMap<K, V> <: Map<K, V> where K <: Hashable & Equatable<K> {
             }
         }
     }
+    @Frozen
+    @OverflowWrapping
+    public exclave func removeIf(this @local!, predicate: ((K @local?, V @local?) -> Bool) @local?) {
+        let NULL_KEY: K @local! = unsafe { zeroValue2<K>() }
+        let NULL_VALUE: V @local! = unsafe { zeroValue2<V>() }
+        var lockVersion = modCount
+        for (i in 0..buckets.size where buckets[i] != -1) {
+            var next: Int64 = buckets[i]
+            var pre: Int64 = -1
+            while (next >= 0) {
+                let item = entries[next]
+                if (predicate(item.key, item.value)) {
+                    if (lockVersion != modCount) {
+                        throw ConcurrentModificationException("The predicate cannot contain a modify operation.")
+                    }
+                    if (pre < 0) {
+                        buckets[i] = item.next
+                    } else {
+                        let temp = entries[pre]
+                        entries[pre] = HashMapEntry<K, V>(temp.hash, item.next, temp.key, temp.value) @local!
+                    }
+                    entries[next] = HashMapEntry<K, V>(-1, freeIndex, NULL_KEY, NULL_VALUE) @local!
+                    freeIndex = next
+                    freeSize++
+                    modCount++
+                    lockVersion++
+                } else {
+                    if (lockVersion != modCount) {
+                        throw ConcurrentModificationException("The predicate cannot contain a modify operation.")
+                    }
+                    pre = next
+                }
+                next = item.next
+            }
+        }
+    }
 
     /**
      * Clear all key-value pairs.
@@ -900,6 +1118,20 @@ public class HashMap<K, V> <: Map<K, V> where K <: Hashable & Equatable<K> {
         appendIndex = 0
         freeSize = 0
     }
+    @Frozen
+    @OverflowWrapping
+    public exclave func clear(this @local!) {
+        for (i in 0..entries.size where entries[i].hash >= 0) {
+            entries[i] = HashMapEntry<K, V>() @local!
+        }
+        for (i in 0..buckets.size where buckets[i] != -1) {
+            buckets[i] = -1
+        }
+        modCount++
+        freeIndex = -1
+        appendIndex = 0
+        freeSize = 0
+    }
 
     /**
      * Reserves capacity for at least additional more elements to be inserted in this hashmap.
@@ -916,6 +1148,14 @@ public class HashMap<K, V> <: Map<K, V> where K <: Hashable & Equatable<K> {
             return
         }
 
+        resize(size + additional)
+        modCount++
+    }
+    @Frozen
+    public exclave func reserve(this @local!, additional: Int64) {
+        if (additional <= 0 || size + additional < capacity) {
+            return
+        }
         resize(size + additional)
         modCount++
     }
@@ -950,6 +1190,15 @@ public class HashMap<K, V> <: Map<K, V> where K <: Hashable & Equatable<K> {
         }
         return true
     }
+    @Frozen
+    public func contains(this @local?, all!: Collection<K> @local?): Bool {
+        for (key in all) {
+            if (!contains(key)) {
+                return false
+            }
+        }
+        return true
+    }
 
     /**
      * Checks whether the mapping relationship corresponding to the specified key exists in this mapping.
@@ -977,7 +1226,7 @@ public class HashMap<K, V> <: Map<K, V> where K <: Hashable & Equatable<K> {
     }
 
     @Frozen
-    public exclave func contains(this @local!, key: K @local!): Bool {
+    public func contains(this @local?, key: K @local?): Bool {
         if (appendIndex - freeSize == 0) {
             return false
         }
@@ -1004,6 +1253,16 @@ public class HashMap<K, V> <: Map<K, V> where K <: Hashable & Equatable<K> {
     public func clone(): HashMap<K, V> {
         return HashMap<K, V>(this)
     }
+    @Frozen
+    public exclave func clone(this @local!): HashMap<K, V> @local! {
+        // Compiler limitation: HashMapEntry<K, V> holds unconstrained K/V, so a whole-array copy is impossible
+        // (Array copyTo/cloneToLocal are in the Copyable extension); copy entry by entry via add instead.
+        let c: HashMap<K, V> @local! = HashMap<K, V>(size) @local!
+        for ((k, v) in this) {
+            c.add(k, v)
+        }
+        c
+    }
 
     /**
      * Returns the Set view of all keys in this HashMap.
@@ -1016,6 +1275,15 @@ public class HashMap<K, V> <: Map<K, V> where K <: Hashable & Equatable<K> {
     public func keys(): EquatableCollection<K> {
         return HashMapKeys<K, V>(this)
     }
+    @Frozen
+    public exclave func keys(this @local!): EquatableCollection<K> @local! {
+        HashMapKeysLocal<K, V>(this) @local!
+    }
+
+    @Frozen
+    public exclave func keys(this @local?): EquatableCollection<K> @local? {
+        HashMapKeysLocal<K, V>(this) @local?
+    }
 
     /**
      * Returns the Set view of all values in this HashMap.
@@ -1027,6 +1295,15 @@ public class HashMap<K, V> <: Map<K, V> where K <: Hashable & Equatable<K> {
     @Frozen
     public func values(): Collection<V> {
         return HashMapValues<K, V>(this)
+    }
+    @Frozen
+    public exclave func values(this @local!): Collection<V> @local! {
+        HashMapValuesLocal<K, V>(this) @local!
+    }
+
+    @Frozen
+    public exclave func values(this @local?): Collection<V> @local? {
+        HashMapValuesLocal<K, V>(this) @local?
     }
 
     /**
@@ -1046,6 +1323,19 @@ public class HashMap<K, V> <: Map<K, V> where K <: Hashable & Equatable<K> {
         }
         return newMap
     }
+    @Frozen
+    public exclave func mapValues<R>(this @local!, transform: ((K @local?, V @local?) -> R @local!) @local?):
+        HashMap<K, R> @local! {
+        let newMap: HashMap<K, R> @local! = HashMap<K, R>() @local!
+        let size: Int64 = entries.size
+        for (i in 0..size) {
+            if (entries[i].hash >= 0) {
+                let nv: R @local! = transform(entries[i].key, entries[i].value)
+                newMap.add(entries[i].key, nv)
+            }
+        }
+        newMap
+    }
 
     /**
      * @description Performs mapping on this HashMap and returns a new HashMap.
@@ -1063,6 +1353,19 @@ public class HashMap<K, V> <: Map<K, V> where K <: Hashable & Equatable<K> {
             }
         }
         return newMap
+    }
+    @Frozen
+    public exclave func mapValues<R>(this @local!, transform: ((V @local?) -> R @local!) @local?):
+        HashMap<K, R> @local! {
+        let newMap: HashMap<K, R> @local! = HashMap<K, R>() @local!
+        let size: Int64 = entries.size
+        for (i in 0..size) {
+            if (entries[i].hash >= 0) {
+                let nv: R @local! = transform(entries[i].value)
+                newMap.add(entries[i].key, nv)
+            }
+        }
+        newMap
     }
 
     /**
@@ -1082,6 +1385,18 @@ public class HashMap<K, V> <: Map<K, V> where K <: Hashable & Equatable<K> {
         }
         return newMap
     }
+    @Frozen
+    public exclave func filter(this @local!, predicate: ((K @local?, V @local?) -> Bool) @local?):
+        HashMap<K, V> @local! {
+        let newMap: HashMap<K, V> @local! = HashMap<K, V>() @local!
+        let size: Int64 = entries.size
+        for (i in 0..size) {
+            if (entries[i].hash >= 0 && predicate(entries[i].key, entries[i].value)) {
+                newMap.add(entries[i].key, entries[i].value)
+            }
+        }
+        newMap
+    }
 
     /**
      * @description Iterates over all key-value pairs and performs the given operation.
@@ -1100,17 +1415,7 @@ public class HashMap<K, V> <: Map<K, V> where K <: Hashable & Equatable<K> {
     }
 
     @Frozen
-    public exclave func forEach(this @local!, action: (K @local!, V @local!) -> Unit) {
-        let size: Int64 = entries.size
-        for (i in 0..size) {
-            if (entries[i].hash >= 0) {
-                action(entries[i].key, entries[i].value)
-            }
-        }
-    }
-
-    @Frozen
-    public func forEach(this @local?, action: (K @local?, V @local?) -> Unit) {
+    public func forEach(this @local?, action: ((K @local?, V @local?) -> Unit) @local?) {
         let size: Int64 = entries.size
         for (i in 0..size) {
             if (entries[i].hash >= 0) {
@@ -1127,6 +1432,16 @@ public class HashMap<K, V> <: Map<K, V> where K <: Hashable & Equatable<K> {
      */
     @When[env != "ohos"]
     public func all(predicate: (K, V) -> Bool): Bool {
+        let size: Int64 = entries.size
+        for (i in 0..size) {
+            if (entries[i].hash >= 0 && !predicate(entries[i].key, entries[i].value)) {
+                return false
+            }
+        }
+        return true
+    }
+    @Frozen
+    public func all(this @local?, predicate: ((K @local?, V @local?) -> Bool) @local?): Bool {
         let size: Int64 = entries.size
         for (i in 0..size) {
             if (entries[i].hash >= 0 && !predicate(entries[i].key, entries[i].value)) {
@@ -1152,6 +1467,16 @@ public class HashMap<K, V> <: Map<K, V> where K <: Hashable & Equatable<K> {
         }
         return false
     }
+    @Frozen
+    public func any(this @local?, predicate: ((K @local?, V @local?) -> Bool) @local?) : Bool {
+        let size: Int64 = entries.size
+        for (i in 0..size) {
+            if (entries[i].hash >= 0 && predicate(entries[i].key, entries[i].value)) {
+                return true
+            }
+        }
+        return false
+    }
 
     /**
      * @description Determine whether all key-value pairs in the HashMap do not satisfy the condition.
@@ -1161,6 +1486,16 @@ public class HashMap<K, V> <: Map<K, V> where K <: Hashable & Equatable<K> {
      */
     @When[env != "ohos"]
     public func none(predicate: (K, V) -> Bool): Bool {
+        let size: Int64 = entries.size
+        for (i in 0..size) {
+            if (entries[i].hash >= 0 && predicate(entries[i].key, entries[i].value)) {
+                return false
+            }
+        }
+        return true
+    }
+    @Frozen
+    public func none(this @local?, predicate: ((K @local?, V @local?) -> Bool) @local?) : Bool {
         let size: Int64 = entries.size
         for (i in 0..size) {
             if (entries[i].hash >= 0 && predicate(entries[i].key, entries[i].value)) {
@@ -1187,6 +1522,18 @@ public class HashMap<K, V> <: Map<K, V> where K <: Hashable & Equatable<K> {
             }
         }
         return result
+    }
+    @Frozen
+    public exclave func fold<R>(this @local!, initial: R @local!,
+        operation: ((R @local!, K @local?, V @local?) -> R @local!) @local?): R @local! {
+        var result: R @local! = initial
+        let size: Int64 = entries.size
+        for (i in 0..size) {
+            if (entries[i].hash >= 0) {
+                result = operation(result, entries[i].key, entries[i].value)
+            }
+        }
+        result
     }
 
     /**
@@ -1222,6 +1569,34 @@ public class HashMap<K, V> <: Map<K, V> where K <: Hashable & Equatable<K> {
         }
         return result
     }
+    @Frozen
+    public exclave func reduce(this @local!, operation: ((V @local!, V @local?) -> V @local!) @local?):
+        Option<V> @local! {
+        if (size == 0) {
+            return Option<V>.None
+        }
+        let len: Int64 = entries.size
+        var index = 0
+        var result: V @local! = unsafe { zeroValue2<V>() }
+        while (index < len) {
+            if (entries[index].hash >= 0) {
+                result = entries[index].value
+                index++
+                break
+            }
+            index++
+        }
+        if (size == 1) {
+            return Option<V>.Some(result) @local!
+        }
+        while (index < len) {
+            if (entries[index].hash >= 0) {
+                result = operation(result, entries[index].value)
+            }
+            index++
+        }
+        Option<V>.Some(result) @local!
+    }
 
     /**
      * An exception is reported when the get operator is overloaded and the key does not exist.
@@ -1241,7 +1616,20 @@ public class HashMap<K, V> <: Map<K, V> where K <: Hashable & Equatable<K> {
         }
     }
     @Frozen
-    public exclave operator func [](this @local!, key: K @local!): V @local! {
+    public exclave operator func [](this @local!, key: K @local?): V @local! {
+        let hash: Int64 = getHash(key.hashCode())
+        let index: Int64 = getIndex(hash, buckets.size)
+        var bucket: Int64 = buckets[index]
+        while (bucket >= 0) {
+            if (hash == entries[bucket].hash && key == entries[bucket].key) {
+                return entries[bucket].value
+            }
+            bucket = entries[bucket].next
+        }
+        throw NoneValueException("Value does not exist!\n")
+    }
+    @Frozen
+    public exclave operator func [](this @local?, key: K @local?): V @local? {
         let hash: Int64 = getHash(key.hashCode())
         let index: Int64 = getIndex(hash, buckets.size)
         var bucket: Int64 = buckets[index]
@@ -1399,6 +1787,30 @@ public class HashMap<K, V> <: Map<K, V> where K <: Hashable & Equatable<K> {
         }
         return arr
     }
+    @Frozen
+    public exclave func toArray(this @local!): Array<(K, V)> @local! {
+        let arr: Array<(K, V)> @local! =
+            Array<(K, V)>(size, repeat: unsafe { (zeroValue2<K>(), zeroValue2<V>()) }) @local!
+        var index = 0
+        var pos = 0
+        while (index < size) {
+            if (entries[pos].hash >= 0) {
+                let pair: (K, V) @local! = (entries[pos].key, entries[pos].value)
+                arr[index] = pair
+                index++
+            }
+            pos++
+        }
+        arr
+    }
+
+    @Frozen
+    public exclave func toArray(this @local?): Array<(K, V)> @local? {
+        // Compiler limitation: the (K, V) read from an @local? receiver is @local? and cannot be written into a
+        // new array (Array's `[]=(this @local?, ...)` is in the Copyable extension); explicitly rejected.
+        throw UnimplementedException("HashMap.toArray() is unavailable for a @local? receiver; " +
+            "call it on the @local! form.")
+    }
 
     /*
      * Initializes or doubles the table size.
@@ -1554,6 +1966,31 @@ extend<K, V> HashMap<K, V> <: ToString where V <: ToString, K <: ToString {
         unsafe { sb.appendFromUtf8Unchecked(")]".toArray()) }
         return sb.toString()
     }
+
+    @Frozen
+    public exclave func toString(this @local?): String @local! {
+        // Append into a builder instead of growing a String per entry. Repeated
+        // `result + ...` copies the whole prefix each time, so a 4000-entry map
+        // allocated about 100 MiB inside the local region and ran out of it,
+        // while the heap overload only allocates the final buffer.
+        let builder: StringBuilder @local! = StringBuilder() @local!
+        builder.append("[")
+        var first = true
+        for ((k, v) in this) {
+            if (!first) {
+                builder.append(", ")
+            }
+            first = false
+            builder.append("(")
+            builder.append(k)
+            builder.append(", ")
+            builder.append(v)
+            builder.append(")")
+        }
+        builder.append("]")
+        let view: StringBuilder @local? = builder
+        return view.toString()
+    }
 }
 
 /**
@@ -1585,6 +2022,24 @@ extend<K, V> HashMap<K, V> <: Equatable<HashMap<K, V>> where V <: Equatable<V> {
     }
 
     @Frozen
+    public operator func ==(this @local?, right: HashMap<K, V> @local?): Bool {
+        if (this.size != right.size) {
+            return false
+        }
+        for ((k, v) in this) {
+            match (right.get(k)) {
+                case Some(rv) =>
+                    if (v != rv) {
+                        return false
+                    }
+                case None =>
+                    return false
+            }
+        }
+        return true
+    }
+
+    @Frozen
     public operator func !=(right: HashMap<K, V>): Bool {
         if (size != right.size) {
             return true
@@ -1607,6 +2062,289 @@ extend<K, V> HashMap<K, V> <: Equatable<HashMap<K, V>> where V <: Equatable<V> {
  *
  * @since 0.18.4
  */
+
+class HashMapKeysLocal<K, V> <: EquatableCollection<K> where K <: Hashable & Equatable<K> {
+    private let map: HashMap<K, V>
+
+    @Frozen
+    exclave init(this @local!, m: HashMap<K, V> @local!) {
+        map = m
+    }
+
+    @Frozen
+    exclave init(this @local?, m: HashMap<K, V> @local?) {
+        map = m
+    }
+
+    @Frozen
+    public prop size: Int64 {
+        get() {
+            map.size
+        }
+    }
+
+    @Frozen
+    public func isEmpty(): Bool {
+        map.isEmpty()
+    }
+
+    @Frozen
+    public func isEmpty(this @local?): Bool {
+        map.isEmpty()
+    }
+
+    @Frozen
+    public func contains(element: K): Bool {
+        map.contains(element)
+    }
+
+    @Frozen
+    public func contains(all!: Collection<K>): Bool {
+        map.contains(all: all)
+    }
+
+    @Frozen
+    public func contains(this @local?, element: K @local?): Bool {
+        map.contains(element)
+    }
+
+    @Frozen
+    public func contains(this @local?, all!: Collection<K> @local?): Bool {
+        map.contains(all: all)
+    }
+
+    @Frozen
+    public func iterator(): Iterator<K> {
+        map.iterator().map<K> {i: (K, V) => i[0]}
+    }
+
+    @Frozen
+    public exclave func iterator(this @local!): Iterator<K> @local! {
+        HashMapKeysIteratorLocal<K, V>(map) @local!
+    }
+
+    @Frozen
+    public exclave func iterator(this @local?): Iterator<K> @local? {
+        HashMapKeysIteratorLocal<K, V>(map) @local?
+    }
+
+    @Frozen
+    public exclave func toArray(this @local!): Array<K> @local! {
+        let n: Int64 = map.size
+        let arr: Array<K> @local! = Array<K>(n, repeat: unsafe { zeroValue2<K>() }) @local!
+        var index = 0
+        var pos = 0
+        while (index < n) {
+            if (map.entries[pos].hash >= 0) {
+                let e: K @local! = map.entries[pos].key
+                arr[index] = e
+                index++
+            }
+            pos++
+        }
+        arr
+    }
+
+    @Frozen
+    public exclave func toArray(this @local?): Array<K> @local? {
+        // Compiler limitation: the element read from an @local? receiver is K @local? and cannot be written
+        // into a new array (Array's `[]=(this @local?, ...)` is in the Copyable extension); explicitly rejected.
+        throw UnimplementedException("HashMap.keys(...).toArray() is unavailable for a @local? receiver; " +
+            "call it on the @local! form.")
+    }
+}
+
+class HashMapKeysIteratorLocal<K, V> <: Iterator<K> where K <: Hashable & Equatable<K> {
+    private let data: HashMap<K, V>
+    private var pos: Int64 = 0
+    private let lockVersion: Int64
+
+    @Frozen
+    exclave init(this @local!, d: HashMap<K, V> @local!) {
+        data = d
+        pos = 0
+        lockVersion = d.version()
+    }
+
+    @Frozen
+    exclave init(this @local?, d: HashMap<K, V> @local?) {
+        data = d
+        pos = 0
+        lockVersion = d.version()
+    }
+
+    @Frozen
+    public func next(): Option<K> {
+        throw UnimplementedException("Use the local-mode overload of 'next'.")
+    }
+
+    @Frozen
+    public exclave func next(this @local!): Option<K> @local! {
+        if (lockVersion != data.version()) {
+            throw ConcurrentModificationException()
+        }
+        let n: Int64 = data.entries.size
+        while (pos < n && data.entries[pos].hash < 0) {
+            pos++
+        }
+        if (pos >= n) {
+            return Option<K>.None
+        }
+        let k: K @local! = data.entries[pos].key
+        pos++
+        Option<K>.Some(k) @local!
+    }
+
+    @Frozen
+    public exclave func next(this @local?): Option<K> @local? {
+        if (lockVersion != data.version()) {
+            throw ConcurrentModificationException()
+        }
+        let n: Int64 = data.entries.size
+        while (pos < n && data.entries[pos].hash < 0) {
+            pos++
+        }
+        if (pos >= n) {
+            return Option<K>.None
+        }
+        let k: K @local? = data.entries[pos].key
+        pos++
+        let r: Option<K> @local? = Option<K>.Some(k)
+        r
+    }
+}
+
+class HashMapValuesLocal<K, V> <: Collection<V> where K <: Hashable & Equatable<K> {
+    private let map: HashMap<K, V>
+
+    @Frozen
+    exclave init(this @local!, m: HashMap<K, V> @local!) {
+        map = m
+    }
+
+    @Frozen
+    exclave init(this @local?, m: HashMap<K, V> @local?) {
+        map = m
+    }
+
+    @Frozen
+    public prop size: Int64 {
+        get() {
+            map.size
+        }
+    }
+
+    @Frozen
+    public func isEmpty(): Bool {
+        map.isEmpty()
+    }
+
+    @Frozen
+    public func isEmpty(this @local?): Bool {
+        map.isEmpty()
+    }
+
+    @Frozen
+    public func iterator(): Iterator<V> {
+        map.iterator().map<V> {i: (K, V) => i[1]}
+    }
+
+    @Frozen
+    public exclave func iterator(this @local!): Iterator<V> @local! {
+        HashMapValuesIteratorLocal<K, V>(map) @local!
+    }
+
+    @Frozen
+    public exclave func iterator(this @local?): Iterator<V> @local? {
+        HashMapValuesIteratorLocal<K, V>(map) @local?
+    }
+
+    @Frozen
+    public exclave func toArray(this @local!): Array<V> @local! {
+        let n: Int64 = map.size
+        let arr: Array<V> @local! = Array<V>(n, repeat: unsafe { zeroValue2<V>() }) @local!
+        var index = 0
+        var pos = 0
+        while (index < n) {
+            if (map.entries[pos].hash >= 0) {
+                let e: V @local! = map.entries[pos].value
+                arr[index] = e
+                index++
+            }
+            pos++
+        }
+        arr
+    }
+
+    @Frozen
+    public exclave func toArray(this @local?): Array<V> @local? {
+        // @local? elements cannot be written into a new array (Array's @local? writer is in the Copyable
+        // extension); explicitly rejected.
+        throw UnimplementedException("HashMap.values(...).toArray() is unavailable for a @local? receiver; " +
+            "call it on the @local! form.")
+    }
+}
+
+class HashMapValuesIteratorLocal<K, V> <: Iterator<V> where K <: Hashable & Equatable<K> {
+    private let data: HashMap<K, V>
+    private var pos: Int64 = 0
+    private let lockVersion: Int64
+
+    @Frozen
+    exclave init(this @local!, d: HashMap<K, V> @local!) {
+        data = d
+        pos = 0
+        lockVersion = d.version()
+    }
+
+    @Frozen
+    exclave init(this @local?, d: HashMap<K, V> @local?) {
+        data = d
+        pos = 0
+        lockVersion = d.version()
+    }
+
+    @Frozen
+    public func next(): Option<V> {
+        throw UnimplementedException("Use the local-mode overload of 'next'.")
+    }
+
+    @Frozen
+    public exclave func next(this @local!): Option<V> @local! {
+        if (lockVersion != data.version()) {
+            throw ConcurrentModificationException()
+        }
+        let n: Int64 = data.entries.size
+        while (pos < n && data.entries[pos].hash < 0) {
+            pos++
+        }
+        if (pos >= n) {
+            return Option<V>.None
+        }
+        let v: V @local! = data.entries[pos].value
+        pos++
+        Option<V>.Some(v) @local!
+    }
+
+    @Frozen
+    public exclave func next(this @local?): Option<V> @local? {
+        if (lockVersion != data.version()) {
+            throw ConcurrentModificationException()
+        }
+        let n: Int64 = data.entries.size
+        while (pos < n && data.entries[pos].hash < 0) {
+            pos++
+        }
+        if (pos >= n) {
+            return Option<V>.None
+        }
+        let v: V @local? = data.entries[pos].value
+        pos++
+        let r: Option<V> @local? = Option<V>.Some(v)
+        r
+    }
+}
+
 public class HashMapIterator<K, V> <: Iterator<(K, V)> where K <: Hashable & Equatable<K> {
     /* Define an empty set */
     private var lockVersion: Int64

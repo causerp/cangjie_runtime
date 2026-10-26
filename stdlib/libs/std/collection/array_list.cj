@@ -134,7 +134,6 @@ public class ArrayList<T> <: List<T> {
             this.myData.size
         }
     }
-    @Frozen
     public prop capacity: Int64 @local? {
         get() {
             this.myData.size
@@ -205,6 +204,27 @@ public class ArrayList<T> <: List<T> {
     }
 
     @Frozen
+    public exclave init(this @local!, size: Int64, initElement: ((Int64) -> T @local!) @local?) {
+        if (size < 0) {
+            throw IllegalArgumentException("Invalid size of ArrayList: ${size}.")
+        }
+        myData = Array<T>(size, initElement)
+        mySize = size
+    }
+
+    // Note: a lambda in `@local?` mode cannot capture `@local!` variables; the closure can only
+    // reference plain/@local? captures or pure computation.
+    @Frozen
+    public exclave init(this @local?, size: Int64, initElement: ((Int64) -> T @local?) @local?) {
+        if (size < 0) {
+            throw IllegalArgumentException("Invalid size of ArrayList: ${size}.")
+        }
+        let arr: Array<T> @local? = Array<T>(size, initElement) @local?
+        myData = arr
+        mySize = size
+    }
+
+    @Frozen
     private init(elements: Array<T>) {
         myData = elements.clone()
         mySize = elements.size
@@ -224,6 +244,56 @@ public class ArrayList<T> <: List<T> {
             case _ => myData = elements.toArray()
         }
         mySize = elements.size
+    }
+    @Frozen
+    private exclave init(this @local!, elements: Array<T> @local!) {
+        myData = elements.clone()
+        mySize = elements.size
+    }
+    @Frozen
+    public exclave init(this @local?, elements: Array<T> @local?) {
+        myData = elements.clone()
+        mySize = elements.size
+    }
+    // The compiler does not support dispatching `size`/`toArray` on a `Collection<T> @local!`
+    // receiver: only Array/ArrayList constructions are recognized; all others are explicitly rejected.
+    @Frozen
+    public exclave init(this @local!, elements: Collection<T> @local!) {
+        match (elements) {
+            case arr: Array<T> =>
+                myData = arr.clone()
+                mySize = arr.size
+            case list: ArrayList<T> =>
+                myData = list.myData.clone()
+                mySize = list.mySize
+            case _ =>
+                let src: Array<T> @local! = elements.toArray()
+                let buf: Array<T> @local! = Array<T>(src.size, repeat: unsafe { zeroValue2<T>() }) @local!
+                var i: Int64 = 0
+                while (i < src.size) {
+                    buf[i] = src[i]
+                    i++
+                }
+                myData = buf
+                mySize = src.size
+        }
+    }
+    // A `Collection` that does not implement `toArray(this @local?)` falls to the interface default
+    // body, which throws `UnimplementedException`.
+    @Frozen
+    public exclave init(this @local?, elements: Collection<T> @local?) {
+        match (elements) {
+            case arr: Array<T> =>
+                myData = arr.clone()
+                mySize = arr.size
+            case list: ArrayList<T> =>
+                myData = list.myData.clone()
+                mySize = list.mySize
+            case _ =>
+                let src: Array<T> @local? = elements.toArray()
+                myData = src
+                mySize = src.size
+        }
     }
 
     /**
@@ -247,10 +317,6 @@ public class ArrayList<T> <: List<T> {
     public unsafe func getRawArray(): Array<T> {
         return this.myData
     }
-    @Frozen
-    public unsafe func getRawArray(this @local?): Array<T> @local? {
-        return this.myData
-    }
 
     /**
      * Returns the element in this ArrayList as an Array.
@@ -266,6 +332,21 @@ public class ArrayList<T> <: List<T> {
         let newArr: Array<T> = Array<T>(mySize, repeat: unsafe { zeroValue<T>() })
         this.myData.copyTo(newArr, 0, 0, mySize)
         return newArr
+    }
+    @Frozen
+    public exclave func toArray(this @local!): Array<T> @local! {
+        if (mySize == 0) {
+            return Array<T>()
+        }
+
+        let newArr: Array<T> @local! = Array<T>(mySize, repeat: unsafe { zeroValue2<T>() })
+        this.myData.copyTo(newArr, 0, 0, mySize)
+        newArr
+    }
+
+    @Frozen
+    public exclave func toArray(this @local?): Array<T> @local? {
+        this.myData.slice(0, mySize).clone()
     }
 
     /**
@@ -290,6 +371,13 @@ public class ArrayList<T> <: List<T> {
         }
         return myData.get(index)
     }
+    @Frozen
+    public exclave func get(this @local?, index: Int64): ?T @local? {
+        if (index >= mySize || index < 0) {
+            return Option<T>.None
+        }
+        myData.get(index)
+    }
 
     @Frozen
     public prop first: ?T {
@@ -302,6 +390,30 @@ public class ArrayList<T> <: List<T> {
     public prop last: ?T {
         get() {
             get(mySize - 1)
+        }
+    }
+
+    public prop first: ?T @local! {
+        get() {
+            exclave { get(0) }
+        }
+    }
+
+    public prop first: ?T @local? {
+        get() {
+            exclave { get(0) }
+        }
+    }
+
+    public prop last: ?T @local! {
+        get() {
+            exclave { get(mySize - 1) }
+        }
+    }
+
+    public prop last: ?T @local? {
+        get() {
+            exclave { get(mySize - 1) }
         }
     }
 
@@ -357,6 +469,34 @@ public class ArrayList<T> <: List<T> {
         mySize = mySize + cSize
         myVersion++
     }
+    @Frozen
+    public exclave func add(this @local!, all!: Collection<T> @local!): Unit {
+        match (all) {
+            case arr: Array<T> =>
+                let cSize: Int64 = arr.size
+                if (cSize > 0) {
+                    if (mySize + cSize > myData.size) {
+                        grow(mySize + cSize)
+                    }
+                    arr.copyTo(myData, 0, mySize, cSize)
+                    mySize = mySize + cSize
+                    myVersion++
+                }
+            case arr: ArrayList<T> =>
+                let cSize: Int64 = arr.size
+                if (cSize > 0) {
+                    if (mySize + cSize > myData.size) {
+                        grow(mySize + cSize)
+                    }
+                    arr.myData.copyTo(myData, 0, mySize, cSize)
+                    mySize = mySize + cSize
+                    myVersion++
+                }
+            case _ =>
+                let source: Array<T> @local! = all.toArray()
+                this.add(all: source)
+        }
+    }
 
     /**
      * Inserts the specified element at the specified position in this ArrayList.
@@ -373,6 +513,24 @@ public class ArrayList<T> <: List<T> {
         if (mySize == myData.size) {
             var newCapacity: Int64 = max(mySize + (mySize >> 1), mySize + 1)
             let newArr: Array<T> = Array<T>(newCapacity, repeat: unsafe { zeroValue<T>() })
+            myData.copyTo(newArr, 0, 0, at)
+            myData.copyTo(newArr, at, at + 1, mySize - at)
+            myData = newArr
+        } else {
+            myData.copyTo(myData, at, at + 1, mySize - at)
+        }
+
+        myData[at] = element
+        mySize++
+        myVersion++
+    }
+    @Frozen
+    @OverflowWrapping
+    public exclave func add(this @local!, element: T @local!, at!: Int64): Unit {
+        checkRangeInsert(at)
+        if (mySize == myData.size) {
+            var newCapacity: Int64 = max(mySize + (mySize >> 1), mySize + 1)
+            let newArr: Array<T> @local! = Array<T>(newCapacity, repeat: unsafe { zeroValue2<T>() })
             myData.copyTo(newArr, 0, 0, at)
             myData.copyTo(newArr, at, at + 1, mySize - at)
             myData = newArr
@@ -402,6 +560,14 @@ public class ArrayList<T> <: List<T> {
             return
         }
 
+        // Keep the original source storage when insertion grows this list.
+        let source: Array<T>
+        match (all) {
+            case arr: Array<T> => source = arr
+            case arr: ArrayList<T> => source = arr.myData
+            case _ => source = all.toArray()
+        }
+
         if (mySize + cSize > myData.size) {
             var newCapacity: Int64 = max(mySize + (mySize >> 1), mySize + cSize)
             let newArray: Array<T> = Array<T>(newCapacity, repeat: unsafe { zeroValue<T>() })
@@ -412,13 +578,44 @@ public class ArrayList<T> <: List<T> {
             myData.copyTo(myData, at, at + cSize, mySize - at)
         }
 
+        source.copyTo(myData, 0, at, cSize)
+        mySize = mySize + cSize
+        myVersion++
+    }
+
+    @Frozen
+    @OverflowWrapping
+    public exclave func add(this @local!, all!: Collection<T> @local!, at!: Int64): Unit {
+        checkRangeInsert(at)
+        let cSize: Int64
+        // Capture storage before a self insertion can replace myData.
+        let source: Array<T> @local!
         match (all) {
-            case arr: Array<T> => arr.copyTo(myData, 0, at, cSize)
-            case arr: ArrayList<T> => arr.myData.copyTo(myData, 0, at, cSize)
+            case arr: Array<T> =>
+                cSize = arr.size
+                source = arr
+            case arr: ArrayList<T> =>
+                cSize = arr.size
+                source = arr.myData
             case _ =>
-                let arr = all.toArray()
-                arr.copyTo(myData, 0, at, cSize)
+                source = all.toArray()
+                cSize = source.size
         }
+        if (cSize <= 0) {
+            return
+        }
+
+        if (mySize + cSize > myData.size) {
+            var newCapacity: Int64 = max(mySize + (mySize >> 1), mySize + cSize)
+            let newArray: Array<T> @local! = Array<T>(newCapacity, repeat: unsafe { zeroValue2<T>() })
+            myData.copyTo(newArray, 0, 0, at)
+            myData.copyTo(newArray, at, at + cSize, mySize - at)
+            myData = newArray
+        } else {
+            myData.copyTo(myData, at, at + cSize, mySize - at)
+        }
+
+        source.copyTo(myData, 0, at, cSize)
         mySize = mySize + cSize
         myVersion++
     }
@@ -440,6 +637,17 @@ public class ArrayList<T> <: List<T> {
         mySize--
         myVersion++
         return removed
+    }
+    @Frozen
+    public exclave func remove(this @local!, at!: Int64): T @local! {
+        checkRange(at)
+        let len: Int64 = mySize - at - 1
+        let removed = myData[at]
+        myData.copyTo(myData, at + 1, at, len)
+        myData[mySize - 1] = unsafe { zeroValue2<T>() }
+        mySize--
+        myVersion++
+        removed
     }
 
     /**
@@ -491,6 +699,45 @@ public class ArrayList<T> <: List<T> {
         myVersion++
     }
 
+    @Frozen
+    public exclave func remove(this @local!, range: Range<Int64>): Unit {
+        if (range.step != 1) {
+            throw IllegalArgumentException("the value of the step should be r'1'")
+        }
+
+        var start: Int64 = range.start
+        var end: Int64 = range.end
+        if (range.isClosed) {
+            end = end + 1
+        }
+
+        // If end is omitted, end = size of this ArrayList.
+        if (!range.hasEnd) {
+            end = this.mySize
+        }
+        // If start is omitted, start = 0.
+        if (!range.hasStart) {
+            start = 0
+        }
+        // If start >= end, do nothing.
+        if (start >= end) {
+            return
+        }
+        if (start < 0 || end < 0 || end > this.mySize) {
+            throw IndexOutOfBoundsException(
+                "The size of ArrayList is ${this.size}, but the start is ${start} and the end is ${end}.")
+        }
+
+        let moveLen = this.mySize - end
+        let removeLen = end - start
+        this.myData.copyTo(this.myData, end, start, moveLen)
+        for (i in 0..removeLen) {
+            this.myData[mySize - i - 1] = unsafe { zeroValue2<T>() }
+        }
+        mySize = mySize - removeLen
+        myVersion++
+    }
+
     /**
      * Removes all of the elements of this ArrayList that satisfy the given predicate.
      *
@@ -502,16 +749,16 @@ public class ArrayList<T> <: List<T> {
     public func removeIf(predicate: (T) -> Bool): Unit {
         var i: Int64 = 0
         for (j in 0..mySize) {
-            var item = myData[j]
+            let itemLocal = myData[j]
             let lockVersion = myVersion
-            let needDelete = predicate(item)
+            let needDelete = predicate(itemLocal)
             if (myVersion != lockVersion) {
                 throw ConcurrentModificationException("The predicate cannot contain a modify operation.")
             }
 
             if (!needDelete) {
                 if (i != j) {
-                    myData[i] = item
+                    myData[i] = itemLocal
                 }
                 i++
             }
@@ -520,6 +767,33 @@ public class ArrayList<T> <: List<T> {
         if (i < mySize) {
             for (j in i..mySize) {
                 myData[j] = unsafe { zeroValue<T>() }
+            }
+        }
+        mySize = i
+        myVersion++
+    }
+    @Frozen
+    public exclave func removeIf(this @local!, predicate: ((T @local!) -> Bool) @local?): Unit {
+        var i: Int64 = 0
+        for (j in 0..mySize) {
+            let itemLocal = myData[j]
+            let lockVersion = myVersion
+            let needDelete = predicate(itemLocal)
+            if (myVersion != lockVersion) {
+                throw ConcurrentModificationException("The predicate cannot contain a modify operation.")
+            }
+
+            if (!needDelete) {
+                if (i != j) {
+                    myData[i] = itemLocal
+                }
+                i++
+            }
+        }
+
+        if (i < mySize) {
+            for (j in i..mySize) {
+                myData[j] = unsafe { zeroValue2<T>() }
             }
         }
         mySize = i
@@ -574,7 +848,7 @@ public class ArrayList<T> <: List<T> {
             return ArrayList<T>()
         }
 
-        let newSize: Int64 = (mySize + count - 1) / count
+        let newSize: Int64 = (mySize - 1) / count + 1
         var newData: Array<T> = Array<T>(newSize, repeat: unsafe { zeroValue<T>() })
         let oldLastIndex: Int64 = (newSize - 1) * count
         var j: Int64 = newSize - 1
@@ -583,6 +857,26 @@ public class ArrayList<T> <: List<T> {
             j--
         }
         return ArrayList<T>(newData)
+    }
+    @When[env != "ohos"]
+    public exclave func step(this @local!, count: Int64): ArrayList<T> @local! {
+        if (count <= 0) {
+            throw IllegalArgumentException("Step count must be greater than 0!")
+        }
+
+        if (mySize <= 0) {
+            return ArrayList<T>()
+        }
+
+        let newSize: Int64 = (mySize - 1) / count + 1
+        var newData: Array<T> @local! = Array<T>(newSize, repeat: unsafe { zeroValue2<T>() })
+        let oldLastIndex: Int64 = (newSize - 1) * count
+        var j: Int64 = newSize - 1
+        for (i in oldLastIndex..=0 : -count) {
+            newData[j] = myData[i]
+            j--
+        }
+        ArrayList<T>(newData)
     }
 
     /**
@@ -607,6 +901,21 @@ public class ArrayList<T> <: List<T> {
         myData.copyTo(newData, 0, 0, newSize)
         return ArrayList<T>(newData)
     }
+    @When[env != "ohos"]
+    public exclave func take(this @local!, count: Int64): ArrayList<T> @local! {
+        if (count == 0) {
+            return ArrayList<T>()
+        }
+
+        if (count < 0) {
+            throw IllegalArgumentException("take count must be greater than 0!")
+        }
+        let newSize = min(count, mySize)
+
+        var newData: Array<T> @local! = Array<T>(newSize, repeat: unsafe { zeroValue2<T>() })
+        myData.copyTo(newData, 0, 0, newSize)
+        ArrayList<T>(newData)
+    }
 
     /**
      * @description Skips a specific number of elements and returns a new ArrayList.
@@ -621,7 +930,7 @@ public class ArrayList<T> <: List<T> {
             throw IllegalArgumentException("skip count must be greater than 0!")
         }
         if (count == 0) {
-            var newData: Array<T> = myData.clone()
+            var newData: Array<T> = myData.clone(0..mySize)
             return ArrayList<T>(newData)
         }
         if (mySize - count <= 0) {
@@ -631,6 +940,23 @@ public class ArrayList<T> <: List<T> {
         var newData: Array<T> = Array<T>(mySize - count, repeat: unsafe { zeroValue<T>() })
         myData.copyTo(newData, count, 0, mySize - count)
         return ArrayList<T>(newData)
+    }
+    @When[env != "ohos"]
+    public exclave func skip(this @local!, count: Int64): ArrayList<T> @local! {
+        if (count < 0) {
+            throw IllegalArgumentException("skip count must be greater than 0!")
+        }
+        if (count == 0) {
+            var newData: Array<T> @local! = myData.clone(0..mySize)
+            return ArrayList<T>(newData)
+        }
+        if (mySize - count <= 0) {
+            return ArrayList<T>()
+        }
+
+        var newData: Array<T> @local! = Array<T>(mySize - count, repeat: unsafe { zeroValue2<T>() })
+        myData.copyTo(newData, count, 0, mySize - count)
+        ArrayList<T>(newData)
     }
 
     /**
@@ -654,6 +980,21 @@ public class ArrayList<T> <: List<T> {
         }
         return ArrayList<T>(newData.slice(0, j))
     }
+    @When[env != "ohos"]
+    public exclave func filter(this @local!, predicate: ((T @local?) -> Bool) @local?): ArrayList<T> @local! {
+        if (mySize == 0) {
+            return ArrayList<T>()
+        }
+        var newData: Array<T> @local! = Array<T>(mySize, repeat: unsafe { zeroValue2<T>() })
+        var j = 0;
+        for (i in 0..mySize) {
+            if (predicate(myData[i])) {
+                newData[j] = myData[i]
+                j++
+            }
+        }
+        ArrayList<T>(newData.slice(0, j))
+    }
 
     /**
      * @description Performs mapping on this ArrayList and returns a new ArrayList.
@@ -672,6 +1013,17 @@ public class ArrayList<T> <: List<T> {
         }
         return ArrayList<R>(newData)
     }
+    @When[env != "ohos"]
+    public exclave func map<R>(this @local!, transform: ((T @local!) -> R @local!) @local?): ArrayList<R> @local! {
+        if (mySize == 0) {
+            return ArrayList<R>()
+        }
+        var newData: Array<R> @local! = Array<R>(mySize, repeat: unsafe { zeroValue2<R>() })
+        for (i in mySize - 1..=0 : -1) {
+            newData[i] = transform(myData[i])
+        }
+        ArrayList<R>(newData)
+    }
 
     /**
      * @description Performs filtering and mapping operations simultaneously, returning a new ArrayList.
@@ -687,6 +1039,22 @@ public class ArrayList<T> <: List<T> {
             newList.add(all: tempData)
         }
         return newList
+    }
+    @When[env != "ohos"]
+    public exclave func flatMap<R>(this @local!, transform: ((T @local!) -> ArrayList<R> @local!) @local?): ArrayList<R> @local! {
+        var newData: Array<R> @local! = Array<R>(0, repeat: unsafe { zeroValue2<R>() })
+        for (i in 0..mySize) {
+            var tempData = transform(myData[i])
+            let sz: Int64 = tempData.size
+            if (sz > 0) {
+                let oldLen: Int64 = newData.size
+                let newArr: Array<R> @local! = Array<R>(oldLen + sz, repeat: unsafe { zeroValue2<R>() })
+                newData.copyTo(newArr, 0, 0, oldLen)
+                tempData.myData.copyTo(newArr, 0, oldLen, sz)
+                newData = newArr
+            }
+        }
+        ArrayList<R>(newData)
     }
 
     /**
@@ -713,6 +1081,23 @@ public class ArrayList<T> <: List<T> {
         }
         return ArrayList<R>(newData.slice(0, j))
     }
+    @When[env != "ohos"]
+    public exclave func filterMap<R>(this @local!, transform: ((T @local!) -> Option<R> @local!) @local?): ArrayList<R> @local! {
+        if (mySize == 0) {
+            return ArrayList<R>()
+        }
+        var newData: Array<R> @local! = Array<R>(mySize, repeat: unsafe { zeroValue2<R>() })
+        var j = 0;
+        for (i in 0..mySize) {
+            match (transform(myData[i])) {
+                case Some(v) =>
+                    newData[j] = v
+                    j++
+                case None => continue
+            }
+        }
+        ArrayList<R>(newData.slice(0, j))
+    }
 
     /**
      * @description Returns a new ArrayList with the given new element inserted between every two elements.
@@ -723,7 +1108,7 @@ public class ArrayList<T> <: List<T> {
     @When[env != "ohos"]
     public func intersperse(separator: T): ArrayList<T> {
         if (mySize < 2) {
-            var newData: Array<T> = myData.clone()
+            var newData: Array<T> = myData.clone(0..mySize)
             return ArrayList<T>(newData)
         }
         let newSize: Int64 = 2 * mySize - 1
@@ -734,6 +1119,21 @@ public class ArrayList<T> <: List<T> {
         }
         newData[newSize - 1] = myData[mySize - 1]
         return ArrayList<T>(newData)
+    }
+    @When[env != "ohos"]
+    public exclave func intersperse(this @local!, separator: T @local!): ArrayList<T> @local! {
+        if (mySize < 2) {
+            var newData: Array<T> @local! = myData.clone(0..mySize)
+            return ArrayList<T>(newData)
+        }
+        let newSize: Int64 = 2 * mySize - 1
+        var newData: Array<T> @local! = Array<T>(newSize, repeat: unsafe { zeroValue2<T>() })
+        for (i in 0..mySize - 1) {
+            newData[2 * i] = myData[i]
+            newData[2 * i + 1] = separator
+        }
+        newData[newSize - 1] = myData[mySize - 1]
+        ArrayList<T>(newData)
     }
 
     /**
@@ -747,7 +1147,6 @@ public class ArrayList<T> <: List<T> {
             action(myData[i])
         }
     }
-
     /**
      * @description Determine whether all elements in the ArrayList satisfy the condition.
      * 
@@ -762,6 +1161,15 @@ public class ArrayList<T> <: List<T> {
             }
         }
         return true
+    }
+    @When[env != "ohos"]
+    public func all(this @local?, predicate: ((T @local?) -> Bool) @local?): Bool {
+        for (i in 0..mySize) {
+            if (!predicate(myData[i])) {
+                return false
+            }
+        }
+        true
     }
 
     /**
@@ -779,6 +1187,15 @@ public class ArrayList<T> <: List<T> {
         }
         return false
     }
+    @When[env != "ohos"]
+    public func any(this @local?, predicate: ((T @local?) -> Bool) @local?): Bool {
+        for (i in 0..mySize) {
+            if (predicate(myData[i])) {
+                return true
+            }
+        }
+        false
+    }
 
     /**
      * @description Determine whether all elements in the ArrayList do not satisfy the condition.
@@ -795,6 +1212,15 @@ public class ArrayList<T> <: List<T> {
         }
         return true
     }
+    @When[env != "ohos"]
+    public func none(this @local?, predicate: ((T @local?) -> Bool) @local?): Bool {
+        for (i in 0..mySize) {
+            if (predicate(myData[i])) {
+                return false
+            }
+        }
+        true
+    }
 
     /**
      * @description Computes from left to right using the specified initial value.
@@ -810,6 +1236,14 @@ public class ArrayList<T> <: List<T> {
             result = operation(result, myData[i])
         }
         return result
+    }
+    @When[env != "ohos"]
+    public exclave func fold<R>(this @local!, initial: R @local!, operation: ((R @local!, T @local!) -> R @local!) @local?): R @local! {
+        var result: R @local! = initial
+        for (i in 0..mySize) {
+            result = operation(result, myData[i])
+        }
+        result
     }
 
     /**
@@ -828,6 +1262,17 @@ public class ArrayList<T> <: List<T> {
             result = operation(result, myData[i])
         }
         return result
+    }
+    @When[env != "ohos"]
+    public exclave func reduce(this @local!, operation: ((T @local!, T @local!) -> T @local!) @local?): Option<T> @local! {
+        if (mySize == 0) {
+            return None<T>
+        }
+        var result: T @local! = myData[0]
+        for (i in 1..mySize) {
+            result = operation(result, myData[i])
+        }
+        Some<T>(result)
     }
 
     /**
@@ -941,6 +1386,22 @@ public class ArrayList<T> <: List<T> {
     public func slice(range: Range<Int64>): ArrayList<T> {
         return ArrayList<T>(rangeSlice(this.myData, range, this.size))
     }
+    @Frozen
+    public exclave func slice(this @local!, range: Range<Int64>): ArrayList<T> @local! {
+        ArrayList<T>(rangeSlice(this.myData, range, this.size))
+    }
+    @Frozen
+    public exclave func slice(this @local?, range: Range<Int64>): ArrayList<T> @local? {
+        ArrayList<T>(rangeSlice(this.myData, range, this.size))
+    }
+    @Frozen
+    public exclave operator func [](this @local!, range: Range<Int64>): ArrayList<T> @local! {
+        ArrayList<T>(rangeSlice(this.myData, range, this.size))
+    }
+    @Frozen
+    public exclave operator func [](this @local?, range: Range<Int64>): ArrayList<T> @local? {
+        this.slice(range)
+    }
 
     /**
      * @throws IllegalArgumentException if the step of range is not 1.
@@ -968,7 +1429,7 @@ public class ArrayList<T> <: List<T> {
 
         if (range.hasEnd) {
             if (range.isClosed) {
-                if (range.end > size) {
+                if (range.end >= size) {
                     throw IndexOutOfBoundsException(
                         "The closed end of the range ${range.end} is greater than or equal to the size ${size}.")
                 }
@@ -991,6 +1452,96 @@ public class ArrayList<T> <: List<T> {
         return arr[start..end]
     }
 
+    @Frozen
+    private exclave func rangeSlice(this @local!, arr: Array<T> @local!, range: Range<Int64>, size: Int64): Array<T> @local! {
+        if (range.step != 1) {
+            throw IllegalArgumentException("Illegal step ${range.step}, step should be 1.")
+        }
+
+        let start = if (range.hasStart) {
+            range.start
+        } else {
+            0
+        }
+
+        if (start > size) {
+            throw IndexOutOfBoundsException("Range start ${start} is greater than the size ${size}.")
+        } else if (range.start < 0) {
+            throw IndexOutOfBoundsException("Range start ${start} is less than 0.")
+        }
+
+        let end: Int64
+
+        if (range.hasEnd) {
+            if (range.isClosed) {
+                if (range.end >= size) {
+                    throw IndexOutOfBoundsException(
+                        "The closed end of the range ${range.end} is greater than or equal to the size ${size}.")
+                }
+                end = range.end + 1
+            } else {
+                if (range.end > size) {
+                    throw IndexOutOfBoundsException(
+                        "The opened end of the range ${range.end} is greater than the size ${size}.")
+                }
+                end = range.end
+            }
+        } else {
+            end = size
+        }
+
+        if (start > end) {
+            throw IndexOutOfBoundsException("The start ${start} is greater than the end ${end}.")
+        }
+
+        arr[start..end]
+    }
+
+    @Frozen
+    private exclave func rangeSlice(this @local?, arr: Array<T> @local?, range: Range<Int64>, size: Int64): Array<T> @local? {
+        if (range.step != 1) {
+            throw IllegalArgumentException("Illegal step ${range.step}, step should be 1.")
+        }
+
+        let start = if (range.hasStart) {
+            range.start
+        } else {
+            0
+        }
+
+        if (start > size) {
+            throw IndexOutOfBoundsException("Range start ${start} is greater than the size ${size}.")
+        } else if (range.start < 0) {
+            throw IndexOutOfBoundsException("Range start ${start} is less than 0.")
+        }
+
+        let end: Int64
+
+        if (range.hasEnd) {
+            if (range.isClosed) {
+                if (range.end >= size) {
+                    throw IndexOutOfBoundsException(
+                        "The closed end of the range ${range.end} is greater than or equal to the size ${size}.")
+                }
+                end = range.end + 1
+            } else {
+                if (range.end > size) {
+                    throw IndexOutOfBoundsException(
+                        "The opened end of the range ${range.end} is greater than the size ${size}.")
+                }
+                end = range.end
+            }
+        } else {
+            end = size
+        }
+
+        if (start > end) {
+            throw IndexOutOfBoundsException("The start ${start} is greater than the end ${end}.")
+        }
+
+        arr[start..end]
+    }
+
     /**
      * Clone a new ArrayList.
      *
@@ -1001,6 +1552,13 @@ public class ArrayList<T> <: List<T> {
     @Frozen
     public func clone(): ArrayList<T> {
         return ArrayList<T>(this)
+    }
+    @Frozen
+    public exclave func clone(this @local!): ArrayList<T> @local! {
+        let newData: Array<T> @local! = myData.clone()
+        let newArr: ArrayList<T> @local! = ArrayList<T>(newData)
+        newArr.mySize = mySize
+        newArr
     }
 
     /**
@@ -1018,9 +1576,16 @@ public class ArrayList<T> <: List<T> {
         return this.myData[index]
     }
     @Frozen
+    @OverflowWrapping
     public exclave operator func [](this @local!, index: Int64): T @local! {
         checkRange(index)
         return this.myData[index]
+    }
+    @Frozen
+    @OverflowWrapping
+    public exclave operator func [](this @local?, index: Int64): T @local? {
+        checkRange(index)
+        myData[index]
     }
 
     /**
@@ -1041,6 +1606,7 @@ public class ArrayList<T> <: List<T> {
         unsafe { myData.setUnchecked(index, value) }
     }
     @Frozen
+    @OverflowWrapping
     public exclave operator func [](this @local!, index: Int64, value!: T @local!): Unit {
         if (index >= mySize || index < 0) {
             throw IndexOutOfBoundsException(
@@ -1062,11 +1628,12 @@ public class ArrayList<T> <: List<T> {
     }
     @Frozen
     public exclave func iterator(this @local!): Iterator<T> @local! {
-        return ArrayListIterator<T>(this) @local!
+        ArrayListIterator<T>(this) @local!
     }
+
     @Frozen
     public exclave func iterator(this @local?): Iterator<T> @local? {
-        return ArrayListIterator<T>(this) @local?
+        ArrayListIterator<T>(this) @local?
     }
 
     /**
@@ -1098,7 +1665,6 @@ public class ArrayList<T> <: List<T> {
             return mySize
         }
     }
-    @Frozen
     public prop size: Int64 @local? {
         get() {
             return mySize
@@ -1203,6 +1769,26 @@ extend<T> ArrayList<T> <: Equatable<ArrayList<T>> where T <: Equatable<T> {
     }
 
     @Frozen
+    public operator func ==(this @local?, other: ArrayList<T> @local?): Bool {
+        if (this.size != other.size) {
+            return false
+        }
+        var i: Int64 = 0
+        while (i < this.size) {
+            if (unsafe { this.myData.getUnchecked(i) != other.myData.getUnchecked(i) }) {
+                return false
+            }
+            i++
+        }
+        return true
+    }
+
+    @Frozen
+    public operator func !=(this @local?, other: ArrayList<T> @local?): Bool {
+        !(this == other)
+    }
+
+    @Frozen
     public func contains(element: T): Bool {
         if (this.size == 0) {
             return false
@@ -1284,6 +1870,18 @@ extend<T> ArrayList<T> {
         }
         return ArrayList<(T, R)>(newData)
     }
+    @When[env != "ohos"]
+    public exclave func zip<R>(this @local!, other: ArrayList<R> @local!): ArrayList<(T, R)> @local! {
+        let newSize: Int64 = min(mySize, other.size)
+        if (newSize == 0) {
+            return ArrayList<(T, R)>()
+        }
+        let newData: Array<(T, R)> @local! = Array<(T, R)>(newSize, repeat: unsafe { zeroValue2<(T, R)>() })
+        for (i in newSize - 1..=0 : -1) {
+            newData[i] = (myData[i], other[i])
+        }
+        ArrayList<(T, R)>(newData)
+    }
 
     /**
      * @description Used to obtain an ArrayList with indices.
@@ -1300,6 +1898,17 @@ extend<T> ArrayList<T> {
             newData[i] = (i, myData[i])
         }
         return ArrayList<(Int64, T)>(newData)
+    }
+    @When[env != "ohos"]
+    public exclave func enumerate(this @local!): ArrayList<(Int64, T)> @local! {
+        if (mySize == 0) {
+            return ArrayList<(Int64, T)>()
+        }
+        let newData: Array<(Int64, T)> @local! = Array<(Int64, T)>(mySize, repeat: unsafe { zeroValue2<(Int64, T)>() })
+        for (i in mySize - 1..=0 : -1) {
+            newData[i] = (i, myData[i])
+        }
+        ArrayList<(Int64, T)>(newData)
     }
 }
 
@@ -2431,5 +3040,19 @@ extend<T> Array<T> {
             }
             return this.binaryQueryLT(candidate, start + previousOffset, offset - previousOffset, compare)
         }
+    }
+}
+
+/**
+ * Compiler limitation: a @local? class instance cannot rebind non-Copyable fields, nor explicitly
+ * convert a `T @local?` value to unmarked.
+ */
+extend<T> ArrayList<T> where T <: Copyable {
+    @Frozen
+    public exclave func clone(this @local?): ArrayList<T> @local? {
+        let newData: Array<T> @local? = myData.clone()
+        let newArr: ArrayList<T> @local? = ArrayList<T>(newData) @local?
+        newArr.mySize = mySize
+        newArr
     }
 }

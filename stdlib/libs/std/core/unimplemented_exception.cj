@@ -15,19 +15,19 @@ package std.core
  * This exception is the standard fallback for interface-level local mode
  * adaptation (e.g. `ToString.toString(this @local?)`, `Iterable.iterator`,
  * `Iterator.next`). When a concrete type does not override the local-mode
- * method, the default implementation throws `UnImplementedException` so the
+ * method, the default implementation throws `UnimplementedException` so the
  * developer immediately learns which type/method/mode is missing.
  */
-public class UnImplementedException <: Exception {
+public class UnimplementedException <: Exception {
     public init() {
-        super("UnImplementedException")
+        super("UnimplementedException")
     }
 
     public init(message: String) {
         super(message)
     }
 
-    public override func getClassName(): String {
-        return "UnImplementedException"
+    protected override func getClassName(): String {
+        return "UnimplementedException"
     }
 }

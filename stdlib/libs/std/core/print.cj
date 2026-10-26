@@ -19,6 +19,7 @@ public func print(str: String, flush!: Bool = false): Unit {
         }
     }
 }
+
 @Frozen
 public func print(str: String @local?, flush!: Bool = false): Unit {
     unsafe {
@@ -49,6 +50,7 @@ public func println(str: String): Unit {
         }
     }
 }
+
 @Frozen
 public func println(str: String @local?): Unit {
     unsafe {

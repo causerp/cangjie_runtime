@@ -54,7 +54,9 @@ exclave func toArray<T>(raw: RawArray<T> @local!): Array<T> @local! {
 @Frozen
 exclave func toArray<T>(raw: RawArray<T> @local?): Array<T> @local? {
     if (arraySize(raw) == 0) {
-        return Array<T>()
+        // Empty result keeps the @local? mode without the removed no-arg @local? ctor:
+        // build from a freshly allocated zero-length local RawArray.
+        return Array<T>(rawArrayAllocate3<T>(0), 0, 0)
     }
     return Array<T>(raw, 0, arraySize(raw))
 }
@@ -64,6 +66,16 @@ extend<T> Array<T> <: Collection<T> {
     @Frozen
     public func iterator(): Iterator<T> {
         return ArrayIterator(this)
+    }
+
+    @Frozen
+    public exclave func iterator(this @local!): Iterator<T> @local! {
+        ArrayIterator<T>(this) @local!
+    }
+
+    @Frozen
+    public exclave func iterator(this @local?): Iterator<T> @local? {
+        ArrayIterator<T>(this) @local?
     }
 
     /**
@@ -98,7 +110,14 @@ extend<T> Array<T> <: Collection<T> {
     public func toArray(): Array<T> {
         return this.clone()
     }
+
+    @Frozen
+    public exclave func toArray(this @local!): Array<T> @local! {
+        this.clone()
+    }
+
 }
+
 
 extend<T> Array<T> <: ToString where T <: ToString {
     @Frozen
@@ -115,6 +134,21 @@ extend<T> Array<T> <: ToString where T <: ToString {
         }
         sb.append(r']')
         return sb.toString()
+    }
+
+    @Frozen
+    public exclave func toString(this @local?): String @local! {
+        let sb: StringBuilder @local! = StringBuilder()
+        sb.appendRune(r'[')
+        if (size > 0) {
+            sb.appendValue(this[0])
+            for (i in 1..size) {
+                sb.appendString(", ")
+                sb.appendValue(this[i])
+            }
+        }
+        sb.appendRune(r']')
+        sb.toStringLocal()
     }
 }
 
@@ -433,6 +467,20 @@ public class ArrayIterator<T> <: Iterator<T> {
         this.myPosition = 0
     }
 
+    @Frozen
+    internal exclave init(this @local!, data: Array<T> @local!) {
+        this.myData = data
+        this.end = data.size
+        this.myPosition = 0
+    }
+
+    @Frozen
+    internal exclave init(this @local?, data: Array<T> @local?) {
+        this.myData = data
+        this.end = data.size
+        this.myPosition = 0
+    }
+
     /** Returns the next element in the iteration. */
     @Frozen
     @OverflowWrapping
@@ -444,6 +492,30 @@ public class ArrayIterator<T> <: Iterator<T> {
         } else {
             return None
         }
+    }
+
+    /** Returns the next element in the iteration. */
+    @Frozen
+    @OverflowWrapping
+    public exclave func next(this @local!): Option<T> @local! {
+        if (this.myPosition < this.end) {
+            let v: T @local! = arrayGetUnchecked2<T>(this.myData.rawptr, this.myData.start + this.myPosition)
+            this.myPosition++
+            return Some<T>(v)
+        }
+        None<T>
+    }
+
+    /** Returns the next element in the iteration. */
+    @Frozen
+    @OverflowWrapping
+    public exclave func next(this @local?): Option<T> @local? {
+        if (this.myPosition < this.end) {
+            let v: T @local? = arrayGetUnchecked3<T>(this.myData.rawptr, this.myData.start + this.myPosition)
+            this.myPosition++
+            return Some<T>(v)
+        }
+        None<T>
     }
 }
 
@@ -457,18 +529,13 @@ public struct CPointerHandle<T> where T <: CType {
         array = Array<T>()
     }
 
-    public exclave init(this @local?) {
-        pointer = CPointer<T>()
-        array = Array<T>()
-    }
-
     @Deprecated[message: "Use global function `public unsafe func acquireArrayRawData<T>(arr: Array<T>): CPointerHandle<T> where T <: CType` instead."]
     public init(ptr: CPointer<T>, arr: Array<T>) {
         this.pointer = ptr
         this.array = arr
     }
 
-    public exclave init(this @local?, ptr: CPointer<T> @local?, arr: Array<T> @local?) {
+    internal exclave init(this @local?, ptr: CPointer<T> @local?, arr: Array<T> @local?) {
         pointer = ptr
         array = arr
     }
@@ -498,4 +565,156 @@ public unsafe func releaseArrayRawData<T>(handle: CPointerHandle<T>): Unit where
 @Frozen
 public unsafe func releaseArrayRawData<T>(handle: CPointerHandle<T> @local?): Unit where T <: CType {
     releaseRawData2(handle.array.rawptr, handle.pointer - handle.array.start)
+}
+
+
+/**
+ * @local? forms not provided in this file: contains, indexOf(element) without fromIndex,
+ * and `==` / `!=` (==/!= are limited by extend member shadowing).
+ */
+extend<T> Array<T> where T <: Equatable<T> {
+    @Frozen
+    public func indexOf(this @local?, element: T @local?, fromIndex: Int64): Option<Int64> {
+        if (this.len == 0 || fromIndex >= this.len) {
+            return None
+        }
+        let start = if (fromIndex >= 0) {
+            fromIndex
+        } else {
+            0
+        }
+        for (i in start..this.len) {
+            if (arrayGetUnchecked3<T>(this.rawptr, this.start + i) == element) {
+                return Some(i)
+            }
+        }
+        return None
+    }
+
+    @Frozen
+    public func indexOf(this @local?, elements: Array<T> @local?): Option<Int64> {
+        if (this.len < elements.len) {
+            return None
+        }
+        for (i in 0..(this.len - elements.len + 1)) {
+            var matched: Bool = true
+            for (j in 0..elements.len) {
+                if (arrayGetUnchecked3<T>(this.rawptr, this.start + i + j) !=
+                    arrayGetUnchecked3<T>(elements.rawptr, elements.start + j)) {
+                    matched = false
+                    break
+                }
+            }
+            if (matched) {
+                return Some(i)
+            }
+        }
+        return None
+    }
+
+    public func indexOf(this @local?, elements: Array<T> @local?, fromIndex: Int64): Option<Int64> {
+        if (this.len < elements.len || fromIndex >= this.len) {
+            return None
+        }
+        let start = if (fromIndex >= 0) {
+            fromIndex
+        } else {
+            0
+        }
+        if (start > this.len - elements.len) {
+            return None
+        }
+        for (i in start..(this.len - elements.len + 1)) {
+            var matched: Bool = true
+            for (j in 0..elements.len) {
+                if (arrayGetUnchecked3<T>(this.rawptr, this.start + i + j) !=
+                    arrayGetUnchecked3<T>(elements.rawptr, elements.start + j)) {
+                    matched = false
+                    break
+                }
+            }
+            if (matched) {
+                return Some(i)
+            }
+        }
+        return None
+    }
+
+    @Frozen
+    public func lastIndexOf(this @local?, element: T @local?): Option<Int64> {
+        if (this.len == 0) {
+            return None
+        }
+        for (i in this.len - 1..=0 : -1) {
+            if (arrayGetUnchecked3<T>(this.rawptr, this.start + i) == element) {
+                return Some(i)
+            }
+        }
+        return None
+    }
+
+    @Frozen
+    public func lastIndexOf(this @local?, element: T @local?, fromIndex: Int64): Option<Int64> {
+        if (this.len == 0 || fromIndex >= this.len) {
+            return None
+        }
+        let start = if (fromIndex >= 0) {
+            fromIndex
+        } else {
+            0
+        }
+        for (i in this.len - 1..=start : -1) {
+            if (arrayGetUnchecked3<T>(this.rawptr, this.start + i) == element) {
+                return Some(i)
+            }
+        }
+        return None
+    }
+
+    @Frozen
+    public func lastIndexOf(this @local?, elements: Array<T> @local?): Option<Int64> {
+        if (this.len < elements.len) {
+            return None
+        }
+        for (i in (this.len - elements.len)..=0 : -1) {
+            var matched: Bool = true
+            for (j in 0..elements.len) {
+                if (arrayGetUnchecked3<T>(this.rawptr, this.start + i + j) !=
+                    arrayGetUnchecked3<T>(elements.rawptr, elements.start + j)) {
+                    matched = false
+                    break
+                }
+            }
+            if (matched) {
+                return Some(i)
+            }
+        }
+        return None
+    }
+
+    @Frozen
+    public func lastIndexOf(this @local?, elements: Array<T> @local?, fromIndex: Int64): Option<Int64> {
+        if (this.len < elements.len || fromIndex >= this.len) {
+            return None
+        }
+        let start = if (fromIndex >= 0) {
+            fromIndex
+        } else {
+            0
+        }
+        for (i in (this.len - elements.len)..=start : -1) {
+            var matched: Bool = true
+            for (j in 0..elements.len) {
+                if (arrayGetUnchecked3<T>(this.rawptr, this.start + i + j) !=
+                    arrayGetUnchecked3<T>(elements.rawptr, elements.start + j)) {
+                    matched = false
+                    break
+                }
+            }
+            if (matched) {
+                return Some(i)
+            }
+        }
+        return None
+    }
 }

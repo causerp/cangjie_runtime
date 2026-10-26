@@ -33,7 +33,7 @@ func intrinsicBuiltInCopyTo2<T>(src: RawArray<T> @local!, dst: RawArray<T> @loca
 
 @Intrinsic
 func intrinsicBuiltInCopyTo3<T>(src: RawArray<T> @local?, dst: RawArray<T> @local?, srcStart: Int64,
-    dstStart: Int64, copyLen: Int64): Unit where T <: Copyable
+    dstStart: Int64, copyLen: Int64): Unit
 
 @Intrinsic
 func arrayGet<T>(rawArr: RawArray<T>, index: Int64): T
@@ -45,7 +45,7 @@ func arraySet<T>(rawArr: RawArray<T>, index: Int64, element: T): Unit
 func arraySet2<T>(rawArr: RawArray<T> @local!, index: Int64, element: T @local!): Unit
 
 @Intrinsic
-func arraySet3<T>(rawArr: RawArray<T> @local?, index: Int64, element: T @local?): Unit where T <: Copyable
+func arraySet3<T>(rawArr: RawArray<T> @local?, index: Int64, element: T @local?): Unit
 
 @Intrinsic
 func arrayGetUnchecked<T>(rawArr: RawArray<T>, index: Int64): T
