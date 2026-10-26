@@ -20,8 +20,6 @@ const PROCESS_STATUS_PID_REUSED: Int8 = -2
 const TIME_SECOND_TO_MILLISECOND: Int64 = 1000
 const TIME_MILLISECOND_TO_NANOSECOND: Int64 = 1_000_000
 let MAX_TIMEOUT_DURATION: Duration = Duration.nanosecond * MAX_TIMEOUT_NS
-// Polling interval used by the timeout-correct SubProcess.wait(timeout:).
-let WAIT_POLL_INTERVAL: Duration = Duration.millisecond
 
 @When[os == "Windows"]
 func closeProcessHandleIfNeeded(handle: IntNative): Unit {
@@ -892,7 +890,12 @@ func matchRedirectFileHandle(redirect: ProcessRedirect, stdio: StdIO): IntNative
                 throw ProcessException("Failed to open null file, can not redirect stdio to discard mode.")
             }
         case ProcessRedirect.FromFile(file: File) =>
-            if (!exists(file.info.path) || file.isClosed()) {
+            let fileUnavailable: Bool = if (exists(file.info.path)) {
+                file.isClosed()
+            } else {
+                true
+            }
+            if (fileUnavailable) {
                 throw ProcessException("Redirect file closed or not existed, not allow redirect.")
             }
             file.fileDescriptor.fileHandle

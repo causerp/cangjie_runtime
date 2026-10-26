@@ -11,7 +11,7 @@ package std.process
 import std.collection.*
 import std.fs.*
 import std.io.*
-import std.time.*
+import std.time.MonoTime
 
 /**
  * SubProcess
@@ -241,7 +241,8 @@ func reapSubProcessAfterTimeout(process: SubProcess): Unit {
     if (process._waitReaped) {
         return
     }
-    let pid: Int32 = Int32(process.pid)
+    // Capture only the PID so the reaper does not retain the SubProcess.
+    let pid: Int32 = Int32(process.pid) // cjlint-ignore !G.VAR.02
     let _ = spawn {
         =>
         let _ = unsafe { CJ_OS_WaitSubProcessExit(pid) }
@@ -401,11 +402,10 @@ func getWaitExitCode(process: SubProcess, timeout: Duration): Int64 {
     if (process._waitReaped) {
         return process._waitExitCode
     }
-    let pid: Int32 = Int32(process.pid)
     if (timeout <= Duration.Zero) {
         // Blocking wait executed in the calling thread. No background reaper is
         // spawned, so a later wait() can never be poisoned by a stray ECHILD.
-        let exitCode: Int64 = unsafe { CJ_OS_WaitSubProcessExit(pid) }
+        let exitCode: Int64 = unsafe { CJ_OS_WaitSubProcessExit(Int32(process.pid)) }
         if (exitCode != -1) {
             process._waitExitCode = exitCode
             process._waitReaped = true
@@ -417,17 +417,19 @@ func getWaitExitCode(process: SubProcess, timeout: Duration): Int64 {
     // cleanly. A timed-out wait leaves no residual thread behind, so a later
     // wait() still finds the (possibly zombie) child and returns its real exit
     // status instead of -1 (ECHILD).
-    let waitDuration: Duration = if (timeout >= MAX_TIMEOUT_DURATION) {
+    // Both values must remain stable across polling iterations.
+    let waitDuration: Duration = if (timeout >= MAX_TIMEOUT_DURATION) { // cjlint-ignore !G.VAR.02
         MAX_TIMEOUT_DURATION
     } else {
         timeout
     }
-    let start: MonoTime = MonoTime.now()
+    let start: MonoTime = MonoTime.now() // cjlint-ignore !G.VAR.02
     while (true) {
         // Probe before checking the deadline: the child may have exited while
         // the polling sleep was in progress.
-        var exitCode: Int64 = -1
-        let ret: Int32 = unsafe { CJ_OS_WaitSubProcessExitNonBlocking(pid, inout exitCode) }
+        // The native call writes the exit status through this mutable local.
+        var exitCode: Int64 = -1 // cjlint-ignore !G.VAR.02
+        let ret: Int32 = unsafe { CJ_OS_WaitSubProcessExitNonBlocking(Int32(process.pid), inout exitCode) }
         if (ret == 1) {
             process._waitExitCode = exitCode
             process._waitReaped = true
@@ -436,12 +438,12 @@ func getWaitExitCode(process: SubProcess, timeout: Duration): Int64 {
         if (ret == 0) {
             let remaining: Duration = waitDuration - (MonoTime.now() - start)
             if (remaining <= Duration.Zero) {
-                throw TimeoutException()
+                throw TimeoutException() // cjlint-ignore !G.ERR.01
             }
-            sleep(if (remaining < WAIT_POLL_INTERVAL) {
+            sleep(if (remaining < Duration.millisecond) {
                 remaining
             } else {
-                WAIT_POLL_INTERVAL
+                Duration.millisecond
             })
             continue
         }

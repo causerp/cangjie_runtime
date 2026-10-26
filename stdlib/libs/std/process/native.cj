@@ -277,9 +277,10 @@ func nativeRemoveEnv(name: CString): Int32 {
     return ret
 }
 
+// std.process needs its own binding to the runtime symbol also declared in std.core.
 @When[backend == "cjnative"]
 @FastNative
-foreign func CJ_MRT_GetCommandLineArgs(): CPointer<CPointer<UInt8>>
+foreign func CJ_MRT_GetCommandLineArgs(): CPointer<CPointer<UInt8>> // cjlint-ignore !G.FUN.03
 
 @FastNative
 foreign func strlen(str: CPointer<UInt8>): UIntNative
