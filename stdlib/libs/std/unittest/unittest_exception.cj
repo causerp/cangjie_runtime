@@ -48,9 +48,9 @@ public class UnittestTimeoutException <: Exception {
 public class UnittestCliOptionsFormatException <: UnittestException {
     init(optionName: String, actual!: String, expected!: String) {
         super(
-            "Wrong ${optionName} option argument format. " +
-            "Provided: ${actual}. " +
-            expected
+            "Wrong '${optionName}' option argument format. " +
+            expected +
+            ", got: '${actual}'."
         )
     }
 

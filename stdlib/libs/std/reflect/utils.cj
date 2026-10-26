@@ -29,7 +29,7 @@ func getTypeAnnotations(info: CPointer<Unit>): Collection<Annotation> {
  * It does not contain the parameter name, default value, or outermost parenthesis.
  * @return TypeInfo array converted from a parameter type string.
  *
- * @throws IllegalArgumentException if the input string does not comply with the specifications
+ * @throws IllegalArgumentException if the input string contains mismatched parentheses or an empty type name between commas
  */
 public func parseParameterTypes(parameters: String): Array<TypeInfo> {
     let parameterTypes = parameters.trimAscii()
@@ -42,7 +42,8 @@ public func parseParameterTypes(parameters: String): Array<TypeInfo> {
     var startChar = 0
     for (index in 0..parameterTypes.size - 1) {
         if (parentheses < 0 || angleBrackets < 0) {
-            throw IllegalArgumentException("The value of parameterTypes does not comply with the specifications.")
+            throw IllegalArgumentException(
+                "Invalid value for 'parameterTypes': does not comply with the specifications.")
         }
         match (parameterTypes[index]) {
             case '(' => parentheses++
@@ -56,7 +57,8 @@ public func parseParameterTypes(parameters: String): Array<TypeInfo> {
         }
         let str = parameterTypes[startChar..index]
         if (str.trimAscii().isEmpty()) {
-            throw IllegalArgumentException("The value of parameterTypes does not comply with the specifications.")
+            throw IllegalArgumentException(
+                "Invalid value for 'parameterTypes': does not comply with the specifications.")
         }
         arr.add(TypeInfo.get(str.trimAscii()))
         startChar = index + 1
@@ -111,24 +113,24 @@ func getTypeNameByQualifiedName(qualifiedName: String): String {
 
 func checkArgsSizeAndType(parameters: ReadOnlyList<ParameterInfo>, args: Array<Any>): Unit {
     if (parameters.size != args.size) {
-        throw IllegalArgumentException("The input parameter item does not comply with the required quantity.")
+        throw IllegalArgumentException("Invalid argument count: expected ${parameters.size}, got ${args.size}.")
     }
     for (i in 0..args.size) {
         if (!TypeInfo.of(args[i]).isSubtypeOf(parameters[i].typeInfo)) {
             throw IllegalTypeException(
-                "The input parameter does not match the type of the input parameter required by the function.")
+                "Parameter type mismatch: expected '${parameters[i].typeInfo}', got '${TypeInfo.of(args[i])}'.")
         }
     }
 }
 
 func checkArgsSizeAndType(parameters: ReadOnlyList<TypeInfo>, args: Array<Any>): Unit {
     if (parameters.size != args.size) {
-        throw IllegalArgumentException("The input parameter item does not comply with the required quantity.")
+        throw IllegalArgumentException("Invalid argument count: expected ${parameters.size}, got ${args.size}.")
     }
     for (i in 0..args.size) {
         if (!TypeInfo.of(args[i]).isSubtypeOf(parameters[i])) {
             throw IllegalTypeException(
-                "The input parameter does not match the type of the input parameter required by the function.")
+                "Parameter type mismatch: expected '${parameters[i]}', got '${TypeInfo.of(args[i])}'.")
         }
     }
 }
@@ -136,7 +138,7 @@ func checkArgsSizeAndType(parameters: ReadOnlyList<TypeInfo>, args: Array<Any>):
 func checkValueType(newValue: Any, typeInfo: TypeInfo): Unit {
     let valueTypeInfo = TypeInfo.of(newValue)
     if (!valueTypeInfo.isSubtypeOf(typeInfo)) {
-        throw IllegalTypeException("The input newValue should be \"${typeInfo}\", but now it`s \"${valueTypeInfo}\"")
+        throw IllegalTypeException("Invalid type for 'newValue': expected '${typeInfo}', got '${valueTypeInfo}'.")
     }
 }
 

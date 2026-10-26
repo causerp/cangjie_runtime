@@ -9,16 +9,18 @@
 <!-- run -->
 ```cangjie
 main(): Int64 {
+    // 创建新线程，循环打印 10 次
     spawn {
-        => for (i in 0..10) {
-            println("New thread, number = ${i}")
-            sleep(100 * Duration.millisecond) /* 睡眠 100 毫秒 */
+        for (i in 0..10) {
+            println("新线程: ${i}")
+            sleep(100 * Duration.millisecond)
         }
     }
 
+    // 主线程同时循环打印 5 次，与子线程交替执行
     for (i in 0..5) {
-        println("Main thread, number = ${i}")
-        sleep(100 * Duration.millisecond) /* 睡眠 100 毫秒 */
+        println("主线程: ${i}")
+        sleep(100 * Duration.millisecond)
     }
     return 0
 }
@@ -27,17 +29,17 @@ main(): Int64 {
 可能的运行结果：
 
 ```text
-Main thread, number = 0
-New thread, number = 0
-Main thread, number = 1
-New thread, number = 1
-Main thread, number = 2
-New thread, number = 2
-Main thread, number = 3
-New thread, number = 3
-Main thread, number = 4
-New thread, number = 4
-New thread, number = 5
+主线程: 0
+新线程: 0
+主线程: 1
+新线程: 1
+新线程: 2
+主线程: 2
+主线程: 3
+新线程: 3
+新线程: 4
+主线程: 4
+新线程: 5
 ```
 
 ## Future 的 get 的使用
@@ -49,20 +51,20 @@ New thread, number = 5
 <!-- verify -->
 ```cangjie
 main(): Int64 {
-    let fut: Future<Unit> = spawn {
-        => for (i in 0..10) {
-            println("New thread, number = ${i}")
-            /* 睡眠 100 毫秒 */
+    // 启动新线程，打印 0 到 9
+    let future: Future<Unit> = spawn {
+        for (i in 0..10) {
+            println("新线程: ${i}")
             sleep(100 * Duration.millisecond)
         }
     }
 
-    /* 等待线程完成 */
-    fut.get()
+    // 阻塞等待新线程执行完毕
+    future.get()
 
+    // 新线程结束后，主线程才开始打印
     for (i in 0..5) {
-        println("Main thread, number = ${i}")
-        /* 睡眠 100 毫秒 */
+        println("主线程: ${i}")
         sleep(100 * Duration.millisecond)
     }
     return 0
@@ -72,21 +74,21 @@ main(): Int64 {
 运行结果：
 
 ```text
-New thread, number = 0
-New thread, number = 1
-New thread, number = 2
-New thread, number = 3
-New thread, number = 4
-New thread, number = 5
-New thread, number = 6
-New thread, number = 7
-New thread, number = 8
-New thread, number = 9
-Main thread, number = 0
-Main thread, number = 1
-Main thread, number = 2
-Main thread, number = 3
-Main thread, number = 4
+新线程: 0
+新线程: 1
+新线程: 2
+新线程: 3
+新线程: 4
+新线程: 5
+新线程: 6
+新线程: 7
+新线程: 8
+新线程: 9
+主线程: 0
+主线程: 1
+主线程: 2
+主线程: 3
+主线程: 4
 ```
 
 ## 取消仓颉线程
@@ -96,24 +98,28 @@ Main thread, number = 4
 <!-- verify -->
 ```cangjie
 main(): Unit {
-    /* 创建线程 */
+    // 创建子线程，循环检查是否有取消请求
     let future = spawn {
         while (true) {
             if (Thread.currentThread.hasPendingCancellation) {
+                // 收到取消请求后返回 0
                 return 0
             }
         }
         return 1
     }
-    /* 发起线程取消请求 */
+
+    // 向子线程发起取消请求
     future.cancel()
-    let res = future.get()
-    println(res)
+
+    // 等待子线程结束并获取返回值
+    let result = future.get()
+    println("子线程返回值: ${result}")
 }
 ```
 
 运行结果：
 
 ```text
-0
+子线程返回值: 0
 ```

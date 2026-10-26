@@ -11,6 +11,9 @@
 #include "Mutator/MutatorManager.h"
 
 namespace MapleRuntime {
+
+uint16_t WCollector::currentTagID = 0;
+
 bool WCollector::IsUnmovableFromObject(BaseObject* obj) const
 {
     // filter const string object.
@@ -18,13 +21,9 @@ bool WCollector::IsUnmovableFromObject(BaseObject* obj) const
         return false;
     }
 
-    RegionInfo* regionInfo = nullptr;
-    if (RegionInfo::InGhostFromRegion(obj)) {
-        regionInfo = RegionInfo::GetGhostFromRegionAt(reinterpret_cast<uintptr_t>(obj));
-    } else {
-        regionInfo = RegionInfo::GetRegionInfoAt(reinterpret_cast<uintptr_t>(obj));
-    }
-    return regionInfo->IsUnmovableFromRegion();
+    // A ghost from region has been prepared (route established) and is pending forward,
+    // so its objects are movable via route. Non-ghost from-space objects are unmovable.
+    return !RegionInfo::InGhostFromRegion(obj);
 }
 
 bool WCollector::MarkObject(BaseObject* obj) const
@@ -144,7 +143,8 @@ void WCollector::EnumRefFieldRoot(RefField<>& field, RootSet& rootSet) const
         BaseObject* targetObj = oldField.GetTargetObject();
         latest = FindLatestVersion(targetObj);
     } else {
-        latest = field.GetTargetObject();
+        // Decode the same snapshot whose tag was checked above.
+        latest = oldField.GetTargetObject();
     }
 
     // target object could be null or non-heap for some static variable.
@@ -199,7 +199,12 @@ void WCollector::TraceRefField(BaseObject* obj, RefField<>& field, WorkStack& wo
     if (IsCurrentPointer(oldField)) {
         BaseObject* targetObj = oldField.GetTargetObject();
         if (!IsMarkedObject(targetObj)) {
+            DLOG(TRACE, "trace obj %p ref@%p: %p<%p>(%zu)", obj, &field, targetObj, targetObj->GetTypeInfo(),
+                targetObj->GetSize());
             workStack.push_back(targetObj);
+        } else {
+            DLOG(TRACE, "skip obj %p ref@%p: %p<%p>(%zu)", obj, &field, targetObj, targetObj->GetTypeInfo(),
+                targetObj->GetSize());
         }
         return;
     }
@@ -209,7 +214,8 @@ void WCollector::TraceRefField(BaseObject* obj, RefField<>& field, WorkStack& wo
         BaseObject* targetObj = oldField.GetTargetObject();
         latest = FindLatestVersion(targetObj);
     } else {
-        latest = field.GetTargetObject();
+        // Decode the same snapshot whose tag was checked above.
+        latest = oldField.GetTargetObject();
     }
 
     // target object could be null or non-heap for some static variable.
@@ -250,7 +256,8 @@ BaseObject* WCollector::GetAndTryTagObj(BaseObject* obj, RefField<>& field)
         BaseObject* targetObj = oldField.GetTargetObject();
         latest = FindLatestVersion(targetObj);
     } else {
-        latest = field.GetTargetObject();
+        // Decode the same snapshot whose tag was checked above.
+        latest = oldField.GetTargetObject();
     }
     // target object could be null or non-heap for some static variable.
     if (!Heap::IsHeapAddress(latest)) {
@@ -403,10 +410,12 @@ void WCollector::PostTrace()
     SatbBuffer::Instance().ClearBuffer();
     // reclaim large objects immediately after tracing is done.
     PrepareCycleRef();
-    CollectLargeGarbage();
     CollectPinnedGarbage();
     RefineFromSpace();
     fwdTable.PrepareForwardTable();
+    // We may move large objects to old region, so we need to make sure their referents are
+    // being prepared to be forward.
+    CollectLargeGarbage();
 }
 
 void WCollector::Preforward()
@@ -547,6 +556,8 @@ void WCollector::MarkNewObject(BaseObject* obj)
 {
     GCPhase mutatorPhase = Mutator::GetMutator()->GetMutatorPhase();
     if (UNLIKELY(mutatorPhase == GCPhase::GC_PHASE_ENUM) || UNLIKELY(mutatorPhase == GCPhase::GC_PHASE_TRACE) ||
+        UNLIKELY(mutatorPhase == GCPhase::GC_PHASE_GENERATION_ENUM) ||
+        UNLIKELY(mutatorPhase == GCPhase::GC_PHASE_GENERATION_TRACE) ||
         UNLIKELY(mutatorPhase == GCPhase::GC_PHASE_CLEAR_SATB_BUFFER)) {
         MarkObject(obj);
     }
@@ -572,24 +583,30 @@ BaseObject* WCollector::TryForwardObject(BaseObject* obj)
     if (region == nullptr) {
         return nullptr;
     }
+    return TryForwardObject(obj, region);
+}
 
+BaseObject* WCollector::TryForwardObject(BaseObject* obj, RegionInfo* region)
+{
     if (fwdTable.RouteRegion(region)) {
         if (region->TryLockReadFromRegion()) {
             BaseObject* toVersion = ForwardObjectImpl(obj, region);
             region->UnlockReadFromRegion();
             return toVersion;
         } else {
-            return FindToVersion(obj);
+            return FindToVersion(obj, region);
         }
     } else if (region->IsCompacted()) {
-        return FindToVersion(obj);
+        return FindToVersion(obj, region);
     }
     return nullptr;
 }
 
 BaseObject* WCollector::ForwardObjectImpl(BaseObject* obj, RegionInfo* ghostFromRegion)
 {
-    CHECK(GetGCPhase() == GCPhase::GC_PHASE_PREFORWARD || GetGCPhase() == GCPhase::GC_PHASE_FORWARD);
+    CHECK(GetGCPhase() == GCPhase::GC_PHASE_PREFORWARD || GetGCPhase() == GCPhase::GC_PHASE_FORWARD ||
+          GetGCPhase() == GCPhase::GC_PHASE_GENERATION_PREFORWARD ||
+          GetGCPhase() == GCPhase::GC_PHASE_GENERATION_FORWARD);
     do {
         StateWord oldWord = obj->GetStateWord();
 

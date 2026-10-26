@@ -23,7 +23,7 @@ sealed abstract class IPPrefix <: Equatable<IPPrefix> & Hashable & ToString {
     public static func parse(s: String): IPPrefix {
         match (tryParse(s)) {
             case Some(prefix) => return prefix
-            case _ => throw IllegalFormatException("${s} is not a valid CIDR network string.")
+            case _ => throw IllegalFormatException("Invalid CIDR network string: '${s}'.")
         }
     }
     public static func tryParse(s: String): ?IPPrefix {
@@ -36,7 +36,7 @@ sealed abstract class IPPrefix <: Equatable<IPPrefix> & Hashable & ToString {
                 match (ip) {
                     case v4: IPv4Address => IPv4Prefix(v4, u8)
                     case v6: IPv6Address => IPv6Prefix(v6, u8)
-                    case _ => throw Exception()
+                    case _ => throw Exception("Internal error: unexpected IP address type.")
                 }
             case _ => None
         }
@@ -69,35 +69,35 @@ sealed abstract class IPPrefix <: Equatable<IPPrefix> & Hashable & ToString {
         match (this) {
             case v4: IPv4Prefix => return v4.netmask()
             case v6: IPv6Prefix => return v6.netmask()
-            case _ => throw Exception()
+            case _ => throw Exception("Internal error: unexpected IPPrefix type.")
         }
     }
     public open func hostmask(): IPAddress {
         match (this) {
             case v4: IPv4Prefix => return v4.hostmask()
             case v6: IPv6Prefix => return v6.hostmask()
-            case _ => throw Exception()
+            case _ => throw Exception("Internal error: unexpected IPPrefix type.")
         }
     }
     public open func broadcast(): IPAddress {
         match (this) {
             case v4: IPv4Prefix => return v4.broadcast()
             case v6: IPv6Prefix => return v6.broadcast()
-            case _ => throw Exception()
+            case _ => throw Exception("Internal error: unexpected IPPrefix type.")
         }
     }
     public open func network(): IPAddress {
         match (this) {
             case v4: IPv4Prefix => return v4.network()
             case v6: IPv6Prefix => return v6.network()
-            case _ => throw Exception()
+            case _ => throw Exception("Internal error: unexpected IPPrefix type.")
         }
     }
     public open func masked(): IPPrefix {
         match (this) {
             case v4: IPv4Prefix => return v4.masked()
             case v6: IPv6Prefix => return v6.masked()
-            case _ => throw Exception()
+            case _ => throw Exception("Internal error: unexpected IPPrefix type.")
         }
     }
     public operator func ==(other: IPPrefix): Bool {

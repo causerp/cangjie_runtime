@@ -34,7 +34,13 @@ function(make_cangjie_lib target_name)
 
     set(clang_compiler "${CMAKE_C_COMPILER}")
     if(OHOS)
+        list(APPEND flags_to_compile -z max-page-size=${OHOS_MAX_PAGE_SIZE})
         list(APPEND flags_to_compile -z relro -z now -z noexecstack)
+        # Standard system images pack relative relocations for all native components by default
+        # (build/config/compiler/BUILD.gn) and musl ldso handles DT_RELR, so pack them here too.
+        # Std shared libraries are linked by ld.lld directly here, bypassing the cjc driver, hence
+        # the toolchain-level default does not reach this link and the flag is passed explicitly.
+        list(APPEND flags_to_compile -z pack-relative-relocs)
         # Unfortunately, a bug in library `winpthread` our ld.lld depends causes deadlock occasionally
         # while linking. We disable multi-threading for now until we have a work-around.
         list(APPEND flags_to_compile --threads=1)
@@ -197,8 +203,12 @@ function(make_cangjie_lib target_name)
                 list(APPEND flags_to_compile "-L${CANGJIE_TARGET_TOOLCHAIN}/../lib/arm-linux-ohos")
             endif()
             list(APPEND flags_to_compile "-lc")
-            list(APPEND flags_to_compile "-lunwind")
+            # -l:libunwind.a: use archive form so --exclude-libs can hide its symbols.
+            list(APPEND flags_to_compile "-l:libunwind.a")
             list(APPEND flags_to_compile "--exclude-libs=libunwind.a")
+            # Hide C++ runtime symbols so downstream .so's don't bind to ast.so via DT_NEEDED.
+            # libc++.a is a linker script (INPUT(-lc++_static -lc++abi)); exclude the real archives.
+            list(APPEND flags_to_compile "--exclude-libs=libc++.a,libc++_static.a,libc++abi.a")
         endif()
         if(NOT DARWIN AND NOT CANGJIE_LIBRARY_ALLOW_UNDEFINED AND NOT CANGJIE_ENABLE_HWASAN AND NOT CANGJIE_SANITIZER_SUPPORT_ENABLED)
             # Extra checkes when generating cangjie shared libraries. If symbols are used in Cangjie but not
@@ -277,7 +287,7 @@ function(make_cangjie_lib target_name)
 
         set(link_std_libraries_flag)
         if(ANDROID)
-            list(APPEND link_std_libraries_flag ${ANDROID_16K_LINKER_FLAGS})
+            list(APPEND link_std_libraries_flag "-Wl,-z,max-page-size=${ANDROID_MAX_PAGE_SIZE}")
         endif()
         foreach(library_name ${CANGJIE_LIBRARY_CANGJIE_STD_LIB_DEPENDS})
             set(lib_link_option "cangjie-${library_name}")

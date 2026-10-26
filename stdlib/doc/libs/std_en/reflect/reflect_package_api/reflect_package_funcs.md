@@ -28,8 +28,8 @@ Returns:
 
 Exceptions:
 
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if the string format is incorrect.
-- [InfoNotFoundException](reflect_package_exceptions.md#class-infonotfoundexception) - Thrown if the type information in the parameters cannot be obtained.
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if the string contains mismatched parentheses (e.g. an extra closing parenthesis) or an empty type name between commas.
+- [InfoNotFoundException](reflect_package_exceptions.md#class-infonotfoundexception) - Thrown if the information of a type in the string cannot be obtained (including type names that do not comply with the specification).
 
 Example:
 

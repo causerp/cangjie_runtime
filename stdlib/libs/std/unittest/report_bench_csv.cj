@@ -28,7 +28,8 @@ enum BenchReportFormat <: ReportFormat {
             case "CSV" => CSV(path)
             case "HTML" => Html(path)
             case "CSV_RAW" | "CSV-RAW" => CSV_RAW(path)
-            case _ => throw UnittestCliOptionsFormatException("Unsupported benchmark report format: ${format}")
+            case _ => throw UnittestCliOptionsFormatException(
+                "Unsupported benchmark report format: expected \"CSV\", \"CSV_RAW\" or \"HTML\", got '${format}'.")
         }
     }
 
@@ -45,7 +46,7 @@ enum BenchReportFormat <: ReportFormat {
 extend TestGroupResult {
     func reportCsv(dir: Path, raw!: Bool): Unit {
         Directory.ensureExists(dir)
-        this.visitAll<TestSuiteResult>{ suiteResult => 
+        this.visitAll<TestSuiteResult>{ suiteResult =>
             let fileName = suiteResult.suiteId.reportFileName(isBench: true, extension: "csv")
             let csvBytes = suiteResult.reportBenchCsv(raw: raw).toString().toArray()
             if (!csvBytes.isEmpty()) {

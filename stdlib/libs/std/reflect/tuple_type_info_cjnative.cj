@@ -45,7 +45,7 @@ public class TupleTypeInfo <: TypeInfo {
         let ti = TypeInfo.of(instance)
         match (ti) {
             case tupleInfo: TupleTypeInfo => tupleInfo
-            case _ => throw IllegalTypeException("Expected `instance` to be a tuple type, but got ${ti.qualifiedName}.")
+            case _ => throw IllegalTypeException("Expected 'instance' to be a tuple type, but got '${ti.qualifiedName}'.")
         }
     }
 
@@ -60,7 +60,7 @@ public class TupleTypeInfo <: TypeInfo {
         match (ti) {
             case tupleInfo: TupleTypeInfo => tupleInfo
             case _ => throw IllegalTypeException(
-                "Expected generic type `T` to be a tuple type, but got ${ti.qualifiedName}.")
+                "Expected generic type 'T' to be a tuple type, but got '${ti.qualifiedName}'.")
         }
     }
 
@@ -76,14 +76,14 @@ public class TupleTypeInfo <: TypeInfo {
         let elementInfos = elements
         if (args.size != elementInfos.size) {
             throw IllegalArgumentException(
-                "Tuple argument count mismatch for ${qualifiedName}: expected ${elementInfos.size}, got ${args.size}.")
+                "Tuple argument count mismatch for '${qualifiedName}': expected ${elementInfos.size}, got ${args.size}.")
         }
         for (i in 0..args.size) {
             let argType = TypeInfo.of(args[i])
             let expectedType = elementInfos[i]
             if (!argType.isSubtypeOf(expectedType)) {
                 throw IllegalTypeException(
-                    "Tuple argument type mismatch at index ${i}: expected ${expectedType.qualifiedName}, got ${argType.qualifiedName}.")
+                    "Tuple argument type mismatch at index ${i}: expected '${expectedType.qualifiedName}', got '${argType.qualifiedName}'.")
             }
         }
         newAndInitEnumTupleObject(_info, args)
@@ -100,7 +100,7 @@ public class TupleTypeInfo <: TypeInfo {
         let instanceType = TypeInfo.of(instance)
         if (instanceType != this) {
             throw IllegalTypeException(
-                "Tuple instance type mismatch: expected ${qualifiedName}, got ${instanceType.qualifiedName}.")
+                "Tuple instance type mismatch: expected '${qualifiedName}', got '${instanceType.qualifiedName}'.")
         }
         let arr = getAssociatedValues(instance, TypeInfo.of<Array<Any>>()._info) as Array<Any>
         return ArrayList<Any>(arr.getOrThrow())

@@ -24,13 +24,11 @@ struct NameTableInfo {
     NameTableInfo(let nameCount: UInt32, let nameEntrySize: UInt32, let nameTable: CPointer<UInt8>) {}
 }
 
-@FastNative
 foreign func CJ_REGEX_Compile(pattern: CString, options: UInt32): CPointer<CompileResult>
 
 @FastNative
 foreign func CJ_REGEX_CreateMatchData(re: Pcre2CodePtr): Pcre2MatchDataPtr
 
-@FastNative
 foreign func CJ_REGEX_Match(re: Pcre2CodePtr, cinput: CString, length: UIntNative, offset: UIntNative,
     matchData: Pcre2MatchDataPtr): Int64
 
@@ -49,7 +47,6 @@ foreign func CJ_REGEX_FreeCode(re: Pcre2CodePtr): Unit
 @FastNative
 foreign func CJ_REGEX_FreeMatchData(md: Pcre2MatchDataPtr): Unit
 
-@FastNative
 foreign func CJ_REGEX_Count(re: Pcre2CodePtr, cinput: CString, length: UIntNative, offset: UIntNative, end: UIntNative,
     matchData: Pcre2MatchDataPtr): Int64
 

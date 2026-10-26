@@ -277,7 +277,7 @@ class SocketCommon<NS> <: Resource & ToString where NS <: PlatformSocket<NS> {
     }
 
     private static func emptyBufferException(): Nothing {
-        throw IllegalArgumentException("Buffer shouldn't be empty")
+        throw IllegalArgumentException("Buffer is empty.")
     }
 
     func send(payload: Array<Byte>, destination: SocketAddress): Int64 {
@@ -290,7 +290,7 @@ class SocketCommon<NS> <: Resource & ToString where NS <: PlatformSocket<NS> {
 
     func receiveFrom(buffer: Array<UInt8>): ?(SocketAddress, Int64) {
         if (buffer.isEmpty()) {
-            throw IllegalArgumentException("Buffer shouldn't be empty")
+            throw IllegalArgumentException("Buffer is empty.")
         }
 
         return holder.read {
@@ -309,7 +309,7 @@ class SocketCommon<NS> <: Resource & ToString where NS <: PlatformSocket<NS> {
         holder.write<Unit> {
             socket, state =>
                 if (state.failed) {
-                    throw SocketException("The bind of the socket has failed.")
+                    throw SocketException("Socket is already bound.")
                 }
                 if (shouldBeBound) {
                     state.ensureBindInvoked()
@@ -343,7 +343,7 @@ class SocketCommon<NS> <: Resource & ToString where NS <: PlatformSocket<NS> {
     // should be only invoked under addressLock
     private func connectImpl(socket: NS, state: SocketState, timeout: ?Duration): Unit {
         let address = remoteAddress_.directValue |> unwrapOption |> getOrFail<SocketAddress> {
-            SocketException("No address to connect to specified")
+            SocketException("No address specified to connect to.")
         }
 
         let bindAddress: ?SocketAddress = if (state.bound) {
@@ -415,7 +415,7 @@ class SocketCommon<NS> <: Resource & ToString where NS <: PlatformSocket<NS> {
     func bind(backlogSize: ?Int32): Unit {
         if (let Some(backlogSize) <- backlogSize) {
             if (backlogSize < 0) {
-                throw IllegalArgumentException("Backlog size shouldn't be negative")
+                throw IllegalArgumentException("Backlog size cannot be negative, got '${backlogSize}'.")
             }
         }
 
@@ -423,7 +423,7 @@ class SocketCommon<NS> <: Resource & ToString where NS <: PlatformSocket<NS> {
             socket, state =>
                 state.ensureNotBound()
                 if (state.failed) {
-                    throw SocketException("Bind couldn't be invoked twice.")
+                    throw SocketException("Socket is already bound.")
                 }
 
                 addressLock.writeMutex.lock() // we need this because we are touching local/remote address
@@ -453,7 +453,7 @@ class SocketCommon<NS> <: Resource & ToString where NS <: PlatformSocket<NS> {
         if (let Some(localAddress) <- (localAddress_.directValue |> unwrapOption)) {
             socket.bindListen(localAddress, backlogSize, ignoreAlreadyBound: ignoreAlreadyBound)
         } else if (bindRequired) {
-            throw SocketException("No local address specified to bind at")
+            throw SocketException("No local address specified for bind.")
         }
     }
 
@@ -537,7 +537,7 @@ class SocketCommon<NS> <: Resource & ToString where NS <: PlatformSocket<NS> {
 
     func setSendBufferSize(newSize: Int64): Unit {
         if (newSize <= 0) {
-            throw IllegalArgumentException("Buffer size should be positive, got ${newSize}.")
+            throw IllegalArgumentException("Invalid send buffer size: must be positive, got '${newSize}'.")
         }
         setSocketOptionIntNative(SOL_SOCKET, SOCK_SNDBUF, IntNative(newSize))
     }
@@ -548,7 +548,7 @@ class SocketCommon<NS> <: Resource & ToString where NS <: PlatformSocket<NS> {
 
     func setReceiveBufferSize(newSize: Int64): Unit {
         if (newSize <= 0) {
-            throw IllegalArgumentException("Buffer size should be positive, got ${newSize}.")
+            throw IllegalArgumentException("Invalid receive buffer size: must be positive, got '${newSize}'.")
         }
         setSocketOptionIntNative(SOL_SOCKET, SOCK_RCVBUF, IntNative(newSize))
     }

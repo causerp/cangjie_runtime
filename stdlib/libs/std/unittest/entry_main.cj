@@ -107,13 +107,15 @@ private struct ExecutableTestProject <: Serializable<ExecutableTestProject> {
     static let API_VERSION = 2
 
     public func serializeInternal(): DataModel {
-        throw Exception("Implemented in CJPM")
+        throw Exception("This functionality is implemented in CJPM and should not be used from std.unittest.")
     }
 
     public static func deserialize(dm: DataModel): ExecutableTestProject {
-        let dms = dm as DataModelStruct ?? throw Exception("Data is expected to be a DataModelStruct")
+        let dms = dm as DataModelStruct ?? throw Exception("Data format for ExecutableTestProject is expected to be a DataModelStruct.")
         if (Int64.deserialize(dms.get("apiVersion")) != API_VERSION) {
-            throw Exception("This version of CJPM is not compatible with std.unittest")
+            let actualVersion = Int64.deserialize(dms.get("apiVersion"))
+            throw Exception("This version of CJPM is not compatible with std.unittest."
+                + " Expected API version: '${API_VERSION}', actual API version: '${actualVersion}'.")
         }
         ExecutableTestProject(
             Array<ExecutableTestModule>.deserialize(dms.get("testModules"))
@@ -132,7 +134,7 @@ private struct ExecutableTestProject <: Serializable<ExecutableTestProject> {
             Path(path) |> File.readFrom |> String.fromUtf8 |> ExecutableTestProject.fromJson
         } else {
             eprintln("Error: std.testrunner executable is expected to be called only by 'cjpm test' command internally.")
-            throw Exception("${OP_INTERNAL_TESTRUNNER_INPUT_PATH} is expected")
+            throw Exception("Command-line argument '${OP_INTERNAL_TESTRUNNER_INPUT_PATH}' is expected.")
         }
     }
 
@@ -157,11 +159,11 @@ private struct ExecutableTestModule <: Serializable<ExecutableTestModule> {
     ExecutableTestModule(let name: String, let testPackages: Array<ExecutableTestPackage>) {}
 
     public func serializeInternal(): DataModel {
-        throw Exception("Implemented in CJPM")
+        throw Exception("This functionality is implemented in CJPM and should not be used from std.unittest.")
     }
 
     public static func deserialize(dm: DataModel): ExecutableTestModule {
-        let dms = dm as DataModelStruct ?? throw Exception("Data is expected to be a DataModelStruct")
+        let dms = dm as DataModelStruct ?? throw Exception("Expected DataModelStruct.")
         ExecutableTestModule(
             String.deserialize(dms.get("name")),
             Array<ExecutableTestPackage>.deserialize(dms.get("testPackages"))
@@ -193,11 +195,11 @@ private struct ExecutableTestPackage <: Serializable<ExecutableTestPackage> {
     ExecutableTestPackage(let name: String, let executeCommand: TestPackageExecuteCommand) {}
 
     public func serializeInternal(): DataModel {
-        throw Exception("Implemented in CJPM")
+        throw Exception("This functionality is implemented in CJPM and should not be used from std.unittest.")
     }
 
     public static func deserialize(dm: DataModel): ExecutableTestPackage {
-        let dms = dm as DataModelStruct ?? throw Exception("Data is expected to be a DataModelStruct")
+        let dms = dm as DataModelStruct ?? throw Exception("Expected DataModelStruct.")
         ExecutableTestPackage(
             String.deserialize(dms.get("name")),
             TestPackageExecuteCommand.deserialize(dms.get("executeCommand"))
@@ -246,7 +248,7 @@ struct TestPackageExecuteCommand <: Serializable<TestPackageExecuteCommand> {
     }
 
     public static func deserialize(dm: DataModel): TestPackageExecuteCommand {
-        let dms = dm as DataModelStruct ?? throw Exception("Data is expected to be a DataModelStruct")
+        let dms = dm as DataModelStruct ?? throw Exception("Expected DataModelStruct.")
         TestPackageExecuteCommand(
             String.deserialize(dms.get("command")),
             Array<String>.deserialize(dms.get("args")),
@@ -279,7 +281,7 @@ struct TestPackageExecuteCommand <: Serializable<TestPackageExecuteCommand> {
         for (arg in Process.currentArgs where arg.contains(OP_INTERNAL_TESTRUNNER_INPUT_PATH)) {
             return TestPackageExecuteCommand(command, args + arg, env)
         }
-        throw Exception("Expected test runner input")
+        throw Exception("Command-line argument '${OP_INTERNAL_TESTRUNNER_INPUT_PATH}' is expected.")
     }
 
     func withArgs(newArgs: Array<String>): TestPackageExecuteCommand {

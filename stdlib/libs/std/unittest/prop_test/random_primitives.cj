@@ -320,10 +320,10 @@ private let FLOAT64_TABLE = WeightTable<(Random) -> Float64>(
 
 private func nextFloat16(random: Random, l: Float16, r: Float16): Float16 {
     if (l.isNaN() || r.isNaN()) {
-        throw IllegalArgumentException("cannot pass nan as border value")
+        throw IllegalArgumentException("Invalid interval: neither 'l' nor 'r' can be NaN.")
     }
     if (r < l) {
-        throw IllegalArgumentException("[${l}, ${r}] is an empty interval")
+        throw IllegalArgumentException("Invalid interval: 'l' must be less or equal to 'r', got 'l' = '${l}', 'r' = '${r}'.")
     }
     if (l == Float16.Inf) {
         return l
@@ -343,10 +343,10 @@ private func nextFloat16(random: Random, l: Float16, r: Float16): Float16 {
 
 private func nextFloat32(random: Random, l: Float32, r: Float32): Float32 {
     if (l.isNaN() || r.isNaN()) {
-        throw IllegalArgumentException("cannot pass nan as border value")
+        throw IllegalArgumentException("Invalid interval: neither 'l' nor 'r' can be NaN.")
     }
     if (r < l) {
-        throw IllegalArgumentException("[${l}, ${r}] is an empty interval")
+        throw IllegalArgumentException("Invalid interval: 'l' must be less or equal to 'r', got 'l' = '${l}', 'r' = '${r}'.")
     }
     if (l == Float32.Inf) {
         return l
@@ -366,10 +366,10 @@ private func nextFloat32(random: Random, l: Float32, r: Float32): Float32 {
 
 private func nextFloat64(random: Random, l: Float64, r: Float64): Float64 {
     if (l.isNaN() || r.isNaN()) {
-        throw IllegalArgumentException("cannot pass nan as border value")
+        throw IllegalArgumentException("Invalid interval: neither 'l' nor 'r' can be NaN.")
     }
     if (r < l) {
-        throw IllegalArgumentException("[${l}, ${r}] is an empty interval")
+        throw IllegalArgumentException("Invalid interval: 'l' must be less or equal to 'r', got 'l' = '${l}', 'r' = '${r}'.")
     }
     if (l == Float64.Inf) {
         return l

@@ -37,7 +37,7 @@ private unsafe func freeWrapper(p: CPointer<Unit>): Unit {
 public struct LibC {
     public static func malloc<T>(count!: Int64 = 1): CPointer<T> where T <: CType {
         if (count < 0) {
-            throw IllegalArgumentException("The value of count cannot be negative")
+            throw IllegalArgumentException("Invalid argument 'count': must be non-negative, got ${count}.")
         }
         let itemSize = sizeOf<T>()
         if (UIntNative.Max / itemSize < UIntNative(count)) {
@@ -55,7 +55,7 @@ public struct LibC {
         var length: Int64 = str.size
         var cp: CPointer<UInt8> = LibC.malloc<UInt8>(count: length + 1)
         if (cp.isNull()) {
-            throw IllegalMemoryException("Malloc in mallocCString failed.")
+            throw IllegalMemoryException("Failed to allocate memory in mallocCString.")
         }
         cp.write(length, 0)
         if (length == 0) {
@@ -71,7 +71,7 @@ public struct LibC {
                 let rc = memcpy_s(cp + offset, UIntNative(SECUREC_MEM_MAX_LEN), ptrArr + offset, UIntNative(SECUREC_MEM_MAX_LEN))
                 if (rc != 0) {
                     LibC.free(cp)
-                    throw IllegalMemoryException("memcpy_s in mallocCString failed with error code: ${rc}.")
+                    throw IllegalMemoryException("Failed to copy memory in mallocCString: error code '${rc}'.")
                 }
                 offset += SECUREC_MEM_MAX_LEN
                 remain -= SECUREC_MEM_MAX_LEN
@@ -80,7 +80,7 @@ public struct LibC {
                 let rc = memcpy_s(cp + offset, UIntNative(remain), ptrArr + offset, UIntNative(remain))
                 if (rc != 0) {
                     LibC.free(cp)
-                    throw IllegalMemoryException("memcpy_s in mallocCString failed with error code: ${rc}.")
+                    throw IllegalMemoryException("Failed to copy memory in mallocCString: error code '${rc}'.")
                 }
             }
             return CString(cp)

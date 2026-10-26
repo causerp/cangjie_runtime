@@ -839,7 +839,7 @@ extend<T> Option<T> <: ToString where T <: ToString
 public func toString(): String
 ```
 
-功能：将 [Option](core_package_enums.md#enum-optiont) 转换为可输出的字符串，字符串内容为 "Some(${T.toString()})" 或 "None"。
+功能：将 [Option](core_package_enums.md#enum-optiont) 转换为字符串，字符串内容为 "Some(${T.toString()})" 或 "None"。
 
 返回值：
 
@@ -923,7 +923,7 @@ LT
 extend Ordering <: Comparable<Ordering>
 ```
 
-功能：为 [Ordering](core_package_enums.md#enum-ordering) 类型其扩展 [Comparable](core_package_interfaces.md#interface-comparablet)\<[Ordering](core_package_enums.md#enum-ordering)> 接口，支持比较操作。
+功能：为 [Ordering](core_package_enums.md#enum-ordering) 类型扩展 [Comparable](core_package_interfaces.md#interface-comparablet)\<[Ordering](core_package_enums.md#enum-ordering)> 接口，支持比较操作。
 
 父类型：
 
@@ -990,7 +990,7 @@ GT.compare(GT): Ordering.EQ
 extend Ordering <: Hashable
 ```
 
-功能：为 [Ordering](core_package_enums.md#enum-ordering) 类型其扩展 [Hashable](core_package_interfaces.md#interface-hashable) 接口，支持计算哈希值。
+功能：为 [Ordering](core_package_enums.md#enum-ordering) 类型扩展 [Hashable](core_package_interfaces.md#interface-hashable) 接口，支持计算哈希值。
 
 父类型：
 
@@ -1043,7 +1043,7 @@ LT的哈希值: 1
 extend Ordering <: ToString
 ```
 
-功能：为 [Ordering](core_package_enums.md#enum-ordering) 类型其扩展 [ToString](core_package_interfaces.md#interface-tostring) 接口，支持转字符串操作。
+功能：为 [Ordering](core_package_enums.md#enum-ordering) 类型扩展 [ToString](core_package_interfaces.md#interface-tostring) 接口，支持转字符串操作。
 
 父类型：
 
@@ -1055,7 +1055,7 @@ extend Ordering <: ToString
 public func toString(): String
 ```
 
-功能：将 [Ordering](core_package_enums.md#enum-ordering) 转换为可输出的字符串。
+功能：将 [Ordering](core_package_enums.md#enum-ordering) 转换为字符串。
 
 转换结果如下：
 
@@ -1152,7 +1152,7 @@ Terminated
 public func toString(): String
 ```
 
-功能：将 [ThreadState](core_package_enums.md#enum-threadstate) 转换为可输出的字符串。
+功能：将 [ThreadState](core_package_enums.md#enum-threadstate) 转换为字符串。
 
 转换结果如下：
 

@@ -7,7 +7,6 @@
 > 示例中使用 [TimeZone.load](../time_package_api/time_package_classes.md#static-func-loadstring) 函数加载时区信息，在不同平台上加载时区信息有不同的依赖，用户需按要求进行设置。
 
 <!-- verify -->
-
 ```cangjie
 import std.time.*
 
@@ -23,15 +22,19 @@ main() {
         nanosecond: 789000000,
         timeZone: TimeZone.load("Asia/Shanghai")
     )
-    let str = datetime.format(pattern)
-    println(str)
-    println(DateTime.parse(str, pattern))
+
+    // 按照 pattern 格式化输出时间
+    let formattedStr = datetime.format(pattern)
+    println("格式化结果: ${formattedStr}")
+
+    // 从格式化字符串中解析出时间
+    println("解析结果: ${DateTime.parse(formattedStr, pattern)}")
 }
 ```
 
 运行结果：
 
 ```text
-2024/05/22 12:34:56789000000 +08:00
-2024-05-22T12:34:56.789+08:00
+格式化结果: 2024/05/22 12:34:56789000000 +08:00
+解析结果: 2024-05-22T12:34:56.789+08:00
 ```

@@ -97,7 +97,7 @@ extend BigInt <: RadixConvertible<BigInt> {
      */
     public static func parse(value: String, radix!: Int64): BigInt {
         if (radix < 2 || radix > 36) {
-            throw IllegalArgumentException("The radix should in the range of [2, 36].")
+            throw IllegalArgumentException("Invalid argument 'radix': must be in range [2, 36].")
         }
         let (int, intArr, negSign) = parseString(value, UInt64(radix))
         return BigInt(int, intArr, negSign)
@@ -158,7 +158,7 @@ extend BigInt <: Formattable {
 
         // verify `fmt`
         if (!(Verify(fmt).verifyIntFormatArg())) {
-            throw IllegalArgumentException("Wrong format string '" + fmt + "' for 'UInt' type.")
+            throw IllegalArgumentException("Invalid format string '${fmt}' for 'BigInt' type.")
         }
         // prase `fmt`
         let (flag, width, precision, specifier) = parseFormat(fmt)

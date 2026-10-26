@@ -50,7 +50,7 @@ class SignalManager {
 @When[os != "Windows"]
 public func registerSignalHandler(sig: Signal, handler: SignalHandlerFunc): Unit {
     if (sig.value <= 0 || sig.value >= SignalManager.MAX_SIG_NUM) {
-        throw IllegalArgumentException("Signal value must > 0 and < ${SignalManager.MAX_SIG_NUM}.")
+        throw IllegalArgumentException("Invalid argument 'sig': signal value '${sig.value}' out of range 1–31.")
     }
     let slot = SignalManager.sigSlot[Int64(sig.value)]
     synchronized(mtx) {
@@ -73,7 +73,7 @@ public func registerSignalHandler(sig: Signal, handler: SignalHandlerFunc): Unit
 @When[os != "Windows"]
 public func unregisterSignalHandler(sig: Signal, handler: SignalHandlerFunc): Unit {
     if (sig.value <= 0 || sig.value >= SignalManager.MAX_SIG_NUM) {
-        throw IllegalArgumentException("Signal value must > 0 and < ${SignalManager.MAX_SIG_NUM}.")
+        throw IllegalArgumentException("Invalid argument 'sig': signal value '${sig.value}' out of range 1–31.")
     }
     let slot = SignalManager.sigSlot[Int64(sig.value)]
     synchronized(mtx) {
@@ -101,7 +101,7 @@ public func resetSignalHandler(sigs: Array<Signal>): Unit {
         } else {
             for (sig in sigs) {
                 if (sig.value <= 0 || sig.value >= SignalManager.MAX_SIG_NUM) {
-                    throw IllegalArgumentException("Signal value must > 0 and < ${SignalManager.MAX_SIG_NUM}.")
+                    throw IllegalArgumentException("Invalid argument 'sig': signal value '${sig.value}' out of range 1–31.")
                 }
                 SignalManager.sigSlot[Int64(sig.value)].clear()
                 unregSigChain(sig)

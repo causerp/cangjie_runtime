@@ -4,61 +4,58 @@
 
 示例：
 <!-- verify -->
-
 ```cangjie
 import std.fs.*
 import std.io.*
 
 main() {
     let filePath: Path = Path("./tempFile.txt")
-    if (exists(filePath)) {
-        remove(filePath)
-    }
 
-    /* 在当前目录以 只写模式 创建新文件 'tempFile.txt'，写入三遍 "123456789\n" 并关闭文件 */
+    // 清理上次运行可能残留的文件
+    removeIfExists(filePath)
+
+    // 以只写模式创建新文件，写入三遍 "123456789\n" 后关闭
     var file: File = File(filePath, Write)
-    if (exists(filePath)) {
-        println("The file 'tempFile.txt' is created successfully in current directory.\n")
-    }
+    println("文件创建成功: tempFile.txt")
     let bytes: Array<Byte> = "123456789\n".toArray()
     for (_ in 0..3) {
         file.write(bytes)
     }
     file.close()
 
-    /* 以 追加模式 打开文件 './tempFile.txt'，写入 "abcdefghi\n" 并关闭文件 */
+    // 以追加模式打开文件，写入 "abcdefghi\n" 后关闭
     file = File(filePath, Append)
     file.write("abcdefghi\n".toArray())
     file.close()
 
-    /* 以 只读模式 打开文件 './tempFile.txt'，按要求读出数据并关闭文件 */
+    // 以只读模式打开文件，从指定位置读取数据后关闭
     file = File(filePath, Read)
-    let bytesBuf: Array<Byte> = Array<Byte>(10, repeat: 0)
-    // 从文件头开始的第 10 个字节后开始读出 10 个字节的数据
+    let readBuffer: Array<Byte> = Array<Byte>(10, repeat: 0)
+
+    // 从文件头偏移 10 个字节处开始读取 10 个字节
     file.seek(SeekPosition.Begin(10))
-    file.read(bytesBuf)
-    println("Data of the 10th byte after the 10th byte: ${String.fromUtf8(bytesBuf)}")
-    // 读出文件尾的 10 个字节的数据
+    file.read(readBuffer)
+    println("第 10 字节之后的 10 个字节: ${String.fromUtf8(readBuffer)}")
+
+    // 读取文件尾部的 10 个字节
     file.seek(SeekPosition.End(-10))
-    file.read(bytesBuf)
-    println("Data of the last 10 bytes: ${String.fromUtf8(bytesBuf)}")
+    file.read(readBuffer)
+    println("文件末尾的 10 个字节: ${String.fromUtf8(readBuffer)}")
     file.close()
 
-    /* 以 读+写模式 打开文件 './tempFile.txt'，按要求进行操作后关闭文件 */
+    // 以读+写模式打开文件，先截断为空文件再写入新内容
     file = File(filePath, ReadWrite)
-    // 截断文件大小为 0
     file.setLength(0)
-    // 向文件中写入新内容
-    file.write("The file was truncated to an empty file!".toArray())
-    // 重置游标到文件头
-    file.seek(SeekPosition.Begin(0))
-    // 读取文件内容
-    let allBytes: Array<Byte> = readToEnd(file)
-    // 关闭文件
-    file.close()
-    println("Data written newly: ${String.fromUtf8(allBytes)}")
+    file.write("文件已被截断为空文件！".toArray())
 
-    remove(filePath)
+    // 重置游标到文件头并读取全部内容
+    file.seek(SeekPosition.Begin(0))
+    let allBytes: Array<Byte> = readToEnd(file)
+    file.close()
+    println("截断后新写入的内容: ${String.fromUtf8(allBytes)}")
+
+    // 清理本次运行创建的文件
+    removeIfExists(filePath)
     return 0
 }
 ```
@@ -66,42 +63,41 @@ main() {
 运行结果：
 
 ```text
-The file 'tempFile.txt' is created successfully in current directory.
+文件创建成功: tempFile.txt
+第 10 字节之后的 10 个字节: 123456789
 
-Data of the 10th byte after the 10th byte: 123456789
+文件末尾的 10 个字节: abcdefghi
 
-Data of the last 10 bytes: abcdefghi
-
-Data written newly: The file was truncated to an empty file!
+截断后新写入的内容: 文件已被截断为空文件！
 ```
 
 ## File 的一些 static 函数演示
 
 示例：
 <!-- verify -->
-
 ```cangjie
 import std.fs.*
 
 main() {
     let filePath: Path = Path("./tempFile.txt")
-    if (exists(filePath)) {
-        remove(filePath)
-    }
 
-    /* 以 只写模式 创建文件，并写入 "123456789\n" 并关闭文件 */
+    // 清理上次运行可能残留的文件
+    removeIfExists(filePath)
+
+    // 创建新文件并写入 "123456789\n" 后关闭
     var file: File = File.create(filePath)
     file.write("123456789\n".toArray())
     file.close()
 
-    /* 以 追加模式 写入 "abcdefghi\n" 到文件 */
+    // 以追加模式将 "abcdefghi" 写入文件
     File.appendTo(filePath, "abcdefghi".toArray())
 
-    /* 直接读取文件中所有数据 */
+    // 一次性读取文件中的全部数据
     let allBytes: Array<Byte> = File.readFrom(filePath)
     println(String.fromUtf8(allBytes))
 
-    remove(filePath)
+    // 清理本次运行创建的文件
+    removeIfExists(filePath)
     return 0
 }
 ```

@@ -2,24 +2,23 @@
 
 下面是 MultiOutputStream 向绑定的所有流中写入数据示例。
 <!-- verify -->
-
 ```cangjie
 import std.io.*
 
 main(): Unit {
     const size = 2
 
-    /* 将两个 ByteBuffer 绑定到 MultiOutputStream */
-    let streamArr = Array<OutputStream>(size, {_ => ByteBuffer()})
-    let multiOutputStream = MultiOutputStream(streamArr)
+    // 将两个 ByteBuffer 绑定到 MultiOutputStream
+    let streams = Array<OutputStream>(size, {_ => ByteBuffer()})
+    let multiOutputStream = MultiOutputStream(streams)
 
-    /* 往 MultiOutputStream 写入数据，会同时写入绑定的两个 ByteBuffer */
+    // 向 MultiOutputStream 写入数据，数据会同时写入绑定的两个流
     multiOutputStream.write("test".toArray())
 
-    /* 读取 ByteBuffer 中数据，验证结果 */
+    // 依次读取每个流中的数据
     for (i in 0..size) {
-        match (streamArr[i]) {
-            case v: ByteBuffer => println(String.fromUtf8(readToEnd(v)))
+        match (streams[i]) {
+            case v: ByteBuffer => println("流 ${i} 中的数据: ${String.fromUtf8(readToEnd(v))}")
             case _ => throw Exception()
         }
     }
@@ -29,6 +28,6 @@ main(): Unit {
 运行结果：
 
 ```text
-test
-test
+流 0 中的数据: test
+流 1 中的数据: test
 ```

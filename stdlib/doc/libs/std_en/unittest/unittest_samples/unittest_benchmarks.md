@@ -161,7 +161,7 @@ However, there are still external factors beyond our control that users must man
 - Compiler optimization flags. Typically, unless you're testing the effects of specific optimizations, most optimizations should be enabled. It's recommended to enable at least the `-O2` option in the Cangjie compiler.
 - Background CPU workloads. If the OS switches tasks during benchmarking, it may significantly affect the results. Thus, all CPU-intensive background tasks should be completed or paused before starting the benchmark. Alternatively, explicit CPU affinity can be set to ensure benchmarks and other CPU-intensive tasks run on different CPU cores.
 - External I/O usage. Users might inadvertently benchmark the performance and latency of I/O operations rather than subsequent processing. It's advisable to benchmark the I/O or processing parts separately.
-- Unnecessary optimizations. If testing a function's performance with specific parameter values, the compiler might treat these values as constants for optimization. Parameterized benchmarks can avoid this. Future updates will introduce "black-box" methods to better control such optimizations.
+- Unnecessary optimizations. If testing a function's performance with specific parameter values, the compiler might treat these values as constants for optimization. Parameterized benchmarks can avoid this.
 - Side effects. All framework analyses assume the benchmarked function is as pure as possible, meaning the code path during execution depends only on input parameters. Therefore, when writing benchmarks, ensure side effects (e.g., modifying global variables or test class fields) don't affect how the code executes during each benchmark iteration. Note that, by default, parameter values remain the same for each function call. If parameters are modified, subsequent calls will use the modified values. This is not recommended, as each call would require reconfiguration.
 - Redundant static allocations. If many objects are allocated before benchmarking (either statically or in `@Before*` methods), ensure they are promptly released after the relevant benchmark ends. Otherwise, GC overhead may increase, as the GC still needs to traverse these unused but reachable objects, affecting the accuracy of subsequent benchmarks.
 
@@ -357,6 +357,6 @@ func foo(arg: Int64): Unit {
 }
 ```
 
-Yet another problem remains. The return value of `complexCode` is unused. If the compiler detects that it can partially or entirely remove this function call, optimization will occur. To address this, the return value should be handled via a black box. This feature is still under development, so the current workaround is to store the return value in a global variable.
+Yet another problem remains. The return value of `complexCode` is unused. If the compiler detects that it can partially or entirely remove this function call, optimization will occur. To address this, the return value should be handled via a black box.
 
 <!-- TODO: Black box -->

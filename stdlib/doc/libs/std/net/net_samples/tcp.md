@@ -1,41 +1,41 @@
 # TCP 使用示例
 
 <!-- verify -->
-
 ```cangjie
 import std.net.*
-import std.sync.*
 
 let SERVER_PORT: UInt16 = 33333
-let syncCounter = SyncCounter(1)
 
 func runTcpServer() {
+    // 绑定端口并监听
     try (serverSocket = TcpServerSocket(bindAt: SERVER_PORT)) {
         serverSocket.bind()
-        syncCounter.dec()
 
+        // 接受客户端连接并读取数据
         try (client = serverSocket.accept()) {
-            let buf = Array<Byte>(10, repeat: 0)
-            let count = client.read(buf)
-
-            // Server read 3 bytes: [1, 2, 3, 0, 0, 0, 0, 0, 0, 0]
-            println("Server read ${count} bytes: ${buf}")
+            let readBuffer = Array<Byte>(10, repeat: 0)
+            let count = client.read(readBuffer)
+            println("服务端读取到 ${count} 个字节: ${readBuffer}")
         }
     }
 }
 
 main(): Int64 {
-    let fut = spawn {
+    // 启动服务端线程
+    let serverFuture = spawn {
         runTcpServer()
     }
-    syncCounter.waitUntilZero()
 
+    // 等待服务端完成绑定（预留 1 秒）
+    sleep(Duration.second)
+
+    // 客户端连接并发送数据
     try (socket = TcpSocket("127.0.0.1", SERVER_PORT)) {
         socket.connect()
         socket.write([1, 2, 3])
     }
 
-    fut.get()
+    serverFuture.get()
 
     return 0
 }
@@ -44,5 +44,5 @@ main(): Int64 {
 运行结果：
 
 ```text
-Server read 3 bytes: [1, 2, 3, 0, 0, 0, 0, 0, 0, 0]
+服务端读取到 3 个字节: [1, 2, 3, 0, 0, 0, 0, 0, 0, 0]
 ```

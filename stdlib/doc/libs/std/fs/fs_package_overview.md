@@ -16,8 +16,8 @@ fs（file system）包提供对文件、文件夹、路径、文件元数据信�
 | --------------------------------- | ---------------------------------- |
 | [canonicalize(Path)](./fs_package_api/fs_package_funcs.md#func-canonicalizepath) | 将 [Path](./fs_package_api/fs_package_structs.md#struct-path) 实例规范化，获取绝对路径形式的规范化路径。  |
 | [canonicalize(String)](./fs_package_api/fs_package_funcs.md#func-canonicalizestring) | 用 path 字符串构造 [Path](./fs_package_api/fs_package_structs.md#struct-path) 实例，并进行规范化，获取绝对路径形式的规范化路径。   |
-| [copy(Path, Path, Bool)](./fs_package_api/fs_package_funcs.md#func-copypath-path-bool)| 实现文件系统的拷贝功能，用于于复制文件或目录。|
-| [copy(String, String, Bool)](./fs_package_api/fs_package_funcs.md#func-copystring-string-bool)| 实现文件系统的拷贝功能，用于于复制文件或目录。|
+| [copy(Path, Path, Bool)](./fs_package_api/fs_package_funcs.md#func-copypath-path-bool)| 实现文件系统的拷贝功能，用于复制文件或目录。|
+| [copy(String, String, Bool)](./fs_package_api/fs_package_funcs.md#func-copystring-string-bool)| 实现文件系统的拷贝功能，用于复制文件或目录。|
 | [exists(Path)](./fs_package_api/fs_package_funcs.md#func-existspath) | 判断目标地址是否存在。 |
 | [exists(String)](./fs_package_api/fs_package_funcs.md#func-existsstring) | 判断目标地址是否存在。 |
 | [rename(Path, Path, Bool)](./fs_package_api/fs_package_funcs.md#func-renamepath-path-bool)|重命名文件。|

@@ -4,82 +4,69 @@
 
 示例：
 <!-- verify -->
-
 ```cangjie
 import std.fs.*
-import std.time.DateTime
+import std.time.*
 
 main() {
-    // 在当前目录下创建一个临时文件，以便下面 FileInfo 的演示
-    let curDirPath: Path = canonicalize(Path("./"))
-    let file: File = File.createTemp(curDirPath)
+    // 在当前目录下创建固定名称的文件，用于 FileInfo 的演示
+    let filePath: Path = Path("./fileinfo_demo.txt")
+    let file: File = File.create(filePath)
     file.write("123456789\n".toArray())
-    let fileInfo: FileInfo = file.info
 
+    // 获取该文件的 FileInfo
+    let fileInfo: FileInfo = file.info
     file.close()
 
-    /* 获得这个文件父级目录的 FileInfo，这个文件的父目录是当前目录 */
-    let parentDirectory: Option<FileInfo> = fileInfo.parentDirectory
-    checkResult(parentDirectory == Some(FileInfo(curDirPath)), "The 'parentFileInfo' is obtained successfully.")
+    // 获取文件路径，返回值为绝对路径，与实际环境有关
+    let _: Path = fileInfo.path
 
-    /* 获得这个文件的路径 */
-    /*
-    let filePath: Path = fileInfo.path
-     */
+    // 获取父级目录的 FileInfo，返回值为绝对路径，与实际环境有关
+    let _: Option<FileInfo> = fileInfo.parentDirectory
 
-    /* 获取这个文件的创建时间、最后访问时间、最后修改时间 */
-    /*
-    let creationTime: DateTime = fileInfo.creationTime
-    let lastAccessTime: DateTime = fileInfo.lastAccessTime
-    let lastModificationTime: DateTime = fileInfo.lastModificationTime
-     */
+    // 获取文件的创建时间、最后访问时间、最后修改时间，具体值随系统时间变化
+    let _: DateTime = fileInfo.creationTime
+    let _: DateTime = fileInfo.lastAccessTime
+    let _: DateTime = fileInfo.lastModificationTime
 
-    /*
-     * 获取这个文件的 length
-     * 如果是文件代表这个文件占用磁盘空间的大小
-     * 如果是目录代表这个目录的所有文件占用磁盘空间的大小(不包含子目录)
-     */
-    /*
-    let length: Int64 = fileInfo.size
-     */
+    // 获取文件大小（字节数；如果 FileInfo 对应目录，则表示该目录下所有文件占用空间的大小，不包含子目录）
+    println("文件大小: ${fileInfo.size}")
 
-    /* 判断这个文件是否是软链接、普通文件、目录 */
-    checkResult(fileInfo.isSymbolicLink(), "The file is a symbolic link.")
-    checkResult(fileInfo.isRegular(), "The file is a regular file.")
-    checkResult(fileInfo.isDirectory(), "The file is a directory.")
+    // 判断文件是否是软链接、普通文件、目录
+    println("是软链接: ${fileInfo.isSymbolicLink()}")
+    println("是普通文件: ${fileInfo.isRegular()}")
+    println("是目录: ${fileInfo.isDirectory()}")
 
-    /* 判断这个文件对于当前用户是否是只读、隐藏、可执行、可读、可写 */
-    checkResult(fileInfo.isReadOnly(), "This file is read-only.")
-    checkResult(fileInfo.isHidden(), "The file is hidden.")
-    checkResult(fileInfo.canExecute(), "The file is executable.")
-    checkResult(fileInfo.canRead(), "The file is readable.")
-    checkResult(fileInfo.canWrite(), "The file is writable.")
+    // 判断当前用户对该文件的权限
+    println("只读: ${fileInfo.isReadOnly()}")
+    println("隐藏: ${fileInfo.isHidden()}")
+    println("可执行: ${fileInfo.canExecute()}")
+    println("可读: ${fileInfo.canRead()}")
+    println("可写: ${fileInfo.canWrite()}")
 
-    /* 修改当前用户对这个文件的权限，这里设置为对当前用户只读 */
-    checkResult(fileInfo.setExecutable(false), "The file was successfully set to executable.")
-    checkResult(fileInfo.setReadable(true), "The file was successfully set to readable.")
-    checkResult(fileInfo.setWritable(false), "The file was successfully set to writable.")
-    checkResult(fileInfo.isReadOnly(), "This file is now read-only.")
+    // 修改当前用户对该文件的权限：设置为不可执行、可读、不可写
+    fileInfo.setExecutable(false)
+    fileInfo.setReadable(true)
+    fileInfo.setWritable(false)
+    println("修改权限后是否只读: ${fileInfo.isReadOnly()}")
 
+    // 清理本次运行创建的文件
+    removeIfExists(filePath)
     return 0
-}
-
-func checkResult(result: Bool, message: String): Unit {
-    if (result) {
-        println(message)
-    }
 }
 ```
 
 运行结果：
 
 ```text
-The 'parentFileInfo' is obtained successfully.
-The file is a regular file.
-The file is readable.
-The file is writable.
-The file was successfully set to executable.
-The file was successfully set to readable.
-The file was successfully set to writable.
-This file is now read-only.
+文件大小: 10
+是软链接: false
+是普通文件: true
+是目录: false
+只读: false
+隐藏: false
+可执行: false
+可读: true
+可写: true
+修改权限后是否只读: true
 ```

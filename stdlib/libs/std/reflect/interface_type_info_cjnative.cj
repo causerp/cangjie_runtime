@@ -23,21 +23,21 @@ public class InterfaceTypeInfo <: TypeInfo {
     public redef static func get(qualifiedName: String): InterfaceTypeInfo {
         match (TypeInfo.get(qualifiedName)) {
             case typ: InterfaceTypeInfo => return typ
-            case _ => throw IllegalTypeException("The type of '${qualifiedName}' is not an Interface Type")
+            case _ => throw IllegalTypeException("Type '${qualifiedName}' is not an interface type.")
         }
     }
 
     public redef static func of(a: Any): InterfaceTypeInfo {
         match (TypeInfo.of(a)) {
             case typ: InterfaceTypeInfo => return typ
-            case _ => throw IllegalTypeException("The type of parameter 'a' is not an Interface Type")
+            case _ => throw IllegalTypeException("Parameter 'a' is not an interface type.")
         }
     }
 
     public redef static func of<T>(): InterfaceTypeInfo {
         match (TypeInfo.of<T>()) {
             case typ: InterfaceTypeInfo => return typ
-            case _ => throw IllegalTypeException("The type of generic type 'T' is not an Interface Type")
+            case _ => throw IllegalTypeException("Generic type 'T' is not an interface type.")
         }
     }
 

@@ -164,7 +164,7 @@ public class TcpServerSocket <: ServerSocket {
             impl.checkNotBound()
             impl.checkNotClosed()
             backlogSize_ = match {
-                case newSize <= 0 => throw IllegalArgumentException("BacklogSize should be positive: ${newSize}.")
+                case newSize <= 0 => throw IllegalArgumentException("Backlog size must be positive, got '${newSize}'.")
                 case newSize >= Int64(Int32.Max) => Int32.Max - 1
                 case _ => Int32(newSize)
             }

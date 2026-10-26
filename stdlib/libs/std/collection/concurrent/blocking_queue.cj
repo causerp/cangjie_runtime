@@ -29,7 +29,7 @@ public class LinkedBlockingQueue<E> {
 
     public init(capacity: Int64) {
         if (capacity <= 0) {
-            throw IllegalArgumentException("Invalid size of BlockingQueue: ${capacity}.")
+            throw IllegalArgumentException("Invalid capacity '${capacity}': expected a positive value.")
         }
 
         this.capacity = capacity
@@ -45,11 +45,11 @@ public class LinkedBlockingQueue<E> {
     @Deprecated[message: "Use the other version of `init` instead."]
     public init(capacity: Int64, elements: Array<E>) {
         if (capacity <= 0) {
-            throw IllegalArgumentException("Invalid size of BlockingQueue: ${capacity}.")
+            throw IllegalArgumentException("Invalid capacity '${capacity}': expected a positive value.")
         }
 
         if (capacity < elements.size) {
-            throw IllegalArgumentException("Size of BlockingQueue should be equal or greater than ${elements.size}.")
+            throw IllegalArgumentException("Invalid capacity '${capacity}': expected at least '${elements.size}'.")
         }
 
         this.capacity = capacity
@@ -65,11 +65,11 @@ public class LinkedBlockingQueue<E> {
     @Deprecated[message: "Use the other version of `init` instead."]
     public init(capacity: Int64, elements: Collection<E>) {
         if (capacity <= 0) {
-            throw IllegalArgumentException("Invalid size of BlockingQueue: ${capacity}.")
+            throw IllegalArgumentException("Invalid capacity '${capacity}': expected a positive value.")
         }
 
         if (capacity < elements.size) {
-            throw IllegalArgumentException("Size of BlockingQueue should be equal or greater than ${elements.size}.")
+            throw IllegalArgumentException("Invalid capacity '${capacity}': expected at least '${elements.size}'.")
         }
 
         this.capacity = capacity

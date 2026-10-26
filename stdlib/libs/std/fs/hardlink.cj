@@ -26,14 +26,14 @@ public class HardLink {
             try (cPath1 = LibC.mallocCString(link).asResource(), cPath2 = LibC.mallocCString(to).asResource()) {
                 let pret = CJ_FS_Link(cPath1.value, cPath2.value)
                 if (pret.isNull()) {
-                    throw FSException("Failed malloc in C code when create hard link `${link}` to `${to}`.")
+                    throw FSException("Memory allocation failed in native code when creating hard link '${link}' to '${to}'.")
                 }
                 let ret = pret.read()
                 LibC.free(pret)
                 if (ret.rtnCode != 0) {
                     try {
                         let errMessage = ret.msg.toString()
-                        throw FSException("Failed to create hard link `${link}` to `${to}` return ${ret.rtnCode}: \"${errMessage.trimAscii()}\".")
+                        throw FSException("Failed to create hard link '${link}' to '${to}': error code ${ret.rtnCode}, ${errMessage.trimAscii()}.")
                     } finally {
                         LibC.free(ret.msg)
                     }

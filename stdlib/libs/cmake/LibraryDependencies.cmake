@@ -59,12 +59,25 @@ set(CONCURRENT_COLLECTION_DEPENDENCIES
     cangjie${BACKEND_TYPE}Collection
     cangjie${BACKEND_TYPE}Time)
 
+set(CONCURRENT_DEPENDENCIES
+    ${STD_CORE_DEPENDENCIES}
+    cangjie${BACKEND_TYPE}Core
+    cangjie${BACKEND_TYPE}Collection
+    cangjie${BACKEND_TYPE}ConcurrentCollection
+    cangjie${BACKEND_TYPE}Sync)
+
 set(STD_AST_DEPENDENCIES
     ${STD_CORE_DEPENDENCIES}
     cangjie${BACKEND_TYPE}Core
     cangjie${BACKEND_TYPE}Collection
     cangjie${BACKEND_TYPE}Sort
+    cangjie${BACKEND_TYPE}Flatbuffers
     FLATC_OUTPUTS)
+
+set(FLATBUFFERS_DEPENDENCIES
+    ${STD_CORE_DEPENDENCIES}
+    cangjie${BACKEND_TYPE}Core
+    cangjie${BACKEND_TYPE}Collection)
 
 set(IO_DEPENDENCIES
     ${STD_CORE_DEPENDENCIES}

@@ -23,28 +23,28 @@ class Student <: ToString {
 }
 
 main() {
-    /* 对 Int64 数组升序排序 */
-    var a = [1, 3, 5, 2, 4]
-    sort(a)
-    println(a)
+    // 对 Int64 数组升序排序
+    var numbers = [1, 3, 5, 2, 4]
+    sort(numbers)
+    println(numbers)
 
-    /* 按照年龄升序排序 */
-    var b = [Student("A", 8), Student("B", 7), Student("C", 3), Student("D", 4), Student("E", 6)]
+    // 通过比较器按照年龄升序排序
+    var students = [Student("A", 8), Student("B", 7), Student("C", 3), Student("D", 4), Student("E", 6)]
     let comparator = {l: Student, r: Student => l.age.compare(r.age)}
-    sort(b, by: comparator)
-    println(b)
+    sort(students, by: comparator)
+    println(students)
 
-    /* 按照年龄降序排序 */
-    var c = [Student("A", 8), Student("B", 7), Student("C", 3), Student("D", 4), Student("E", 6)]
+    // 按照年龄降序排序
+    var studentsDescending = [Student("A", 8), Student("B", 7), Student("C", 3), Student("D", 4), Student("E", 6)]
     let lessThan = {l: Student, r: Student => l.age < r.age}
-    sort(c, lessThan: lessThan, descending: true)
-    println(c)
+    sort(studentsDescending, lessThan: lessThan, descending: true)
+    println(studentsDescending)
 
-    /* 按照年龄升序排序，并且是稳定排序 */
-    var d = [Student("A", 8), Student("B", 7), Student("C", 7), Student("D", 4), Student("E", 7)]
+    // 通过键按照年龄升序排序，并且是稳定排序
+    var studentsStable = [Student("A", 8), Student("B", 7), Student("C", 7), Student("D", 4), Student("E", 7)]
     let key = {i: Student => i.age}
-    sort(d, key: key, stable: true)
-    println(d)
+    sort(studentsStable, key: key, stable: true)
+    println(studentsStable)
     return 0
 }
 ```
@@ -82,28 +82,31 @@ class Student <: ToString {
 }
 
 main() {
-    /* 对 Int64 的 List 进行升序排序 */
-    var a = ArrayList<Int64>([1, 3, 5, 2, 4])
-    sort(a)
-    println(a)
+    // 对 Int64 的 List 进行升序排序
+    var numbers = ArrayList<Int64>([1, 3, 5, 2, 4])
+    sort(numbers)
+    println(numbers)
 
-    /* 按照年龄升序排序 */
-    var b = ArrayList<Student>([Student("A", 8), Student("B", 7), Student("C", 3), Student("D", 4), Student("E", 6)])
+    // 通过比较器按照年龄升序排序
+    var students = ArrayList<Student>([Student("A", 8), Student("B", 7), Student("C", 3), Student("D", 4),
+        Student("E", 6)])
     let comparator = {l: Student, r: Student => l.age.compare(r.age)}
-    sort(b, by: comparator)
-    println(b)
+    sort(students, by: comparator)
+    println(students)
 
-    /* 按照年龄降序排序 */
-    var c = ArrayList<Student>([Student("A", 8), Student("B", 7), Student("C", 3), Student("D", 4), Student("E", 6)])
+    // 按照年龄降序排序
+    var studentsDescending = ArrayList<Student>(
+        [Student("A", 8), Student("B", 7), Student("C", 3), Student("D", 4), Student("E", 6)])
     let lessThan = {l: Student, r: Student => l.age < r.age}
-    sort(c, lessThan: lessThan, descending: true)
-    println(c)
+    sort(studentsDescending, lessThan: lessThan, descending: true)
+    println(studentsDescending)
 
-    /* 按照年龄升序排序，并且是稳定排序 */
-    var d = ArrayList<Student>([Student("A", 8), Student("B", 7), Student("C", 7), Student("D", 4), Student("E", 7)])
+    // 通过键按照年龄升序排序，并且是稳定排序
+    var studentsStable = ArrayList<Student>(
+        [Student("A", 8), Student("B", 7), Student("C", 7), Student("D", 4), Student("E", 7)])
     let key = {i: Student => i.age}
-    sort(d, key: key, stable: true)
-    println(d)
+    sort(studentsStable, key: key, stable: true)
+    println(studentsStable)
     return 0
 }
 ```

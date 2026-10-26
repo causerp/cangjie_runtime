@@ -2,42 +2,37 @@
 
 下面是 ByteBuffer 对流进行写入数据，读取数据等操作的示例。
 <!-- verify -->
-
 ```cangjie
 import std.io.*
 
 main(): Unit {
-    let arr1 = "test case".toArray()
+    let sourceBytes = "test case".toArray()
     let byteBuffer = ByteBuffer()
 
-    /* 将 arr1 中的数据写入到流中 */
-    byteBuffer.write(arr1)
+    // 将数据写入流中
+    byteBuffer.write(sourceBytes)
 
-    /* 读取前 4 个字节的数据到 arr2 中 */
-    let arr2 = Array<Byte>(4, repeat: 0)
-    byteBuffer.read(arr2)
-    println(String.fromUtf8(arr2))
+    // 读取前 4 个字节
+    let headBytes = Array<Byte>(4, repeat: 0)
+    byteBuffer.read(headBytes)
+    println("前 4 个字节: ${String.fromUtf8(headBytes)}")
 
-    /* 将流的索引指向起点 */
+    // 将流的索引指向起点，读取全部数据
     byteBuffer.seek(Begin(0))
+    let allBytes = readToEnd(byteBuffer)
+    println("全部数据: ${String.fromUtf8(allBytes)}")
 
-    /* 读取流中全部数据 */
-    let arr3 = readToEnd(byteBuffer)
-    println(String.fromUtf8(arr3))
-
-    /* 将流的索引指向字母 'c' 的位置 */
+    // 将流的索引指向字母 'c' 的位置，读取剩余数据
     byteBuffer.seek(End(-4))
-
-    /* 读取流中剩余数据 */
-    let str = readString(byteBuffer)
-    println(str)
+    let remainingStr = readString(byteBuffer)
+    println("剩余数据: ${remainingStr}")
 }
 ```
 
 运行结果：
 
 ```text
-test
-test case
-case
+前 4 个字节: test
+全部数据: test case
+剩余数据: case
 ```

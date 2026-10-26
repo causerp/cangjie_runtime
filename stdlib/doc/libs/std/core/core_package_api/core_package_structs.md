@@ -1592,7 +1592,7 @@ public operator func [](range: Range<Int64>, value!: Array<T>): Unit
 
 功能：用指定的数组对本数组一个连续范围的元素赋值。
 
-range 表示的区见的长度和目标数组 value 的大小需相等。
+range 表示的区间的长度和目标数组 value 的大小需相等。
 
 > **注意：**
 >
@@ -2097,7 +2097,7 @@ Some(1)
 public func indexOf(elements: Array<T>, fromIndex: Int64): Option<Int64>
 ```
 
-功能：返回数组中在 `fromIndex`之后，子数组`elements` 出现的第一个位置，未找到返回 None。
+功能：返回数组中在 `fromIndex` 之后，子数组 `elements` 出现的第一个位置，未找到返回 None。
 
 函数会对 `fromIndex` 范围进行检查，`fromIndex` 小于 0 时，将会从第 0 位开始搜索，当 `fromIndex` 大于等于本数组的大小时，结果为 None。
 
@@ -2108,7 +2108,7 @@ public func indexOf(elements: Array<T>, fromIndex: Int64): Option<Int64>
 
 返回值：
 
-- [Option](core_package_enums.md#enum-optiont)\<[Int64](core_package_intrinsics.md#int64)> - 数组中在 `fromIndex`之后，子数组 `elements` 出现的第一个位置，未找到返回 None。
+- [Option](core_package_enums.md#enum-optiont)\<[Int64](core_package_intrinsics.md#int64)> - 数组中在 `fromIndex` 之后，子数组 `elements` 出现的第一个位置，未找到返回 None。
 
 示例：
 
@@ -2189,7 +2189,7 @@ First occurrence of "Hello": Some(0)
 public func indexOf(element: T, fromIndex: Int64): Option<Int64>
 ```
 
-功能：返回数组中在 `fromIndex`之后， `element` 出现的第一个位置，未找到返回 None。
+功能：返回数组中在 `fromIndex` 之后， `element` 出现的第一个位置，未找到返回 None。
 
 函数会从下标 `fromIndex` 开始查找，`fromIndex` 小于 0 时，将会从第 0 位开始搜索，当 `fromIndex` 大于等于本数组的大小时，结果为 None。
 
@@ -2200,7 +2200,7 @@ public func indexOf(element: T, fromIndex: Int64): Option<Int64>
 
 返回值：
 
-- [Option](core_package_enums.md#enum-optiont)\<[Int64](core_package_intrinsics.md#int64)> - 返回数组中在 `fromIndex`之后， `element` 出现的第一个位置，未找到返回 None。
+- [Option](core_package_enums.md#enum-optiont)\<[Int64](core_package_intrinsics.md#int64)> - 返回数组中在 `fromIndex` 之后， `element` 出现的第一个位置，未找到返回 None。
 
 示例：
 
@@ -2239,24 +2239,6 @@ First occurrence of 2 starting from index 5: None
 
 String array: [Hello, World, Hello, Cangjie]
 First occurrence of "Hello" starting from index 1: Some(2)
-```
-
-示例：
-
-<!-- verify -->
-```cangjie
-main(): Int64 {
-    let arr = [1, 2, 3, 4, 2, 3]
-    let subArr = [2, 3]
-    println(arr.lastIndexOf(subArr, 3))
-    return 0
-}
-```
-
-运行结果：
-
-```text
-Some(4)
 ```
 
 #### func lastIndexOf(Array\<T>)
@@ -2544,7 +2526,7 @@ main(): Int64 {
 public func trimEnd(predicate: (T)->Bool): Array<T>
 ```
 
-功能：修剪当前数组，从尾开始删除符合过滤条件的函数，直到第一个不符合的元素为止，并返回当前数组的切片。
+功能：修剪当前数组，从尾开始删除满足过滤条件的元素，直到第一个不满足过滤条件的元素为止，并返回当前数组的切片。
 
 参数：
 
@@ -2552,7 +2534,7 @@ public func trimEnd(predicate: (T)->Bool): Array<T>
 
 返回值：
 
-- [Array](core_package_structs.md#struct-arrayt)\<T> - 修剪后的数组切片。
+- [Array](core_package_structs.md#struct-arrayt)\<T> - 当前数组的切片。
 
 示例：
 
@@ -2602,7 +2584,7 @@ public func trimEnd(set: Array<T>): Array<T>
 
 返回值：
 
-- [Array](core_package_structs.md#struct-arrayt)\<T> - 修剪后的数组切片。
+- [Array](core_package_structs.md#struct-arrayt)\<T> - 当前数组的切片。
 
 示例：
 
@@ -2627,7 +2609,11 @@ main(): Int64 {
 public func trimStart(predicate: (T)->Bool): Array<T>
 ```
 
-功能：修剪当前数组，从头开始删除符合过滤条件的函数，直到第一个不符合的元素为止，并返回当前数组的切片。
+功能：修剪当前数组，从头开始删除满足过滤条件的元素，直到第一个不满足过滤条件的元素为止，并返回当前数组的切片。
+
+> **注意：**
+>
+> 切片不会对数组数据进行拷贝，是对原数据特定区间的引用，修改切片中的元素会影响原数组中对应位置的元素。
 
 参数：
 
@@ -2635,7 +2621,7 @@ public func trimStart(predicate: (T)->Bool): Array<T>
 
 返回值：
 
-- [Array](core_package_structs.md#struct-arrayt)\<T> - 修剪后的数组切片。
+- [Array](core_package_structs.md#struct-arrayt)\<T> - 当前数组的切片。
 
 示例：
 
@@ -2679,13 +2665,17 @@ public func trimStart(set: Array<T>): Array<T>
 
 功能：修剪当前数组，从头开始删除在指定集合 set 中的元素，直到第一个不在 set 中的元素为止，并返回当前数组的切片。
 
+> **注意：**
+>
+> 切片不会对数组数据进行拷贝，是对原数据特定区间的引用，修改切片中的元素会影响原数组中对应位置的元素。
+
 参数：
 
 - set: [Array](core_package_structs.md#struct-arrayt)\<T> - 待删除的元素的集合。
 
 返回值：
 
-- [Array](core_package_structs.md#struct-arrayt)\<T> - 修剪后的数组切片。
+- [Array](core_package_structs.md#struct-arrayt)\<T> - 当前数组的切片。
 
 示例：
 
@@ -2874,7 +2864,7 @@ extend<T> Array<T> <: ToString where T <: ToString
 public func toString(): String
 ```
 
-功能：将数组转换为可输出的字符串。
+功能：将数组转换为字符串。
 
 字符串形如 "[1, 2, 3, 4, 5]"
 
@@ -3193,7 +3183,7 @@ public func isClosed(): Bool
 
 返回值：
 
-- [Bool](core_package_intrinsics.md#bool) - 返回 true 为已释放。.
+- [Bool](core_package_intrinsics.md#bool) - 返回 true 为已释放。
 
 示例：
 
@@ -4810,7 +4800,7 @@ Simple string representation: 2h
 public operator func !=(other: Duration): Bool
 ```
 
-功能：判断当前 [Duration](core_package_structs.md#struct-duration) 实例是否不等于 `r`。
+功能：判断当前 [Duration](core_package_structs.md#struct-duration) 实例是否不等于 `other`。
 
 参数：
 
@@ -4818,7 +4808,7 @@ public operator func !=(other: Duration): Bool
 
 返回值：
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - `true` 或 `false`。当前 [Duration](core_package_structs.md#struct-duration) 实例不等于 `r` 时，返回 `true`；否则，返回 `false`。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - `true` 或 `false`。当前 [Duration](core_package_structs.md#struct-duration) 实例不等于 `other` 时，返回 `true`；否则，返回 `false`。
 
 示例：
 
@@ -4875,7 +4865,7 @@ public operator func *(multiplier: Float64): Duration
 
 返回值：
 
-- [Duration](core_package_structs.md#struct-duration) - [Duration](core_package_structs.md#struct-duration) 类型实例和 `r` 的乘积。
+- [Duration](core_package_structs.md#struct-duration) - [Duration](core_package_structs.md#struct-duration) 类型实例和 `multiplier` 的乘积。
 
 异常：
 
@@ -4922,7 +4912,7 @@ public operator func *(multiplier: Int64): Duration
 
 返回值：
 
-- [Duration](core_package_structs.md#struct-duration) - [Duration](core_package_structs.md#struct-duration) 类型实例和 `r` 的乘积。
+- [Duration](core_package_structs.md#struct-duration) - [Duration](core_package_structs.md#struct-duration) 类型实例和 `multiplier` 的乘积。
 
 异常：
 
@@ -4969,7 +4959,7 @@ public operator func +(other: Duration): Duration
 
 返回值：
 
-- [Duration](core_package_structs.md#struct-duration) - [Duration](core_package_structs.md#struct-duration) 类型实例和 `r` 的和。
+- [Duration](core_package_structs.md#struct-duration) - [Duration](core_package_structs.md#struct-duration) 类型实例和 `other` 的和。
 
 异常：
 
@@ -5022,7 +5012,7 @@ public operator func -(other: Duration): Duration
 
 返回值：
 
-- [Duration](core_package_structs.md#struct-duration) - [Duration](core_package_structs.md#struct-duration) 类型实例和 `r` 的差。
+- [Duration](core_package_structs.md#struct-duration) - [Duration](core_package_structs.md#struct-duration) 类型实例和 `other` 的差。
 
 异常：
 
@@ -5075,11 +5065,11 @@ public operator func /(other: Duration): Float64
 
 返回值：
 
-- [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - [Duration](core_package_structs.md#struct-duration) 类型实例和 `r` 的商。
+- [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - [Duration](core_package_structs.md#struct-duration) 类型实例和 `other` 的商。
 
 异常：
 
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当 `r` 等于 [Duration](core_package_structs.md#struct-duration).Zero 时，抛出异常。
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当 `other` 等于 [Duration](core_package_structs.md#struct-duration).Zero 时，抛出异常。
 
 示例：
 
@@ -5131,11 +5121,11 @@ public operator func /(divisor: Float64): Duration
 
 返回值：
 
-- [Duration](core_package_structs.md#struct-duration) - [Duration](core_package_structs.md#struct-duration) 类型实例和 `r` 的商。
+- [Duration](core_package_structs.md#struct-duration) - [Duration](core_package_structs.md#struct-duration) 类型实例和 `divisor` 的商。
 
 异常：
 
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当 `r` 等于 0 时，抛出异常。
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当 `divisor` 等于 0 时，抛出异常。
 - [ArithmeticException](../../core/core_package_api/core_package_exceptions.md#class-arithmeticexception) - 当相除后的结果超出 [Duration](core_package_structs.md#struct-duration) 的表示范围时，抛出异常。
 
 示例：
@@ -5179,11 +5169,11 @@ public operator func /(divisor: Int64): Duration
 
 返回值：
 
-- [Duration](core_package_structs.md#struct-duration) - [Duration](core_package_structs.md#struct-duration) 类型实例和 `r` 的商。
+- [Duration](core_package_structs.md#struct-duration) - [Duration](core_package_structs.md#struct-duration) 类型实例和 `divisor` 的商。
 
 异常：
 
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当 `r` 等于 0 时，抛出异常。
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当 `divisor` 等于 0 时，抛出异常。
 - [ArithmeticException](../../core/core_package_api/core_package_exceptions.md#class-arithmeticexception) - 当相除后的结果超出 [Duration](core_package_structs.md#struct-duration) 的表示范围时，抛出异常。
 
 示例：
@@ -5219,7 +5209,7 @@ Smaller duration: 30m
 public operator func <(other: Duration): Bool
 ```
 
-功能：判断当前 [Duration](core_package_structs.md#struct-duration) 实例是否小于 `r`。
+功能：判断当前 [Duration](core_package_structs.md#struct-duration) 实例是否小于 `other`。
 
 参数：
 
@@ -5227,7 +5217,7 @@ public operator func <(other: Duration): Bool
 
 返回值：
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - `true` 或 `false`。当前 [Duration](core_package_structs.md#struct-duration) 实例小于 `r` 时，返回 `true`；否则，返回 `false`。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - `true` 或 `false`。当前 [Duration](core_package_structs.md#struct-duration) 实例小于 `other` 时，返回 `true`；否则，返回 `false`。
 
 示例：
 
@@ -5275,7 +5265,7 @@ Duration 1 is not less than Duration 3
 public operator func <=(other: Duration): Bool
 ```
 
-功能：判断当前 [Duration](core_package_structs.md#struct-duration) 实例是否小于等于 `r`。
+功能：判断当前 [Duration](core_package_structs.md#struct-duration) 实例是否小于等于 `other`。
 
 参数：
 
@@ -5283,7 +5273,7 @@ public operator func <=(other: Duration): Bool
 
 返回值：
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - `true` 或 `false`。当前 [Duration](core_package_structs.md#struct-duration) 实例小于等于 `r` 时，返回 `true`；否则，返回 `false`。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - `true` 或 `false`。当前 [Duration](core_package_structs.md#struct-duration) 实例小于等于 `other` 时，返回 `true`；否则，返回 `false`。
 
 示例：
 
@@ -5343,7 +5333,7 @@ Duration 1 is not less than or equal to Duration 4
 public operator func ==(other: Duration): Bool
 ```
 
-功能：判断当前 [Duration](core_package_structs.md#struct-duration) 实例是否等于 `r`。
+功能：判断当前 [Duration](core_package_structs.md#struct-duration) 实例是否等于 `other`。
 
 参数：
 
@@ -5351,7 +5341,7 @@ public operator func ==(other: Duration): Bool
 
 返回值：
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - `true` 或 `false`。当前 [Duration](core_package_structs.md#struct-duration) 实例等于 `r` 时，返回 `true`；否则，返回 `false`。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - `true` 或 `false`。当前 [Duration](core_package_structs.md#struct-duration) 实例等于 `other` 时，返回 `true`；否则，返回 `false`。
 
 示例：
 
@@ -5399,7 +5389,7 @@ Duration 1 is not equal to Duration 3
 public operator func >(other: Duration): Bool
 ```
 
-功能：判断当前 [Duration](core_package_structs.md#struct-duration) 实例是否大于 `r`。
+功能：判断当前 [Duration](core_package_structs.md#struct-duration) 实例是否大于 `other`。
 
 参数：
 
@@ -5407,7 +5397,7 @@ public operator func >(other: Duration): Bool
 
 返回值：
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - `true` 或 `false`。当前 [Duration](core_package_structs.md#struct-duration) 实例大于 `r` 时，返回 `true`；否则，返回 `false`。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - `true` 或 `false`。当前 [Duration](core_package_structs.md#struct-duration) 实例大于 `other` 时，返回 `true`；否则，返回 `false`。
 
 示例：
 
@@ -5455,7 +5445,7 @@ Duration 1 is not greater than Duration 3
 public operator func >=(other: Duration): Bool
 ```
 
-功能：判断当前 [Duration](core_package_structs.md#struct-duration) 实例是否大于等于 `r`。
+功能：判断当前 [Duration](core_package_structs.md#struct-duration) 实例是否大于等于 `other`。
 
 参数：
 
@@ -5463,7 +5453,7 @@ public operator func >=(other: Duration): Bool
 
 返回值：
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - `true` 或 `false`。当前 [Duration](core_package_structs.md#struct-duration) 实例大于等于 `r` 时，返回 `true`；否则，返回 `false`。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - `true` 或 `false`。当前 [Duration](core_package_structs.md#struct-duration) 实例大于等于 `other` 时，返回 `true`；否则，返回 `false`。
 
 示例：
 
@@ -5679,7 +5669,7 @@ public struct Range<T> <: Iterable<T> where T <: Countable<T> & Comparable<T> & 
 }
 ```
 
-功能：该类是区间类型，用于表示一个拥有固定范围和步长的 `T` 的序列，要求 `T` 是可数的，有序的。
+功能：该结构体是区间类型，用于表示一个拥有固定范围和步长的 `T` 的序列，要求 `T` 是可数的，有序的。
 
 区间类型有对应的字面量表示，其格式为：
 
@@ -5909,7 +5899,7 @@ public const init(start: T, end: T, step: Int64, hasStart: Bool, hasEnd: Bool, i
 
 异常：
 
-- [IllegalArgumentException](core_package_exceptions.md#class-illegalargumentexception) - 当 [step](#let-step) 等于 0 时, 抛出异常。
+- [IllegalArgumentException](core_package_exceptions.md#class-illegalargumentexception) - 当 [step](#let-step) 等于 0 时，抛出异常。
 
 示例：
 
@@ -6148,7 +6138,9 @@ public struct String <: Collection<Byte> & Comparable<String> & Hashable & ToStr
 > **注意：**
 >
 > - `String` 类型仅支持 UTF-8 编码。
-> - 出于 `String` 对象内存开销方面的优化，`String` 的长度被限制在 `4GB`大小，即 `String`的最大长度不超过 [UInt32 的最大值](./core_package_intrinsics.md#uint32)。
+> - `String` 的 `size`、下标访问（`[]`）、切片和迭代均基于 UTF-8 编码后的**字节**，而非字符。一个多字节字符（例如中文字符）由多个字节组成，字节下标可能落在某个字符的中间。
+> - 如需按字符（[Rune](./core_package_intrinsics.md#rune)）遍历或处理字符串，请使用 [runes](#func-runes) / [toRuneArray](#func-torunearray)。
+> - 出于 `String` 对象内存开销方面的优化，`String` 的长度被限制在 `4GB` 大小，即 `String` 的最大长度不超过 [UInt32 的最大值](./core_package_intrinsics.md#uint32)。
 
 父类型：
 
@@ -6298,7 +6290,7 @@ String size: 12
 public init(value: Collection<Rune>)
 ```
 
-功能：据字符集合构造一个字符串，字符串内容为集合中的所有字符。
+功能：根据字符集合构造一个字符串，字符串内容为集合中的所有字符。
 
 参数：
 
@@ -6341,7 +6333,7 @@ public static func checkUtf8Encoding(data: Array<UInt8>): Bool
 
 参数：
 
-- data: [Array](core_package_structs.md#struct-arrayt)\<[UInt8](core_package_intrinsics.md#uint8)> - 根据该字节数组构造字符串。
+- data: [Array](core_package_structs.md#struct-arrayt)\<[UInt8](core_package_intrinsics.md#uint8)> - 待检查的字节数组。
 
 返回值：
 
@@ -6747,7 +6739,7 @@ public func endsWith(suffix: String): Bool
 
 返回值：
 
-- [Bool](core_package_intrinsics.md#bool) - 如果字符串 str 是原字符串的后缀，返回 true，否则返回 false，特别地，如果 str 字符串长度为 0，返回 true。
+- [Bool](core_package_intrinsics.md#bool) - 如果字符串 suffix 是原字符串的后缀，返回 true，否则返回 false，特别地，如果 suffix 字符串长度为 0，返回 true。
 
 示例：
 
@@ -7183,7 +7175,7 @@ String 4: '123456', is ASCII: true
 public func isAsciiBlank(): Bool
 ```
 
-功能：判断字符串是否为空或者字符串中的所有 Rune 都是 ascii 码的空白字符（包括：0x09、0x10、0x11、0x12、0x13、0x20）。
+功能：判断字符串是否为空或者字符串中的所有 Rune 都是 ascii 码的空白字符（包括：0x09、0x0A、0x0B、0x0C、0x0D、0x20）。
 
 返回值：
 
@@ -7554,17 +7546,17 @@ public func lazySplit(str: String, maxSplits: Int64, removeEmpty!: Bool = false)
 
 功能：对原字符串按照字符串 str 分隔符分割，该函数不立即对字符串进行分割，而是返回迭代器，使用迭代器进行遍历时再实际执行分隔操作。
 
-- 当 maxSplit 为 0 时，返回空的字符串迭代器；
-- 当 maxSplit 为 1 时，返回大小为 1 的字符串迭代器，唯一的元素为原字符串；
-- 当 maxSplit 为负数时，直接返回分割后的字符串迭代器；
-- 当 maxSplit 大于完整分割出来的子字符串数量时，返回完整分割的字符串迭代器；
+- 当 maxSplits 为 0 时，返回空的字符串迭代器；
+- 当 maxSplits 为 1 时，返回大小为 1 的字符串迭代器，唯一的元素为原字符串；
+- 当 maxSplits 为负数时，直接返回分割后的字符串迭代器；
+- 当 maxSplits 大于完整分割出来的子字符串数量时，返回完整分割的字符串迭代器；
 - 当 str 未出现在原字符串中，返回大小为 1 的字符串迭代器，唯一的元素为原字符串；
 - 当 str 为空时，对每个字符进行分割；当原字符串和分隔符都为空时，返回空字符串迭代器。
 
 参数：
 
 - str: [String](core_package_structs.md#struct-string) - 字符串分隔符。
-- maxSplits: [Int64](core_package_intrinsics.md#int64) - 最多分割为 maxSplit 个子字符串。
+- maxSplits: [Int64](core_package_intrinsics.md#int64) - 最多分割为 maxSplits 个子字符串。
 - removeEmpty!: [Bool](core_package_intrinsics.md#bool) - 移除分割结果中的空字符串，默认值为 false。
 
 返回值：
@@ -8112,7 +8104,7 @@ public func split(str: String, maxSplits: Int64, removeEmpty!: Bool = false): Ar
 参数：
 
 - str: [String](core_package_structs.md#struct-string) - 字符串分隔符。
-- maxSplits: [Int64](core_package_intrinsics.md#int64) - 最多分割为 maxSplit 个子字符串。
+- maxSplits: [Int64](core_package_intrinsics.md#int64) - 最多分割为 maxSplits 个子字符串。
 - removeEmpty!: [Bool](core_package_intrinsics.md#bool) - 移除分割结果中的空字符串，默认值为 false。
 
 返回值：
@@ -8162,7 +8154,7 @@ public func startsWith(prefix: String): Bool
 
 返回值：
 
-- [Bool](core_package_intrinsics.md#bool) - 如果字符串 str 是原字符串的前缀，返回 true，否则返回 false，特别地，如果 str 字符串长度为 0，返回 true。
+- [Bool](core_package_intrinsics.md#bool) - 如果字符串 prefix 是原字符串的前缀，返回 true，否则返回 false，特别地，如果 prefix 字符串长度为 0，返回 true。
 
 示例：
 
@@ -9388,7 +9380,7 @@ str[7]: 228
 public operator const func [](range: Range<Int64>): String
 ```
 
-功能：根据给定区间获取当前字符串的切片。
+功能：根据给定区间获取当前字符串的切片。区间为 UTF-8 编码后的字节下标范围，起止点必须位于字符边界上，否则将切在某个多字节字符的中间。
 
 > **注意：**
 >
@@ -9419,8 +9411,8 @@ main() {
     let str = "Hello, 世界"
 
     // 使用[]运算符根据区间获取字符串切片
-    let slice1 = str[0..5] // 获取前5个字符
-    let slice2 = str[7..] // 从索引7开始到末尾
+    let slice1 = str[0..5] // 获取前5个字节（此处恰好为前5个ASCII字符）
+    let slice2 = str[7..] // 从字节下标7开始到末尾
 
     println("String: '${str}'")
     println("str[0..5]: '${slice1}'")

@@ -21,7 +21,7 @@ public func parseType(input: Tokens): TypeNode {
                 }, p, CPointer<Int64>())
             })
         } catch (e: Exception) {
-            throw ParseASTException("parsing type error.")
+            throw ParseASTException("Failed to parse type.")
         }
     }
     /* Get decl info from flatbuffer */
@@ -44,14 +44,14 @@ public func parseTypeFragment(input: Tokens, startFrom!: Int64 = 0): (TypeNode, 
                 }
             )
         } catch (e: Exception) {
-            throw ParseASTException("parsing type fragment error.")
+            throw ParseASTException("Failed to parse type fragment.")
         }
     }
     var astNode = generateTypeAST(node.GetRootAsType())
     return (astNode, count)
 }
 
-func generateTypeAST(tyNode: Option<NodeFormat_Type>): TypeNode {
+func generateTypeAST(tyNode: Option<ASTFormat_Type>): TypeNode {
     var ty = match (tyNode) {
         case Some(v) => v
         case None => throw ParseASTException()
@@ -77,7 +77,7 @@ func generateTypeAST(tyNode: Option<NodeFormat_Type>): TypeNode {
         case "func_type" => createFuncType(ty, nodeBase)
         case "tuple_type" => createTupleType(ty, nodeBase)
         case "this_type" => createThisType(ty, nodeBase)
-        case _ => throw ParseASTException("Unsupported parse the type node: ${astKind}.\n")
+        case _ => throw ParseASTException("Unsupported type node kind: '${astKind}'.")
     }
     astNode.beginPos = Position(begin.fileId, begin.line, begin.column)
     astNode.endPos = Position(end.fileId, end.line, end.column)
@@ -85,7 +85,7 @@ func generateTypeAST(tyNode: Option<NodeFormat_Type>): TypeNode {
     return astNode
 }
 
-func createPrimitiveType(tyNode: NodeFormat_Type, nodeBase: NodeFormat_NodeBase): TypeNode {
+func createPrimitiveType(tyNode: ASTFormat_Type, nodeBase: ASTFormat_NodeBase): TypeNode {
     var primitiveType = match (tyNode.GetTypeAsPrimitiveType()) {
         case Some(v) => v
         case None => throw ParseASTException()
@@ -104,7 +104,7 @@ func createPrimitiveType(tyNode: NodeFormat_Type, nodeBase: NodeFormat_NodeBase)
     return PrimitiveType(typeName, colon, kind)
 }
 
-func createRefType(tyNode: Option<NodeFormat_RefType>, nodeBase: NodeFormat_NodeBase): TypeNode {
+func createRefType(tyNode: Option<ASTFormat_RefType>, nodeBase: ASTFormat_NodeBase): TypeNode {
     var refType = match (tyNode) {
         case Some(v) => v
         case None => throw ParseASTException()
@@ -127,7 +127,7 @@ func createRefType(tyNode: Option<NodeFormat_RefType>, nodeBase: NodeFormat_Node
         case None => throw ParseASTException()
     }
     var lAngle: Token = Token(TokenKind.LT).addPosition(refType.GetLeftAnglePos())
-    var types: ArrayList<TypeNode> = ArrayList<TypeNode>()
+    var types: ArrayList<TypeNode> = ArrayList<TypeNode>(refType.GetTypeArguments().size)
     let commas = Tokens()
     for (tp in refType.GetTypeArguments()) {
         types.add(generateTypeAST(tp))
@@ -141,7 +141,7 @@ func createRefType(tyNode: Option<NodeFormat_RefType>, nodeBase: NodeFormat_Node
     return RefType(typeName, colon, identifier, lAngle, types, commas, rAngle)
 }
 
-func createQualifiedType(tyNode: NodeFormat_Type, nodeBase: NodeFormat_NodeBase): TypeNode {
+func createQualifiedType(tyNode: ASTFormat_Type, nodeBase: ASTFormat_NodeBase): TypeNode {
     var qualifiedType = match (tyNode.GetTypeAsQualifiedType()) {
         case Some(v) => v
         case None => throw ParseASTException()
@@ -162,7 +162,7 @@ func createQualifiedType(tyNode: NodeFormat_Type, nodeBase: NodeFormat_NodeBase)
     var identifier: Token = Token(TokenKind.IDENTIFIER, qualifiedType.GetField()).addPosition(
         qualifiedType.GetFieldPos())
     var lAngle: Token = Token(TokenKind.LT).addPosition(qualifiedType.GetLeftAnglePos())
-    var types: ArrayList<TypeNode> = ArrayList<TypeNode>()
+    var types: ArrayList<TypeNode> = ArrayList<TypeNode>(qualifiedType.GetTypeArguments().size)
     let commas = Tokens()
     for (tp in qualifiedType.GetTypeArguments()) {
         types.add(generateTypeAST(tp))
@@ -176,7 +176,7 @@ func createQualifiedType(tyNode: NodeFormat_Type, nodeBase: NodeFormat_NodeBase)
     return QualifiedType(typeName, colon, baseTy, dot, identifier, lAngle, types, commas, rAngle)
 }
 
-func createParenType(tyNode: NodeFormat_Type, nodeBase: NodeFormat_NodeBase): TypeNode {
+func createParenType(tyNode: ASTFormat_Type, nodeBase: ASTFormat_NodeBase): TypeNode {
     var parenType = match (tyNode.GetTypeAsParenType()) {
         case Some(v) => v
         case None => throw ParseASTException()
@@ -195,7 +195,7 @@ func createParenType(tyNode: NodeFormat_Type, nodeBase: NodeFormat_NodeBase): Ty
     return ParenType(typeName, colon, lParen, ty, rParen)
 }
 
-func createTupleType(tyNode: NodeFormat_Type, nodeBase: NodeFormat_NodeBase): TypeNode {
+func createTupleType(tyNode: ASTFormat_Type, nodeBase: ASTFormat_NodeBase): TypeNode {
     var tupleType = match (tyNode.GetTypeAsTupleType()) {
         case Some(v) => v
         case None => throw ParseASTException()
@@ -209,10 +209,8 @@ func createTupleType(tyNode: NodeFormat_Type, nodeBase: NodeFormat_NodeBase): Ty
         case _ => throw ParseASTException()
     }
     var lParen: Token = Token(TokenKind.LPAREN).addPosition(tupleType.GetLeftParenPos())
-    var types: ArrayList<TypeNode> = ArrayList<TypeNode>()
-    for (tp in tupleType.GetFieldTypes()) {
-        types.add(generateTypeAST(tp))
-    }
+    let fieldSrc = tupleType.GetFieldTypes()
+    var types: ArrayList<TypeNode> = ArrayList<TypeNode>(fieldSrc.size, {i => generateTypeAST(fieldSrc[i])})
 
     var rParen: Token = Token(TokenKind.RPAREN).addPosition(tupleType.GetRightParenPos())
     var commas = Tokens()
@@ -222,7 +220,7 @@ func createTupleType(tyNode: NodeFormat_Type, nodeBase: NodeFormat_NodeBase): Ty
     return TupleType(typeName, colon, lParen, types, commas, rParen)
 }
 
-func createThisType(tyNode: NodeFormat_Type, nodeBase: NodeFormat_NodeBase): TypeNode {
+func createThisType(tyNode: ASTFormat_Type, nodeBase: ASTFormat_NodeBase): TypeNode {
     var thisType = match (tyNode.GetTypeAsThisType()) {
         case Some(v) => v
         case None => throw ParseASTException()
@@ -240,7 +238,7 @@ func createThisType(tyNode: NodeFormat_Type, nodeBase: NodeFormat_NodeBase): Typ
     return ThisType(typeName, colon, keyword)
 }
 
-func createFuncType(tyNode: NodeFormat_Type, nodeBase: NodeFormat_NodeBase): TypeNode {
+func createFuncType(tyNode: ASTFormat_Type, nodeBase: ASTFormat_NodeBase): TypeNode {
     var funcType = match (tyNode.GetTypeAsFuncType()) {
         case Some(v) => v
         case None => throw ParseASTException()
@@ -255,7 +253,7 @@ func createFuncType(tyNode: NodeFormat_Type, nodeBase: NodeFormat_NodeBase): Typ
     }
     var token = Token()
     var lParen: Token = Token(TokenKind.LPAREN).addPosition(funcType.GetLeftParenPos())
-    var types: ArrayList<TypeNode> = ArrayList<TypeNode>()
+    var types: ArrayList<TypeNode> = ArrayList<TypeNode>(funcType.GetParamTypes().size)
     let commas = Tokens()
     for (tp in funcType.GetParamTypes()) {
         types.add(generateTypeAST(tp))
@@ -271,7 +269,7 @@ func createFuncType(tyNode: NodeFormat_Type, nodeBase: NodeFormat_NodeBase): Typ
     return FuncType(typeName, colon, token, lParen, types, commas, rParen, arrow, retTy)
 }
 
-func createVArrayType(tyNode: NodeFormat_Type, nodeBase: NodeFormat_NodeBase): TypeNode {
+func createVArrayType(tyNode: ASTFormat_Type, nodeBase: ASTFormat_NodeBase): TypeNode {
     var vArrayType = match (tyNode.GetTypeAsVArrayType()) {
         case Some(v) => v
         case None => throw ParseASTException()
@@ -301,7 +299,7 @@ func createVArrayType(tyNode: NodeFormat_Type, nodeBase: NodeFormat_NodeBase): T
     return VArrayType(typeName, colon, keyword, lAngle, ty, dollar, size, rAngle)
 }
 
-func createPrefixType(tyNode: NodeFormat_Type, nodeBase: NodeFormat_NodeBase): TypeNode {
+func createPrefixType(tyNode: ASTFormat_Type, nodeBase: ASTFormat_NodeBase): TypeNode {
     var prefixType = match (tyNode.GetTypeAsOptionType()) {
         case Some(v) => v
         case None => throw ParseASTException()

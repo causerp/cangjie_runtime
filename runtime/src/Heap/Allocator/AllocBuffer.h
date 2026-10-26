@@ -64,17 +64,20 @@ public:
 
     void FlushRegion();
 
-private:
-    // slow path
-    MAddress TryAllocateOnce(size_t totalSize, AllocType allocType);
+protected:
     MAddress AllocateImpl(size_t totalSize, AllocType allocType);
-    MAddress AllocateRawPointerObject(size_t totalSize);
 
     // tlRegion in AllocBuffer is a shortcut for fast allocation.
     // we should handle failure in RegionManager
     RegionInfo* tlRegion = RegionInfo::NullRegion();
 
     std::atomic<RegionInfo*> preparedRegion = { nullptr };
+
+private:
+    // slow path
+    MAddress TryAllocateOnce(size_t totalSize, AllocType allocType);
+    MAddress AllocateRawPointerObject(size_t totalSize);
+
     // allocate objects which are exposed to runtime thus can not be moved.
     // allocation context is responsible to notify collector when these objects are safe to be collected.
     RegionList tlRawPointerRegions;

@@ -250,9 +250,6 @@ class ParserHelper {
     /* arguments */
     private var arguments: Arguments
 
-    /* prefix prompt for exceptions */
-    private static let exceptionPrompt = "Invalid string, please check the parameter: "
-
     /**
      * Constructor one parameters.
      *
@@ -413,7 +410,7 @@ class ParserHelper {
             if (item == r':' || item.isAsciiLetter()) {
                 continue
             }
-            throw IllegalArgumentException("${exceptionPrompt}${shortStr}\n")
+            throw IllegalArgumentException("Invalid short option format: '${shortStr}'.")
         }
         return shortStr
     }
@@ -439,7 +436,7 @@ class ParserHelper {
             if (itemCharArray[0].isAsciiLetter()) {
                 continue
             }
-            throw IllegalArgumentException("${exceptionPrompt}${item}\n")
+            throw IllegalArgumentException("Invalid long option format: '${item}'.")
         }
         return longOpts
     }
@@ -574,12 +571,12 @@ class ArgParser {
 
     func checkDuplicateShortOption(r: Rune) {
         if (_shortOptionSpecs.contains(r) || _longOptionSpecs.contains(String(r))) {
-            throw IllegalArgumentException("Duplicated option ${r} founded.")
+            throw IllegalArgumentException("Duplicate option '${r}'.")
         }
     }
     func checkDuplicateLongOption(s: String) {
         if (_longOptionSpecs.contains(s) || (s.size == 1 && _shortOptionSpecs.contains(Rune(s[0])))) {
-            throw IllegalArgumentException("Duplicated option: ${s} founded.")
+            throw IllegalArgumentException("Duplicate option '${s}'.")
         }
     }
 
@@ -636,11 +633,11 @@ class ArgParser {
                 case (OptionalValue, false) => addOptionAndExecuteAction(splited[0], splited[1], spec) // --option=value
                 case (RequiredValue, true) =>
                     addOptionAndExecuteAction(splited[0],
-                        next ?? throw ArgumentParseException("Missing option value for ${splited[0]}."), spec) // --option value
+                        next ?? throw ArgumentParseException("Missing option value for '${splited[0]}'."), spec) // --option value
                     _index += 1 // consume next string
                 case (RequiredValue, false) => addOptionAndExecuteAction(splited[0], splited[1], spec) // --option=value
                 case (NoValue, true) => addOptionAndExecuteAction(splited[0], "", spec) // --option
-                case (NoValue, false) => throw ArgumentParseException("Unexcepted value for ${splited[0]}.")
+                case (NoValue, false) => throw ArgumentParseException("Unexpected value for '${splited[0]}'.")
             }
             true
         } else {
@@ -674,28 +671,27 @@ class ArgParser {
         let cur = runeArray[0]
         if (runeArray.size - 1 == noValueSpecs.size) { // for last rune
             let spec = _shortOptionSpecs.get(runeArray[runeArray.size - 1]) ?? throw ArgumentParseException(
-                "Unknown option: ${cur}.")
+                "Unknown option '${cur}'.")
             let key = String(runeArray[runeArray.size - 1])
             match (spec.mode) {
                 case OptionalValue => addOptionAndExecuteAction(key, "", spec)
                 case RequiredValue =>
-                    let value = next ?? throw ArgumentParseException("Missing option value for ${cur}.")
+                    let value = next ?? throw ArgumentParseException("Missing option value for '${cur}'.")
                     _index += 1
                     addOptionAndExecuteAction(key, value, spec)
-                case NoValue => throw ArgumentParseException("Should never reach here becauese of previously check.")
+                case NoValue => throw ArgumentParseException(
+                    "Internal error: unreachable branch in short option parsing!")
             }
         } else if (runeArray.size - 1 > noValueSpecs.size) { // for not last rune
             let spec = _shortOptionSpecs.get(runeArray[noValueSpecs.size]) ?? throw ArgumentParseException(
-                "Unknown option: ${runeArray[noValueSpecs.size]}.")
+                "Unknown option '${runeArray[noValueSpecs.size]}'.")
             let key = String(runeArray[noValueSpecs.size])
             if (spec.mode == RequiredValue && noValueSpecs.size < runeArray.size - 1) {
-                addOptionAndExecuteAction(key, String(runeArray[noValueSpecs.size + 1..]),
-                    spec)
+                addOptionAndExecuteAction(key, String(runeArray[noValueSpecs.size + 1..]), spec)
             } else if (spec.mode == OptionalValue) {
-                addOptionAndExecuteAction(key, String(runeArray[noValueSpecs.size + 1..]),
-                    spec)
+                addOptionAndExecuteAction(key, String(runeArray[noValueSpecs.size + 1..]), spec)
             } else {
-                throw ArgumentParseException("Unknown option: ${runeArray[noValueSpecs.size]}.")
+                throw ArgumentParseException("Unknown option '${runeArray[noValueSpecs.size]}'.")
             }
         }
     }
@@ -718,7 +714,7 @@ class ArgParser {
                 case RequiredValue =>
                     let value = if (runeSize == 1) { // -o v
                         _index += 1
-                        next ?? throw ArgumentParseException("Missing option value for ${cur}.")
+                        next ?? throw ArgumentParseException("Missing option value for '${cur}'.")
                     } else { // -ov
                         String(runeArray[1..])
                     }
@@ -726,19 +722,19 @@ class ArgParser {
                 case NoValue => parseNoValueForShortOption(runeArray, next)
             }
         } else {
-            throw ArgumentParseException("Unknown option: ${arg}.")
+            throw ArgumentParseException("Unknown option '${arg}'.")
         }
     }
 
     // '-' or '--' should be removed before this function called.
     func parseOption(arg: String, next: ?String, longOptionOnly!: Bool = false) {
         if (arg.size == 0) {
-            throw ArgumentParseException("Option cannot be empty.")
+            throw ArgumentParseException("Option name cannot be empty.")
         }
 
         if (!parseLongOption(arg, next)) {
             if (longOptionOnly) {
-                throw ArgumentParseException("Unknown option: ${arg}.")
+                throw ArgumentParseException("Unknown option '${arg}'.")
             }
             parseShortOption(arg, next)
         }
@@ -777,7 +773,7 @@ class ArgParser {
                     } else if (cur.startsWith("-")) {
                         parseOption(cur[1..], args.get(_index + 1))
                     } else {
-                        throw ArgumentParseException("Illegal option format for ${cur}.") // just for branch coverage, should never be here
+                        throw ArgumentParseException("Invalid option format for '${cur}'.") // just for branch coverage, should never be here
                     }
                     state = ParseState.Start
                 case ParseState.NonOption =>

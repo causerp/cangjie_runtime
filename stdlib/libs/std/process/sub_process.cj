@@ -256,7 +256,7 @@ private func subProcessWaitOutput(process: SubProcess): (Int64, Array<Byte>, Arr
             let outByteArrStream: ByteBuffer = readToByteBuffer(process._stdOut)
             return readToEnd(outByteArrStream)
         } catch (_: ProcessException) {
-            throw ProcessException("OutputStream is invalid, not allow to read.")
+            throw ProcessException("OutputStream is invalid.")
         }
     }
 
@@ -265,7 +265,7 @@ private func subProcessWaitOutput(process: SubProcess): (Int64, Array<Byte>, Arr
             let errByteArrStream: ByteBuffer = readToByteBuffer(process._stdErr)
             return readToEnd(errByteArrStream)
         } catch (_: ProcessException) {
-            throw ProcessException("ErrorStream is invalid, not allow to read.")
+            throw ProcessException("ErrorStream is invalid.")
         }
     }
 

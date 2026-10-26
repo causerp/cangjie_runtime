@@ -7,7 +7,7 @@
  */
 protected package std.deriving.api
 
-import std.ast.* 
+import std.ast.*
 import std.collection.*
 
 public interface DerivingNode <: AstExt {
@@ -36,7 +36,7 @@ extend DerivingTarget {
         let e = parseDecl(quote(
             extend $generics $targetType {
             }
-        )) as ExtendDecl ?? throw Exception()
+        )) as ExtendDecl ?? throw Exception("Unreachable.")
 
         return e
     }

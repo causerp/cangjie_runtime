@@ -89,7 +89,7 @@ abstract class DopraSocketImpl<Self> <: PlatformSocket<Self> where Self <: Platf
     public override func disconnect(): Unit {
         let rc = unsafe { CJ_MRT_SockDisconnect(handle, isIPv6) }
         if (rc != 0) {
-            throw SocketException("Socket disconnect() failed")
+            throw SocketException("Socket disconnect() failed.")
         }
     }
 
@@ -213,7 +213,7 @@ abstract class DopraSocketImpl<Self> <: PlatformSocket<Self> where Self <: Platf
 
         if (rc != 0) {
             let message = formatError(CJ_SockErrnoGet())
-            throw SocketException("Failed to get socket option ${option}: ${message}.")
+            throw SocketException("Failed to get socket option '${option}': ${message}.")
         }
     }
 
@@ -232,7 +232,7 @@ abstract class DopraSocketImpl<Self> <: PlatformSocket<Self> where Self <: Platf
         let rc = CJ_SockOptionSet(handle, level, option, value, Int32(valueLength))
         if (rc != 0) {
             let message = formatError(CJ_SockErrnoGet())
-            throw SocketException("Failed to set socket option ${option}: ${message}.")
+            throw SocketException("Failed to set socket option '${option}': ${message}.")
         }
     }
 
@@ -250,7 +250,7 @@ abstract class DopraSocketImpl<Self> <: PlatformSocket<Self> where Self <: Platf
             let rc = IntNative(CJ_GetOptionInt(handle, level, option))
             if (rc == -1) {
                 let message = formatError(CJ_SockErrnoGet())
-                throw SocketException("Failed to get socket option ${option}: ${message}.")
+                throw SocketException("Failed to get socket option '${option}': ${message}.")
             }
             return rc
         }
@@ -271,7 +271,7 @@ abstract class DopraSocketImpl<Self> <: PlatformSocket<Self> where Self <: Platf
             let rc = CJ_SetOptionInt(handle, level, option, Int32(value))
             if (rc != 0) {
                 let message = formatError(CJ_SockErrnoGet())
-                throw SocketException("Failed to set socket option ${option}: ${message}.")
+                throw SocketException("Failed to set socket option '${option}': ${message}.")
             }
         }
     }
@@ -297,7 +297,7 @@ abstract class DopraSocketImpl<Self> <: PlatformSocket<Self> where Self <: Platf
         unsafe {
             let pConfig = LibC.malloc<SockKeepAliveCfgS>()
             if (pConfig.isNull()) {
-                throw SocketException("malloc() failed for SockKeepAliveCfgS")
+                throw SocketException("Failed to malloc SockKeepAliveCfgS.")
             }
             pConfig.write(cfg)
             let retCode = CJ_SockKeepAliveSet(handle, pConfig)
@@ -318,7 +318,7 @@ abstract class DopraSocketImpl<Self> <: PlatformSocket<Self> where Self <: Platf
         _: AddressFamily,
         _: SocketMode
     ): Self {
-        throw Exception()
+        throw Exception("Internal error: this method should never be invoked.")
     }
 
     protected static func createSocket(
@@ -329,13 +329,13 @@ abstract class DopraSocketImpl<Self> <: PlatformSocket<Self> where Self <: Platf
         let sockType = match (mode) {
             case StreamingMode => SocketType.STREAM
             case DatagramMode => SocketType.DATAGRAM
-            case SequentialMode => throw SocketException("SEQ_PACK is not supported")
+            case SequentialMode => throw SocketException("SEQ_PACK is not supported.")
         }
         let domain = match {
             case kind == AddressFamily.INET => SocketDomain.IPV4
             case kind == AddressFamily.INET6 => SocketDomain.IPV6
             case kind == AddressFamily.UNIX => SocketDomain.UNIX
-            case _ => throw SocketException("not supported kind: ${kind}")
+            case _ => throw SocketException("Unsupported kind: '${kind}'.")
         }
         unsafe {
             try (netName = LibC.mallocCString(net.toString()).asResource()) {
@@ -351,7 +351,7 @@ abstract class DopraSocketImpl<Self> <: PlatformSocket<Self> where Self <: Platf
             }
         }
 
-        throw Exception("unreachable")
+        throw Exception("Internal error: unreachable!")
     }
 
     static func toDopraTimeout(timeout: Duration): UInt64 {
@@ -546,7 +546,7 @@ class DopraOtherSocketImpl <: DopraSocketImpl<DopraOtherSocketImpl> {
             if (copyLen == 0) {
                 SocketException.throwClosedException()
             } else if (copyLen < 0) {
-                throw SocketException("Failed to write data: native socket copy data error.")
+                throw SocketException("Failed to write data: socket copy error.")
             }
             writeToBufferSize += bufferOnceSize
             var bufferSentSize: Int64 = 0
@@ -585,7 +585,7 @@ class DopraOtherSocketImpl <: DopraSocketImpl<DopraOtherSocketImpl> {
             if (copyLen == 0) {
                 return None
             } else if (copyLen < 0) {
-                throw SocketException("Failed to read data: native socket copy data error.")
+                throw SocketException("Failed to read data: socket copy error.")
             }
             return Int64(copyLen)
         }
@@ -629,7 +629,7 @@ class DopraOtherSocketImpl <: DopraSocketImpl<DopraOtherSocketImpl> {
             copyLen = CJ_SOCKET_BufferRCopy(socketBufferPtr, bufCp.pointer, buffer.size, readLen)
             releaseArrayRawData(bufCp)
             if (copyLen < 0) {
-                throw SocketException("Failed to receive data: native socket copy data error.")
+                throw SocketException("Failed to receive data: socket copy error.")
             }
         }
 
@@ -648,7 +648,7 @@ class DopraOtherSocketImpl <: DopraSocketImpl<DopraOtherSocketImpl> {
         if (copyLen == 0) {
             SocketException.throwClosedException()
         } else if (copyLen < 0) {
-            throw SocketException("Failed to write data: native socket copy data error.")
+            throw SocketException("Failed to write data: socket copy error.")
         } else {
             let writeLen = unsafe {
                 var addr = SockAddr(destination)
@@ -704,7 +704,7 @@ class DopraOtherSocketImpl <: DopraSocketImpl<DopraOtherSocketImpl> {
 
         let buffer = unsafe { CJ_SOCKET_BufferInit(handle, readBufferSize, writeBufferSize) }
         if (buffer.isNull()) {
-            throw SocketException("Failed to create socket buffer")
+            throw SocketException("Failed to create socket buffer.")
         }
 
         return buffer

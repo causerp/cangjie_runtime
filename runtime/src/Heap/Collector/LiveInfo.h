@@ -10,6 +10,8 @@
 #include "Base/Log.h"
 #include "Base/MemUtils.h"
 #include "Base/SysCall.h"
+#include "Heap/GenerationalGC/ObjectForwardingTable.h"
+#include "Heap/Allocator/RegionFreeSlotList.h"
 #include "Heap/Heap.h"
 #if defined(__linux__) || defined(hongmeng) || defined(__APPLE__)
 #include <sys/mman.h>
@@ -66,16 +68,21 @@ struct RegionBitmap {
         }
     }
 
-    bool ApplyBitMaskInfo(const BitMaskInfo& maskInfo, size_t byteCnt, size_t regionSize)
+    bool ApplyBitMaskInfo(const BitMaskInfo& maskInfo, size_t byteCnt, size_t regionSize, bool markHeadOnly)
     {
         uint64_t old = markWords[maskInfo.headWordIdx].load();
         bool isMarked = ((old & maskInfo.headMaskBits) != 0);
         if (isMarked) {
             return isMarked;
         }
+
         old = markWords[maskInfo.headWordIdx].fetch_or(maskInfo.headMaskBits);
         isMarked = ((old & maskInfo.headMaskBits) != 0);
         if (isMarked) {
+            return isMarked;
+        }
+        if (markHeadOnly) {
+            liveBytes.fetch_add(byteCnt);
             return isMarked;
         }
         size_t markWordSize = regionSize / (kMarkedBytesPerBit * kBitsPerWord);
@@ -113,11 +120,26 @@ struct RegionBitmap {
     explicit RegionBitmap(size_t regionSize) : liveBytes(0), wordCnt(regionSize / (kMarkedBytesPerBit * kBitsPerWord))
     {}
 
-    bool MarkBits(size_t start, size_t byteCnt, size_t regionSize)
+    bool MarkBits(size_t start, size_t byteCnt, size_t regionSize, bool markHeadOnly = false)
     {
+        // Slot-region allocations only need the object's start bit.  Do not
+        // use the complete object range as the duplicate test: another object
+        // whose head happens to fall inside that range must not suppress this
+        // object's head mark.
+        if (markHeadOnly) {
+            size_t headWordIdx = (start / kMarkedBytesPerBit) / kBitsPerWord;
+            size_t headBit = (start / kMarkedBytesPerBit) % kBitsPerWord;
+            uint64_t headMask = static_cast<uint64_t>(1) << headBit;
+            uint64_t old = markWords[headWordIdx].fetch_or(headMask);
+            if ((old & headMask) == 0) {
+                liveBytes.fetch_add(byteCnt);
+                return false;
+            }
+            return true;
+        }
         BitMaskInfo maskInfo;
         GetBitMaskInfo(start, byteCnt, maskInfo);
-        return ApplyBitMaskInfo(maskInfo, byteCnt, regionSize);
+        return ApplyBitMaskInfo(maskInfo, byteCnt, regionSize, markHeadOnly);
     }
 
     bool IsMarked(size_t start)
@@ -175,8 +197,71 @@ struct RegionBitmap {
         return (preLiveBits + liveBits) * kMarkedBytesPerBit;
     }
 };
+struct AgeBitmap {
+    static constexpr size_t kSlotBytes = 8;
+    static constexpr size_t kAgeBits = 4;
+    static constexpr size_t kSlotsPerWord = kBitsPerWord / kAgeBits;
+    static constexpr uint8_t kMaxAge = static_cast<uint8_t>((1u << kAgeBits) - 1);
+
+    std::atomic<uint64_t> ageWords[0];
+
+    static size_t GetAgeBitmapSize(size_t regionSize)
+    {
+        size_t slotCnt = regionSize / kSlotBytes;
+        size_t wordCnt = (slotCnt + kSlotsPerWord - 1) / kSlotsPerWord;
+        return sizeof(AgeBitmap) + wordCnt * sizeof(uint64_t);
+    }
+
+    static size_t WordCount(size_t regionSize)
+    {
+        size_t slotCnt = regionSize / kSlotBytes;
+        return (slotCnt + kSlotsPerWord - 1) / kSlotsPerWord;
+    }
+
+    static size_t WordIdx(size_t offset) { return (offset / kSlotBytes) / kSlotsPerWord; }
+    static size_t Shift(size_t offset) { return ((offset / kSlotBytes) % kSlotsPerWord) * kAgeBits; }
+
+    uint8_t GetAge(size_t offset) const
+    {
+        return static_cast<uint8_t>((ageWords[WordIdx(offset)].load(std::memory_order_acquire) >> Shift(offset)) &
+                                    kMaxAge);
+    }
+
+    void SetAge(size_t offset, uint8_t age)
+    {
+        size_t w = WordIdx(offset);
+        size_t s = Shift(offset);
+        uint64_t mask = static_cast<uint64_t>(kMaxAge) << s;
+        uint64_t oldVal;
+        uint64_t newVal;
+        do {
+            oldVal = ageWords[w].load(std::memory_order_acquire);
+            newVal = (oldVal & ~mask) | (static_cast<uint64_t>(age & kMaxAge) << s);
+        } while (!ageWords[w].compare_exchange_weak(oldVal, newVal, std::memory_order_acq_rel,
+                                                    std::memory_order_acquire));
+    }
+
+    uint8_t IncAge(size_t offset)
+    {
+        size_t w = WordIdx(offset);
+        size_t s = Shift(offset);
+        uint64_t mask = static_cast<uint64_t>(kMaxAge) << s;
+        uint64_t oldVal;
+        uint64_t newVal;
+        do {
+            oldVal = ageWords[w].load(std::memory_order_acquire);
+            uint8_t cur = static_cast<uint8_t>((oldVal >> s) & kMaxAge);
+            uint8_t next = (cur >= kMaxAge) ? kMaxAge : static_cast<uint8_t>(cur + 1);
+            newVal = (oldVal & ~mask) | (static_cast<uint64_t>(next) << s);
+        } while (!ageWords[w].compare_exchange_weak(oldVal, newVal, std::memory_order_acq_rel,
+                                                    std::memory_order_acquire));
+        return static_cast<uint8_t>((newVal >> s) & kMaxAge);
+    }
+};
+
 struct LiveInfo {
     static constexpr MAddress TEMPORARY_PTR = 0x1234;
+
     RegionInfo* bindedRegion = nullptr;
     RegionBitmap* markBitmap = nullptr;
     RegionBitmap* resurrectBitmap = nullptr;
@@ -197,7 +282,7 @@ struct LiveInfo {
     }
 };
 
-struct RouteInfo {
+struct CopyRouteInfo {
     static constexpr uint32_t INVALID_VALUE = std::numeric_limits<uint32_t>::max();
     uintptr_t toRegion1StartAddress = 0;
     uint32_t toRegion1UsedBytes = 0;
@@ -210,6 +295,64 @@ struct RouteInfo {
         toRegion1StartAddress = to1;
         toRegion1UsedBytes = to1used;
         toRegion2Idx = to2;
+    }
+};
+
+struct RouteInfo {
+    static constexpr uint32_t INVALID_VALUE = std::numeric_limits<uint32_t>::max();
+
+    enum class RouteKind : uint8_t {
+        COPY_ROUTE,
+        FORWARDING_TABLE,
+        FREE_SLOT_LIST,
+    };
+
+    RouteKind kind = RouteKind::COPY_ROUTE;
+    union {
+        CopyRouteInfo copyRoute;
+        ObjectForwardingTable* forwardingTable;
+        RegionFreeSlotList* freeSlotList;
+    };
+
+    RouteInfo() : copyRoute() {}
+
+    uintptr_t GetRoute(uint64_t preLiveBytes)
+    {
+        return copyRoute.GetRoute(preLiveBytes);
+    }
+
+    void SetRouteInfo(uintptr_t to1, uint32_t to1used = 0, uint32_t to2 = INVALID_VALUE)
+    {
+        kind = RouteKind::COPY_ROUTE;
+        copyRoute.SetRouteInfo(to1, to1used, to2);
+    }
+
+    void SetForwardingTable(ObjectForwardingTable* table)
+    {
+        kind = RouteKind::FORWARDING_TABLE;
+        forwardingTable = table;
+    }
+
+    ObjectForwardingTable* GetForwardingTable() const
+    {
+        if (kind == RouteKind::FORWARDING_TABLE) {
+            return forwardingTable;
+        }
+        return nullptr;
+    }
+
+    void SetFreeSlotList(RegionFreeSlotList* list)
+    {
+        kind = RouteKind::FREE_SLOT_LIST;
+        freeSlotList = list;
+    }
+
+    RegionFreeSlotList* GetFreeSlotList() const
+    {
+        if (kind == RouteKind::FREE_SLOT_LIST) {
+            return freeSlotList;
+        }
+        return nullptr;
     }
 };
 } // namespace MapleRuntime

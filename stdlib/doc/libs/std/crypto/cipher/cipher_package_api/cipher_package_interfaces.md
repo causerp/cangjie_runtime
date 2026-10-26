@@ -54,7 +54,7 @@ func decrypt(input: Array<Byte>): Array<Byte>
 ### func decrypt(Array\<Byte>, Array\<Byte>)
 
 ```cangjie
-func decrypt(input: Array<Byte>,  to!: Array<Byte>): Int64
+func decrypt(input: Array<Byte>, to!: Array<Byte>): Int64
 ```
 
 功能：提供解密函数。

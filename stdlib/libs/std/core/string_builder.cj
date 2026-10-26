@@ -52,7 +52,7 @@ public class StringBuilder <: ToString {
     @Frozen
     public init(r: Rune, n: Int64) {
         if (n < 0) {
-            throw IllegalArgumentException("The number of rune should not be negative.")
+            throw IllegalArgumentException("Invalid argument 'n': must be non-negative, got ${n}.")
         }
         var bytesSize = Rune.utf8Size(r)
         let capacity = bytesSize * n + defaultCapacity
@@ -124,7 +124,7 @@ public class StringBuilder <: ToString {
     public func reset(capacity!: Option<Int64> = None): Unit {
         let newCapacity = if (let Some(v) <- capacity) {
             if (v <= 0) {
-                throw IllegalArgumentException("The capacity should be positive.")
+                throw IllegalArgumentException("Invalid argument 'capacity': must be positive, got ${capacity}.")
             }
             v
         } else {
@@ -205,12 +205,24 @@ public class StringBuilder <: ToString {
         return
     }
 
+    @OverflowWrapping
     @Frozen
     public func append(runeArr: Array<Rune>): Unit {
-        for (c in runeArr) {
-            this.append(c)
+        if (runeArr.size == 0) {
+            return
         }
-        return
+        this.grow(RunesToUtf8Bytes.getSize(runeArr))
+        var itemLen: Int64 = 0
+        for (i in 0..runeArr.size) {
+            let c = runeArr[i]
+            if (c.isAscii()) {
+                this.data[this.endIndex + itemLen] = UInt8(UInt32(c))
+                itemLen++
+            } else {
+                itemLen += Rune.intoUtf8Array(c, this.data, this.endIndex + itemLen)
+            }
+        }
+        this.endIndex += itemLen
     }
 
     @Frozen

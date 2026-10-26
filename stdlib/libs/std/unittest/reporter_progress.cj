@@ -22,7 +22,7 @@ class ProgressReporter {
     private ProgressReporter() {
         this.reporter = match (getDefaultUTProgressReporter()) {
             case Some(r) => r
-            case _ => throw Exception("Actual reporter does not exists! Should 'ProgressReporter' be created?")
+            case _ => throw Exception("Tried to create instance of ProgressReporter when actual reporter does not exist.")
         }
     }
 
@@ -166,7 +166,7 @@ extend Configuration {
                 case Some(0) | None => None
                 case Some(x) where x < 0 => throw UnittestCliOptionsFormatException(
                     "--${KeyProgressEntriesLimit.progressEntriesLimit.name}", actual: x.toString(),
-                    expected: "Parameter format: non-negative integer value")
+                    expected: "Expected format: non-negative integer value")
                 case Some(x) => UInt64(x)
             }
         }

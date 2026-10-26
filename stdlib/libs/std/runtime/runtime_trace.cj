@@ -54,7 +54,7 @@ struct Trace {
     public unsafe static func dump(out: OutputStream): Unit {
         let lenPtr = LibC.malloc<Int32>(count: 1)
         if (lenPtr.isNull()) {
-            throw IllegalMemoryException("Failed to malloc memory for len.")
+            throw IllegalMemoryException("Failed to allocate memory.")
         }
 
         try {

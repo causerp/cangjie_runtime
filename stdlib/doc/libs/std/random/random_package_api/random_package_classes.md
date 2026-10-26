@@ -122,7 +122,7 @@ random2的第一个随机数: 1861434509
 public func next(bits: UInt64): UInt64
 ```
 
-功能：生成一个用户指定位长的随机整数。
+功能：生成一个指定位长的随机整数。
 
 > **注意：**
 >
@@ -134,11 +134,11 @@ public func next(bits: UInt64): UInt64
 
 返回值：
 
-- [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - 用户指定位长的伪随机数。
+- [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - 指定位长的伪随机数。
 
 异常：
 
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果 `bits` 等于 0 ，或大于 64，超过 [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) 所能表示的长度，则抛出异常。
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果 `bits` 等于 0，或大于 64，则抛出异常。
 
 示例：
 
@@ -175,11 +175,11 @@ public func nextBits(bits: UInt64): UInt64
 
 返回值：
 
-- [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - 生成的用户指定位长的伪随机数。
+- [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - 生成的指定位长的伪随机数。
 
 异常：
 
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果 `bits` 等于 0，或大于 64，超过 [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) 所能表示的长度，则抛出异常。
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果 `bits` 等于 0，或大于 64，则抛出异常。
 
 示例：
 
@@ -258,7 +258,7 @@ import std.random.*
 main(): Unit {
     let random = Random()
 
-    // 先创建一个字节数组
+    // 先创建一个字节数组（Byte 是 UInt8 的别名）
     let bytes = Array<UInt8>(5, repeat: 0)
 
     println("调用nextBytes前: ${bytes}")

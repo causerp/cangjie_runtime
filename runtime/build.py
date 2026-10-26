@@ -33,6 +33,8 @@ def do_clean(args):
 def do_build(args):
     # Get script arguments
     target_args = args.target
+    if target_args == "android-aarch64":
+        target_args = "android23-aarch64"
     mode = args.build_type
     version = args.version
     prefix_path = args.prefix
@@ -52,12 +54,18 @@ def do_build(args):
     host_os_name = platform.system().lower()
 
     # Adjust CMAKE_INSTALL_PREFIX based on target_args
+    # Android API 23 is the baseline (no version suffix); 26/31 carry the suffix; ARM keeps 23.
     if target_platform == "ohos":
         install_prefix = os.path.join(prefix_path, f"linux_ohos_{mode}")
     elif target_platform == "android23":
-        install_prefix = os.path.join(prefix_path, f"linux_android23_{mode}")
+        if target_args == "android23-arm":
+            # ARM keeps the 23 suffix
+            install_prefix = os.path.join(prefix_path, f"linux_android23_{mode}")
+        else:
+            # aarch64/x86_64 baseline
+            install_prefix = os.path.join(prefix_path, f"linux_android_{mode}")
     elif target_platform == "android26":
-        install_prefix = os.path.join(prefix_path, f"linux_android_{mode}")
+        install_prefix = os.path.join(prefix_path, f"linux_android26_{mode}")
     elif target_platform == "android31" or target_platform == "android":
         install_prefix = os.path.join(prefix_path, f"linux_android31_{mode}")
     elif target_platform == "ios-simulator":
@@ -81,7 +89,7 @@ def do_build(args):
     if target_args in ('native'):
         target_arch = host_arch
     elif target_args in ('ohos-x86_64', 'ohos-aarch64', 'ohos-arm', 'windows-x86_64',
-                         'android-x86_64', 'android-aarch64', 'android26-aarch64', 'android31-aarch64', 'android23-arm',
+                         'android-x86_64', 'android-aarch64', 'android23-aarch64', 'android26-aarch64', 'android31-aarch64', 'android23-arm',
                          'ios-aarch64', 'ios-simulator-aarch64', 'ios-simulator-x86_64'):
         target_arch = target_args.rsplit('-', 1)[1]
     else:
@@ -100,14 +108,17 @@ def do_build(args):
     if target_platform in ('linux'):
         shared_linker_flags = "-Wl,--disable-new-dtags,-rpath=\\$ORIGIN"
         exe_linker_flags = "-Wl,--disable-new-dtags,-rpath=\\$ORIGIN/../../runtime/lib/linux_${CMAKE_SYSTEM_PROCESSOR}_cjnative"
-    elif target_platform in ('android', 'android26', 'android31'):
-        # android devices may have 16 KB pages; make sure the shared
-        # object is laid out accordingly.  linker default is 4 KB.
-        shared_linker_flags = ("-Wl,--disable-new-dtags,-rpath=\\$ORIGIN "
-                               "-Wl,-z,max-page-size=16384")
+    elif target_platform in ('android', 'android23', 'android26', 'android31'):
+        # android 64-bit devices may have 16 KB pages, 32-bit ARM uses 4 KB;
+        # make sure the shared object is laid out accordingly.  linker default
+        # is 4 KB on x86_64 and 64 KB on aarch64/arm.
+        android_max_page_size = 4096 if target_arch == 'arm' else 16384
+        # %-formatting is used on purpose: the rpath below contains a literal
+        # ${CMAKE_SYSTEM_PROCESSOR} that str.format() would try to substitute.
+        max_page_size_flag = "-Wl,-z,max-page-size=%d" % android_max_page_size
+        shared_linker_flags = "-Wl,--disable-new-dtags,-rpath=\\$ORIGIN " + max_page_size_flag
         exe_linker_flags = ("-Wl,--disable-new-dtags,-rpath=\\$ORIGIN/../../runtime/lib/"
-                            "linux_${CMAKE_SYSTEM_PROCESSOR}_cjnative "
-                            "-Wl,-z,max-page-size=16384")
+                            "linux_${CMAKE_SYSTEM_PROCESSOR}_cjnative " + max_page_size_flag)
     elif target_platform in ('darwin'):
         shared_linker_flags = "-Wl,-rpath,@loader_path"
         exe_linker_flags = "-Wl,-rpath,@loader_path/../../runtime/lib/darwin_${CMAKE_SYSTEM_PROCESSOR}_cjnative"
@@ -231,12 +242,12 @@ def do_build(args):
         ] + ptrauth_flags
         build_target(cmake_command, args)
 
-    elif target_args in ["android-aarch64", "android26-aarch64", "android31-aarch64", "android-x86_64", "android23-arm"]:
+    elif target_args in ["android-aarch64", "android23-aarch64", "android26-aarch64", "android31-aarch64", "android-x86_64", "android23-arm"]:
         if args.target_toolchain == None:
             print("Please configure android toolchain, for example '/root/workspace/android_dep_files/'")
             sys.exit(1)
         android_api_level = 31
-        if target_args == "android-aarch64" or target_args == "android26-aarch64" or target_args == "android31-aarch64":
+        if target_args == "android-aarch64" or target_args == "android23-aarch64" or target_args == "android26-aarch64" or target_args == "android31-aarch64":
             android_flag = "1"
             target_arch = "aarch64"
         elif target_args == "android-x86_64":
@@ -316,7 +327,7 @@ def do_build(args):
 
     else:
         print("Invalid build target, build targets include: native, windows-x86_64, ohos-aarch64, ohos-x86_64, \
-               ohos-arm, android-aarch64, android26-aarch64, android31-aarch64, android-x86_64, android23-arm, \
+               ohos-arm, android-aarch64, android23-aarch64, android26-aarch64, android31-aarch64, android-x86_64, android23-arm, \
                ios-aarch64, ios-simulator-aarch64, ios-simulator-x86_64")
         sys.exit(1)
 
@@ -381,6 +392,7 @@ if __name__ == "__main__":
             "ios-simulator-x86_64",
             "ios-aarch64",
             "android-aarch64",
+            "android23-aarch64",
             "android26-aarch64",
             "android31-aarch64",
             "android-x86_64",
@@ -389,7 +401,7 @@ if __name__ == "__main__":
         metavar="TARGET",
         default="native",
         help="Target platform: native, windows-x86_64, ohos-aarch64, ohos-x86_64, ohos-arm, ios-simulator-aarch64, ios-simulator-x86_64, \
-              ios-aarch64, android-aarch64, android26-aarch64, android31-aarch64, android-x86_64, android23-arm"
+              ios-aarch64, android-aarch64, android23-aarch64, android26-aarch64, android31-aarch64, android-x86_64, android23-arm"
     )
     b.add_argument(
         "-t", "--build-type",

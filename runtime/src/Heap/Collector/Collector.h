@@ -34,6 +34,13 @@ enum GCPhase : uint8_t {
     GC_PHASE_POST_TRACE = 12,
     GC_PHASE_PREFORWARD = 13,
     GC_PHASE_FORWARD = 14,
+    GC_PHASE_GENERATION_IDLE = 15,
+    GC_PHASE_GENERATION_ENUM = 16,
+    GC_PHASE_GENERATION_TRACE = 17,
+    GC_PHASE_GENERATION_RECLAIM_SATB_NODE = 18,
+    GC_PHASE_GENERATION_PREFORWARD = 19,
+    GC_PHASE_GENERATION_FORWARD = 20,
+    GC_PHASE_GENERATION_POST_TRACE = 21,
 };
 
 enum CollectorType {
@@ -41,6 +48,8 @@ enum CollectorType {
     PROXY_COLLECTOR,  // Proxy of Collector
     COPY_COLLECTOR,   // Regional-Copying GC
     SMOOTH_COLLECTOR, // wgc
+    YOUNG_COLLECTOR,  // young collector
+    MIXED_COLLECTOR,  // mixed collector
     COLLECTOR_TYPE_COUNT,
 };
 
@@ -63,7 +72,8 @@ public:
     //         In order to prevent deadlocks, async trigger only add one async gc task and will not block.
     void RequestGC(GCReason reason, bool async);
 
-    virtual GCPhase GetGCPhase() const { return gcPhase.load(std::memory_order_acquire); }
+    virtual GCPhase GetGCPhase() const { return gcPhase.load(std::memory_order_acquire);
+    }
 
     virtual void SetGCPhase(const GCPhase phase) { gcPhase.store(phase, std::memory_order_release); }
 
@@ -79,6 +89,7 @@ public:
     virtual BaseObject* ForwardObject(BaseObject*) { std::abort(); }
 
     virtual bool ShouldIgnoreRequest(GCRequest& quest) = 0;
+    virtual bool IsTargetAddress(const BaseObject* obj) const;
     virtual bool IsFromObject(BaseObject*) const { std::abort(); }
     virtual bool IsGhostFromObject(BaseObject*) const { std::abort(); }
     virtual bool IsUnmovableFromObject(BaseObject*) const { std::abort(); }

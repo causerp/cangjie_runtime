@@ -1268,6 +1268,7 @@ int CJThreadPark(ParkCallbackFunc func, TraceEvent waitReason, void *arg)
         HILOG_FATAL(ERRNO_SCHD_CJTHREAD_PARK_FAILED,
                     "cjthread park failed because of null cjthread, current thread type is %d",
                     static_cast<int>(threadType));
+        return ERRNO_SCHD_CJTHREAD_NULL;
     }
     cjthread->result = 0;
 

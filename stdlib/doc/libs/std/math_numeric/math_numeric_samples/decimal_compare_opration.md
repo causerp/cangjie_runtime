@@ -2,20 +2,22 @@
 
 以下为初始化多个 `Decimal` 对象，相互之间大小比较的示例：
 <!-- verify -->
-
 ```cangjie
-import std.math.*
 import std.math.numeric.*
 
 main() {
     let decimal1 = Decimal.parse("12345.6789")
     let decimal2 = Decimal.parse("987.654321")
+
+    // 比较运算符
     println("${decimal1} > ${decimal2} = ${decimal1 > decimal2}")
     println("${decimal1} < ${decimal2} = ${decimal1 < decimal2}")
     println("${decimal1} == ${decimal2} = ${decimal1 == decimal2}")
     println("${decimal1} != ${decimal2} = ${decimal1 != decimal2}")
     println("${decimal1} <= ${decimal2} = ${decimal1 <= decimal2}")
     println("${decimal1} >= ${decimal2} = ${decimal1 >= decimal2}")
+
+    // compare 函数返回 Ordering 类型
     println("${decimal1}.compare(${decimal2}) = ${decimal1.compare(decimal2)}")
     return 0
 }

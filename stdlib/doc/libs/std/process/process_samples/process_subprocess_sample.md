@@ -4,26 +4,36 @@
 
 示例：
 
-<!-- compile -->
-
+<!-- run -->
 ```cangjie
 import std.process.*
 import std.io.*
 import std.fs.*
 
-// 以Linux平台相关命令举例说明, 以下用例需要提前创建 “/root/code/Process/test” 目录
 main(): Int64 {
-    let sleepProcess: SubProcess = launch("sleep", "10s", workingDirectory: Path("/root/code/Process/test"))
-    println(sleepProcess.pid)
-    println(sleepProcess.name)
-    println(sleepProcess.command)
-    sleepProcess.terminate(force: true)
-    let rtnCode = sleepProcess.wait()
-    println("sleepProcess rtnCode: ${rtnCode}")
+    // 创建用于演示 workingDirectory 参数的目录
+    let workDirPath: Path = Path("./subprocess_workdir")
+    removeIfExists(workDirPath, recursive: true)
+    Directory.create(workDirPath)
 
+    // 在指定工作目录中启动子进程
+    let sleepProcess: SubProcess = launch("sleep", "10s", workingDirectory: workDirPath)
+    println("进程 ID: ${sleepProcess.pid}")
+    println("进程名: ${sleepProcess.name}")
+    println("进程命令: ${sleepProcess.command}")
+
+    // 强制终止子进程并等待其结束
+    sleepProcess.terminate(force: true)
+    let exitCode = sleepProcess.wait()
+    println("sleepProcess 退出码: ${exitCode}")
+
+    // 启动子进程执行 echo 命令，并通过管道读取其标准输出
     let echoProcess: SubProcess = launch("echo", "hello cangjie!", stdOut: ProcessRedirect.Pipe)
-    let strReader: StringReader<InputStream> = StringReader(echoProcess.stdOutPipe)
-    println(strReader.readToEnd())
+    let stdOutReader: StringReader<InputStream> = StringReader(echoProcess.stdOutPipe)
+    println(stdOutReader.readToEnd())
+
+    // 清理本次运行创建的目录
+    removeIfExists(workDirPath, recursive: true)
     return 0
 }
 ```
@@ -31,9 +41,9 @@ main(): Int64 {
 运行结果可能如下：
 
 ```text
-65953
-sleep
-sleep
-sleepProcess rtnCode: 9
+进程 ID: 65953
+进程名: sleep
+进程命令: sleep
+sleepProcess 退出码: 9
 hello cangjie!
 ```

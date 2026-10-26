@@ -36,15 +36,16 @@ package myExecutableDirectory
 import std.reflect.*
 
 main(): Unit {
-    // 加载仓颉动态库。
+    // 加载仓颉动态库
     let myPackage = PackageInfo.load("../myPackage/target/release/myPackage/libmyPackage")
-    println(myPackage.name)
-    TypeInfo.get("myPackage.MyPublicType") |> println
+    println("包名: ${myPackage.name}")
+    println("类型: ${TypeInfo.get("myPackage.MyPublicType")}")
 
+    // 通过反射读取并修改动态库模块中的全局变量
     let myPublicGlobalVariable0 = myPackage.getVariable("myPublicGlobalVariable0")
-    (myPublicGlobalVariable0.getValue() as Int64).getOrThrow() |> println
+    println("初始值: ${(myPublicGlobalVariable0.getValue() as Int64).getOrThrow()}")
     myPublicGlobalVariable0.setValue(666)
-    (myPublicGlobalVariable0.getValue() as Int64).getOrThrow() |> println
+    println("修改后: ${(myPublicGlobalVariable0.getValue() as Int64).getOrThrow()}")
 }
 EOF
 
@@ -52,10 +53,10 @@ EOF
 $ cjpm run
 Initializing myPublicGlobalVariable1 in myPackage
 Initializing myStaticVariable in myPackage.MyPublicType
-myPackage
-myPackage.MyPublicType
-2333
-666
+包名: myPackage
+类型: myPackage.MyPublicType
+初始值: 2333
+修改后: 666
 
 cjpm run finished
 $ tree ..

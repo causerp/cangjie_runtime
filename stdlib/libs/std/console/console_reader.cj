@@ -194,7 +194,7 @@ public class ConsoleReader <: InputStream {
             releaseArrayRawData(itemP)
             if (rc != 0) {
                 // never reaches here
-                throw IllegalMemoryException("The memcpy_s failed with error code: ${rc}")
+                throw IllegalMemoryException("The memcpy_s failed with error code: '${rc}'.")
             }
         } else {
             var i: Int64 = 0

@@ -84,7 +84,9 @@ public struct ParsedGenericConstraint <: ToString & ToTokens {
 
     public func toDerivingGeneric(decl: GenericDecl): DerivingGenericSettings {
         if (genericParameter != decl.identifier) {
-            throw IllegalArgumentException("The generic parameter name should match")
+            throw IllegalArgumentException(
+                "The generic parameter name should match the generic declaration identifier" +
+                ", got 'genericParameter' = '${genericParameter}', 'identifier' = '${decl.identifier}'.")
         }
 
         return DerivingGenericSettings(decl, upperBounds)
@@ -417,7 +419,7 @@ public struct DeriveInputParser {
     }
 
     private func reportEof(message: String): Unit {
-        let at = it.last() ?? throw Exception("Failed to parse type: no tokens passed")
+        let at = it.last() ?? throw Exception("Failed to parse type: no tokens passed.")
         logger.error(at, message)
     }
 

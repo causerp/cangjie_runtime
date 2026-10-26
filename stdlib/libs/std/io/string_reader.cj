@@ -102,7 +102,7 @@ public class StringReader<T> where T <: InputStream {
         try {
             return String.fromUtf8(bytes)
         } catch (e: IllegalArgumentException) {
-            throw ContentFormatException("${e.message}")
+            throw ContentFormatException(e.message)
         }
     }
 
@@ -124,7 +124,7 @@ public class StringReader<T> where T <: InputStream {
         try {
             return String.fromUtf8(content)
         } catch (e: IllegalArgumentException) {
-            throw ContentFormatException("${e.message}")
+            throw ContentFormatException(e.message)
         }
     }
 
@@ -168,7 +168,7 @@ public class StringReader<T> where T <: InputStream {
             }
             Rune.fromUtf8(inputBIS.inBuf, inputBIS.curPos)
         } catch (e: IllegalArgumentException) {
-            throw ContentFormatException("${e.message}")
+            throw ContentFormatException(e.message)
         }
     }
 
@@ -179,7 +179,7 @@ public class StringReader<T> where T <: InputStream {
                 .inputStream
                 .read(inputBIS.inBuf.slice(inputBIS.availLen, inputBIS.inBuf.size - inputBIS.availLen))
             if (readNum <= 0) {
-                throw ContentFormatException("Input stream finished in the middle of a UTF-8 sequence")
+                throw ContentFormatException("Invalid UTF-8 sequence: input stream ended prematurely.")
             }
             inputBIS.curPos = 0
             inputBIS.availLen += readNum

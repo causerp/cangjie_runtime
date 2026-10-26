@@ -308,7 +308,7 @@ class ReadWriteLockImpl {
         let currThread = Thread.currentThread.id
         // Case 1: The current thread does not hold the read-mutex
         if (getThreadReadCount() < 1) {
-            throw IllegalSynchronizationStateException("Read-Lock is not locked by current thread.")
+            throw IllegalSynchronizationStateException("Cannot unlock read lock: not locked by current thread.")
         } else if (writeOwner.load() == currThread) { // Case 2: it has held the write-mutex
             let currState = state.load()
             // Expected state: | share count > 0 | write count > 0 |
@@ -354,7 +354,7 @@ class ReadWriteLockImpl {
         }
         // Case 2: read-mutex is held by the current thread
         if (getThreadReadCount() != 0) {
-            throw IllegalSynchronizationStateException("Read-Lock is hold by the current thread.")
+            throw IllegalSynchronizationStateException("Cannot acquire write lock: read lock is held by current thread.")
         }
         while (true) {
             let currState = state.load()
@@ -422,7 +422,7 @@ class ReadWriteLockImpl {
     func checkWriteLockStatus(): Unit {
         let currThread = Thread.currentThread.id
         if (writeOwner.load() != currThread) {
-            throw IllegalSynchronizationStateException("Write-Lock is not locked by current thread.")
+            throw IllegalSynchronizationStateException("Cannot unlock write lock: not locked by current thread.")
         }
     }
 

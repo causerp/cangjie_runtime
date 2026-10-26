@@ -64,12 +64,12 @@ public init(input: T, buffer: Array<Byte>)
 
 功能：创建 [BufferedInputStream](io_package_classes.md#class-bufferedinputstreamt-where-t--inputstream) 实例。
 
-其内部使用的缓存区由入参决定，在注重性能的场景下，通过复用传入的 `buffer`，可以减少内存分配次数，提高性能。
+其内部使用的缓冲区由入参决定，在注重性能的场景下，通过复用传入的 `buffer`，可以减少内存分配次数，提高性能。
 
 参数：
 
 - input: T - 绑定一个输入流。
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - [BufferedInputStream](io_package_classes.md#class-bufferedinputstreamt-where-t--inputstream) 使用的内部缓存区。
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - [BufferedInputStream](io_package_classes.md#class-bufferedinputstreamt-where-t--inputstream) 使用的内部缓冲区。
 
 异常：
 
@@ -106,7 +106,7 @@ main(): Unit {
 运行结果：
 
 ```text
-Error: The buffer cannot be empty.
+Error: Invalid argument 'buffer': buffer size is 0.
 ```
 
 ### init(T, Int64)
@@ -212,8 +212,8 @@ main(): Unit {
 运行结果：
 
 ```text
-Error: Invalid capacity size: capacity = 0.
-Error: Invalid capacity size: capacity = -1024.
+Error: Invalid argument 'capacity': expected a positive value, got '0'.
+Error: Invalid argument 'capacity': expected a positive value, got '-1024'.
 ```
 
 ### func readByte()
@@ -663,7 +663,7 @@ public func seek(sp: SeekPosition): Int64
 >
 > - 指定的位置不能位于流中数据头部之前。
 > - 指定位置可以超过流中数据末尾。
-> - 调用该函数会先清空缓存区，再移动光标的位置。
+> - 调用该函数会先清空缓冲区，再移动光标的位置。
 
 参数：
 
@@ -741,7 +741,7 @@ Length : 11
 Position : 11
 Remain Length : 0
 Position after seek() : 22
-Error: Can't move the position before the beginning of the stream.
+Error: Failed to seek: position '-1' is before the beginning of the stream.
 World
 ```
 
@@ -810,12 +810,12 @@ public init(output: T, buffer: Array<Byte>)
 
 功能：创建 [BufferedOutputStream](io_package_classes.md#class-bufferedoutputstreamt-where-t--outputstream) 实例。
 
-其内部使用的缓存区由入参决定，在注重性能的场景下，通过复用传入的 `buffer`，可以减少内存分配次数，提高性能。
+其内部使用的缓冲区由入参决定，在注重性能的场景下，通过复用传入的 `buffer`，可以减少内存分配次数，提高性能。
 
 参数：
 
 - output: T - 绑定一个输出流。
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - [BufferedOutputStream](io_package_classes.md#class-bufferedoutputstreamt-where-t--outputstream) 使用的内部缓存区。
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - [BufferedOutputStream](io_package_classes.md#class-bufferedoutputstreamt-where-t--outputstream) 使用的内部缓冲区。
 
 异常：
 
@@ -852,7 +852,7 @@ main(): Unit {
 运行结果：
 
 ```text
-Error: The buffer cannot be empty.
+Error: Invalid argument 'buffer': buffer size is 0.
 ```
 
 ### init(T, Int64)
@@ -911,8 +911,8 @@ main(): Unit {
 运行结果：
 
 ```text
-Error: Invalid capacity size: capacity = 0.
-Error: Invalid capacity size: capacity = -1024.
+Error: Invalid argument 'capacity': expected a positive value, got '0'.
+Error: Invalid argument 'capacity': expected a positive value, got '-1024'.
 ```
 
 ### func flush()
@@ -1422,7 +1422,7 @@ public func seek(sp: SeekPosition): Int64
 >
 > - 指定的位置不能位于流中数据头部之前。
 > - 指定位置可以超过流中数据末尾。
-> - 调用该函数会先将缓存区内的数据写到绑定的输出流里，再移动光标的位置。
+> - 调用该函数会先将缓冲区内的数据写到绑定的输出流里，再移动光标的位置。
 
 参数：
 
@@ -1498,7 +1498,7 @@ Length : 11
 Position : 0
 Remain Length : 11
 Position after seek() : 11
-Error: Can't move the position before the beginning of the stream.
+Error: Failed to seek: position '-1' is before the beginning of the stream.
 World
 ```
 
@@ -1651,7 +1651,7 @@ main(): Unit {
 
 ```text
 1024
-Error: The capacity must be greater than or equal to 0: -1024.
+Error: Invalid argument 'capacity': expected a non-negative value, got '-1024'.
 ```
 
 ### func bytes()
@@ -1826,7 +1826,7 @@ main(): Unit {
 
 ```text
 Hello
-Error: The buffer is empty.
+Error: Invalid argument 'buffer': buffer size is 0.
 ```
 
 ### func readByte()
@@ -1882,11 +1882,11 @@ public func reserve(additional: Int64): Unit
 
 > **说明：**
 >
-> - 若入参 additional ≤ 0，不执行任何扩容操作。
+> - 若入参 additional < 0，抛出 IllegalArgumentException 异常。
 > - 若当前剩余容量 ≥ additional，不进行扩容，直接返回。
-> - 若当前剩余容量 < additional，则按以下两者计算最大者执行扩容：
->     - 1.原始容量的 1.5 倍（结果向下取整）
->     - 2.已使用容量 + additional。
+> - 否则按以下两者计算最大者执行扩容：
+>     - 1. 原始容量的 1.5 倍（结果向下取整）
+>     - 2. 处于读模式（length ≥ 0）时为「原始容量 + additional」；处于写模式（length < 0，由 seek 越过现有数据尾部触发）时为「已使用容量 + additional」。
 
 参数：
 
@@ -1938,8 +1938,8 @@ main(): Unit {
 initial capacity: 11
 reserve 5: 16
 reserve 2: 16
-Error: The additional must be greater than or equal to 0.
-Error: The maximum value for capacity expansion cannot exceed the maximum value of Int64.
+Error: Invalid argument 'additional': expected a non-negative value, got '-1'.
+Error: Capacity overflow: the maximum value cannot exceed 'Int64 max'.
 ```
 
 ### func seek(SeekPosition)
@@ -2001,7 +2001,7 @@ main(): Unit {
 initial position: 0
 World
 12
-Error: Can't move the position before the beginning of the stream.
+Error: Failed to seek: position '-1' is before the beginning of the stream.
 ```
 
 ### func setLength(Int64)
@@ -2057,7 +2057,7 @@ main(): Unit {
 initial length: 11
 set length to 5: Hello
 Error: add
-Error: The length must be greater than or equal to 0.
+Error: Invalid argument 'length': expected a non-negative value, got '-1'.
 ```
 
 ### func write(Array\<Byte>)
@@ -2191,7 +2191,7 @@ main(): Unit {
 
 ```text
 ChainedInputStream created successfully
-Error: The array of input streams cannot be empty!
+Error: Invalid argument 'input': the array of input streams cannot be empty.
 ```
 
 ### func read(Array\<Byte>)
@@ -2314,7 +2314,7 @@ main(): Unit {
 
 ```text
 MultiOutputStream created successfully
-Error: The array of output streams cannot be empty!
+Error: Invalid argument 'output': the array of output streams cannot be empty.
 ```
 
 ### func flush()
@@ -2472,7 +2472,7 @@ public func lines(): Iterator<String>
 
 异常：
 
-- [ContentFormatException](io_package_exceptions.md#class-contentformatexception) - 当`for-in`或者调用`next()`方法时读取到非法字符，抛出异常。
+- [ContentFormatException](io_package_exceptions.md#class-contentformatexception) - 当 `for-in` 或者调用 `next()` 方法时读取到非法字符，抛出异常。
 
 示例：
 
@@ -2745,7 +2745,7 @@ public func runes(): Iterator<Rune>
 
 异常：
 
-- [ContentFormatException](io_package_exceptions.md#class-contentformatexception) - 当`for-in`或者调用`next()`方法时读取到非法字符，抛出异常。
+- [ContentFormatException](io_package_exceptions.md#class-contentformatexception) - 当 `for-in` 或者调用 `next()` 方法时读取到非法字符，抛出异常。
 
 示例：
 
@@ -3060,7 +3060,7 @@ Position : 1
 Length : 11
 Remain Length : 10
 Position after seek() : 12
-Error: Can't move the position before the beginning of the stream.
+Error: Failed to seek: position '-1' is before the beginning of the stream.
 World
 ```
 
@@ -4537,6 +4537,6 @@ main(): Unit {
 
 ```text
 Position after seek() : 11
-Error: Can't move the position before the beginning of the stream.
+Error: Failed to seek: position '-1' is before the beginning of the stream.
 87, 111, 114, 108, 100]
 ```

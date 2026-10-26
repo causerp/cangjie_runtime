@@ -27,8 +27,6 @@ endif()
 # Handle third-party dependencies
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/")
 
-include(Flatbuffer)
-
 if(NOT EXISTS ${CANGJIE_PCRE2_SOURCE_DIR})
     set(REPOSITORY_PATH https://gitcode.com/openharmony/third_party_pcre2.git)
     message(STATUS "Set pcre2 REPOSITORY_PATH: ${REPOSITORY_PATH}")

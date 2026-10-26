@@ -47,7 +47,7 @@ public class ParameterInfo <: Equatable<ParameterInfo> & Hashable & ToString {
                 case None =>
                     let pointer = getParameterName(_info)
                     if (pointer.isNull()) {
-                        throw InfoNotFoundException("Get parameter name failed!")
+                        throw InfoNotFoundException("Failed to get parameter name.")
                     }
                     let parameterName = CString(pointer).toString()
                     _name = parameterName
@@ -95,7 +95,7 @@ public class ParameterInfo <: Equatable<ParameterInfo> & Hashable & ToString {
      */
     public func findAnnotation<T>(): ?T where T <: Annotation {
         findAnnotation<T>(annotations)
-   }
+    }
 
     public func findAllAnnotations<T>(): Array<T> where T <: Annotation {
         findAllAnnotations<T>(annotations)

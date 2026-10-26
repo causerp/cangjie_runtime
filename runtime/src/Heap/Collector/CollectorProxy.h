@@ -12,6 +12,8 @@
 #include "Collector.h"
 #include "CollectorResources.h"
 #include "WCollector/WCollector.h"
+#include "GenerationalGC/YoungCollector.h"
+#include "GenerationalGC/MixedCollector.h"
 
 namespace MapleRuntime {
 // CollectorProxy is a special kind of collector, it is derived from Base class Collector, thus behaves like a real
@@ -20,7 +22,8 @@ namespace MapleRuntime {
 // CollectorProxy should inherit collector interfaces, but no datas
 class CollectorProxy : public Collector {
 public:
-    explicit CollectorProxy(Allocator& allocator, CollectorResources& resources) : wCollector(allocator, resources)
+    explicit CollectorProxy(Allocator& allocator, CollectorResources& resources)
+        : wCollector(allocator, resources), youngCollector(allocator, resources), mixedCollector(allocator, resources)
     {
         collectorType = CollectorType::PROXY_COLLECTOR;
     }
@@ -30,7 +33,13 @@ public:
     void Init() override;
     void Fini() override;
 
-    GCPhase GetGCPhase() const override { return currentCollector->GetGCPhase(); }
+    GCPhase GetGCPhase() const override
+    {
+        if (currentCollector == nullptr) {
+            return GCPhase::GC_PHASE_UNDEF;
+        }
+        return currentCollector->GetGCPhase();
+    }
 
     void SetGCPhase(const GCPhase phase) override { currentCollector->SetGCPhase(phase); }
 
@@ -42,6 +51,11 @@ public:
     TracingCollector& GetCurrentCollector() const { return *currentCollector; }
 
     BaseObject* FindToVersion(BaseObject* obj) const override { return currentCollector->FindToVersion(obj); }
+
+    bool IsTargetAddress(const BaseObject* obj) const override
+    {
+        return currentCollector != nullptr && currentCollector->IsTargetAddress(obj);
+    }
 
     bool IsOldPointer(RefField<>& ref) const override { return currentCollector->IsOldPointer(ref); }
     bool IsCurrentPointer(RefField<>& ref) const override { return currentCollector->IsCurrentPointer(ref); }
@@ -78,6 +92,8 @@ private:
     // supported collector set
     TracingCollector* currentCollector = nullptr;
     WCollector wCollector;
+    YoungCollector youngCollector;
+    MixedCollector mixedCollector;
 };
 } // namespace MapleRuntime
 

@@ -15,7 +15,7 @@ public func copy(sourcePath: Path, to!: Path, overwrite!: Bool = false): Unit {
     PathValidator.throwIfEmptyOrContainsNullByte("sourcePath", sourcePath, true)
     PathValidator.throwIfEmptyOrContainsNullByte("to", to, true)
     if (sourcePath == to) {
-        throw FSException("The input path 'sourcePath' `${sourcePath}` and 'to' `${to}` are the same path.")
+        throw FSException("Invalid argument: 'sourcePath' and 'to' refer to the same path '${sourcePath}'.")
     }
 
     let fileInfo = FileInfo(sourcePath)
@@ -28,27 +28,27 @@ public func copy(sourcePath: Path, to!: Path, overwrite!: Bool = false): Unit {
     if (fileInfo.isRegular()) {
         if (let Some(info) <- destInfo) {
             if (!overwrite) {
-                throw FSException("Destination path `${to}` is already exists.")
+                throw FSException("Cannot copy to '${to}': destination path already exists.")
             } else if (!info.isRegular()) {
-                throw FSException("Source path `${sourcePath}` is file but destination path `${to}` is already exists and is not file.")
+                throw FSException("Cannot copy to '${to}': source '${sourcePath}' is a regular file but destination already exists and is not a file.")
             }
         }
         return File.copy(sourcePath._rawPath, to._rawPath, overwrite)
     } else if (fileInfo.isDirectory()) {
         if (let Some(info) <- destInfo) {
             if (!overwrite) {
-                throw FSException("Destination path `${to}` is already exists.")
+                throw FSException("Cannot copy to '${to}': destination path already exists.")
             } else if (!info.isDirectory()) {
-                throw FSException("Source path `${sourcePath}` is directory but destination path `${to}` is already exists and is not directory.")
+                throw FSException("Cannot copy to '${to}': source '${sourcePath}' is a directory but destination already exists and is not a directory.")
             }
         }
         return Directory.copy(sourcePath._rawPath, to._rawPath, overwrite)
     } else if (fileInfo.isSymbolicLink()) {
         if (let Some(info) <- destInfo) {
             if (!overwrite) {
-                throw FSException("Destination path `${to}` is already exists.")
+                throw FSException("Cannot copy to '${to}': destination path already exists.")
             } else if (!info.isSymbolicLink()) {
-                throw FSException("Source path `${sourcePath}` is symbolic link but destination path `${to}` is already exists and is not symbolic link.")
+                throw FSException("Cannot copy to '${to}': source '${sourcePath}' is a symbolic link but destination already exists and is not a symbolic link.")
             } else {
                 remove(to)
             }
@@ -57,7 +57,7 @@ public func copy(sourcePath: Path, to!: Path, overwrite!: Bool = false): Unit {
         SymbolicLink.create(to, to: target)
         return
     }
-    throw FSException("File type of `${sourcePath}` is not supported.")
+    throw FSException("Cannot copy '${sourcePath}': unsupported file type.")
 }
 
 public func copy(sourcePath: String, to!: String, overwrite!: Bool = false): Unit {
@@ -75,7 +75,7 @@ public func remove(path: String, recursive!: Bool = false): Unit {
         try (cpath = LibC.mallocCString(path).asResource()) {
             let pret = CJ_FS_Remove(cpath.value, recursive)
             if (pret.isNull()) {
-                throw FSException("Failed malloc in C code when remove `${path}`.")
+                throw FSException("Memory allocation failed in native code when removing '${path}'.")
             }
             let ret = pret.read()
             LibC.free(pret)
@@ -84,7 +84,7 @@ public func remove(path: String, recursive!: Bool = false): Unit {
             }
             try {
                 let errMessage = ret.msg.toString()
-                throw FSException("Failed to remove `${path}` return ${ret.rtnCode}: \"${errMessage.trimAscii()}\".")
+                throw FSException("Failed to remove '${path}': error code ${ret.rtnCode}, ${errMessage.trimAscii()}.")
             } finally {
                 LibC.free(ret.msg)
             }
@@ -111,17 +111,17 @@ public func rename(sourcePath: String, to!: String, overwrite!: Bool = false): U
     PathValidator.throwIfEmptyOrContainsNullByte("sourcePath", sourcePath, true)
     PathValidator.throwIfEmptyOrContainsNullByte("to", to, true)
     if (Path(sourcePath) == Path(to)) {
-        throw FSException("The input path 'sourcePath' `${sourcePath}` and 'to' `${to}` are the same path.")
+        throw FSException("Invalid argument: 'sourcePath' and 'to' refer to the same path '${sourcePath}'.")
     }
     if (exists(to) && !overwrite) {
-        throw FSException("Destination path 'to' `${to}` is already exists and overwrite is false.")
+        throw FSException("Cannot rename to '${to}': destination path already exists and overwrite is false.")
     }
 
     try (sourceCPath = unsafe { LibC.mallocCString(sourcePath).asResource() },
         destinationCPath = unsafe { LibC.mallocCString(to).asResource() }) {
         let resultptr = unsafe { CJ_FS_Rename(sourceCPath.value, destinationCPath.value) }
         if (resultptr.isNull()) {
-            throw FSException("Failed malloc in C code when rename `${sourcePath}` to `${to}`.")
+            throw FSException("Memory allocation failed in native code when renaming '${sourcePath}' to '${to}'.")
         }
         let result = unsafe { resultptr.read() }
         unsafe { LibC.free(resultptr) }
@@ -130,7 +130,7 @@ public func rename(sourcePath: String, to!: String, overwrite!: Bool = false): U
         }
         try {
             let errMessage = result.msg.toString()
-            throw FSException("Failed to rename `${sourcePath}` to `${to}` return ${result.rtnCode}:\"${errMessage.trimAscii()}\".")
+            throw FSException("Failed to rename '${sourcePath}' to '${to}': error code '${result.rtnCode}', ${errMessage.trimAscii()}.")
         } finally {
             unsafe { LibC.free(result.msg) }
         }

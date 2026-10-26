@@ -2,20 +2,23 @@
 
 以下为初始化多个 `BigInt` 对象，相互之间大小比较的示例：
 <!-- verify -->
-
 ```cangjie
 import std.math.numeric.*
 
 main() {
-    let int1 = BigInt.parse("123456789")
-    let int2 = BigInt.parse("987654321")
-    println("${int1} > ${int2} = ${int1 > int2}")
-    println("${int1} < ${int2} = ${int1 < int2}")
-    println("${int1} == ${int2} = ${int1 == int2}")
-    println("${int1} != ${int2} = ${int1 != int2}")
-    println("${int1} <= ${int2} = ${int1 <= int2}")
-    println("${int1} >= ${int2} = ${int1 >= int2}")
-    println("${int1}.compare(${int2}) = ${int1.compare(int2)}")
+    let bigInt1 = BigInt.parse("123456789")
+    let bigInt2 = BigInt.parse("987654321")
+
+    // 比较运算符
+    println("${bigInt1} > ${bigInt2} = ${bigInt1 > bigInt2}")
+    println("${bigInt1} < ${bigInt2} = ${bigInt1 < bigInt2}")
+    println("${bigInt1} == ${bigInt2} = ${bigInt1 == bigInt2}")
+    println("${bigInt1} != ${bigInt2} = ${bigInt1 != bigInt2}")
+    println("${bigInt1} <= ${bigInt2} = ${bigInt1 <= bigInt2}")
+    println("${bigInt1} >= ${bigInt2} = ${bigInt1 >= bigInt2}")
+
+    // compare 函数返回 Ordering 类型
+    println("${bigInt1}.compare(${bigInt2}) = ${bigInt1.compare(bigInt2)}")
     return 0
 }
 ```

@@ -47,7 +47,7 @@ public class PackageInfo <: Equatable<PackageInfo> & Hashable & ToString {
     // Return a specified packageInfo from the loaded dynamic module
     public static func get(qualifiedName: String): PackageInfo {
         if (qualifiedName.contains("/")) {
-            throw InfoNotFoundException("TypeInfo '${qualifiedName}' not found.")
+            throw InfoNotFoundException("PackageInfo '${qualifiedName}' not found.")
         }
         synchronized(mutex) {
             if (let Some(info) <- qualifiedNameMap.get(qualifiedName)) {
@@ -59,7 +59,7 @@ public class PackageInfo <: Equatable<PackageInfo> & Hashable & ToString {
             try {
                 infoPointer = getPackageByQualifiedName(cname.getChars())
                 if (infoPointer.isNull()) {
-                    throw InfoNotFoundException("Cannot find specified package: `${qualifiedName}`.")
+                    throw InfoNotFoundException("Cannot find specified package '${qualifiedName}'.")
                 }
 
                 let info = PackageInfo(infoPointer)
@@ -79,12 +79,12 @@ public class PackageInfo <: Equatable<PackageInfo> & Hashable & ToString {
                 path
             })
         } catch (e: FSException) {
-            throw IllegalArgumentException("Failed to load `${path}` because of illegal path.")
+            throw IllegalArgumentException("Failed to load '${path}': illegal path.")
         }
 
         synchronized(mutex) {
             if (filenameSet.contains(realPath.fileName)) {
-                throw ReflectException("Try to load the same file twice, path: `${path}`.")
+                throw ReflectException("File '${path}' is already loaded.")
             }
 
             let cpath = unsafe { LibC.mallocCString(realPath.toString()) }
@@ -93,13 +93,13 @@ public class PackageInfo <: Equatable<PackageInfo> & Hashable & ToString {
                 // for performance reason, info pointer need to carry loading result
                 let result = info.toUIntNative()
                 if (result == PACKAGE_LOAD_FAIL) {
-                    throw ReflectException("Package `${path}` load failed.")
+                    throw ReflectException("Failed to load package from '${path}'.")
                 } else if (result == MULTI_PACKAGE_INFO) {
-                    throw ReflectException("Multiple package info has been found in `${path}`.")
+                    throw ReflectException("Multiple package infos found in '${path}'.")
                 } else if (result == REPEATED_PACKAGE_LOAD) {
-                    throw ReflectException("Try to load the same package twice, path: `${path}`.")
+                    throw ReflectException("Package from '${path}' is already loaded.")
                 } else if (result == REPEATED_FILENAME_LOAD) {
-                    throw ReflectException("Try to load the same file twice, path: `${path}`.")
+                    throw ReflectException("File '${path}' is already loaded.")
                 } else {
                     filenameSet.add(realPath.fileName)
                     return PackageInfo(info)
@@ -215,7 +215,7 @@ public class PackageInfo <: Equatable<PackageInfo> & Hashable & ToString {
 
     public func getSubPackage(qualifiedName: String): PackageInfo {
         getSubPackagesMap().get(qualifiedName) ?? throw InfoNotFoundException(
-            "Can not find subpackage: `${qualifiedName}`.")
+            "Cannot find subpackage '${qualifiedName}'.")
     }
 
     private func getSubPackagesMap(): HashMap<String, PackageInfo> {
@@ -238,7 +238,7 @@ public class PackageInfo <: Equatable<PackageInfo> & Hashable & ToString {
         for (i in 0..num) {
             let pointer = getPackageTypeInfo(subPackageInfo, i)
             if (pointer.isNull()) {
-                throw InfoNotFoundException("PackageInfo find typeInfo failed!")
+                throw InfoNotFoundException("Failed to get type info at index ${i} from package '${this.qualifiedName}'.")
             }
 
             if (isReflectUnsupportedType(pointer)) {
@@ -277,7 +277,7 @@ public class PackageInfo <: Equatable<PackageInfo> & Hashable & ToString {
         for (i in 0..num) {
             let pointer = getPackageGlobalFieldInfo(subPackageInfo, i)
             if (pointer.isNull()) {
-                throw InfoNotFoundException("PackageInfo find variableInfo failed!")
+                throw InfoNotFoundException("Failed to get variable info at index ${i} from package '${this.qualifiedName}'.")
             }
             let varInfo = GlobalVariableInfo(pointer)
             infoList.add(varInfo)
@@ -308,7 +308,7 @@ public class PackageInfo <: Equatable<PackageInfo> & Hashable & ToString {
         for (i in 0..num) {
             let pointer = getPackageGlobalMethodInfo(subPackageInfo, i)
             if (pointer.isNull()) {
-                throw InfoNotFoundException("PackageInfo find globalFunctionInfo failed!")
+                throw InfoNotFoundException("Failed to get global function info at index ${i} from package '${this.qualifiedName}'.")
             }
             let funcName = getFuncName(pointer)
             if (funcName == constructorName) {

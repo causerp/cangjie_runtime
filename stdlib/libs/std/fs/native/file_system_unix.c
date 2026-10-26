@@ -601,11 +601,11 @@ extern int8_t CJ_FS_CopyREF(char* dir1, char* dir2)
 {
     char buf[BUF_SIZE];
 
-    int fd1 = open(dir1, O_RDONLY);
+    int fd1 = open(dir1, O_RDONLY | O_NOFOLLOW);
     if (fd1 < 0) {
         return -1;
     }
-    int fd2 = open(dir2, O_WRONLY | O_CREAT | O_TRUNC, DEFFILEMODE);
+    int fd2 = open(dir2, O_WRONLY | O_CREAT | O_TRUNC | O_NOFOLLOW, DEFFILEMODE);
     if (fd2 < 0) {
         (void)close(fd1);
         return -1;
@@ -706,6 +706,7 @@ extern FsInfo* CJ_FS_OpenFile(const char* path, int32_t openMode)
 
     char realPath[PATH_MAX + 1] = {0x00};
     const char* filePath = realPath;
+    bool useOriginPath = false;
     // path normalization
     if (realpath(path, realPath) == NULL) {
         /**
@@ -722,6 +723,7 @@ extern FsInfo* CJ_FS_OpenFile(const char* path, int32_t openMode)
             return result;
         }
         // create new file by origin path
+        useOriginPath = true;
         filePath = path;
     }
 
@@ -747,6 +749,10 @@ extern FsInfo* CJ_FS_OpenFile(const char* path, int32_t openMode)
      *      int open(const char *pathname, int flags, mode_t mode);
      *
      */
+    access |= O_NOFOLLOW;
+    if (useOriginPath && (access & O_CREAT)) {
+        access |= O_EXCL;
+    }
     int32_t fd = open(filePath, (int)(access), DEFFILEMODE);
 
     result->fd = (intptr_t)fd;

@@ -9,15 +9,17 @@
 import std.console.*
 
 main() {
+    // 读取并输出第一条信息
     Console.stdOut.write("请输入信息1：")
-    var c = Console.stdIn.readln() // 输入：你好，请问今天星期几？
-    var r = c.getOrThrow()
-    Console.stdOut.writeln("输入的信息1为：" + r)
+    var inputResult = Console.stdIn.readln() // 输入：你好，请问今天星期几？
+    var inputText = inputResult.getOrThrow()
+    Console.stdOut.writeln("输入的信息1为：" + inputText)
 
+    // 读取并输出第二条信息
     Console.stdOut.write("请输入信息2：")
-    c = Console.stdIn.readln() // 输入：你好，请问今天几号？
-    r = c.getOrThrow()
-    Console.stdOut.writeln("输入的信息2为：" + r)
+    inputResult = Console.stdIn.readln() // 输入：你好，请问今天几号？
+    inputText = inputResult.getOrThrow()
+    Console.stdOut.writeln("输入的信息2为：" + inputText)
 
     return
 }

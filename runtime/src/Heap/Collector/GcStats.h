@@ -12,7 +12,6 @@
 #include <atomic>
 #include <list>
 #include <memory>
-#include <mutex>
 
 #include "Base/ImmortalWrapper.h"
 #include "Base/Panic.h"
@@ -23,12 +22,13 @@ namespace MapleRuntime {
 class GCStats {
 public:
     GCStats() = default;
-    ~GCStats() = default;
+    virtual ~GCStats() = default;
 
     void Init();
 
     size_t GetThreshold() const { return heapThreshold; }
-
+    virtual void RecordAllocation(size_t) {}
+    virtual double RefreshAllocationSpeed(uint64_t) { return 0.0; }
     void Dump() const;
 
     static uint64_t GetPrevGCStartTime() { return prevGcStartTime; }
@@ -68,6 +68,27 @@ public:
     double collectionRate; // bytes per nano-second
 
     size_t heapThreshold;
+};
+
+class GenerationalGCStats : public GCStats {
+public:
+    void Init();
+
+    size_t GetYoungThreshold() const { return youngThreshold.load(std::memory_order_relaxed); }
+    size_t GetMixedThreshold() const { return mixedThreshold.load(std::memory_order_relaxed); }
+
+    void RecordAllocation(size_t bytes) override;
+    double RefreshAllocationSpeed(uint64_t timestamp) override;
+    double GetAllocationSpeed() const;
+    void SetYoungThreshold(size_t threshold) { youngThreshold.store(threshold, std::memory_order_relaxed); }
+    void SetMixedThreshold(size_t threshold) { mixedThreshold.store(threshold, std::memory_order_relaxed); }
+
+private:
+    std::atomic<size_t> youngThreshold{ 0 };
+    std::atomic<size_t> mixedThreshold{ 0 };
+    std::atomic<size_t> allocationBytes{ 0 };
+    std::atomic<uint64_t> allocationStartTime{ 0 };
+    double allocationSpeed = 0.0;
 };
 extern size_t g_gcCount;
 extern uint64_t g_gcTotalTimeUs;

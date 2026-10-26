@@ -89,7 +89,7 @@ public struct BatchSizeOneInputProvider<T> <: BenchInputProvider<T> {
     @Frozen
     public mut func reset(max: Int64) {
         if (max > 1) {
-            throw IllegalStateException("Please set `batchSize` parameter equal to 1 in @Configure.")
+            throw IllegalStateException("Invalid configuration value 'batchSize': must be equal to 1, got '${max}'.")
         }
         data = builder()
     }
@@ -153,7 +153,7 @@ struct MockBenchWrapper<T> <: BenchmarkWrapper {
         MockFramework.closeSession()
         result
     }
-    
+
     public func measureLoopOnce(times: Int64, max: Int64, batchSize: Int64): Float64 {
         runBenchStepWithMock {
             f(input, times, max, batchSize, m)
@@ -201,7 +201,8 @@ extend Configuration <: BenchmarkConfig {
 
     public func batchSize(x: Range<Int64>) {
         if (x.end < 1 || x.end > MAX_BATCH_SIZE) {
-            throw IllegalArgumentException("batch size must be in range from 1 to ${MAX_BATCH_SIZE}")
+            throw IllegalArgumentException(
+                "Invalid configuration value 'batchSize': must be in range from '1' to '${MAX_BATCH_SIZE}', got '${x.start}..${x.end}'.")
         }
         this.set(KeyBatchSize.batchSize, x)
     }

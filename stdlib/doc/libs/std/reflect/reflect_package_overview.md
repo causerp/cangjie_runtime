@@ -31,7 +31,7 @@
 | --------------------------------- |----------------------------------------|
 | [ClassTypeInfo](./reflect_package_api/reflect_package_classes.md#class-classtypeinfo) | 描述 `class` 类型的类型信息。                      |
 | [ConstructorInfo](./reflect_package_api/reflect_package_classes.md#class-constructorinfo)| 描述构造函数信息。           |
-| <!--DelRow--> [EnumConstructorTypeInfo](./reflect_package_api/reflect_package_classes.md#class-enumconstructorinfo)| 描述 `enum` 的构造子信息。           |
+| <!--DelRow--> [EnumConstructorInfo](./reflect_package_api/reflect_package_classes.md#class-enumconstructorinfo)| 描述 `enum` 的构造器信息。           |
 | <!--DelRow--> [EnumTypeInfo](./reflect_package_api/reflect_package_classes.md#class-enumtypeinfo)| 描述 `enum` 类型信息。           |
 | <!--DelRow--> [FunctionTypeInfo](./reflect_package_api/reflect_package_classes.md#class-functiontypeinfo)| 描述函数类型信息。           |
 | [GenericTypeInfo](./reflect_package_api/reflect_package_classes.md#class-generictypeinfo) | 描述泛型信息。|

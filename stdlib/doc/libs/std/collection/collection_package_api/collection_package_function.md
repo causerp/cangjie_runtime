@@ -178,9 +178,9 @@ public func collectArray<T>(it: Iterable<T>): Array<T>
 import std.collection.*
 
 main() {
-    // 创建一个ArrayList
-    let hashSet = [1, 2, 3, 4, 5]
-    let iterator = hashSet.iterator()
+    // 创建一个数组
+    let arr = [1, 2, 3, 4, 5]
+    let iterator = arr.iterator()
 
     // 将迭代器转换为数组
     let array = collectArray<Int64>(iterator)
@@ -222,8 +222,8 @@ import std.collection.*
 
 main() {
     // 创建一个数组
-    let hashSet = [1, 2, 3, 4, 5]
-    let iterator = hashSet.iterator()
+    let arr = [1, 2, 3, 4, 5]
+    let iterator = arr.iterator()
 
     // 将迭代器转换为ArrayList
     let arrayList = collectArrayList<Int64>(iterator)
@@ -1226,7 +1226,7 @@ main() {
 public func max<T>(it: Iterable<T>): Option<T> where T <: Comparable<T>
 ```
 
-功能：筛选最大的元素。
+功能：获取最大的元素。
 
 参数：
 
@@ -1280,7 +1280,7 @@ main() {
 public func min<T>(it: Iterable<T>): Option<T> where T <: Comparable<T>
 ```
 
-功能：筛选最小的元素。
+功能：获取最小的元素。
 
 参数：
 
@@ -1532,7 +1532,7 @@ main() {
     let array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     let iterator = array.iterator()
 
-    // 创建一个指针移动2个元素的函数
+    // 创建一个步长为2的取元素转换函数
     let stepFunc = step<Int64>(2)
 
     // 应用函数

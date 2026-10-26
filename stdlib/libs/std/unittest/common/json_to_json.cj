@@ -66,7 +66,7 @@ extend DataModel <: ToJson {
             case ja: JsonArray => buildDMSeq(ja)
             case jo: JsonObject => buildDMStruct(jo)
             case _: JsonNull => DataModelNull()
-            case _ => throw IllegalStateException()
+            case _ => throw Exception("Internal error. Unmatched JsonValue type.")
         }
     }
 
@@ -120,7 +120,7 @@ extend DataModel <: ToJson {
             case dmstr: DataModelString => return JsonString(dmstr.getValue())
             case dmseq: DataModelSeq => return toJson(dmseq)
             case dms: DataModelStruct => return toJson(dms)
-            case _ => throw JsonException("Unmatched DataModel type!")
+            case _ => throw JsonException("Internal error. Unmatched DataModel type.")
         }
     }
 

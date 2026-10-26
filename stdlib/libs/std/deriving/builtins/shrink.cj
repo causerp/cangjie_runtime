@@ -31,7 +31,7 @@ class ShrinkDeriving <: Deriving {
 
     public override func queryInterfaceInfo(interfaceName: QualifiedName): DerivingInterfaceInfo {
         if (interfaceName != SHRINK_NAME) {
-            throw IllegalArgumentException("Interface ${interfaceName} is not supported")
+            throw IllegalArgumentException("Interface ${interfaceName} is not supported.")
         }
         return SHRINK_INFO
     }

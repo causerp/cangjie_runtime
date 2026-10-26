@@ -613,7 +613,7 @@ To check if a PooledDatasource is closed:
 public func setOption(key: String, value: String): Unit
 ```
 
-功能：设置数据库驱动连接选项（公钥在 [SqlOption](database_sql_package_classes.md#class-sqloption) 中预定义）。
+功能：设置数据库驱动连接选项，常用的连接选项名称在 [SqlOption](database_sql_package_classes.md#class-sqloption) 中预定义。
 
 参数：
 
@@ -1061,7 +1061,7 @@ public class SqlBool <: SqlDbType {
 public prop name: String
 ```
 
-功能：类型名称，即 [SqlBool<sup>(deprecated)</sup>](database_sql_package_classes.md#class-sqlbool-deprecated)。
+功能：类型名称，即 [SqlBool <sup>(deprecated)</sup>](database_sql_package_classes.md#class-sqlbool-deprecated)。
 
 类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
@@ -1130,7 +1130,7 @@ Modified SqlBool value: false
 public init(v: Bool)
 ```
 
-功能：根据传入参数 v 构造一个 [SqlBool<sup>(deprecated)</sup>](database_sql_package_classes.md#class-sqlbool-deprecated) 实例。
+功能：根据传入参数 v 构造一个 [SqlBool <sup>(deprecated)</sup>](database_sql_package_classes.md#class-sqlbool-deprecated) 实例。
 
 参数：
 
@@ -1411,7 +1411,7 @@ public class SqlClob <: SqlDbType {
 }
 ```
 
-功能：变长超大字符串（RUNE LARGE OBJECT），对应仓颉 [InputStream](../../io/io_package_api/io_package_interfaces.md#interface-inputstream) 类型。
+功能：变长超大字符串（CHARACTER LARGE OBJECT），对应仓颉 [InputStream](../../io/io_package_api/io_package_interfaces.md#interface-inputstream) 类型。
 
 > **注意：**
 >
@@ -1427,7 +1427,7 @@ public class SqlClob <: SqlDbType {
 public prop name: String
 ```
 
-功能：类型名称，即 [SqlClob](database_sql_package_classes.md#class-sqlclob-deprecated)。
+功能：类型名称，即 [SqlClob <sup>(deprecated)</sup>](database_sql_package_classes.md#class-sqlclob-deprecated)。
 
 类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
@@ -1507,7 +1507,7 @@ Modified SqlClob value
 public init(v: InputStream)
 ```
 
-功能：根据传入参数 v 构造一个 [SqlClob](database_sql_package_classes.md#class-sqlclob-deprecated) 实例。
+功能：根据传入参数 v 构造一个 [SqlClob <sup>(deprecated)</sup>](database_sql_package_classes.md#class-sqlclob-deprecated) 实例。
 
 参数：
 
@@ -2455,7 +2455,7 @@ import std.database.sql.*
 import std.io.*
 
 main() {
-    // 创建一个SqlBlob实例
+    // 创建一个SqlNullableBlob实例
     let data: Array<Byte> = [1, 2, 3, 4, 5]
     let byteBuffer = ByteBuffer(data)
     let inputStream = BufferedInputStream(byteBuffer)
@@ -2540,22 +2540,19 @@ import std.database.sql.*
 import std.io.*
 
 main() {
-    // 创建一个SqlBlob实例
+    // 使用SqlNullableBlob的构造函数
     let data: Array<Byte> = [1, 2, 3, 4, 5]
     let byteBuffer = ByteBuffer(data)
     let inputStream = BufferedInputStream(byteBuffer)
-    let sqlNullBlob = SqlNullableBlob(Some(inputStream))
-
-    // 访问name属性
-    let name = sqlNullBlob.name
-    println("SqlNullableBlob name: ${name}")
+    let sqlNullableBlob = SqlNullableBlob(Some(inputStream))
+    println("Created SqlNullableBlob with name: ${sqlNullableBlob.name}")
 }
 ```
 
 运行结果：
 
 ```text
-SqlNullableBlob name: SqlNullableBlob
+Created SqlNullableBlob with name: SqlNullableBlob
 ```
 
 ## class SqlNullableBool <sup>(deprecated)</sup>
@@ -2932,7 +2929,7 @@ public class SqlNullableClob <: SqlNullableDbType {
 }
 ```
 
-功能：变长超大字符串（RUNE LARGE OBJECT），对应仓颉 [InputStream](../../io/io_package_api/io_package_interfaces.md#interface-inputstream) 类型，可为数据库 `Null` 值。
+功能：变长超大字符串（CHARACTER LARGE OBJECT），对应仓颉 [InputStream](../../io/io_package_api/io_package_interfaces.md#interface-inputstream) 类型，可为数据库 `Null` 值。
 
 > **注意：**
 >
@@ -5148,7 +5145,7 @@ public static const Tls12Ciphersuites: String = "tls1.2.ciphersuites"
 ```
 
 功能：此选项指定客户端允许使用 TLSv1.2 及以下的加密连接使用哪些密码套件。
-值为冒号分隔的字符串，比如 `TLS_ECDHE_ECDSA_WITH_AES_128_GCM_[SHA256]():TLS_DHE_RSA_WITH_AES_128_CBC_SHA`。
+值为冒号分隔的字符串，比如 `TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256:TLS_DHE_RSA_WITH_AES_128_CBC_SHA`。
 
 类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
@@ -5177,7 +5174,7 @@ public static const Tls13Ciphersuites: String = "tls1.3.ciphersuites"
 ```
 
 功能：此选项指定客户端允许使用 TLSv1.3 的加密连接使用哪些密码套件。
-值为冒号分隔的字符串，比如 `TLS_AES_256_GCM_[SHA384]():TLS_CHACHA20_POLY1305_[SHA256]()`。
+值为冒号分隔的字符串，比如 `TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256`。
 
 类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 

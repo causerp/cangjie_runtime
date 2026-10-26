@@ -42,7 +42,7 @@ public macro Skip(attr: Tokens, input: Tokens): Tokens {
         case compareTokens(attr, true.toTokens()) => ()
         case compareTokens(attr, false.toTokens()) =>
             return input
-        case _ => throw MacroException("@Skip can only be used with true or false")
+        case _ => throw MacroException("@Skip macro can only be used with true or false, got '${attr}'.")
     }
     return topLevelMacroDriver(SKIP_MACRO, input, Tokens(), { it => insideParentContext(it.macroIdentifier) })
 }

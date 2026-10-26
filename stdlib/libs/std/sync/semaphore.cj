@@ -20,7 +20,7 @@ public class Semaphore {
      */
     public init(count: Int64) {
         if (count < 0) {
-            throw IllegalArgumentException("Negative count.")
+            throw IllegalArgumentException("Invalid argument 'count': must be non-negative, got ${count}.")
         }
         initValue = count
         countValue = AtomicInt64(count)
@@ -46,7 +46,7 @@ public class Semaphore {
      */
     public func acquire(amount!: Int64 = 1): Unit {
         if (amount < 0 || amount > initValue) {
-            throw IllegalArgumentException("Invalid amount to acquire.")
+            throw IllegalArgumentException("Invalid argument 'amount': must be between 0 and ${initValue}, got ${amount}.")
         }
         synchronized(monitor) {
             while (countValue.load() < amount) {
@@ -64,7 +64,7 @@ public class Semaphore {
      */
     public func tryAcquire(amount!: Int64 = 1): Bool {
         if (amount < 0 || amount > initValue) {
-            throw IllegalArgumentException("Invalid amount to acquire.")
+            throw IllegalArgumentException("Invalid argument 'amount': must be between 0 and ${initValue}, got ${amount}.")
         }
         synchronized(monitor) {
             if (countValue.load() < amount) {
@@ -85,7 +85,7 @@ public class Semaphore {
      */
     public func release(amount!: Int64 = 1): Unit {
         if (amount < 0 || amount > initValue) {
-            throw IllegalArgumentException("Invalid amount to release.")
+            throw IllegalArgumentException("Invalid argument 'amount': must be between 0 and ${initValue}, got ${amount}.")
         }
         synchronized(monitor) {
             let oldValue = countValue.load()

@@ -16,7 +16,7 @@ package std.fs
 public func canonicalize(path: String): Path {
     PathValidator.throwIfEmptyOrContainsNullByte("path", path, true)
     if (!exists(path)) {
-        throw FSException("Failed to canonical: the input path `${path}` may not exist or permission denied!")
+        throw FSException("Failed to canonicalize path '${path}': path does not exist or permission denied.")
     }
 
     return Path(processPathHeader(path, Path.canonicalizePath(path)))
@@ -27,7 +27,7 @@ public func canonicalize(path: Path): Path {
 
     let rawPath = path.toString()
     if (!exists(rawPath)) {
-        throw FSException("Failed to canonical: the input path `${path}` may not exist or permission denied!")
+        throw FSException("Failed to canonicalize path '${path}': path does not exist or permission denied.")
     }
     return Path(processPathHeader(rawPath, Path.canonicalizePath(rawPath)))
 }
@@ -135,7 +135,7 @@ public struct Path <: Equatable<Path> & Hashable & ToString {
         }
         let specialPrefix = #"\??\"#
         if (path.contains(specialPrefix)) {
-            throw IllegalArgumentException("Path `${path}` cannot contain `${specialPrefix}`!")
+            throw IllegalArgumentException("Invalid path '${path}': cannot contain '${specialPrefix}'.")
         }
     }
 
@@ -154,7 +154,7 @@ public struct Path <: Equatable<Path> & Hashable & ToString {
             return Path(String.join([_rawPath, SLASH_STRING]))
         }
         if (isAbsolutePath(path)) {
-            throw FSException("The input path `${path}` cannot be an absolute path!")
+            throw FSException("Invalid argument 'path': '${path}' cannot be an absolute path.")
         }
         var newPath = if (isSlash(_rawPath[_rawPath.size - 1])) {
             String.join([_rawPath, path])
@@ -338,7 +338,7 @@ public struct Path <: Equatable<Path> & Hashable & ToString {
             releaseArrayRawData(arrPtr)
             LibC.free(cPath)
             if (resultptr.isNull()) {
-                throw FSException("Failed malloc in C code!")
+                throw FSException("Memory allocation failed in native code.")
             }
             let result = resultptr.read()
             LibC.free(resultptr)
@@ -346,7 +346,7 @@ public struct Path <: Equatable<Path> & Hashable & ToString {
             if (availLen <= 0) {
                 try {
                     let errMessage = result.msg.toString()
-                    throw FSException("Failed to canonical path `${pathStr}` return ${result.rtnCode}: \"${errMessage.trimAscii()}\".")
+                    throw FSException("Failed to canonicalize path '${pathStr}': error code '${result.rtnCode}', ${errMessage.trimAscii()}.")
                 } finally {
                     LibC.free(result.msg)
                 }
@@ -361,13 +361,13 @@ class PathValidator {
 
     static func throwIfEmpty(name: String, path: String, isInput: Bool): Unit {
         if (path.isEmpty()) {
-            throw IllegalArgumentException(generateExceptionMessage(name, "is empty", isInput))
+            throw IllegalArgumentException(generateExceptionMessage(name, "cannot be empty", isInput))
         }
     }
 
     static func throwIfContainsNullByte(name: String, path: String, isInput: Bool): Unit {
         if (path.contains(NULL_BYTE)) {
-            throw IllegalArgumentException(generateExceptionMessage(name, "value ${unsafe { path.rawData() }} contains null character", isInput))
+            throw IllegalArgumentException(generateExceptionMessage(name, "value '${unsafe { path.rawData() }}' contains null character", isInput))
         }
     }
 
@@ -381,13 +381,9 @@ class PathValidator {
     }
 
     private static func generateExceptionMessage(name: String, postfix: String, isInput: Bool): String {
-        let sb = StringBuilder(if (isInput) { "The input path " } else { "The path " })
-        if (name != "path") {
-            sb.append('\'')
-            sb.append(name)
-            sb.append('\'')
-            sb.append(' ')
-        }
+        let sb = StringBuilder("Invalid argument '")
+        sb.append(name)
+        sb.append("': ")
         sb.append(postfix)
         sb.append('.')
         return sb.toString()

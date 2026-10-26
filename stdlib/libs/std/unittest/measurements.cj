@@ -15,11 +15,11 @@ import std.time.*
 import std.collection.*
 /**
  * Interface for all kinds of data that can be collected and analyzed during benchmarking.
- */ 
+ */
 public interface Measurement {
 
     @Frozen
-    func setup(): Unit {} 
+    func setup(): Unit {}
 
     /**
      * @return representation of the measurement data that will be used for statistical analisys
@@ -71,7 +71,7 @@ public struct MeasurementInfo {
 }
 
 /**
- * Conversion table for <value>, contains <value> multiplier and its measurement unit. 
+ * Conversion table for <value>, contains <value> multiplier and its measurement unit.
  */
 public type MeasurementUnitTable = Array<(Float64, String)>
 
@@ -82,7 +82,7 @@ let RADIX_UNIT_TABLE: MeasurementUnitTable = [
     TimeUnit.Seconds.conversionRow()
 ]
 
-// TODO: use that for printing test duration as well 
+// TODO: use that for printing test duration as well
 func printDuration(dur: Duration): String {
     let duration = Float64(dur.toNanoseconds())
     TimeNow().conversionTable.toString(duration)
@@ -102,7 +102,7 @@ extend MeasurementUnitTable {
     }
 
     /**
-     * Representation of measured `value` in suitable measurement unit. 
+     * Representation of measured `value` in suitable measurement unit.
      */
     func toString(value: Float64): String {
         let (boundary, unit) = suitablePair(value)
@@ -110,7 +110,7 @@ extend MeasurementUnitTable {
     }
 
     /**
-     * Representation of measured `value` in suitable measurement `unit` in `boundary`. 
+     * Representation of measured `value` in suitable measurement `unit` in `boundary`.
      */
     func toString(value: Float64, boundary!: Float64, unit!: String): String {
         if (value.isInf() || value.isNaN()) {
@@ -171,7 +171,7 @@ extend MeasurementUnitTable {
 public struct TimeNow <: Measurement {
     var unit: ?TimeUnit = None
     private static let START: MonoTime = MonoTime.now()
-    
+
     /**
      * @param unit Allows to specify a unit of time that will be used for printing results.
      */
@@ -204,8 +204,8 @@ public struct TimeNow <: Measurement {
             let unitStr = match (unit) {
                 case None => ""
                 case Some(u) => "(${u})"
-            } 
-            "Duration${unitStr}" 
+            }
+            "Duration${unitStr}"
         }
     }
 
@@ -260,7 +260,7 @@ foreign func GetRdtscp(): UInt64
 public struct CpuCycles <: Measurement {
 
     @Frozen
-    public func measure(): Float64 { 
+    public func measure(): Float64 {
         unsafe { Float64(GetRdtscp()) }
     }
 
@@ -302,22 +302,22 @@ public struct Perf <: Measurement {
             case 0 => return
             case 13 => // EACCESS
                 throw Exception("""
-Not enough permissions to access performance counters. You need to reduce required permission by 
-setting `kernel.perf_event_paranoid` system configuration parameter to value 1 or less. 
-On systemd distributions it can be done with: 
+Not enough permissions to access performance counters. You need to reduce required permission by
+setting `kernel.perf_event_paranoid` system configuration parameter to value 1 or less.
+On systemd distributions it can be done with:
     sudo sysctl kernel.perf_event_paranoid=1
 """)
             case 2|19|95 => // ENOENT|ENODEV|EOPNOTSUPP
-                throw Exception("${counter} performance counter is unsupported by current CPU or linux kernel. errno=${rc}")
-            case _ => throw Exception("Initialization for ${counter} performance counter failed. perf_event_open syscall returned errno=${rc}")
+                throw Exception("${counter} performance counter is unsupported by current CPU or linux kernel. errno='${rc}'.")
+            case _ => throw Exception("Initialization for ${counter} performance counter failed. perf_event_open syscall returned errno='${rc}'.")
         }
     }
 
     @Frozen
-    public func measure(): Float64 { 
+    public func measure(): Float64 {
         let result = unsafe { ReadPerf() }
         if (result == UInt64.Max) {
-            throw Exception("Error while reading performance counter descriptor")
+            throw Exception("Error while reading performance counter descriptor.")
         }
         Float64(result)
     }
@@ -331,9 +331,9 @@ On systemd distributions it can be done with:
     }
 
     public prop textDescription: String {
-        get() { 
+        get() {
             "Measures how many ${counter.description()} has happened during the execution using linux perf facility with ${counter} counter.\n"+
-            "For more details about specific counter see documentation for perf_event_open linux syscall" 
+            "For more details about specific counter see documentation for perf_event_open linux syscall"
         }
     }
 }
@@ -365,7 +365,7 @@ public enum PerfCounter <: ToString {
     func asRaw(): Int32 {
         match (this) {
             case HW_CPU_CYCLES => 0
-            case HW_INSTRUCTIONS => 1 
+            case HW_INSTRUCTIONS => 1
             case HW_CACHE_REFERENCES => 2
             case HW_CACHE_MISSES => 3
             case HW_BRANCH_INSTRUCTIONS => 4
@@ -454,7 +454,7 @@ public enum PerfCounter <: ToString {
         }
     }
 }
- 
+
 let MEMORY_UNIT_TABLE: MeasurementUnitTable = [
     (1.0, "Bytes"),
     (Float64(2**10), "KiB"),
@@ -470,8 +470,8 @@ public struct Runtime <: Measurement {
     static var unaccounted = 0.0
 
     public Runtime(let variant: RuntimeInfo) {}
-    
-    public func setup() {  
+
+    public func setup() {
         // some measurements significantly interfere with explicitGC strategy
         // so we ensure that information from internal GC invocations will not be lost
         if (lastAccountedResult != 0.0 && measuresGC()) {
@@ -492,7 +492,7 @@ public struct Runtime <: Measurement {
     }
 
     @Frozen
-    public func measure(): Float64 { 
+    public func measure(): Float64 {
         lastAccountedResult = measureRaw()
 
         if (unaccounted != 0.0) {
@@ -505,7 +505,7 @@ public struct Runtime <: Measurement {
     }
 
     public prop conversionTable: MeasurementUnitTable {
-        get() { 
+        get() {
             match (variant) {
                 case AllocatedMemory => MEMORY_UNIT_TABLE
                 case GCTime => RADIX_UNIT_TABLE

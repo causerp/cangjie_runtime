@@ -129,7 +129,9 @@ private func diagnoseEnumCaseTypes(
 
             counter++
             errors.add(quote(
-                func $checkFunctionName<$genericName>(_: $t): $upperBound where $constraints { throw Exception() }
+                func $checkFunctionName<$genericName>(_: $t): $upperBound where $constraints {
+                    throw Exception("Unreachable.")
+                }
                 let _ = $checkFunctionName<$t>
             ))
         }
@@ -190,7 +192,8 @@ private func diagnoseOrdering(
         let message = "Not all attributes included: ${missing}"
         match (at) {
             case Some(at) => logger.error(at, message)
-            case None => throw MacroContextException(message) // we have no tokens to complain at
+            case None =>
+                throw IllegalStateException("Unreachable.")
         }
     }
 

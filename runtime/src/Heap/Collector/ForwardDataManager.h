@@ -158,6 +158,19 @@ public:
         return bitmap;
     }
 
+    AgeBitmap* AllocateAgeBitmap(size_t regionSize)
+    {
+        uintptr_t addr = liveInfoData[currentTagID].Allocate(ForwardDataSpace::Zone::ZoneType::BIT_MAP,
+                                                             AgeBitmap::GetAgeBitmapSize(regionSize));
+        AgeBitmap* bitmap = reinterpret_cast<AgeBitmap*>(addr);
+        CHECK(bitmap != nullptr);
+        size_t wordCnt = AgeBitmap::WordCount(regionSize);
+        for (size_t i = 0; i < wordCnt; i++) {
+            new (&bitmap->ageWords[i]) std::atomic<uint64_t>(0);
+        }
+        return bitmap;
+    }
+
     LiveInfo* AllocateLiveInfo()
     {
         return reinterpret_cast<LiveInfo*>(
@@ -180,7 +193,7 @@ private:
         // 64: bitmap 1 bit marks the 64 bits in region.
         constexpr uint8_t bitMarksSize = 64;
         // 3 bitmap for each region: markBitmap,resurrectBitmap, enqueueBitmap.
-        constexpr uint8_t bitmapNum = 3;
+        constexpr uint8_t bitmapNum = 7;
         return unitCnt * sizeof(LiveInfo) +
             unitCnt * (sizeof(RegionBitmap) + (REGION_UNIT_SIZE / bitMarksSize)) * bitmapNum;
     }

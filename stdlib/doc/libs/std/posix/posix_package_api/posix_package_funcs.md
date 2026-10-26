@@ -634,7 +634,7 @@ public func faccessat(fd: Int32, path: String, mode: Int32, flag: Int32): Int32
 - fd: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - 文件描述符。
 - path: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 文件路径。
 - mode: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - 待检查的权限。
-- flag: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - 将以下一个或多个值按位或运算获取。`(512)`使用有效的用户和组 `ID` 执行访问检查，默认情况下使用有效 `ID`；`(256)` 如果路径名是符号链接，不会取消引用而是返回有关链接本身信息。
+- flag: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - 将以下一个或多个值按位或运算获取。`(512)` 使用有效的用户和组 `ID` 执行访问检查，默认情况下使用有效 `ID`；`(256)` 如果路径名是符号链接，不会取消引用而是返回有关链接本身信息。
 
 返回值：
 

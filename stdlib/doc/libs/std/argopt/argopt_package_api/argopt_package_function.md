@@ -101,5 +101,5 @@ main(): Unit {
   output: output.txt
 非选项参数:
   file1.txt
-捕获到异常: Unknown option: x.
+捕获到异常: Unknown option 'x'.
 ```

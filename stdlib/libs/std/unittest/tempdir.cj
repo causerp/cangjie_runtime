@@ -88,7 +88,7 @@ class TempDirectory {
             } catch (_) {
             }
         }
-        throw Exception("Too many attempts to create a temporary file")
+        throw Exception("Failed to create temporary file after exceeding ${MAX_ATTEMPTS} attempts.")
     }
 
     func createTempPath(dir!: Path = path, prefix!: String = "tempFile", suffix!: String = ".tmp"): Path {
@@ -98,6 +98,6 @@ class TempDirectory {
                 return path
             }
         }
-        throw Exception("Too many attempts to create a temporary file")
+        throw Exception("Failed to create temporary file after exceeding ${MAX_ATTEMPTS} attempts.")
     }
 }

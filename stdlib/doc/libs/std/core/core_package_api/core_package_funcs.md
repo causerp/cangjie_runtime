@@ -102,7 +102,7 @@ public func eprint(str: String, flush!: Bool = true): Unit
 参数：
 
 - str: [String](core_package_structs.md#struct-string) - 待输出的字符串。
-- flush!: [Bool](core_package_intrinsics.md#bool) - 是否将缓存数据区的内容立即刷新写入与标准错误流相关的文件和设备中，true 表示立即刷新，false 表示暂不刷新 ，默认 false。
+- flush!: [Bool](core_package_intrinsics.md#bool) - 是否将缓冲数据区的内容立即刷新写入与标准错误流相关的文件和设备中，true 表示立即刷新，false 表示暂不刷新 ，默认 false。
 
 示例：
 
@@ -136,7 +136,7 @@ public func eprint<T>(arg: T, flush!: Bool = false): Unit where T <: ToString
 参数：
 
 - arg: T - 待打印的 T 类型实例，该函数将打印其 toString 的返回值。
-- flush!: [Bool](core_package_intrinsics.md#bool) - 是否清空缓存，true 清空，false 不清空，默认 false。
+- flush!: [Bool](core_package_intrinsics.md#bool) - 是否清空缓冲区，true 清空，false 不清空，默认 false。
 
 示例：
 
@@ -160,11 +160,7 @@ class Rectangle <: ToString {
 }
 
 main() {
-    try {
-        throw NegativeArraySizeException("I am an Exception!")
-    } catch (e: NegativeArraySizeException) {
-        eprint<Rectangle>(Rectangle(10, 20), flush: true)
-    }
+    eprint<Rectangle>(Rectangle(10, 20), flush: true)
 }
 ```
 
@@ -377,7 +373,7 @@ public func max<T>(a: T, b: T, others: Array<T>): T where T <: Comparable<T>
 
 > **注意：**
 >
-> 浮点数类型的比较也将按照 [Comparable](./core_package_interfaces.md#interface-comparablet) 的结果进行比较，如果浮点数中有非数 `NaN`，结果将不正确，此时建议使用 [Float16](./core_package_intrinsics.md#float16)、[Float32](./core_package_intrinsics.md#float32)、[Float64](./core_package_intrinsics.md#float64) 的 `static func max`方法。
+> 浮点数类型的比较也将按照 [Comparable](./core_package_interfaces.md#interface-comparablet) 的结果进行比较，如果浮点数中有非数 `NaN`，结果将不正确，此时建议使用 [Float16](./core_package_intrinsics.md#float16)、[Float32](./core_package_intrinsics.md#float32)、[Float64](./core_package_intrinsics.md#float64) 的 `static func max` 方法。
 
 参数：
 
@@ -444,7 +440,7 @@ public func min<T>(a: T, b: T, others: Array<T>): T where T <: Comparable<T>
 
 > **注意：**
 >
-> 浮点数类型的比较也将按照 [Comparable](./core_package_interfaces.md#interface-comparablet) 的结果进行比较，如果浮点数中有非数`NaN`，结果将不正确，此时建议使用 [Float16](./core_package_intrinsics.md#float16)、[Float32](./core_package_intrinsics.md#float32)、[Float64](./core_package_intrinsics.md#float64) 的 `static func min`方法。
+> 浮点数类型的比较也将按照 [Comparable](./core_package_interfaces.md#interface-comparablet) 的结果进行比较，如果浮点数中有非数 `NaN`，结果将不正确，此时建议使用 [Float16](./core_package_intrinsics.md#float16)、[Float32](./core_package_intrinsics.md#float32)、[Float64](./core_package_intrinsics.md#float64) 的 `static func min` 方法。
 
 参数：
 
@@ -515,7 +511,7 @@ public func print(b: Bool, flush!: Bool = false): Unit
 参数：
 
 - b: [Bool](core_package_intrinsics.md#bool) - 待输出的 [Bool](core_package_intrinsics.md#bool) 类型数据。
-- flush!: [Bool](core_package_intrinsics.md#bool) - 是否清空缓存，true 清空，false 不清空，默认 false。
+- flush!: [Bool](core_package_intrinsics.md#bool) - 是否清空缓冲区，true 清空，false 不清空，默认 false。
 
 示例：
 
@@ -552,7 +548,7 @@ public func print(f: Float16, flush!: Bool = false): Unit
 参数：
 
 - f: [Float16](core_package_intrinsics.md#float16) - 待输出的 [Float16](core_package_intrinsics.md#float16) 类型数据。
-- flush!: [Bool](core_package_intrinsics.md#bool) - 是否清空缓存，true 清空，false 不清空，默认 false。
+- flush!: [Bool](core_package_intrinsics.md#bool) - 是否清空缓冲区，true 清空，false 不清空，默认 false。
 
 示例：
 
@@ -585,7 +581,7 @@ public func print(f: Float32, flush!: Bool = false): Unit
 参数：
 
 - f: [Float32](core_package_intrinsics.md#float32) - 待输出的 [Float32](core_package_intrinsics.md#float32) 类型数据。
-- flush!: [Bool](core_package_intrinsics.md#bool) - 是否清空缓存，true 清空，false 不清空，默认 false。
+- flush!: [Bool](core_package_intrinsics.md#bool) - 是否清空缓冲区，true 清空，false 不清空，默认 false。
 
 示例：
 
@@ -618,7 +614,7 @@ public func print(f: Float64, flush!: Bool = false): Unit
 参数：
 
 - f: [Float64](core_package_intrinsics.md#float64) - 待输出的 [Float64](core_package_intrinsics.md#float64) 类型数据。
-- flush!: [Bool](core_package_intrinsics.md#bool) - 是否清空缓存，true 清空，false 不清空，默认 false。
+- flush!: [Bool](core_package_intrinsics.md#bool) - 是否清空缓冲区，true 清空，false 不清空，默认 false。
 
 示例：
 
@@ -651,7 +647,7 @@ public func print(i: Int16, flush!: Bool = false): Unit
 参数：
 
 - i: [Int16](core_package_intrinsics.md#int16) - 待输出的 [Int16](core_package_intrinsics.md#int16) 类型数据。
-- flush!: [Bool](core_package_intrinsics.md#bool) - 是否清空缓存，true 清空，false 不清空，默认 false。
+- flush!: [Bool](core_package_intrinsics.md#bool) - 是否清空缓冲区，true 清空，false 不清空，默认 false。
 
 示例：
 
@@ -684,7 +680,7 @@ public func print(i: Int32, flush!: Bool = false): Unit
 参数：
 
 - i: [Int32](core_package_intrinsics.md#int32) - 待输出的 [Int32](core_package_intrinsics.md#int32) 类型数据。
-- flush!: [Bool](core_package_intrinsics.md#bool) - 是否清空缓存，true 清空，false 不清空，默认 false。
+- flush!: [Bool](core_package_intrinsics.md#bool) - 是否清空缓冲区，true 清空，false 不清空，默认 false。
 
 示例：
 
@@ -717,7 +713,7 @@ public func print(i: Int64, flush!: Bool = false): Unit
 参数：
 
 - i: [Int64](core_package_intrinsics.md#int64) - 待输出的 [Int64](core_package_intrinsics.md#int64) 类型数据。
-- flush!: [Bool](core_package_intrinsics.md#bool) - 是否清空缓存，true 清空，false 不清空，默认 false。
+- flush!: [Bool](core_package_intrinsics.md#bool) - 是否清空缓冲区，true 清空，false 不清空，默认 false。
 
 示例：
 
@@ -750,7 +746,7 @@ public func print(i: Int8, flush!: Bool = false): Unit
 参数：
 
 - i: [Int8](core_package_intrinsics.md#int8) - 待输出的 [Int8](core_package_intrinsics.md#int8) 类型数据。
-- flush!: [Bool](core_package_intrinsics.md#bool) - 是否清空缓存，true 清空，false 不清空，默认 false。
+- flush!: [Bool](core_package_intrinsics.md#bool) - 是否清空缓冲区，true 清空，false 不清空，默认 false。
 
 示例：
 
@@ -783,7 +779,7 @@ public func print(c: Rune, flush!: Bool = false): Unit
 参数：
 
 - c: [Rune](../../core/core_package_api/core_package_intrinsics.md#rune) - 待输出的 [Rune](../../core/core_package_api/core_package_intrinsics.md#rune) 类型数据。
-- flush!: [Bool](core_package_intrinsics.md#bool) - 是否清空缓存，true 清空，false 不清空，默认 false。
+- flush!: [Bool](core_package_intrinsics.md#bool) - 是否清空缓冲区，true 清空，false 不清空，默认 false。
 
 示例：
 
@@ -812,7 +808,7 @@ public func print(str: String, flush!: Bool = false): Unit
 参数：
 
 - str: [String](core_package_structs.md#struct-string) - 待输出的字符串。
-- flush!: [Bool](core_package_intrinsics.md#bool) - 是否清空缓存，true 清空，false 不清空，默认 false。
+- flush!: [Bool](core_package_intrinsics.md#bool) - 是否清空缓冲区，true 清空，false 不清空，默认 false。
 
 示例：
 
@@ -841,7 +837,7 @@ public func print(i: UInt16, flush!: Bool = false): Unit
 参数：
 
 - i: [UInt16](core_package_intrinsics.md#uint16) - 待输出的 [UInt16](core_package_intrinsics.md#uint16) 类型数据。
-- flush!: [Bool](core_package_intrinsics.md#bool) - 是否清空缓存，true 清空，false 不清空，默认 false。
+- flush!: [Bool](core_package_intrinsics.md#bool) - 是否清空缓冲区，true 清空，false 不清空，默认 false。
 
 示例：
 
@@ -874,7 +870,7 @@ public func print(i: UInt32, flush!: Bool = false): Unit
 参数：
 
 - i: [UInt32](core_package_intrinsics.md#uint32) - 待输出的 [UInt32](core_package_intrinsics.md#uint32) 类型数据。
-- flush!: [Bool](core_package_intrinsics.md#bool) - 是否清空缓存，true 清空，false 不清空，默认 false。
+- flush!: [Bool](core_package_intrinsics.md#bool) - 是否清空缓冲区，true 清空，false 不清空，默认 false。
 
 示例：
 
@@ -907,7 +903,7 @@ public func print(i: UInt64, flush!: Bool = false): Unit
 参数：
 
 - i: [UInt64](core_package_intrinsics.md#uint64) - 待输出的 [UInt64](core_package_intrinsics.md#uint64) 类型数据。
-- flush!: [Bool](core_package_intrinsics.md#bool) - 是否清空缓存，true 清空，false 不清空，默认 false。
+- flush!: [Bool](core_package_intrinsics.md#bool) - 是否清空缓冲区，true 清空，false 不清空，默认 false。
 
 示例：
 
@@ -940,7 +936,7 @@ public func print(i: UInt8, flush!: Bool = false): Unit
 参数：
 
 - i: [UInt8](core_package_intrinsics.md#uint8) - 待输出的 [UInt8](core_package_intrinsics.md#uint8) 类型数据。
-- flush!: [Bool](core_package_intrinsics.md#bool) - 是否清空缓存，true 清空，false 不清空，默认 false。
+- flush!: [Bool](core_package_intrinsics.md#bool) - 是否清空缓冲区，true 清空，false 不清空，默认 false。
 
 示例：
 
@@ -973,7 +969,7 @@ public func print<T>(arg: T, flush!: Bool = false): Unit where T <: ToString
 参数：
 
 - arg: T - 待输出的数据，支持实现了 [ToString](core_package_interfaces.md#interface-tostring) 接口的类型。
-- flush!: [Bool](core_package_intrinsics.md#bool) - 是否清空缓存，true 清空，false 不清空，默认 false。
+- flush!: [Bool](core_package_intrinsics.md#bool) - 是否清空缓冲区，true 清空，false 不清空，默认 false。
 
 示例：
 

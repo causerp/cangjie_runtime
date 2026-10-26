@@ -10,6 +10,7 @@ package std.objectpool
 
 import std.collection.concurrent.*
 
+@FastNative
 foreign func CJ_Gettid(): UInt64
 
 const POOL_COUNT: UInt64 = 50 // count of LocalPool in each ObjectPool

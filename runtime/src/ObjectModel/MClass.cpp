@@ -925,7 +925,7 @@ bool TypeInfo::IsOptionLikeRefEnum()
     if (IsEnumCtor()) {
         enumInfo = GetSuperTypeInfo()->GetEnumInfo();
     }
-    if (!enumInfo->IsEnumKind2()) {
+    if (enumInfo == nullptr || !enumInfo->IsEnumKind2()) {
         return false;
     }
     if (!GetFieldType(0)->IsBool()) {
@@ -943,7 +943,7 @@ bool TypeInfo::IsZeroSizedEnum()
         return GetInstanceSize() == 0;
     }
     EnumInfo* enumInfo = GetEnumInfo();
-    if (!enumInfo->IsEnumKind0()) {
+    if (enumInfo == nullptr || !enumInfo->IsEnumKind0()) {
         return false;
     }
     U32 ctorNum = enumInfo->GetNumOfEnumCtor();
@@ -963,7 +963,7 @@ bool TypeInfo::IsOptionLikeUnassociatedCtor()
         return false;
     }
     EnumInfo* enumInfo = GetSuperTypeInfo()->GetEnumInfo();
-    if (!enumInfo->IsEnumKind2()) {
+    if (enumInfo == nullptr || !enumInfo->IsEnumKind2()) {
         return false;
     }
     U32 num = enumInfo->GetNumOfEnumCtor();
@@ -971,7 +971,9 @@ bool TypeInfo::IsOptionLikeUnassociatedCtor()
         TypeInfo* ctorTi = enumInfo->GetCtorTypeInfo(idx);
         if (ctorTi->GetUUID() == GetUUID()) {
             CString ctorName = CString(enumInfo->GetEnumCtor(idx)->GetName());
-            return ctorName.StartWith("N$_");
+            // Older SDKs encode the unassociated constructor with the N$_ prefix.
+            // The current SDK exposes the unassociated constructor as None.
+            return ctorName == CString("None") || ctorName.StartWith("N$_");
         }
     }
     return false;

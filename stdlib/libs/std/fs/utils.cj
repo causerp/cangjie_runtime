@@ -369,7 +369,7 @@ func callNativeFunc(path: String, nativeFunc: CFunc<(CString) -> CPointer<FsErro
         let resultptr = nativeFunc(cPath)
         if (resultptr.isNull()) {
             LibC.free(cPath)
-            throw FSException("Failed malloc in C code!")
+            throw FSException("Memory allocation failed in native code.")
         }
         let result = resultptr.read()
         LibC.free(resultptr)
@@ -377,7 +377,7 @@ func callNativeFunc(path: String, nativeFunc: CFunc<(CString) -> CPointer<FsErro
         if (result.rtnCode < 0) {
             try {
                 let errMessage = result.msg.toString()
-                throw FSException("${errMsgPrefix} return ${result.rtnCode}: \"${errMessage.trimAscii()}\".")
+                throw FSException("${errMsgPrefix}: error code '${result.rtnCode}', ${errMessage.trimAscii()}.")
             } finally {
                 LibC.free(result.msg)
             }
@@ -395,7 +395,7 @@ func callNativeFunc(
         try (cPath1 = LibC.mallocCString(path1).asResource(), cPath2 = LibC.mallocCString(path2).asResource()) {
             var ret: Int8 = nativeFunction(cPath1.value, cPath2.value)
             if (ret < 0) {
-                throw FSException("${msg} input paths are `${path1}` and `${path2}`, native function error return ${ret}.")
+                throw FSException("${msg} for paths '${path1}' and '${path2}': native function returned error code '${ret}'.")
             }
         }
     }

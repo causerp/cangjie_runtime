@@ -130,7 +130,7 @@ class TestOutputReporter {
 
     private static func reportInconsistentOptions(first: String, second: String): Nothing {
         throw UnittestCliOptionsFormatException(
-            "Should not use both ${first} and ${second} options at once."
+            "Should not use both '${first}' and '${second}' options at once."
         )
     }
 }
@@ -158,7 +158,7 @@ class PackageTextReport {
         pp.indent {
             for (groupResultPart in packageResult.subResults) {
                 match (groupResultPart) {
-                    case SuiteResult(suiteResult) => 
+                    case SuiteResult(suiteResult) =>
                         if (outputReporter.verbose || !allSkipped(suiteResult)) {
                             printTestSuite(suiteResult)
                         }
@@ -246,7 +246,7 @@ class PackageTextReport {
     private func printNegatives(suiteResult: TestSuiteResult) {
         suiteResult.visitAll<TestCaseResult> { tcr =>
             if (!tcr.hasFailures()) { return }
-            tcr.visitFailedSteps{ step, result => 
+            tcr.visitFailedSteps{ step, result =>
                 printEntry(failEntry(step, result.caseId, tcr.caseInfo))
             }
             if (!detailed) { return }
@@ -289,7 +289,7 @@ class PackageTextReport {
                 PrettyText()
             case _ => PrettyText()
         }
-        TextReportEntry(rp, caseName, caseInfo, bodyMessage: message) 
+        TextReportEntry(rp, caseName, caseInfo, bodyMessage: message)
     }
 
     private func printEntry(
@@ -395,7 +395,7 @@ class ProjectTextReport {
         printFailedPackages(packageResults)
         printErrorPackages(packageResults)
     }
-    
+
     private func printEmptyPackages(packageResults: ArrayList<TestGroupResult>): Unit {
         var first = true
         for (packageResult in packageResults where
@@ -453,9 +453,9 @@ class ProjectTextReport {
 
     private func printErrorPackages(packageResults: ArrayList<TestGroupResult>): Unit {
         var first = true
-        for (packageResult in packageResults where 
+        for (packageResult in packageResults where
             packageResult.hasProcessError
-        ) { 
+        ) {
             if (first) {
                 pp.appendLine("ERROR:")
                 first = false
@@ -629,7 +629,7 @@ extend CheckResult <: PrettyPrintable {
                 pp.append("Found assert that was not attached to a specific test case:")
                     .newLine()
                     .append(cr.inner)
-            case _ => throw Exception("Required due to bug in compiler")
+            case _ => throw Exception("Unreachable.")
         }
         pp
     }
@@ -672,7 +672,7 @@ extend CheckResult <: PrettyPrintable {
                 pp.append(diffValue.diffMessage)
             case customValue: CustomCheckResult =>
                 pp.append(customValue.custom)
-            case _ => throw Exception()
+            case _ => throw Exception("Unreachable.")
         }
     }
 }

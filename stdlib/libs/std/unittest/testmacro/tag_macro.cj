@@ -21,7 +21,7 @@ func verifyTagMacro(tokens: Tokens): Unit {
     try {
         let tags = parser.parseBalancedDelimited(delimiter: TokenKind.COMMA, terminator: TokenKind.END)
         if (tags |> any { it: Tokens => (it.size != 1 || it[0].kind != TokenKind.IDENTIFIER) }) {
-            throw Exception("@Tag macro has no passed arguments or one of the tags is not valid identifier")
+            throw Exception("@Tag macro has no passed arguments or one of the tags is not a valid identifier.")
         }
     } catch (ex: Exception) {
         throw MacroException(
