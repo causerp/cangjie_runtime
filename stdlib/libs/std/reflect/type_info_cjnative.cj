@@ -368,8 +368,9 @@ sealed abstract class TypeInfo <: Equatable<TypeInfo> & Hashable & ToString {
             // Fast hit: the pointer-keyed memo short-circuits before any native isGeneric call,
             // qualified-name build, or uuid.toString() allocation. A cached entry is trusted only
             // when its captured UUID is non-zero and still matches the metadata at this address;
-            // UUID 0 cannot prove identity (generic CFunc) and must be rebuilt through the
-            // qualified-name path. On mismatch or UUID 0, drop the entry and rebuild.
+            // UUID 0 cannot prove identity (metadata created outside the registering path, or by
+            // an older runtime) and must be rebuilt through the qualified-name path. On mismatch
+            // or UUID 0, drop the entry and rebuild.
             if (let Some(ti) <- PTR_MEMO.get(ptrKey)) {
                 if (let Some(cachedUUID) <- PTR_MEMO_UUID.get(ptrKey)) {
                     if (cachedUUID != 0 && cachedUUID == metaUUID) {
@@ -399,8 +400,13 @@ sealed abstract class TypeInfo <: Equatable<TypeInfo> & Hashable & ToString {
                     CACHE.get(qualifiedName) ?? createConcreteTypeInfo(typeInfoPointer, qualifiedName, uuid: uuid)
                 }
             }
-            PTR_MEMO.add(ptrKey, typeInfo)
-            PTR_MEMO_UUID.add(ptrKey, metaUUID)
+            // Only a non-zero UUID can ever satisfy the fast path, so a UUID-0 type must not
+            // populate the memo: such an entry could never be hit, and every lookup would pay
+            // two map removals plus two map insertions to discard and rebuild it.
+            if (metaUUID != 0) {
+                PTR_MEMO.add(ptrKey, typeInfo)
+                PTR_MEMO_UUID.add(ptrKey, metaUUID)
+            }
             return typeInfo
         }
     }
