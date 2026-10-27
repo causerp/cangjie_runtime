@@ -42,7 +42,7 @@ MAddress HeapManager::AllocateLocal(size_t allocSize)
         }
         return regionSpace->Allocate(allocSize, AllocType::LOCAL_OBJECT);
     }
-    return internalAddr + RegionSpace::HEADER_SIZE;
+    return internalAddr;
 }
 
 void HeapManager::Init(const HeapParam& param)

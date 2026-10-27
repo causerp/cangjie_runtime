@@ -196,8 +196,8 @@ extern "C" void CJ_MRT_RegisterExceptionCallback(void(*callback)());
 
 // local region
 // start region when enter a cj func
-extern "C" MRT_EXPORT bool MCC_StartLocalRegion();
-extern "C" MRT_EXPORT bool MCC_StartLocalRegionWithFrame(FrameAddress* ownerFA);
+extern "C" MRT_EXPORT void MCC_StartLocalRegion();
+extern "C" MRT_EXPORT void MCC_StartLocalRegionWithFrame(FrameAddress* ownerFA);
 // end region when finish a cj func or exclave
 extern "C" MRT_EXPORT void MCC_EndLocalRegion();
 extern "C" MRT_EXPORT void MCC_EndLocalRegionWithFrame(FrameAddress* ownerFA);

@@ -73,7 +73,7 @@ public:
     explicit HeapLocalObjectAllocator(RegionManager& regionManager) : regionManager(regionManager) {}
     ~HeapLocalObjectAllocator() override = default;
 
-    bool StartRegion(Mutator& mutator, FrameAddress* ownerFA) override;
+    void StartRegion(Mutator& mutator, FrameAddress* ownerFA) override;
     void EndRegion(Mutator& mutator, FrameAddress* ownerFA) override;
     void EndRegionsForFrame(Mutator& mutator, FrameAddress* ownerFA) override;
     MAddress Allocate(Mutator& mutator, size_t size) override;
@@ -136,7 +136,7 @@ public:
     explicit NativeLocalObjectAllocator(size_t regionLimit) : regionLimit(regionLimit) {}
     ~NativeLocalObjectAllocator() override = default;
 
-    bool StartRegion(Mutator& mutator, FrameAddress* ownerFA) override;
+    void StartRegion(Mutator& mutator, FrameAddress* ownerFA) override;
     void EndRegion(Mutator& mutator, FrameAddress* ownerFA) override;
     void EndRegionsForFrame(Mutator& mutator, FrameAddress* ownerFA) override;
     MAddress Allocate(Mutator& mutator, size_t size) override;
@@ -187,7 +187,7 @@ private:
         return static_cast<MutatorData*>(mutator.GetLocalObjectAllocatorData());
     }
     MutatorData* CreateData(Mutator& mutator);
-    RegionChunk* AllocateChunk(size_t minSize);
+    RegionChunk* AllocateChunk(RegionFrame& frame, size_t minSize);
     void ReleaseChunk(RegionChunk* chunk);
     void AppendActiveChunk(MutatorData& data, RegionChunk* chunk);
     void DetachActiveSuffix(MutatorData& data, RegionChunk* snapshotChunk);
@@ -399,21 +399,20 @@ LocalObjectAllocator* LocalObjectAllocator::InitLocalObjectAllocator(RegionManag
     return localObjectAllocator;
 }
 
-bool HeapLocalObjectAllocator::StartRegion(Mutator& mutator, FrameAddress* ownerFA)
+void HeapLocalObjectAllocator::StartRegion(Mutator& mutator, FrameAddress* ownerFA)
 {
     RegionInfo* region = regionManager.AllocateLocalModeRegion();
     if (region == nullptr) {
         // todo gc or oom
         VLOG(LOCAL_REGION, "Start local object region failed, region is null");
-        return false;
+        return;
     }
     if (!PushBlock(mutator, region, true, ownerFA)) {
         regionManager.ReclaimLocalModeRegion(region);
-        return false;
+        return;
     }
     VLOG(LOCAL_REGION, "StartLocalRegion: mutator %p, region %p, ownerFA %p, size %zu, stackTop %p", &mutator,
          region, ownerFA, region->GetRegionSize(), GetBlockStackTop(mutator));
-    return true;
 }
 
 void HeapLocalObjectAllocator::EndRegion(Mutator& mutator, FrameAddress* ownerFA)
@@ -668,9 +667,20 @@ NativeLocalObjectAllocator::MutatorData* NativeLocalObjectAllocator::CreateData(
     return data;
 }
 
-NativeLocalObjectAllocator::RegionChunk* NativeLocalObjectAllocator::AllocateChunk(size_t minSize)
+NativeLocalObjectAllocator::RegionChunk* NativeLocalObjectAllocator::AllocateChunk(RegionFrame& frame,
+                                                                                   size_t minSize)
 {
+    if (minSize > std::numeric_limits<size_t>::max() - (Allocator::ALLOC_ALIGN - 1U)) {
+        ExceptionManager::LocalRegionOutOfMemory();
+        return nullptr;
+    }
     size_t alignedSize = RoundUp<size_t>(minSize, Allocator::ALLOC_ALIGN);
+    if (UNLIKELY(!IsAllocationWithinFrameLimit(frame, alignedSize))) {
+        VLOG(LOCAL_REGION, "native local region limit reached: frame %p, used %zu B, request %zu B, limit %zu B",
+             &frame, frame.allocatedBytes, alignedSize, regionLimit);
+        ExceptionManager::LocalRegionOutOfMemory();
+        return nullptr;
+    }
     size_t capacity = std::max(DEFAULT_CHUNK_SIZE, alignedSize);
     void* memory = NativeAllocator::NativeAlloc(capacity);
     if (memory == nullptr) {
@@ -712,37 +722,30 @@ void NativeLocalObjectAllocator::ReleaseChunk(RegionChunk* chunk)
     delete chunk;
 }
 
-bool NativeLocalObjectAllocator::StartRegion(Mutator& mutator, FrameAddress* ownerFA)
+void NativeLocalObjectAllocator::StartRegion(Mutator& mutator, FrameAddress* ownerFA)
 {
     MutatorData* data = CreateData(mutator);
     RegionFrame* frame = new (std::nothrow) RegionFrame();
-    if (frame == nullptr) {
-        return false;
-    }
+    CHECK_DETAIL(frame != nullptr, "new native local region frame failed");
+
     frame->prev = data->currentFrame;
     frame->top = data->regionTop;
     frame->chunk = data->currentChunk;
     frame->ownerFA = ownerFA;
 
-    // Reuse the active chunk when possible.  A frame's (chunk, top) snapshot
-    // precisely identifies the part of that chunk owned by the new frame.
-    // When it fills, Allocate() appends chunks as usual.
-    if (data->currentChunk == nullptr || data->currentChunk->top == data->currentChunk->GetEnd()) {
-        RegionChunk* chunk = AllocateChunk(DEFAULT_CHUNK_SIZE);
-        if (chunk == nullptr) {
-            delete frame;
-            return false;
-        }
-        AppendActiveChunk(*data, chunk);
-    }
+    // A frame only records the current allocation position. Allocate() creates
+    // a chunk lazily when the first allocation cannot use the active chunk.
     data->currentFrame = frame;
     VLOG(LOCAL_REGION, "StartNativeLocalRegion: mutator %p, frame %p, ownerFA %p, chunk %p, top %p", &mutator,
          frame, ownerFA, data->currentChunk, reinterpret_cast<void*>(data->regionTop));
-    return true;
 }
 
 ALWAYS_INLINE MAddress NativeLocalObjectAllocator::TryAllocate(MutatorData& data, size_t size)
 {
+    if (size > std::numeric_limits<size_t>::max() - (Allocator::ALLOC_ALIGN - 1U)) {
+        return 0;
+    }
+    size = RoundUp<size_t>(size, Allocator::ALLOC_ALIGN);
     RegionChunk* chunk = data.currentChunk;
     if (chunk == nullptr) {
         return 0;
@@ -769,30 +772,21 @@ MAddress NativeLocalObjectAllocator::Allocate(Mutator& mutator, size_t size)
         LOG(RTLOG_ERROR, "alloc native local object without local object region");
         return 0;
     }
-    if (size > std::numeric_limits<size_t>::max() - (Allocator::ALLOC_ALIGN - 1U)) {
-        ExceptionManager::LocalRegionOutOfMemory();
-        return 0;
-    }
-    size_t allocSize = RoundUp<size_t>(size, Allocator::ALLOC_ALIGN);
     RegionFrame& frame = *data->currentFrame;
-    if (UNLIKELY(!IsAllocationWithinFrameLimit(frame, allocSize))) {
-        VLOG(LOCAL_REGION, "native local region limit reached: mutator %p, frame %p, used %zu B, request %zu B, "
-             "limit %zu B", &mutator, &frame, frame.allocatedBytes, allocSize, regionLimit);
-        ExceptionManager::LocalRegionOutOfMemory();
-        return 0;
-    }
-    MAddress addr = TryAllocate(*data, allocSize);
+    MAddress addr = TryAllocate(*data, size);
     if (addr != 0) {
+        size_t allocSize = RoundUp<size_t>(size, Allocator::ALLOC_ALIGN);
         frame.allocatedBytes += allocSize;
         return addr;
     }
-    RegionChunk* chunk = AllocateChunk(allocSize);
+    RegionChunk* chunk = AllocateChunk(frame, size);
     if (chunk == nullptr) {
         return 0;
     }
     AppendActiveChunk(*data, chunk);
-    addr = TryAllocate(*data, allocSize);
+    addr = TryAllocate(*data, size);
     CHECK_DETAIL(addr != 0, "native local allocation failed after adding chunk");
+    size_t allocSize = RoundUp<size_t>(size, Allocator::ALLOC_ALIGN);
     frame.allocatedBytes += allocSize;
     VLOG(LOCAL_REGION, "AllocNativeLocalObject: mutator %p, chunk %p, obj %p, objSize %zu", &mutator, chunk,
          reinterpret_cast<void*>(addr), size);
@@ -1099,13 +1093,10 @@ size_t NativeLocalObjectAllocator::GetAllocatedObjectBytes() const
             continue;
         }
         for (RegionChunk* chunk = data->regionData; chunk != nullptr; chunk = chunk->next) {
-            CHECK_DETAIL(chunk->top >= chunk->base && chunk->top <= chunk->GetEnd(),
-                         "invalid native local chunk range: base %p top %p end %p",
-                         reinterpret_cast<void*>(chunk->base), reinterpret_cast<void*>(chunk->top),
-                         reinterpret_cast<void*>(chunk->GetEnd()));
-            CHECK_DETAIL(total <= std::numeric_limits<size_t>::max() - chunk->capacity,
-                         "native local reserved bytes overflow");
-            total += chunk->capacity;
+            size_t accountedBytes = chunk == data->currentChunk
+                ? static_cast<size_t>(chunk->top - chunk->base)
+                : chunk->capacity;
+            total += accountedBytes;
         }
     }
     return total;

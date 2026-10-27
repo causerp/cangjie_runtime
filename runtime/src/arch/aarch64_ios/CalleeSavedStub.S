@@ -130,7 +130,6 @@
 
     ldr  x0, [x29]
     bl   _\funcName
-    str  x0,  [sp, #StubCalleeSaveAreaSize+0x48]
 
     bl   _MRT_GetThreadLocalData
     mov  x28, x0
@@ -149,8 +148,6 @@
     cfi_restore (x26)
     ldr  x27, [sp, #StubCalleeSaveAreaSize+0x40]
     cfi_restore (x27)
-    ldr  x0,  [sp, #StubCalleeSaveAreaSize+0x48]
-    cfi_restore (x0)
 
     ldp  x29, x30, [sp], #StubFrameContextSize
     cfi_adjust_cfa_offset (-StubFrameContextSize)

@@ -54,8 +54,9 @@ public:
     virtual ~LocalObjectAllocator() = default;
 
     // Starts a local allocation region for the mutator. The backend owns any
-    // region metadata it stores in Mutator.
-    virtual bool StartRegion(Mutator& mutator, FrameAddress* ownerFA) = 0;
+    // region metadata it stores in Mutator. Failure to create the region
+    // metadata is fatal; this method never returns a failure status.
+    virtual void StartRegion(Mutator& mutator, FrameAddress* ownerFA) = 0;
 
     // Ends the current local allocation region and releases all local objects
     // allocated in that region.
@@ -74,8 +75,9 @@ public:
     virtual size_t GetHeapAllocatedBytes() const = 0;
 
     // Returns the memory accounted to active local regions across all mutators.
-    // Native-backed regions report the full capacity of their active chunks,
-    // including unused tails; the heap-backed compatibility allocator reports
+    // Native-backed regions report the full capacity of chunks that are no
+    // longer allocation frontiers and the used [base, top) prefix of each
+    // mutator's current chunk. The heap-backed compatibility allocator reports
     // bytes handed out to local objects. This is the value reported by the
     // memory info API (getAllocatedLocalObjectSize) and is not part of
     // getAllocatedHeapSize.

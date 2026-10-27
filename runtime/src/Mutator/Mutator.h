@@ -510,7 +510,7 @@ public:
 
     void ReleaseForeignThread();
 
-    bool StartLocalObjectRegion(FrameAddress* ownerFA = nullptr);
+    void StartLocalObjectRegion(FrameAddress* ownerFA = nullptr);
 
     void EndLocalObjectRegion(FrameAddress* ownerFA = nullptr);
 

@@ -102,13 +102,11 @@
 
     movq    0(%rbp), %rcx
     callq   \funcName
-    movq    %rax, -8(%rbp)
 
     callq   MRT_GetThreadLocalData
     movq    %rax, %r15
 
     addq    $CalleeSavedRegistersStubFrameSize, %rsp
-    movq    -8(%rbp),  %rax
     movq    -16(%rbp), %r14
     movq    -24(%rbp), %r13
     movq    -32(%rbp), %r12

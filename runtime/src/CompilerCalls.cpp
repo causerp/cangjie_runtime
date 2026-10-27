@@ -539,7 +539,7 @@ extern "C" size_t MCC_GetAllocatedLocalObjectSize()
 {
     // Local objects live outside the tracing heap (native arenas or local mode
     // regions), so they are not part of MCC_GetAllocatedHeapSize. Native local
-    // mode reports active chunk capacity, including the unused chunk tail.
+    // mode excludes the unused tail of the current allocation chunk.
     ScopedEnterSaferegion enterSaferegion(false);
     ScopedStopTheWorld stw("get allocated local object size");
     RegionSpace& regionSpace = reinterpret_cast<RegionSpace&>(Heap::GetHeap().GetAllocator());
@@ -2208,14 +2208,14 @@ extern "C" void CJ_MRT_RegisterExceptionCallback(void(*callback)())
 }
 #endif
 
-extern "C" bool MCC_StartLocalRegion()
+extern "C" void MCC_StartLocalRegion()
 {
-    return MCC_StartLocalRegionWithFrame(nullptr);
+    MCC_StartLocalRegionWithFrame(nullptr);
 }
 
-extern "C" bool MCC_StartLocalRegionWithFrame(FrameAddress* ownerFA)
+extern "C" void MCC_StartLocalRegionWithFrame(FrameAddress* ownerFA)
 {
-    return Mutator::GetMutator()->StartLocalObjectRegion(ownerFA);
+    Mutator::GetMutator()->StartLocalObjectRegion(ownerFA);
 }
 
 extern "C" void MCC_EndLocalRegion()
