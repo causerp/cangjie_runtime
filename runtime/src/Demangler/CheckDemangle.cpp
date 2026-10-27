@@ -181,21 +181,29 @@ static std::vector<std::pair<std::string, std::string>> checkList = {
     { "_CPI9pkg1.pkg212global_test3HlllE1cHll", "pkg1.pkg2.global_test3(Int64, Int64, Int64).c(Int64, Int64)" },
     // Global var function
     { "_CGV9pkg1.pkg28global_aHv", "pkg1.pkg2.global_a" },
-    // Call operator: its name is "()" — the guard against double-rendered parameter lists
-    // must not mistake those parentheses for a rendered (and empty) parameter list.
+    // Call operator: its own name is "()" and its parameters still render once.
     { "_CN7default1AclHCNY_1AE", "default.A.()(default.A)" },
     // Local modal on function decls (this param and param modal).
     { "_CN18stdx.encoding.json9parseJsonHCNY_15JsonParserLocalEQLE",
       "stdx.encoding.json.parseJson(stdx.encoding.json.JsonParserLocal @ local!)" },
     { "_CN18stdx.encoding.json14JsonArrayLocal3addHWLECN18stdx.encoding.json14JsonValueLocalEQLE",
       "stdx.encoding.json.JsonArrayLocal.add(this @ local!, stdx.encoding.json.JsonValueLocal @ local!)" },
+    // Nested local-function chain: parent levels render their names only; the innermost
+    // function renders the single parameter list.
+    { "_CN6pkg_re4mainHRNat5ArrayIRNat6StringEEE10test_inputHY2_E12test_input_3Hl",
+      "pkg_re.main.test_input.test_input_3(Int64)" },
+    { "_CN6pkg_re4mainHRNat5ArrayIRNat6StringEEE10test_inputHY2_E12test_input_3HlQlE",
+      "pkg_re.main.test_input.test_input_3(Int64 @ local?)" },
+    // _CV compiler-generated virtual wrapper: the suffix precedes ONE parameter list.
+    { "_CVNad10LoggerImpl3logHCNax6TokensERNat6StringEb$Nad10LoggerImplE$CNbl6LoggerE",
+      "std.deriving.LoggerImpl.log<compiler generated>(std.ast.Tokens, std.core.String, Bool)" },
 };
 
 static std::vector<std::pair<std::string, std::string>> checkListForTypes = {
     { "l", "Int64" },
     { "ll", "ll" },
     { "RN9core$core6StringE", "core/core.String" },
-    { "V3_RN9core$core6StringEE", "VArray<core/core.String, $3>" },
+    { "V3_RN9core$core6StringEE", "VArray<core/core.String,$4>" },
     { "CN7default1AE", "default.A" },
     { "defaultLambda", "defaultLambda" },
     { "Dh", "Float16" },
@@ -204,6 +212,13 @@ static std::vector<std::pair<std::string, std::string>> checkListForTypes = {
     { "iQlE", "Int32 @ local?" },
     { "lQLE", "Int64 @ local!" },
     { "CN7default1AEQLE", "default.A @ local!" },
+    // A/V/P bodies are not 'E'-terminated: the trailing mode-set belongs to the container
+    // (WithModal placement).
+    { "A0_lQLE", "RawArray<Int64>[] @ local!" },
+    { "V3_lQlE", "VArray<Int64,$4> @ local?" },
+    { "PlQLE", "CPointer<Int64> @ local!" },
+    // A modal function type keeps its own mode-set in the rendering.
+    { "F0ilEQlE", "(Int64) -> Int32 @ local?" },
 };
 
 std::string AssembleDemangledName(const std::string& pkgName, const std::string& fullName, bool isFunctionLike)
