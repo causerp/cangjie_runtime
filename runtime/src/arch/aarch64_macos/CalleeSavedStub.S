@@ -476,13 +476,13 @@ _CJ_MCC_GetAssociatedValues:
     .align 2
     .global _CJ_MCC_StartLocalRegion
 _CJ_MCC_StartLocalRegion:
-    LocalRegionStub MCC_StartLocalRegionWithFrame
+    LocalRegionStub MCC_StartLocalRegion
 
     .text
     .align 2
     .global _CJ_MCC_EndLocalRegion
 _CJ_MCC_EndLocalRegion:
-    LocalRegionStub MCC_EndLocalRegionWithFrame
+    LocalRegionStub MCC_EndLocalRegion
 
     .text
     .align 2

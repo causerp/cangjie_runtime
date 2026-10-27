@@ -2208,22 +2208,12 @@ extern "C" void CJ_MRT_RegisterExceptionCallback(void(*callback)())
 }
 #endif
 
-extern "C" void MCC_StartLocalRegion()
-{
-    MCC_StartLocalRegionWithFrame(nullptr);
-}
-
-extern "C" void MCC_StartLocalRegionWithFrame(FrameAddress* ownerFA)
+extern "C" void MCC_StartLocalRegion(FrameAddress* ownerFA)
 {
     Mutator::GetMutator()->StartLocalObjectRegion(ownerFA);
 }
 
-extern "C" void MCC_EndLocalRegion()
-{
-    MCC_EndLocalRegionWithFrame(nullptr);
-}
-
-extern "C" void MCC_EndLocalRegionWithFrame(FrameAddress* ownerFA)
+extern "C" void MCC_EndLocalRegion(FrameAddress* ownerFA)
 {
     Mutator::GetMutator()->EndLocalObjectRegion(ownerFA);
 }
