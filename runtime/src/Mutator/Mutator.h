@@ -245,12 +245,12 @@ public:
 
     __attribute__((always_inline)) inline uint32_t GetSuspensionFlag() const
     {
-        return suspensionFlag.load(std::memory_order_acquire);
+        return suspensionFlag.load(std::memory_order_seq_cst);
     }
 
     __attribute__((always_inline)) inline bool HasSuspensionRequest(SuspensionType flag) const
     {
-        return (suspensionFlag.load(std::memory_order_acquire) & flag) != 0;
+        return (suspensionFlag.load(std::memory_order_seq_cst) & flag) != 0;
     }
 
     // should be merged to SuspensionType.
@@ -265,7 +265,7 @@ public:
     // Check whether current mutator needs to be suspended for GC or other request
     __attribute__((always_inline)) inline bool HasAnySuspensionRequest() const
     {
-        return (suspensionFlag.load(std::memory_order_acquire) != 0) || HasPreemptRequest();
+        return (suspensionFlag.load(std::memory_order_seq_cst) != 0) || HasPreemptRequest();
     }
 
     void SetSafepointStatePtr(uint64_t* slot) { safepointStatePtr = slot; }
