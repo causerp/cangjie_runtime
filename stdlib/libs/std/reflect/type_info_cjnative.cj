@@ -121,10 +121,13 @@ sealed abstract class TypeInfo <: Equatable<TypeInfo> & Hashable & ToString {
     // UUID_OFFSET (see runtime/src/TypeInfoManager.cpp, tiMaxUUID). On a PTR_MEMO hit we re-read
     // that UUID and compare it with the value captured when the entry was inserted; a mismatch
     // means the metadata address was reused after an UnloadCJLibrary(dlclose)+reload, so the
-    // cached wrapper is stale and is discarded (removed from both maps) and rebuilt via the
-    // normal path. This keeps the published UnloadCJLibrary/unload-reload flow correct and
-    // preserves the performance win: a steady-state hit only pays a 4-byte aligned native read +
-    // Int32 compare instead of uuid.toString() + String hashing.
+    // cached wrapper is stale. We then invalidate EVERY cache entry that aliases it - the
+    // pointer memo (PTR_MEMO / PTR_MEMO_UUID) and the string cache CACHE (keyed by the captured
+    // uuid and by the qualified name) - so the normal path rebuilds a fresh wrapper from current
+    // metadata instead of returning the stale one. This keeps the published
+    // UnloadCJLibrary/unload-reload flow correct and preserves the performance win: a
+    // steady-state hit only pays a 4-byte aligned native read + Int32 compare instead of
+    // uuid.toString() + String hashing.
     //
     // A zero UUID can never prove identity and is never trusted. Runtime creation now assigns a
     // monotonic UUID to every instantiation (including generic CFuncs, which are registered by
@@ -137,8 +140,10 @@ sealed abstract class TypeInfo <: Equatable<TypeInfo> & Hashable & ToString {
     // Cangjie applications (no module unload; PackageInfo.load has no unload counterpart), so the
     // recheck almost always passes and the cache behaves exactly as before. If module unload is
     // ever made first-class, a PTR_MEMO/CACHE invalidation hook on the unload notification chain
-    // is the alternative (stronger) fix; the recheck below already neutralizes the correctness
-    // risk that an address reuse would otherwise introduce.
+    // is the alternative (stronger) fix; with both the pointer memo and the string cache
+    // invalidated on a UUID mismatch, the recheck below neutralizes the correctness risk (silent
+    // type confusion / use-after-free on address reuse) that an address reuse would otherwise
+    // introduce.
     private static let PTR_MEMO = HashMap<UIntNative, TypeInfo>()
     // UUID captured alongside each PTR_MEMO entry, used to validate hits after address reuse.
     private static let PTR_MEMO_UUID = HashMap<UIntNative, Int32>()
@@ -370,15 +375,32 @@ sealed abstract class TypeInfo <: Equatable<TypeInfo> & Hashable & ToString {
             // when its captured UUID is non-zero and still matches the metadata at this address;
             // UUID 0 cannot prove identity (metadata created outside the registering path, or by
             // an older runtime) and must be rebuilt through the qualified-name path. On mismatch
-            // or UUID 0, drop the entry and rebuild.
+            // or UUID 0, invalidate the pointer memo AND the string cache entries (captured uuid
+            // + qualified name) that alias the stale wrapper, then rebuild a fresh one.
             if (let Some(ti) <- PTR_MEMO.get(ptrKey)) {
-                if (let Some(cachedUUID) <- PTR_MEMO_UUID.get(ptrKey)) {
-                    if (cachedUUID != 0 && cachedUUID == metaUUID) {
+                let cachedUUID = PTR_MEMO_UUID.get(ptrKey)
+                if (let Some(c) <- cachedUUID) {
+                    if (c != 0 && c == metaUUID) {
                         return ti
                     }
                 }
+                // UUID mismatch (or unregistered/UUID-0 entry): the address was reused after
+                // UnloadCJLibrary+reload, so the cached wrapper aliases the previous (now stale)
+                // metadata. Drop it from the pointer memo and from the string cache CACHE - both
+                // the captured-uuid key (when non-zero) and the qualified-name key (plus its
+                // slash-to-coloncolon variant, covering the concrete path; generics are keyed
+                // only by name) - so the normal path below rebuilds a fresh wrapper from current
+                // metadata instead of short-circuiting on the stale CACHE entry and re-memoizing it.
                 PTR_MEMO.remove(ptrKey)
                 PTR_MEMO_UUID.remove(ptrKey)
+                if (let Some(c) <- cachedUUID) {
+                    if (c != 0) {
+                        CACHE.remove(c.toString())
+                    }
+                }
+                let staleName = getQualifiedName(typeInfoPointer)
+                CACHE.remove(staleName)
+                CACHE.remove(staleName.replace("/", "::"))
             }
             let isGenericTypeInfo: Bool = isGeneric(typeInfoPointer)
             let typeInfo = if (isGenericTypeInfo) {
