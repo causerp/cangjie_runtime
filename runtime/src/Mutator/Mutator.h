@@ -86,6 +86,7 @@ public:
 
     void ResetMutator()
     {
+        CHECK_DETAIL(nativeFrameRoots.empty(), "native frame roots are not released");
         rawObject.object = nullptr;
         if (satbNode != nullptr) {
             SatbBuffer::Instance().RetireNode(satbNode);
@@ -244,12 +245,12 @@ public:
 
     __attribute__((always_inline)) inline uint32_t GetSuspensionFlag() const
     {
-        return suspensionFlag.load(std::memory_order_acquire);
+        return suspensionFlag.load(std::memory_order_seq_cst);
     }
 
     __attribute__((always_inline)) inline bool HasSuspensionRequest(SuspensionType flag) const
     {
-        return (suspensionFlag.load(std::memory_order_acquire) & flag) != 0;
+        return (suspensionFlag.load(std::memory_order_seq_cst) & flag) != 0;
     }
 
     // should be merged to SuspensionType.
@@ -264,7 +265,7 @@ public:
     // Check whether current mutator needs to be suspended for GC or other request
     __attribute__((always_inline)) inline bool HasAnySuspensionRequest() const
     {
-        return (suspensionFlag.load(std::memory_order_acquire) != 0) || HasPreemptRequest();
+        return (suspensionFlag.load(std::memory_order_seq_cst) != 0) || HasPreemptRequest();
     }
 
     void SetSafepointStatePtr(uint64_t* slot) { safepointStatePtr = slot; }
@@ -330,7 +331,11 @@ public:
     {
         VisitStackRoots(visitor);
         VisitExceptionRoots(visitor);
+        VisitNativeFrameRoots(visitor);
     }
+
+    ObjectRef* AddNativeFrameRoot(BaseObject* obj);
+    void RemoveNativeFrameRoot(ObjectRef* root);
 
     void VisitHeapReferences(const RootVisitor& rootVisitor, const DerivedPtrVisitor& derivedPtrVisitor);
 
@@ -483,6 +488,7 @@ protected:
     // for exception ref
     void VisitExceptionRoots(const RootVisitor& func);
     void VisitRawObjects(const RootVisitor& func);
+    void VisitNativeFrameRoots(const RootVisitor& func);
     void CreateCurrentGCInfo();
 
 private:
@@ -526,6 +532,7 @@ private:
     // Indicate the state of mutator's phase transition
     std::atomic<GCPhaseTransitionState> transitionState = { NO_TRANSITION };
     ObjectRef rawObject{ nullptr };
+    std::list<ObjectRef> nativeFrameRoots;
 
     SatbBuffer::Node* satbNode = nullptr;
 #if defined(GCINFO_DEBUG) && GCINFO_DEBUG
@@ -555,6 +562,8 @@ private:
 extern "C" void MRT_PreRunManagedCode(Mutator* mutator, int layers,
                                       ThreadLocalData* threadData);
 extern "C" void MRT_SetStackGrow(bool enableStackScale);
+
+extern "C" int8_t MRT_StopSubScheduler(void* schedule);
 } // namespace MapleRuntime
 
 #endif // MRT_MUTATOR_H

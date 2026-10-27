@@ -10,6 +10,7 @@
 #include "Common/Runtime.h"
 #include "schedule.h"
 #include "Base/Globals.h"
+#include "Mutator/Mutator.h"
 
 namespace MapleRuntime {
 RwLock ThreadLocal::tlEnableLock;
@@ -49,6 +50,7 @@ CleanThreadLocalData::~CleanThreadLocalData()
         return;
     }
 
+    MRT_StopSubScheduler(local->schedule);
     CJForeignThreadExit(reinterpret_cast<CJThreadHandle>(local->foreignCJThread));
     ThreadLocal::UnlockRdLock();
 }
