@@ -149,6 +149,9 @@ private:
     void FillRemainingField(GenericTiDesc* &tiDesc, TypeTemplate* tt, U32 argSize, TypeInfo* args[]);
 
     size_t mapMemory = 1 * MB; // dynamic scaling, 1mb each time.
+    // Protects the current mmap segment and its bump pointer.  These values
+    // must be updated as one transaction when the segment is exhausted.
+    std::mutex allocationMutex;
     std::atomic<uintptr_t> position;
     std::mutex ttMutex; //  guaranteed typeTemplates insert and find atomic
     std::recursive_mutex tiMutex; //  guaranteed nonGenericTypeInfo insert and find atomic

@@ -142,11 +142,13 @@ TypeInfoManager& TypeInfoManager::GetTypeInfoManager() { return *typeInfoManager
 
 void TypeInfoManager::Init()
 {
+    std::lock_guard<std::mutex> lock(allocationMutex);
     NewMMap(mapMemory);
 }
 
 void TypeInfoManager::Fini()
 {
+    std::lock_guard<std::mutex> lock(allocationMutex);
     // release resources
     for (const auto& mTable : mTableList) {
         delete mTable.second;
@@ -911,11 +913,19 @@ uintptr_t TypeInfoManager::Allocate(size_t size)
 #ifdef __arm__
     size = MRT_ALIGN(size, sizeof(uint32_t));
 #endif
-    uintptr_t addr = position.fetch_add(size);
-    if (addr + size > endAddress) {
-        NewMMap(mapMemory);
-        addr = position.fetch_add(size);
+
+    // `position`, `endAddress` and `mmapList` describe one allocator state.
+    // In particular, a thread must not compare an address from an exhausted
+    // segment with the end address of a segment installed by another thread.
+    std::lock_guard<std::mutex> lock(allocationMutex);
+    uintptr_t current = position.load(std::memory_order_relaxed);
+    if (current > endAddress || size > endAddress - current) {
+        // A single request is normally much smaller than mapMemory, but it
+        // must still fit if a future metadata layout exceeds that size.
+        NewMMap(size > mapMemory ? size : mapMemory);
+        current = position.load(std::memory_order_relaxed);
     }
-    return addr;
+    position.store(current + size, std::memory_order_relaxed);
+    return current;
 }
 } // namespace MapleRuntime
