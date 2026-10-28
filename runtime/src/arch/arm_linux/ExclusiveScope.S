@@ -209,14 +209,12 @@ unwindPCForExclusiveStub:
     mov     r9, r0                      // r9 = &thread->context
     ldr     r0, [r9, #CONTEXT_R13SP]
 
-    // Validate saved stack pointer before switching.
-    // If invalid (NULL / high-bit set / too small), skip stack switch.
+    // Validate saved stack pointer before switching. ARM32 user-space addresses
+    // may have the high bit set, so only reject NULL and the low guard-page range.
     cmp     r0, #0
     beq     .L_exc_skip_stack_switch
-    tst     r0, #0x80000000
-    bne     .L_exc_skip_stack_switch
     cmp     r0, #0x1000
-    blt     .L_exc_skip_stack_switch
+    blo     .L_exc_skip_stack_switch
 
     mov     sp, r0
     ldr     r0, [r9, #CONTEXT_FPSCR]
