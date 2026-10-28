@@ -157,7 +157,6 @@ CalleeSavedStubFrameSize:
 
     ldr  x0, [x29]
     bl   \funcName
-    str  x0,  [sp, #StubCalleeSaveAreaSize+0x48]
 
     bl   MRT_GetThreadLocalData
     mov  x28, x0
@@ -176,8 +175,6 @@ CalleeSavedStubFrameSize:
     cfi_restore (x26)
     ldr  x27, [sp, #StubCalleeSaveAreaSize+0x40]
     cfi_restore (x27)
-    ldr  x0,  [sp, #StubCalleeSaveAreaSize+0x48]
-    cfi_restore (x0)
 
     ldp  x29, x30, [sp], #StubFrameContextSize
     cfi_adjust_cfa_offset (-StubFrameContextSize)
@@ -313,8 +310,8 @@ unwindPCForC2RStubStart:
     CalleeSavedRegistersStub MCC_ThrowException CJ_MCC_ThrowException
     CalleeSavedRegistersStub MCC_ThrowStackOverflowError CJ_MCC_ThrowStackOverflowError
 #endif
-    LocalRegionStub MCC_StartLocalRegionWithFrame CJ_MCC_StartLocalRegion
-    LocalRegionStub MCC_EndLocalRegionWithFrame CJ_MCC_EndLocalRegion
+    LocalRegionStub MCC_StartLocalRegion CJ_MCC_StartLocalRegion
+    LocalRegionStub MCC_EndLocalRegion CJ_MCC_EndLocalRegion
     CalleeSavedRegistersStub MCC_NewLocalObject CJ_MCC_NewLocalObject
     CalleeSavedRegistersStub MCC_NewLocalFinalizer CJ_MCC_NewLocalFinalizer
     CalleeSavedRegistersStub MCC_NewLocalArray CJ_MCC_NewLocalArray

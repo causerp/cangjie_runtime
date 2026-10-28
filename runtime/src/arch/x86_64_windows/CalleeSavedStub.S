@@ -102,13 +102,11 @@
 
     movq    0(%rbp), %rcx
     callq   \funcName
-    movq    %rax, -8(%rbp)
 
     callq   MRT_GetThreadLocalData
     movq    %rax, %r15
 
     addq    $CalleeSavedRegistersStubFrameSize, %rsp
-    movq    -8(%rbp),  %rax
     movq    -16(%rbp), %r14
     movq    -24(%rbp), %r13
     movq    -32(%rbp), %r12
@@ -213,8 +211,8 @@ CalleeSavedRegistersStub MCC_NewArrayGeneric CJ_MCC_NewArrayGeneric
 CalleeSavedRegistersStub MCC_NewAndInitEnumTupleObject CJ_MCC_NewAndInitEnumTupleObject
 CalleeSavedRegistersStub MCC_GetAssociatedValues CJ_MCC_GetAssociatedValues
 CalleeSavedRegistersStub MCC_DumpCJHeapData CJ_MCC_DumpCJHeapData
-LocalRegionStub MCC_StartLocalRegionWithFrame CJ_MCC_StartLocalRegion
-LocalRegionStub MCC_EndLocalRegionWithFrame CJ_MCC_EndLocalRegion
+LocalRegionStub MCC_StartLocalRegion CJ_MCC_StartLocalRegion
+LocalRegionStub MCC_EndLocalRegion CJ_MCC_EndLocalRegion
 CalleeSavedRegistersStub MCC_NewLocalObject CJ_MCC_NewLocalObject
 CalleeSavedRegistersStub MCC_NewLocalFinalizer CJ_MCC_NewLocalFinalizer
 CalleeSavedRegistersStub MCC_NewLocalArray CJ_MCC_NewLocalArray

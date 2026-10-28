@@ -91,14 +91,12 @@
 
     movq    0(%rbp), %rdi
     callq   _\funcName
-    movq    %rax, -8(%rbp)
 
     callq   _MRT_GetThreadLocalData
     movq    %rax,  %r15
 
     addq    $CalleeSavedRegistersStubFrameSize, %rsp
 
-    movq    -8(%rbp),  %rax
     movq    -16(%rbp), %r14
     movq    -24(%rbp), %r13
     movq    -32(%rbp), %r12
@@ -357,13 +355,13 @@ _CJ_MCC_GetAssociatedValues:
     .align 2
     .global _CJ_MCC_StartLocalRegion
 _CJ_MCC_StartLocalRegion:
-    LocalRegionStub MCC_StartLocalRegionWithFrame
+    LocalRegionStub MCC_StartLocalRegion
 
     .text
     .align 2
     .global _CJ_MCC_EndLocalRegion
 _CJ_MCC_EndLocalRegion:
-    LocalRegionStub MCC_EndLocalRegionWithFrame
+    LocalRegionStub MCC_EndLocalRegion
 
     .text
     .align 2

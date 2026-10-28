@@ -755,10 +755,10 @@ void Mutator::ReleaseForeignThread()
 }
 
 // local object region related functions
-bool Mutator::StartLocalObjectRegion(FrameAddress* ownerFA)
+void Mutator::StartLocalObjectRegion(FrameAddress* ownerFA)
 {
     RegionSpace& theAllocator = reinterpret_cast<RegionSpace&>(Heap::GetHeap().GetAllocator());
-    return theAllocator.GetLocalObjectAllocator().StartRegion(*this, ownerFA);
+    theAllocator.GetLocalObjectAllocator().StartRegion(*this, ownerFA);
 }
 
 void Mutator::EndLocalObjectRegion(FrameAddress* ownerFA)
