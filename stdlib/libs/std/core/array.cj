@@ -1217,14 +1217,45 @@ public struct Array<T> {
     @When[env != "ohos"]
     public func flatMap<R>(this @local!, transform: ((T @local!) -> Array<R> @local!) @local?): Array<R> @local! {
         exclave {
-            var result: Array<R> @local! = Array<R>()
+            // Amortised linear: grow the buffer geometrically and copy only the newly appended run.
+            // Concatenating one element at a time re-allocated the whole result and re-copied its
+            // prefix every round, so the total copy volume was O(n^2) and the process ran out of
+            // room at n=2000 (SIGSEGV in Array copy).
+            var result: Array<R> @local! = Array<R>(0, repeat: unsafe { zeroValue2<R>() })
+            var used: Int64 = 0
             var i: Int64 = 0
             while (i < this.len) {
                 let value: T @local! = arrayGetUnchecked2<T>(this.rawptr, start + i)
-                result = result.concat(transform(value))
+                let part: Array<R> @local! = transform(value)
+                let sz: Int64 = part.len
+                if (sz > 0) {
+                    let need: Int64 = used + sz
+                    if (need > result.len) {
+                        var cap: Int64 = if (result.len == 0) { sz } else { result.len }
+                        while (cap < need) {
+                            cap = cap + (cap >> 1) + 1
+                        }
+                        let grown: Array<R> @local! = Array<R>(cap, repeat: unsafe { zeroValue2<R>() })
+                        if (used > 0) {
+                            intrinsicBuiltInCopyTo2<R>(result.rawptr, grown.rawptr, result.start, 0, used)
+                        }
+                        result = grown
+                    }
+                    intrinsicBuiltInCopyTo2<R>(part.rawptr, result.rawptr, part.start, used, sz)
+                    used = need
+                }
                 i = i + 1
             }
-            result
+            if (used == result.len) {
+                result
+            } else {
+                // Trim to the logical length so the caller never observes the spare capacity.
+                let exact: Array<R> @local! = Array<R>(used, repeat: unsafe { zeroValue2<R>() })
+                if (used > 0) {
+                    intrinsicBuiltInCopyTo2<R>(result.rawptr, exact.rawptr, result.start, 0, used)
+                }
+                exact
+            }
         }
     }
 

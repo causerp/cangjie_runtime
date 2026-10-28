@@ -287,7 +287,12 @@ class HashMapEntryView<K, V> <: MapEntryView<K, V> where K <: Hashable & Equatab
             exclave { getValue() }
         }
         set(_) {
-            throw Exception()
+            // The existing entry view can only be reached through the plain map
+            // reference it holds, so the write side is unsupported for local
+            // instances. Report it with UnimplementedException, the local-mode
+            // convention, instead of a bare Exception callers cannot classify.
+            throw UnimplementedException("HashMapEntryView.value setter is unavailable on a local instance: " +
+                "use HashMapLocalEntryView, which supports local writes.")
         }
     }
     @Frozen
@@ -296,7 +301,9 @@ class HashMapEntryView<K, V> <: MapEntryView<K, V> where K <: Hashable & Equatab
             exclave { getValue() }
         }
         set(_) {
-            throw Exception()
+            // Same reason as the @local! setter above.
+            throw UnimplementedException("HashMapEntryView.value setter is unavailable on a local instance: " +
+                "use HashMapLocalEntryView, which supports local writes.")
         }
     }
     /**
@@ -408,6 +415,72 @@ class HashMapEntryView<K, V> <: MapEntryView<K, V> where K <: Hashable & Equatab
 }
 
 /**
+ * Local-mode reference view of a key in a HashMap.
+ *
+ * A local instance holds the map reference in a plain field: locality belongs to
+ * the instance, not to the field type, so `private let map: HashMap<K, V>` is left
+ * unannotated and assigned from an `@local!` parameter inside `exclave init`.
+ * Every local accessor therefore carries a `@local!`/`@local?` receiver, which is
+ * what lets it dispatch on a local instance.
+ *
+ * The plain `key`/`value` members are required by `MapEntryView` but cannot be
+ * served from a local instance, so they are explicitly rejected.
+ */
+class HashMapLocalEntryView<K, V> <: MapEntryView<K, V> where K <: Hashable & Equatable<K> {
+    private let map: HashMap<K, V>
+    private let _key: K
+
+    exclave init(this @local!, map: HashMap<K, V> @local!, key: K @local!) {
+        this.map = map
+        this._key = key
+    }
+
+    // Plain members: unavailable on a local instance, rejected with the local-mode
+    // exception rather than a bare Exception.
+    public prop key: K {
+        get() {
+            throw UnimplementedException("HashMapEntryView.key is unavailable on a local instance: " +
+                "access it through a @local! or @local? receiver.")
+        }
+    }
+    public mut prop value: ?V {
+        get() {
+            throw UnimplementedException("HashMapEntryView.value is unavailable on a local instance: " +
+                "access it through a @local! or @local? receiver.")
+        }
+        set(_) {
+            throw UnimplementedException("HashMapEntryView.value is unavailable on a local instance: " +
+                "access it through a @local! or @local? receiver.")
+        }
+    }
+
+    // Local members.
+    public prop key: K @local? {
+        get() { _key }
+    }
+    public mut prop value: ?V @local! {
+        get() {
+            exclave {
+                let current: ?V @local! = map.get(_key)
+                current
+            }
+        }
+        set(v) {
+            exclave {
+                match (v) {
+                    case Some(x) =>
+                        let old: ?V @local? = map.add(_key, x)
+                        let _ = old
+                    case None =>
+                        let old: ?V @local? = map.remove(_key)
+                        let _ = old
+                }
+            }
+        }
+    }
+}
+
+/**
  * The hashmap is implemented based on the hash algorithm.
  * You can use put key-value to obtain the value and get key to obtain the value.
  *
@@ -489,18 +562,47 @@ public class HashMap<K, V> <: Map<K, V> where K <: Hashable & Equatable<K> {
     }
     @Frozen
     public exclave init(this @local!, elements: Collection<(K, V)> @local!) {
-        // The Collection size member is not dispatchable on an @local! receiver, so no size-based
-        // preallocation is done; start from the default capacity and grow on demand via add.
-        buckets = Array<Int64>(DEFAULT_CAPACITY, repeat: -1)
-        entries = Array<HashMapEntry<K, V>>(DEFAULT_CAPACITY, repeat: HashMapEntry<K, V>() @local!)
-        // Do not use `for ((k, v) in elements)`: a type without an adapted iterator(this @local!) falls to
-        // the Iterable interface default body, which throws IllegalStateException; use toArray(this @local!) instead.
-        let src: Array<(K, V)> @local! = elements.toArray()
-        var i: Int64 = 0
-        while (i < src.size) {
-            let pair: (K, V) @local! = src[i]
-            add(pair[0], pair[1])
-            i++
+        // The Collection size member is not dispatchable on an @local! receiver, so the input cannot be
+        // presized from the interface. For the two concrete container types the element count is known
+        // and the backing array is read directly; materialising the input through `toArray` first would
+        // copy it once more and then grow the table from the default capacity
+        // (measured: 48372 KiB vs 21664 KiB peak for 200000 entries).
+        match (elements) {
+            case arr: Array<(K, V)> =>
+                let bucketSize: Int64 = arr.size + (arr.size >> 1)
+                buckets = Array<Int64>(tableSizeFor(bucketSize), repeat: -1)
+                entries = Array<HashMapEntry<K, V>>(arr.size, repeat: HashMapEntry<K, V>() @local!)
+                var i: Int64 = 0
+                while (i < arr.size) {
+                    let pair: (K, V) @local! = arr[i]
+                    putWithoutResize(pair[0], pair[1])
+                    i++
+                }
+            case list: ArrayList<(K, V)> =>
+                let listSize: Int64 = list.mySize
+                let bucketSize: Int64 = listSize + (listSize >> 1)
+                buckets = Array<Int64>(tableSizeFor(bucketSize), repeat: -1)
+                entries = Array<HashMapEntry<K, V>>(listSize, repeat: HashMapEntry<K, V>() @local!)
+                var i: Int64 = 0
+                while (i < listSize) {
+                    let pair: (K, V) @local! = list.myData[i]
+                    putWithoutResize(pair[0], pair[1])
+                    i++
+                }
+            case _ =>
+                // Do not use `for ((k, v) in elements)`: a type without an adapted iterator(this @local!)
+                // falls to the Iterable interface default body, which throws IllegalStateException; use
+                // toArray(this @local!) instead.
+                let src: Array<(K, V)> @local! = elements.toArray()
+                let bucketSize: Int64 = src.size + (src.size >> 1)
+                buckets = Array<Int64>(tableSizeFor(bucketSize), repeat: -1)
+                entries = Array<HashMapEntry<K, V>>(src.size, repeat: HashMapEntry<K, V>() @local!)
+                var i: Int64 = 0
+                while (i < src.size) {
+                    let pair: (K, V) @local! = src[i]
+                    putWithoutResize(pair[0], pair[1])
+                    i++
+                }
         }
     }
 
@@ -581,6 +683,21 @@ public class HashMap<K, V> <: Map<K, V> where K <: Hashable & Equatable<K> {
         let bucketSize = capacity + (capacity >> 1)
         buckets = Array<Int64>(tableSizeFor(bucketSize), repeat: -1)
         entries = Array<HashMapEntry<K, V>>(capacity, repeat: HashMapEntry<K, V>() @local!)
+    }
+
+    // Installs an already-copied table: the arguments are freshly allocated by `clone` and have no
+    // other alias, so adopting them avoids the extra allocate-and-discard pass that the capacity
+    // constructor would perform.
+    @Frozen
+    private exclave init(this @local!, buckets: Array<Int64> @local!,
+                         entries: Array<HashMapEntry<K, V>> @local!,
+                         appendIndex: Int64, freeIndex: Int64, freeSize: Int64, modCount: Int64) {
+        this.buckets = buckets
+        this.entries = entries
+        this.appendIndex = appendIndex
+        this.freeIndex = freeIndex
+        this.freeSize = freeSize
+        this.modCount = modCount
     }
 
     /**
@@ -832,16 +949,17 @@ public class HashMap<K, V> <: Map<K, V> where K <: Hashable & Equatable<K> {
     }
     @Frozen
     public exclave func entryView(this @local!, key: K @local!): MapEntryView<K, V> @local! {
-        // Compiler limitation: MapEntryView requires plain key/value properties, while a local view must hold
-        // an `@local!` map reference (a local reference cannot be stored in a plain field); hence explicitly rejected.
-        throw UnimplementedException("HashMap.entryView() is unavailable in local mode: " +
-            "MapEntryView requires plain key/value properties, which cannot hold a local map reference.")
+        HashMapLocalEntryView<K, V>(this, key) @local!
     }
 
     @Frozen
     public exclave func entryView(this @local?, key: K @local!): MapEntryView<K, V> @local? {
-        throw UnimplementedException("HashMap.entryView() is unavailable in local mode: " +
-            "MapEntryView requires plain key/value properties, which cannot hold a local map reference.")
+        // A shared (`@local?`) receiver cannot be promoted to an owned (`@local!`)
+        // reference, and the view constructor needs an owned map reference to store
+        // in its plain field. Raising the locality of an existing local object is not
+        // expressible, so this overload stays explicitly rejected.
+        throw UnimplementedException("HashMap.entryView() with a @local? receiver is unavailable: " +
+            "a shared local reference cannot be promoted to the owned reference a view must hold.")
     }
 
     /**
@@ -1255,13 +1373,17 @@ public class HashMap<K, V> <: Map<K, V> where K <: Hashable & Equatable<K> {
     }
     @Frozen
     public exclave func clone(this @local!): HashMap<K, V> @local! {
-        // Compiler limitation: HashMapEntry<K, V> holds unconstrained K/V, so a whole-array copy is impossible
-        // (Array copyTo/cloneToLocal are in the Copyable extension); copy entry by entry via add instead.
-        let c: HashMap<K, V> @local! = HashMap<K, V>(size) @local!
-        for ((k, v) in this) {
-            c.add(k, v)
-        }
-        c
+        // Copy the table storage together with its counters, mirroring the heap clone: copying
+        // `buckets`/`entries` wholesale keeps this map independent of the source (a later add or
+        // remove in either map cannot corrupt the other) while element references stay shared.
+        //
+        // Re-inserting every entry through `add` instead would re-run user `hashCode`/`==`; for n
+        // keys that collide on one hash that is O(n^2) comparisons (measured: 130816 comparisons
+        // for 512 keys) where the bulk copy performs none. `Array<T>.clone(this @local!)` has no
+        // `Copyable` constraint, so the bulk copy is available for any K/V.
+        let newBuckets: Array<Int64> @local! = buckets.clone()
+        let newEntries: Array<HashMapEntry<K, V>> @local! = entries.clone()
+        HashMap<K, V>(newBuckets, newEntries, appendIndex, freeIndex, freeSize, modCount)
     }
 
     /**
@@ -1671,6 +1793,12 @@ public class HashMap<K, V> <: Map<K, V> where K <: Hashable & Equatable<K> {
      */
     @Frozen
     @OverflowWrapping
+    func getIndex(this @local!, hash: Int64, size: Int64): Int64 {
+        return hash & (size - 1)
+    }
+
+    @Frozen
+    @OverflowWrapping
     func getIndex(this @local?, hash: Int64, size: Int64): Int64 {
         return hash & (size - 1)
     }
@@ -1683,6 +1811,12 @@ public class HashMap<K, V> <: Map<K, V> where K <: Hashable & Equatable<K> {
      *
      * @since 0.18.4
      */
+    @Frozen
+    @OverflowWrapping
+    private func getHash(this @local!, hashCode: Int64): Int64 {
+        hashCode ^ (hashCode >> 32)
+    }
+
     @Frozen
     @OverflowWrapping
     private func getHash(this @local?, hashCode: Int64): Int64 {
@@ -1756,6 +1890,11 @@ public class HashMap<K, V> <: Map<K, V> where K <: Hashable & Equatable<K> {
     func version(): Int64 {
         return modCount
     }
+    @Frozen
+    func version(this @local!): Int64 {
+        return modCount
+    }
+
     @Frozen
     func version(this @local?): Int64 {
         return modCount
