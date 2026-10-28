@@ -5770,18 +5770,18 @@ param.myDump(): FuncParam {
     -identifier: Token {
       value: "a"
       kind: IDENTIFIER
-      pos: 13: 31
+      pos: 15: 31
     }
     -colon: Token {
       value: ":"
       kind: COLON
-      pos: 13: 32
+      pos: 15: 32
     }
     -paramType: PrimitiveType {
       -keyword: Token {
         value: "Int64"
         kind: INT64
-        pos: 13: 34
+        pos: 15: 34
       }
     }
   }
