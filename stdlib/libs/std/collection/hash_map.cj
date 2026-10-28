@@ -503,13 +503,17 @@ public class HashMap<K, V> <: Map<K, V> where K <: Hashable & Equatable<K> {
         var bucketIndex: Int64 = getIndex(hash, buckets.size)
         var entryIndex: Int64 = buckets[bucketIndex]
         while (entryIndex >= 0) {
-            let entry = entries[entryIndex]
-            if (hash == entry.hash && key == entry.key) {
-                let oldValue: Option<V> = Some(entry.value)
-                entries[entryIndex] = HashMapEntry<K, V>(entry.hash, entry.next, entry.key, value)
-                return oldValue
+            // Read the hash in place so the miss path does not copy the whole entry (K/V).
+            let entryHash: Int64 = entries[entryIndex].hash
+            if (hash == entryHash) {
+                if (key == entries[entryIndex].key) {
+                    let oldValue: Option<V> = Some(entries[entryIndex].value)
+                    entries[entryIndex] = HashMapEntry<K, V>(hash, entries[entryIndex].next,
+                        entries[entryIndex].key, value)
+                    return oldValue
+                }
             }
-            entryIndex = entry.next
+            entryIndex = entries[entryIndex].next
         }
         if (freeSize > 0) {
             entryIndex = freeIndex
@@ -529,6 +533,52 @@ public class HashMap<K, V> <: Map<K, V> where K <: Hashable & Equatable<K> {
         return Option<V>.None
     }
 
+    /**
+     * Associates the specified value with the specified key in this map if the key is absent.
+     *
+     * @param key the key to put.
+     * @param value the value to set if absent.
+     *
+     * @return If the key exists in map before invoking this method, the old value is
+     * encapsulated with Option. Otherwise, insert the key-value pair and return Option<V>.None.
+     *
+     * @since 0.59.3
+     */
+    @Frozen
+    @OverflowWrapping
+    public func addIfAbsent(key: K, value: V): ?V {
+        // Overrides the default implementation in Map: locate and insert in a single
+        // traversal, avoiding the HashMapEntryView allocation and the extra lookup
+        // that the entryView-based default performs.
+        let hash: Int64 = getHash(key.hashCode())
+        var bucketIndex: Int64 = getIndex(hash, buckets.size)
+        var entryIndex: Int64 = buckets[bucketIndex]
+        while (entryIndex >= 0) {
+            let entryHash: Int64 = entries[entryIndex].hash
+            if (hash == entryHash) {
+                if (key == entries[entryIndex].key) {
+                    return Some(entries[entryIndex].value)
+                }
+            }
+            entryIndex = entries[entryIndex].next
+        }
+        if (freeSize > 0) {
+            entryIndex = freeIndex
+            freeIndex = entries[entryIndex].next
+            freeSize--
+        } else {
+            if (resize(size + 1)) {
+                bucketIndex = getIndex(hash, buckets.size)
+            }
+            entryIndex = appendIndex
+            appendIndex++
+        }
+        entries[entryIndex] = HashMapEntry<K, V>(hash, buckets[bucketIndex], key, value)
+        modCount++
+        buckets[bucketIndex] = entryIndex
+        return Option<V>.None
+    }
+
     @Frozen
     @OverflowWrapping
     protected func putWithoutResize(key: K, value: V): Unit {
@@ -536,12 +586,15 @@ public class HashMap<K, V> <: Map<K, V> where K <: Hashable & Equatable<K> {
         var bucketIndex: Int64 = getIndex(hash, buckets.size)
         var entryIndex: Int64 = buckets[bucketIndex]
         while (entryIndex >= 0) {
-            let entry = entries[entryIndex]
-            if (hash == entry.hash && key == entry.key) {
-                entries[entryIndex] = HashMapEntry<K, V>(entry.hash, entry.next, entry.key, value)
-                return
+            let entryHash: Int64 = entries[entryIndex].hash
+            if (hash == entryHash) {
+                if (key == entries[entryIndex].key) {
+                    entries[entryIndex] = HashMapEntry<K, V>(hash, entries[entryIndex].next,
+                        entries[entryIndex].key, value)
+                    return
+                }
             }
-            entryIndex = entry.next
+            entryIndex = entries[entryIndex].next
         }
 
         entryIndex = appendIndex
@@ -782,11 +835,13 @@ public class HashMap<K, V> <: Map<K, V> where K <: Hashable & Equatable<K> {
         let index: Int64 = getIndex(hash, buckets.size)
         var bucket: Int64 = buckets[index]
         while (bucket >= 0) {
-            let entry = entries[bucket]
-            if (hash == entry.hash && key == entry.key) {
-                return true
+            let entryHash: Int64 = entries[bucket].hash
+            if (hash == entryHash) {
+                if (key == entries[bucket].key) {
+                    return true
+                }
             }
-            bucket = entry.next
+            bucket = entries[bucket].next
         }
         return false
     }
@@ -1162,10 +1217,15 @@ public class HashMap<K, V> <: Map<K, V> where K <: Hashable & Equatable<K> {
             let newCapOfBuckets = max(oldBucketsSize << 1, tableSizeFor(argCap))
             let newBuckets: Array<Int64> = Array<Int64>(newCapOfBuckets, repeat: -1)
             for (i in 0..entries.size) {
-                let entry = entries[i]
-                if (entry.hash >= 0) {
-                    let bucket: Int64 = getIndex(entry.hash, newCapOfBuckets)
-                    entries[i] = HashMapEntry<K, V>(entry.hash, newBuckets[bucket], entry.key, entry.value)
+                // Read fields in place (no per-entry copy at -O2) and skip the rewrite
+                // when the new chain head already equals the existing next index.
+                let entryHash: Int64 = entries[i].hash
+                if (entryHash >= 0) {
+                    let bucket: Int64 = getIndex(entryHash, newCapOfBuckets)
+                    let newNext: Int64 = newBuckets[bucket]
+                    if (newNext != entries[i].next) {
+                        entries[i] = HashMapEntry<K, V>(entryHash, newNext, entries[i].key, entries[i].value)
+                    }
                     newBuckets[bucket] = i
                 }
             }
