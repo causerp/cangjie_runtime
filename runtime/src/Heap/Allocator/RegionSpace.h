@@ -54,7 +54,8 @@ public:
         delete regionManager;
     }
     RegionSpace() : regionManager(*CreateRegionManager()) {}
-    RegionSpace(RegionManager* manager) : regionManager(manager != nullptr ? *manager : *CreateRegionManager()) {}
+    explicit RegionSpace(RegionManager* manager)
+        : regionManager(manager != nullptr ? *manager : *CreateRegionManager()) {}
     ATTR_NO_INLINE ~RegionSpace() override
     {
         if (allocBufferManager != nullptr) {
